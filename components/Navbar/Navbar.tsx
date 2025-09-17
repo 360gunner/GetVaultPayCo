@@ -59,8 +59,8 @@ export const Navbar: React.FC<NavbarProps> = ({ className, ...rest }) => {
               <Image
                 src="/logo_horizontal.png"
                 alt="Vault Logo"
-                width={203}
-                height={41}
+                width={162}
+                height={33}
                 priority
               />
             </div>
