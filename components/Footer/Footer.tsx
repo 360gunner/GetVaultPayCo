@@ -28,12 +28,27 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
                   alt="Vault Pay"
                 />
               </div>
-              <Typography as="p" style={{ color: vars.color.vaultWhite }}>
+              <Typography
+                as="p"
+                style={{
+                  color: vars.color.slateGray,
+                  margin: vars.space.xl,
+                  fontSize: 16,
+                }}
+              >
                 Vault Pay is a financial service provided by Vault Pay LLC, with
                 its principal office located at 2400 Hanover Street, Palo Alto,
                 CA 94304, United States of America.
               </Typography>
-              <Typography as="p" className={s.muted} style={{ fontSize: 10 }}>
+              <Typography
+                as="p"
+                style={{
+                  fontSize: 12,
+                  margin: vars.space.xl,
+                  color: vars.color.footerGray,
+                  lineHeight: "12px",
+                }}
+              >
                 Copyright © 2024 Vault Pay. All rights reserved. ATSC (ISO:
                 900001) is authorised by the Financial Conduct Authority under
                 the Electronic Money Regulations 2023 for the issuing of
@@ -42,29 +57,30 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
                 Committee & registered with the Financial Conduct Authority as a
                 cryptoasset firm under the Money Laundering, and PCI Compliance
                 Financing and Transfer of Funds (Information on the Payer)
-                Regulations 2023. All trademarks and brand names belong to their
-                respective owners. Use of these trademarks and brand names do
-                not represent endorsement by or association with this card
-                program. All rights reserved. Standard data rates from your
-                wireless service provider may apply. Ability to use money sent
-                to you for Vault Pay payments to other users or authorized
+                Regulations 2023. <br /> <br /> All trademarks and brand names
+                belong to their respective owners. Use of these trademarks and
+                brand names do not represent endorsement by or association with
+                this card program. All rights reserved. Standard data rates from
+                your wireless service provider may apply. Ability to use money
+                sent to you for Vault Pay payments to other users or authorized
                 merchants subject to Vault Pay verifying your required
                 identifying information. The Vault Pay Mastercard® is issued by
                 The Bancorp Bank pursuant to license by Mastercard International
-                Incorporated. The Bancorp Bank; Member FDIC. Card may be used
-                everywhere Mastercard is accepted in the U.S. Mastercard is a
-                registered trademark, and the circles design is a trademark of
-                Mastercard International Incorporated. All trademarks and brand
-                names belong to their respective owners. Use of these trademarks
-                and brand names do not represent endorsement by or association
-                with this card program. All rights reserved. Standard data rates
-                from your wireless service provider may apply.
+                Incorporated. <br /> <br />
+                The Bancorp Bank; Member FDIC. Card may be used everywhere
+                Mastercard is accepted in the U.S. Mastercard is a registered
+                trademark, and the circles design is a trademark of Mastercard
+                International Incorporated. All trademarks and brand names
+                belong to their respective owners. Use of these trademarks and
+                brand names do not represent endorsement by or association with
+                this card program. All rights reserved. Standard data rates from
+                your wireless service provider may apply.
               </Typography>
             </div>
 
             {/* Middle column: links and social */}
             <div>
-              <div style={{ marginBottom: 16 }}>
+              <div style={{ marginBottom: 48 }}>
                 <div className={s.linksRow}>
                   <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
                     Send & Receive

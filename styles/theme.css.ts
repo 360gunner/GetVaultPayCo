@@ -17,6 +17,7 @@ export const vars = createThemeContract({
     slateGray: "#9CA9B9",
     plumCurrent: "#5C023D",
     digitalLilac: "#DEC5E2",
+    footerGray: "#686A6C",
   },
   font: {
     body: "var(--font-instrument-sans)",
@@ -54,6 +55,7 @@ export const themeClass = createTheme(vars, {
     slateGray: "#9CA9B9",
     plumCurrent: "#5C023D",
     digitalLilac: "#DEC5E2",
+    footerGray: "#686A6C",
   },
   gradients: {
     vpGradient:

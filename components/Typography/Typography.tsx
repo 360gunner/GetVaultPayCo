@@ -33,7 +33,7 @@ export const Typography: React.FC<TypographyProps> = ({
   return (
     <Tag
       className={classes}
-      style={{ fontWeight: weight, textAlign: align, color, ...style, margin }}
+      style={{ fontWeight: weight, textAlign: align, color, margin, ...style }}
       {...rest}
     >
       {children}

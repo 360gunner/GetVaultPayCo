@@ -14,7 +14,8 @@ export const inner = style({
 export const columns = style({
   display: "grid",
   gridTemplateColumns: "2fr 1fr 1fr",
-  gap: 24,
+  justifyContent: "space-between",
+  gap: 120,
   "@media": {
     "screen and (max-width: 960px)": {
       gridTemplateColumns: "1fr",
@@ -25,6 +26,7 @@ export const columns = style({
 
 export const logo = style({
   marginBottom: 16,
+  marginLeft: vars.space.xl,
 });
 
 export const muted = style({
@@ -33,8 +35,8 @@ export const muted = style({
 
 export const sectionTitle = style({
   marginBottom: 12,
-  fontWeight: 700,
-  color: vars.color.slateGray,
+  fontWeight: 400,
+  color: vars.color.footerGray,
 });
 
 export const list = style({
@@ -47,7 +49,7 @@ export const linksRow = style({
   display: "flex",
   flexDirection: "column",
   flexWrap: "nowrap",
-  gap: 12,
+  gap: 8,
 });
 
 export const bottom = style({
