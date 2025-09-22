@@ -247,17 +247,17 @@ const TestimonialsSection: React.FC = () => {
   const testimonials = [
     {
       text: `“VaultPay makes it so easy to split bills with my friends while traveling.”`,
-      name: "Amara O.",
+      name: "AMINA, LAGOS",
       avatar: "/image 97.png",
     },
     {
       text: `“Finally, a wallet I actually want to use.”`,
-      name: "Leo T.",
+      name: "EYEBROW HERE",
       avatar: "/image 98.png",
     },
     {
       text: `“I can pay my family’s phone bill in another country without the fees.”`,
-      name: "Sophia R.",
+      name: "EYEBROW HERE",
       avatar: "/image 99.png",
     },
   ];
@@ -270,7 +270,7 @@ const TestimonialsSection: React.FC = () => {
         borderRadius: 16,
       }}
     >
-      <Container size="md">
+      <Container size="full">
         <Stack gap="md">
           <Grid minColWidth={220} gap="lg" style={{ alignItems: "stretch" }}>
             {testimonials.map(({ text, name, avatar }) => (
@@ -288,7 +288,7 @@ const TestimonialsSection: React.FC = () => {
                   textAlign: "center",
                 }}
               >
-                <Typography as="h4" style={{ fontWeight: 400 }}>
+                <Typography as="h4" style={{ fontWeight: 500 }}>
                   {text}
                 </Typography>
                 <div
@@ -302,8 +302,8 @@ const TestimonialsSection: React.FC = () => {
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <div
                       style={{
-                        width: 64,
-                        height: 64,
+                        width: 76,
+                        height: 76,
                         borderRadius: "50%",
                         overflow: "hidden",
                         position: "relative",
@@ -317,9 +317,7 @@ const TestimonialsSection: React.FC = () => {
                       />
                     </div>
                   </div>
-                  <Typography as="p" style={{ fontWeight: 700 }}>
-                    {name}
-                  </Typography>
+                  <Typography as="p">{name}</Typography>
                 </div>
               </div>
             ))}
@@ -449,13 +447,14 @@ const SecurityTrustSection: React.FC = () => {
                 SECURITY & TRUST
               </Typography>
               <Typography as="h2" font="Space Grotesk" weight={800}>
-                Your money, protected by design
+                The safe, speedy & secure borderless payment app.{" "}
               </Typography>
               <Typography as="p">
-                We combine modern security practices with regulatory safeguards
-                to keep your funds and data safe. Encryption, multi-factor
-                checks, and continuous monitoring come standard so you can
-                transact with confidence.
+                End-to-End Encryption – Your data is encrypted at every step.
+                <br />
+                PCI-DSS Compliant – We never store sensitive info directly.
+                <br />
+                Fraud Monitoring – AI-powered systems flag and prevent risk.
               </Typography>
               <div>
                 <Button variant="secondary" size="medium" label="Learn more" />
@@ -562,10 +561,19 @@ const SimpleSecureSocial: React.FC = () => {
           </svg>
         )}
       </div>
-      <Typography as="h4" font="Space Grotesk" weight={700}>
-        {title}
-      </Typography>
-      <Typography as="p">{text}</Typography>
+      <div
+        style={{
+          marginTop: "auto",
+          display: "flex",
+          flexDirection: "column",
+          gap: 4,
+        }}
+      >
+        <Typography as="h4" font="Space Grotesk" weight={700}>
+          {title}
+        </Typography>
+        <Typography as="p">{text}</Typography>
+      </div>
     </div>
   );
 
