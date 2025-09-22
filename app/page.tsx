@@ -38,9 +38,12 @@ const BenefitsSection: React.FC = () => {
     },
   ];
   return (
-    <section style={{ padding: "24px 0" }}>
-      <Container size="md">
-        <Grid minColWidth={360} gap="lg" style={{ alignItems: "center" }}>
+    <section style={{ padding: "24px 0", minHeight: "100vh" }}>
+      <Container
+        size="lg"
+        style={{ paddingLeft: "64px", paddingRight: "64px" }}
+      >
+        <Grid minColWidth={360} gap="sm" style={{ alignItems: "center" }}>
           {/* Left: Title + rows */}
           <div
             style={{
@@ -65,13 +68,18 @@ const BenefitsSection: React.FC = () => {
               {items.map(({ title, text, iconSrc }) => (
                 <div
                   key={title}
-                  style={{ display: "flex", alignItems: "center", gap: 12 }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    maxWidth: "75%",
+                  }}
                 >
                   <div
                     style={{
-                      width: 64,
-                      height: 64,
-                      borderRadius: 8,
+                      width: 76,
+                      height: 76,
+                      borderRadius: 14,
                       background: "#000",
                       display: "flex",
                       alignItems: "center",
@@ -80,12 +88,12 @@ const BenefitsSection: React.FC = () => {
                     }}
                   >
                     {iconSrc ? (
-                      <Image src={iconSrc} alt={title} width={36} height={36} />
+                      <Image src={iconSrc} alt={title} width={48} height={48} />
                     ) : (
                       <svg
-                        width="36"
-                        height="36"
-                        viewBox="0 0 24 24"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 48 48"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
@@ -96,11 +104,25 @@ const BenefitsSection: React.FC = () => {
                       </svg>
                     )}
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <Typography as="h4" style={{ margin: 0, fontWeight: 400 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginLeft: "36px",
+                    }}
+                  >
+                    <Typography as="h5" style={{ margin: 0, fontWeight: 400 }}>
                       {title}
                     </Typography>
-                    <Typography as="span" style={{ margin: 0 }}>
+                    <Typography
+                      as="p"
+                      style={{
+                        margin: 0,
+                        lineHeight: "91%",
+                        fontSize: "18px",
+                        letterSpacing: "-0.58px",
+                      }}
+                    >
                       {text}
                     </Typography>
                   </div>
@@ -122,7 +144,7 @@ const BenefitsSection: React.FC = () => {
                 aria-hidden
                 style={{
                   position: "absolute",
-                  right: -48,
+                  right: -16,
                   bottom: 16,
                   width: 300,
                   height: 200,
@@ -142,6 +164,8 @@ const BenefitsSection: React.FC = () => {
               <div
                 style={{
                   position: "relative",
+                  alignSelf: "center",
+                  textAlign: "center",
                   width: "100%",
                   height: "100%",
                   borderRadius: 12,
@@ -152,8 +176,8 @@ const BenefitsSection: React.FC = () => {
                 <Image
                   src="/image 100.png"
                   alt="VaultPay preview"
-                  width={458 / 1.3}
-                  height={653 / 1.3}
+                  width={458 / 1.2}
+                  height={653 / 1.2}
                 />
               </div>
             </div>
@@ -167,13 +191,27 @@ const BenefitsSection: React.FC = () => {
 const CallToActionSection: React.FC = () => {
   return (
     <section style={{ padding: "64px 0" }}>
-      <Container size="full">
+      <Container
+        size="full"
+        style={{ paddingRight: vars.space.xl, paddingLeft: vars.space.xl }}
+      >
         <Stack gap="md">
-          <Typography as="h5" font="Space Grotesk" weight={700}>
+          <Typography
+            as="h4"
+            font="Space Grotesk"
+            weight={400}
+            style={{ marginLeft: "48px" }}
+          >
             Move Money Freely. Globally. Securely.
           </Typography>
-          <Typography as="h2" font="Space Grotesk" weight={800}>
-            Join thousands of users building better financial lives with
+          <Typography
+            as="h1"
+            font="Instrument Sans"
+            weight={400}
+            style={{ marginLeft: "48px" }}
+          >
+            Join thousands of users building <br /> better financial lives with{" "}
+            <br />
             VaultPay.
           </Typography>
 
@@ -216,21 +254,25 @@ const CallToActionSection: React.FC = () => {
                 <Image
                   src="/vault_logo_icon_white.png"
                   alt="VaultPay"
-                  width={56}
-                  height={56}
+                  width={69}
+                  height={69}
                 />
                 <Typography
                   as="h1"
-                  style={{ color: "#fff", fontWeight: 400, fontSize: 64 }}
+                  font="Space Grotesk"
+                  style={{ color: "#fff", fontWeight: 400, fontSize: 96 }}
                 >
                   Start your vault
                 </Typography>
                 <Button
                   variant="colored"
-                  size="medium"
+                  size="large"
                   backgroundColor={vars.color.neonMint}
                 >
-                  <Typography as="span" style={{ margin: 0, fontWeight: 400 }}>
+                  <Typography
+                    as="span"
+                    style={{ margin: 0, fontWeight: 400, fontSize: "26px" }}
+                  >
                     Download The App
                   </Typography>
                 </Button>
@@ -263,166 +305,186 @@ const TestimonialsSection: React.FC = () => {
   ];
 
   return (
-    <section
-      style={{
-        padding: "64px 0",
-        background: vars.gradients.vpGradient,
-        borderRadius: 16,
-      }}
-    >
-      <Container size="full">
-        <Stack gap="md">
-          <Grid minColWidth={220} gap="lg" style={{ alignItems: "stretch" }}>
-            {testimonials.map(({ text, name, avatar }) => (
-              <div
-                key={name}
-                style={{
-                  background: "rgba(255,255,255,0.08)",
-                  borderRadius: 16,
-                  padding: 16,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 12,
-                  height: "100%",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <Typography as="h4" style={{ fontWeight: 500 }}>
-                  {text}
-                </Typography>
+    <Container size="xl" style={{ padding: vars.space.xl }}>
+      <section
+        style={{
+          padding: "64px 0",
+          background: vars.gradients.vpGradient,
+          borderRadius: 16,
+        }}
+      >
+        <Container size="lg">
+          <Stack gap="md">
+            <Grid minColWidth={220} gap="lg" style={{ alignItems: "stretch" }}>
+              {testimonials.map(({ text, name, avatar }) => (
                 <div
+                  key={name}
                   style={{
+                    borderRadius: 16,
+                    padding: 16,
                     display: "flex",
                     flexDirection: "column",
-                    gap: 8,
-                    marginTop: "auto",
+                    gap: 12,
+                    height: "100%",
+                    alignItems: "center",
+                    textAlign: "center",
                   }}
                 >
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div
-                      style={{
-                        width: 76,
-                        height: 76,
-                        borderRadius: "50%",
-                        overflow: "hidden",
-                        position: "relative",
-                      }}
-                    >
-                      <Image
-                        src={avatar}
-                        alt={name}
-                        fill
-                        style={{ objectFit: "cover" }}
-                      />
+                  <Typography as="h4" style={{ fontWeight: 400 }}>
+                    {text}
+                  </Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 8,
+                      marginTop: "auto",
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <div
+                        style={{
+                          width: 76,
+                          height: 76,
+                          borderRadius: "50%",
+                          overflow: "hidden",
+                          position: "relative",
+                        }}
+                      >
+                        <Image
+                          src={avatar}
+                          alt={name}
+                          fill
+                          style={{ objectFit: "cover" }}
+                        />
+                      </div>
                     </div>
+                    <Typography as="p" style={{ fontWeight: 400 }}>
+                      {name}
+                    </Typography>
                   </div>
-                  <Typography as="p">{name}</Typography>
                 </div>
-              </div>
-            ))}
-          </Grid>
-        </Stack>
-      </Container>
-    </section>
+              ))}
+            </Grid>
+          </Stack>
+        </Container>
+      </section>
+    </Container>
   );
 };
 
 const HeroSection: React.FC = () => {
   return (
     <section>
-      <Grid minColWidth={300} gap="lg" style={{ alignItems: "stretch" }}>
-        <div>
-          <Typography
-            as="h1"
-            font="Space Grotesk"
-            style={{ fontSize: 72, fontWeight: 500 }}
-          >
-            The human way to money
-          </Typography>
-        </div>
-        <div
+      <Container size="full">
+        <Grid
+          minColWidth={300}
+          gap="lg"
           style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "center",
-            flexDirection: "column",
+            alignItems: "stretch",
+            gridTemplateColumns: "2fr 1fr",
+            gap: vars.space.lg,
+            padding: vars.space.lg,
+            paddingBottom: 0,
           }}
         >
-          <Typography as="p" style={{ fontSize: 20 }}>
-            VaultPay is your borderless social wallet—pay, transfer, and save
-            across currencies with ease, community, and control
-          </Typography>
           <div>
-            <Button
-              variant="colored"
-              size="medium"
-              backgroundColor={vars.color.neonMint}
+            <Typography
+              as="h1"
+              font="Space Grotesk"
+              style={{
+                fontSize: 96,
+                fontWeight: 400,
+                lineHeight: "91%",
+                letterSpacing: "-2%",
+              }}
             >
-              <Typography as="span" margin={0} style={{ fontSize: 20 }}>
-                Start for Free
-              </Typography>
-            </Button>
+              The human <br /> way to money
+            </Typography>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Typography as="p" style={{ fontSize: 20 }}>
+              VaultPay is your borderless social wallet—pay, transfer, and save
+              across currencies with ease, community, and control
+            </Typography>
+            <div>
+              <Button
+                variant="colored"
+                size="medium"
+                backgroundColor={vars.color.neonMint}
+              >
+                <Typography as="span" margin={0} style={{ fontSize: 20 }}>
+                  Start for Free
+                </Typography>
+              </Button>
+            </div>
+          </div>
+        </Grid>
+
+        {/* Full-width rounded image (responsive height) */}
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            height: "min(60vw, 420px)",
+            marginTop: 16,
+            borderRadius: 16,
+            overflow: "hidden",
+          }}
+        >
+          <Image
+            src="/image 94.png"
+            alt="Vault app preview"
+            fill
+            style={{ objectFit: "cover" }}
+          />
+          {/* Store badges overlay */}
+          <div
+            style={{
+              position: "absolute",
+              left: 16,
+              bottom: 16,
+              display: "flex",
+              gap: 12,
+              zIndex: 1,
+            }}
+          >
+            <a
+              href="https://play.google.com/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Get it on Google Play"
+            >
+              <Image
+                src="/google_play_badge.png"
+                alt="Get it on Google Play"
+                width={160}
+                height={48}
+              />
+            </a>
+            <a
+              href="https://www.apple.com/app-store/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Download on the App Store"
+            >
+              <Image
+                src="/app_store_badge.png"
+                alt="Download on the App Store"
+                width={160}
+                height={48}
+              />
+            </a>
           </div>
         </div>
-      </Grid>
-
-      {/* Full-width rounded image (responsive height) */}
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "min(60vw, 420px)",
-          marginTop: 16,
-          borderRadius: 16,
-          overflow: "hidden",
-        }}
-      >
-        <Image
-          src="/image 94.png"
-          alt="Vault app preview"
-          fill
-          style={{ objectFit: "cover" }}
-        />
-        {/* Store badges overlay */}
-        <div
-          style={{
-            position: "absolute",
-            left: 16,
-            bottom: 16,
-            display: "flex",
-            gap: 12,
-            zIndex: 1,
-          }}
-        >
-          <a
-            href="https://play.google.com/"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Get it on Google Play"
-          >
-            <Image
-              src="/google_play_badge.png"
-              alt="Get it on Google Play"
-              width={160}
-              height={48}
-            />
-          </a>
-          <a
-            href="https://www.apple.com/app-store/"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Download on the App Store"
-          >
-            <Image
-              src="/app_store_badge.png"
-              alt="Download on the App Store"
-              width={160}
-              height={48}
-            />
-          </a>
-        </div>
-      </div>
+      </Container>
     </section>
   );
 };
@@ -431,33 +493,62 @@ const SecurityTrustSection: React.FC = () => {
     <section
       style={{
         padding: "4rem 0",
-        paddingTop: "6rem",
+        paddingTop: "5rem",
         backgroundImage: "url('/gray_bg_shape.png')",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "-8rem bottom",
         backgroundSize: "auto 100%",
+        minHeight: "100vh",
       }}
     >
-      <Container size="md">
+      <Container size="lg">
         <Grid minColWidth={360} gap="lg" style={{ alignItems: "center" }}>
           {/* Left column */}
           <div>
             <Stack gap="sm">
-              <Typography as="h5" font="Space Grotesk" weight={700}>
+              <Typography as="h6" font="Space Grotesk" weight={400}>
                 SECURITY & TRUST
               </Typography>
-              <Typography as="h2" font="Space Grotesk" weight={800}>
+              <Typography
+                as="h1"
+                font="Instrument Sans"
+                weight={400}
+                style={{ marginBottom: vars.space.xl }}
+              >
                 The safe, speedy & secure borderless payment app.{" "}
               </Typography>
-              <Typography as="p">
+              <Typography
+                as="p"
+                style={{ marginTop: vars.space.xl, maxWidth: "70%" }}
+              >
                 End-to-End Encryption – Your data is encrypted at every step.
+                <br />
                 <br />
                 PCI-DSS Compliant – We never store sensitive info directly.
                 <br />
+                <br />
                 Fraud Monitoring – AI-powered systems flag and prevent risk.
               </Typography>
-              <div>
-                <Button variant="secondary" size="medium" label="Learn more" />
+              <div style={{ marginTop: vars.space.md }}>
+                <Button
+                  variant="secondary"
+                  size="medium"
+                  style={{
+                    backgroundColor: "#fff",
+                    border: "1px solid black",
+                    boxShadow: "none",
+                    width: "9rem",
+                  }}
+                >
+                  <Typography
+                    as="span"
+                    style={{ fontSize: "12px" }}
+                    weight={400}
+                  >
+                    {" "}
+                    Learn more
+                  </Typography>
+                </Button>
               </div>
             </Stack>
           </div>
@@ -469,13 +560,12 @@ const SecurityTrustSection: React.FC = () => {
                 width: "100%",
                 height: "min(60vw, 360px)",
                 borderRadius: 12,
-                overflow: "hidden",
               }}
             >
               <Image
                 src="/image1044.png"
                 alt="Security illustration"
-                width={700}
+                width={609}
                 height={649}
               />
             </div>
@@ -530,7 +620,6 @@ const SimpleSecureSocial: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         gap: 8,
-        height: "100%",
       }}
     >
       <div
@@ -569,19 +658,21 @@ const SimpleSecureSocial: React.FC = () => {
           gap: 4,
         }}
       >
-        <Typography as="h4" font="Space Grotesk" weight={700}>
+        <Typography as="h4" font="Instrument Sans" weight={400}>
           {title}
         </Typography>
-        <Typography as="p">{text}</Typography>
+        <Typography font="Instrument Sans" as="p">
+          {text}
+        </Typography>
       </div>
     </div>
   );
 
   return (
-    <section style={{ padding: "24px 0" }}>
+    <section style={{ padding: "24px 0", minHeight: "100vh" }}>
       <Container size="lg">
         <Stack gap="sm">
-          <Typography as="h2" font="Space Grotesk" weight={800}>
+          <Typography as="h2" font="Space Grotesk" weight={400}>
             Simple, Secure, Social
           </Typography>
           <div
@@ -644,15 +735,18 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Container size="lg" style={{ paddingTop: 24, paddingBottom: 48 }}>
+      <Container
+        size="full"
+        style={{ padding: 0, paddingTop: vars.space.xl, paddingBottom: 48 }}
+      >
         <Stack gap="xl">
           <HeroSection />
           {/* Feature Section: Borderless payments for all */}
           <section style={{ padding: "24px 0" }}>
             <Container size="md">
               <Stack gap="sm">
-                <Typography as="h2" font="Space Grotesk" weight={800}>
-                  Borderless payments for all
+                <Typography as="h1" font="Space Grotesk" weight={400}>
+                  Borderless <br /> payments for all
                 </Typography>
                 <Grid
                   minColWidth={320}
@@ -677,8 +771,13 @@ export default function Home() {
                       />
                     </div>
                   </div>
-                  <div>
-                    <Typography as="h3" font="Space Grotesk" weight={700}>
+                  <div
+                    style={{
+                      paddingTop: vars.space.xl,
+                      paddingBottom: vars.space.xl,
+                    }}
+                  >
+                    <Typography as="h2" font="Instrument Sans" weight={400}>
                       Built for a World <br /> Without Limits
                     </Typography>
                     <Typography as="p">
@@ -699,7 +798,7 @@ export default function Home() {
           </section>
 
           {/* Feature Grid: image on top, title and subtitle */}
-          <section style={{ padding: "24px 0" }}>
+          <section style={{ padding: "24px" }}>
             <Container size="full">
               <Grid minColWidth={220} gap="xl" style={{ alignItems: "start" }}>
                 <div>
@@ -711,12 +810,16 @@ export default function Home() {
                   />
                   <Typography
                     as="h4"
-                    font="Space Grotesk"
-                    style={{ marginTop: 8 }}
+                    font="Instrument Sans"
+                    weight={400}
+                    style={{ marginTop: vars.space.lg }}
                   >
                     Multi-Currency Wallet
                   </Typography>
-                  <Typography as="p">
+                  <Typography
+                    as="p"
+                    style={{ maxWidth: "75%", fontSize: "16px" }}
+                  >
                     Hold and convert money across currencies with real-time FX
                     rates and no hidden fees.
                   </Typography>
@@ -730,12 +833,16 @@ export default function Home() {
                   />
                   <Typography
                     as="h4"
-                    font="Space Grotesk"
-                    style={{ marginTop: 8 }}
+                    font="Instrument Sans"
+                    weight={400}
+                    style={{ marginTop: vars.space.lg }}
                   >
                     Cross-Border Transfers{" "}
                   </Typography>
-                  <Typography as="p">
+                  <Typography
+                    as="p"
+                    style={{ maxWidth: "75%", fontSize: "16px" }}
+                  >
                     Send money instantly to friends and family in other
                     countries—no middlemen, no delays.
                   </Typography>
@@ -749,12 +856,16 @@ export default function Home() {
                   />
                   <Typography
                     as="h4"
-                    font="Space Grotesk"
-                    style={{ marginTop: 8 }}
+                    font="Instrument Sans"
+                    weight={400}
+                    style={{ marginTop: vars.space.lg }}
                   >
                     Global Bill Pay
                   </Typography>
-                  <Typography as="p">
+                  <Typography
+                    as="p"
+                    style={{ maxWidth: "75%", fontSize: "16px" }}
+                  >
                     Pay for utilities, phone service, or subscriptions across
                     borders using one simple interface.
                   </Typography>
@@ -765,36 +876,29 @@ export default function Home() {
 
           {/* Feature Section: Borderless payments for all */}
           <section style={{ padding: "24px 0" }}>
-            <Container size="md">
+            <Container
+              size="lg"
+              style={{ paddingRight: "48px", paddingLeft: "48px" }}
+            >
               <Stack gap="sm">
-                <Typography as="h1" font="Space Grotesk" weight={800}>
-                  Use everywhere you use Visa & Mastercard.
+                <Typography as="h1" font="Space Grotesk" weight={400}>
+                  Use everywhere you use <br /> Visa & Mastercard.
                 </Typography>
                 <Grid
                   minColWidth={320}
-                  gap="lg"
+                  gap="xl"
                   style={{ alignItems: "center" }}
                 >
                   <div>
-                    <div
-                      style={{
-                        position: "relative",
-                        width: "100%",
-                        height: "min(50vw, 300px)",
-                        borderRadius: 12,
-                        overflow: "hidden",
-                      }}
-                    >
-                      <Image
-                        src="/visa.PNG"
-                        alt="Cross-border payments"
-                        fill
-                        style={{ objectFit: "cover" }}
-                      />
-                    </div>
+                    <Image
+                      src="/visa.PNG"
+                      alt="Cross-border payments"
+                      width={569}
+                      height={458}
+                    />
                   </div>
-                  <div>
-                    <Typography as="h3" font="Space Grotesk" weight={700}>
+                  <div style={{ maxWidth: "80%" }}>
+                    <Typography as="h2" font="Instrument Sans" weight={400}>
                       Accepted wherever life takes you
                     </Typography>
                     <Typography as="p">

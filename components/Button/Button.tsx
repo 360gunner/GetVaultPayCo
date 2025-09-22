@@ -4,6 +4,7 @@ import Typography, { TypographyProps } from "../Typography/Typography";
 import { vars } from "@/styles/theme.css";
 type ButtonVariants = "primary" | "colored" | "secondary";
 export interface ButtonProps {
+  style?: React.CSSProperties;
   variant?: ButtonVariants;
   backgroundColor?: string;
   paddingEqual?: boolean;
@@ -22,6 +23,7 @@ export const Button: React.FC<ButtonProps> = ({
   label,
   font = "Instrument Sans",
   children,
+  style,
   ...props
 }) => {
   const sizeClass =
@@ -37,7 +39,7 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       type="button"
       className={[s.button, sizeClass, modeClass, paddingEqualClass].join(" ")}
-      style={{ backgroundColor }}
+      style={{ backgroundColor, ...style }}
       {...props}
     >
       {label ? (

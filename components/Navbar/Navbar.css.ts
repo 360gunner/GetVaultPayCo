@@ -18,13 +18,14 @@ export const inner = style({
 export const left = style({
   display: "flex",
   alignItems: "center",
+  paddingLeft: vars.space.xl,
   gap: 12,
 });
 
 export const right = style({
   display: "flex",
   alignItems: "center",
-  paddingRight: 12,
+  paddingRight: vars.space.xl,
   gap: 12,
 });
 

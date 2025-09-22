@@ -4,8 +4,8 @@ import { style, styleVariants } from "@vanilla-extract/css";
 export const root = style({
   marginLeft: "auto",
   marginRight: "auto",
-  paddingLeft: vars.space.md,
-  paddingRight: vars.space.md,
+  paddingLeft: vars.space.lg,
+  paddingRight: vars.space.lg,
   width: "100%",
 });
 

@@ -23,8 +23,8 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
               <div className={s.logo}>
                 <Image
                   src="/logo_horizontal_white.png"
-                  width={203}
-                  height={41}
+                  width={203 * 1.3}
+                  height={41 * 1.3}
                   alt="Vault Pay"
                 />
               </div>
