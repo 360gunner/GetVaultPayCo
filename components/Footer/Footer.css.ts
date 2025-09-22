@@ -61,6 +61,6 @@ export const bottom = style({
 export const topRule = style({
   height: 1,
   background: "#fff",
-  marginBottom: 24,
+  marginBottom: 32,
   marginTop: 8,
 });

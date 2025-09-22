@@ -65,7 +65,6 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
             {/* Middle column: links and social */}
             <div>
               <div style={{ marginBottom: 16 }}>
-                <h4 className={s.sectionTitle}>Explore</h4>
                 <div className={s.linksRow}>
                   <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
                     Send & Receive
@@ -75,6 +74,18 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
                   </AppLink>
                   <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
                     Features
+                  </AppLink>
+                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                    Partners
+                  </AppLink>
+                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                    Developers
+                  </AppLink>
+                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                    Jobs
+                  </AppLink>
+                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                    Help
                   </AppLink>
                 </div>
               </div>
@@ -99,7 +110,6 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
 
             {/* Right column: other links */}
             <div>
-              <h4 className={s.sectionTitle}>Company</h4>
               <div className={s.list}>
                 <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
                   About
@@ -107,7 +117,11 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
                 <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
                   Contact
                 </AppLink>
-                <AppLink href="#" className={s.muted}>
+                <AppLink
+                  href="#"
+                  style={{ color: vars.color.vaultWhite }}
+                  className={s.muted}
+                >
                   Privacy Policy
                 </AppLink>
                 <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
@@ -118,18 +132,6 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
                 </AppLink>
                 <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
                   Accessibility
-                </AppLink>
-                <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
-                  Partners
-                </AppLink>
-                <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
-                  Developers
-                </AppLink>
-                <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
-                  Jobs
-                </AppLink>
-                <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
-                  Help
                 </AppLink>
               </div>
             </div>
