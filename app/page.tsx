@@ -11,7 +11,626 @@ import Stack from "@/components/Layout/Stack";
 import Grid from "@/components/Layout/Grid";
 import Carousel from "@/components/Carousel/Carousel";
 import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 import { vars } from "@/styles/theme.css";
+import Image from "next/image";
+
+const BenefitsSection: React.FC = () => {
+  const items: Array<{
+    title: string;
+    text: string;
+    iconSrc?: string;
+  }> = [
+    {
+      title: "Sign up",
+      text: "Create your free account in minutes.",
+      iconSrc: "/signup_icon.png",
+    },
+    {
+      title: "Secure Wallet",
+      text: "Safeguard your funds and financial data.",
+      iconSrc: "/shield_icon.png",
+    },
+    {
+      title: "Pay & Save",
+      text: "Send, spend, and organize bills all in one place.",
+      iconSrc: "/dollar_icon.png",
+    },
+  ];
+  return (
+    <section style={{ padding: "24px 0" }}>
+      <Container size="md">
+        <Grid minColWidth={360} gap="lg" style={{ alignItems: "center" }}>
+          {/* Left: Title + rows */}
+          <div
+            style={{
+              height: "100%",
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography as="h1" font="Space Grotesk" weight={400}>
+              How it Works{" "}
+            </Typography>
+            <div
+              style={{
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              {items.map(({ title, text, iconSrc }) => (
+                <div
+                  key={title}
+                  style={{ display: "flex", alignItems: "center", gap: 12 }}
+                >
+                  <div
+                    style={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: 8,
+                      background: "#000",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flex: "0 0 auto",
+                    }}
+                  >
+                    {iconSrc ? (
+                      <Image src={iconSrc} alt={title} width={36} height={36} />
+                    ) : (
+                      <svg
+                        width="36"
+                        height="36"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z"
+                          fill="#FFFFFF"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <Typography as="h4" style={{ margin: 0, fontWeight: 400 }}>
+                      {title}
+                    </Typography>
+                    <Typography as="span" style={{ margin: 0 }}>
+                      {text}
+                    </Typography>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Right: Image with decorative shape */}
+          <div>
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                // height: "min(60vw, 653px)",
+              }}
+            >
+              {/* Decorative shape (behind), bottom-right */}
+              <div
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  right: -48,
+                  bottom: 16,
+                  width: 300,
+                  height: 200,
+                  zIndex: 0,
+                  pointerEvents: "none",
+                }}
+              >
+                <Image
+                  src="/decorative_vector_shape_1.png"
+                  alt="decorative shape"
+                  width={463}
+                  height={238}
+                />
+              </div>
+
+              {/* Image box (on top) */}
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: 12,
+                  overflow: "hidden",
+                  zIndex: 1,
+                }}
+              >
+                <Image
+                  src="/image 100.png"
+                  alt="VaultPay preview"
+                  width={458 / 1.3}
+                  height={653 / 1.3}
+                />
+              </div>
+            </div>
+          </div>
+        </Grid>
+      </Container>
+    </section>
+  );
+};
+
+const CallToActionSection: React.FC = () => {
+  return (
+    <section style={{ padding: "64px 0" }}>
+      <Container size="full">
+        <Stack gap="md">
+          <Typography as="h5" font="Space Grotesk" weight={700}>
+            Move Money Freely. Globally. Securely.
+          </Typography>
+          <Typography as="h2" font="Space Grotesk" weight={800}>
+            Join thousands of users building better financial lives with
+            VaultPay.
+          </Typography>
+
+          {/* Image with overlay content */}
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              borderRadius: 16,
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src="/image 96.png"
+              alt="VaultPay devices"
+              width={1200}
+              height={560}
+              style={{ width: "100%", height: "auto" }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: 24,
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 12,
+                  textAlign: "center",
+                  color: "#fff",
+                }}
+              >
+                <Image
+                  src="/vault_logo_icon_white.png"
+                  alt="VaultPay"
+                  width={56}
+                  height={56}
+                />
+                <Typography
+                  as="h1"
+                  style={{ color: "#fff", fontWeight: 400, fontSize: 64 }}
+                >
+                  Start your vault
+                </Typography>
+                <Button
+                  variant="colored"
+                  size="medium"
+                  backgroundColor={vars.color.neonMint}
+                >
+                  <Typography as="span" style={{ margin: 0, fontWeight: 400 }}>
+                    Download The App
+                  </Typography>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Stack>
+      </Container>
+    </section>
+  );
+};
+
+const TestimonialsSection: React.FC = () => {
+  const testimonials = [
+    {
+      text: `“VaultPay makes it so easy to split bills with my friends while traveling.”`,
+      name: "Amara O.",
+      avatar: "/image 97.png",
+    },
+    {
+      text: `“Finally, a wallet I actually want to use.”`,
+      name: "Leo T.",
+      avatar: "/image 98.png",
+    },
+    {
+      text: `“I can pay my family’s phone bill in another country without the fees.”`,
+      name: "Sophia R.",
+      avatar: "/image 99.png",
+    },
+  ];
+
+  return (
+    <section
+      style={{
+        padding: "64px 0",
+        background: vars.gradients.vpGradient,
+        borderRadius: 16,
+      }}
+    >
+      <Container size="md">
+        <Stack gap="md">
+          <Grid minColWidth={220} gap="lg" style={{ alignItems: "stretch" }}>
+            {testimonials.map(({ text, name, avatar }) => (
+              <div
+                key={name}
+                style={{
+                  background: "rgba(255,255,255,0.08)",
+                  borderRadius: 16,
+                  padding: 16,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 12,
+                  height: "100%",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                <Typography as="h4" style={{ fontWeight: 400 }}>
+                  {text}
+                </Typography>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 8,
+                    marginTop: "auto",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div
+                      style={{
+                        width: 64,
+                        height: 64,
+                        borderRadius: "50%",
+                        overflow: "hidden",
+                        position: "relative",
+                      }}
+                    >
+                      <Image
+                        src={avatar}
+                        alt={name}
+                        fill
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  </div>
+                  <Typography as="p" style={{ fontWeight: 700 }}>
+                    {name}
+                  </Typography>
+                </div>
+              </div>
+            ))}
+          </Grid>
+        </Stack>
+      </Container>
+    </section>
+  );
+};
+
+const HeroSection: React.FC = () => {
+  return (
+    <section>
+      <Grid minColWidth={300} gap="lg" style={{ alignItems: "stretch" }}>
+        <div>
+          <Typography
+            as="h1"
+            font="Space Grotesk"
+            style={{ fontSize: 72, fontWeight: 500 }}
+          >
+            The human way to money
+          </Typography>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <Typography as="p" style={{ fontSize: 20 }}>
+            VaultPay is your borderless social wallet—pay, transfer, and save
+            across currencies with ease, community, and control
+          </Typography>
+          <div>
+            <Button
+              variant="colored"
+              size="medium"
+              backgroundColor={vars.color.neonMint}
+            >
+              <Typography as="span" margin={0} style={{ fontSize: 20 }}>
+                Start for Free
+              </Typography>
+            </Button>
+          </div>
+        </div>
+      </Grid>
+
+      {/* Full-width rounded image (responsive height) */}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "min(60vw, 420px)",
+          marginTop: 16,
+          borderRadius: 16,
+          overflow: "hidden",
+        }}
+      >
+        <Image
+          src="/image 94.png"
+          alt="Vault app preview"
+          fill
+          style={{ objectFit: "cover" }}
+        />
+        {/* Store badges overlay */}
+        <div
+          style={{
+            position: "absolute",
+            left: 16,
+            bottom: 16,
+            display: "flex",
+            gap: 12,
+            zIndex: 1,
+          }}
+        >
+          <a
+            href="https://play.google.com/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Get it on Google Play"
+          >
+            <Image
+              src="/google_play_badge.png"
+              alt="Get it on Google Play"
+              width={160}
+              height={48}
+            />
+          </a>
+          <a
+            href="https://www.apple.com/app-store/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Download on the App Store"
+          >
+            <Image
+              src="/app_store_badge.png"
+              alt="Download on the App Store"
+              width={160}
+              height={48}
+            />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};
+const SecurityTrustSection: React.FC = () => {
+  return (
+    <section
+      style={{
+        padding: "4rem 0",
+        paddingTop: "6rem",
+        backgroundImage: "url('/gray_bg_shape.png')",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "-8rem bottom",
+        backgroundSize: "auto 100%",
+      }}
+    >
+      <Container size="md">
+        <Grid minColWidth={360} gap="lg" style={{ alignItems: "center" }}>
+          {/* Left column */}
+          <div>
+            <Stack gap="sm">
+              <Typography as="h5" font="Space Grotesk" weight={700}>
+                SECURITY & TRUST
+              </Typography>
+              <Typography as="h2" font="Space Grotesk" weight={800}>
+                Your money, protected by design
+              </Typography>
+              <Typography as="p">
+                We combine modern security practices with regulatory safeguards
+                to keep your funds and data safe. Encryption, multi-factor
+                checks, and continuous monitoring come standard so you can
+                transact with confidence.
+              </Typography>
+              <div>
+                <Button variant="secondary" size="medium" label="Learn more" />
+              </div>
+            </Stack>
+          </div>
+          {/* Right column */}
+          <div>
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "min(60vw, 360px)",
+                borderRadius: 12,
+                overflow: "hidden",
+              }}
+            >
+              <Image
+                src="/image1044.png"
+                alt="Security illustration"
+                width={700}
+                height={649}
+              />
+            </div>
+          </div>
+        </Grid>
+      </Container>
+    </section>
+  );
+};
+
+const SimpleSecureSocial: React.FC = () => {
+  type SSSItem = { title: string; text: string; iconSrc?: string };
+  const leftItems: SSSItem[] = [
+    {
+      title: "Wallet",
+      text: "Store, send, convert, and protect your money in seconds.",
+      iconSrc: "/signup_icon.png",
+    },
+    {
+      title: "Bills",
+      text: "Organize recurring payments and never miss a due date.",
+      iconSrc: "/drop_icon.png",
+    },
+  ];
+  const rightItems: SSSItem[] = [
+    {
+      title: "Send international",
+      text: "Organize recurring payments and never miss a due date.",
+      iconSrc: "/globe_icon.png",
+    },
+    {
+      title: "Social Payments",
+      text: "Share, split, and interact with money like never before.",
+      iconSrc: "/friend_icon.png",
+    },
+  ];
+
+  const Card = ({
+    title,
+    text,
+    iconSrc,
+  }: {
+    title: string;
+    text: string;
+    iconSrc?: string;
+  }) => (
+    <div
+      style={{
+        background: vars.gradients.vpGradient,
+        borderRadius: 16,
+        padding: 16,
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+        height: "100%",
+      }}
+    >
+      <div
+        style={{
+          width: 44,
+          height: 44,
+          borderRadius: 8,
+          background: "#000",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {iconSrc ? (
+          <Image src={iconSrc} alt={title} width={22} height={22} />
+        ) : (
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z"
+              fill="#FFFFFF"
+            />
+          </svg>
+        )}
+      </div>
+      <Typography as="h4" font="Space Grotesk" weight={700}>
+        {title}
+      </Typography>
+      <Typography as="p">{text}</Typography>
+    </div>
+  );
+
+  return (
+    <section style={{ padding: "24px 0" }}>
+      <Container size="lg">
+        <Stack gap="sm">
+          <Typography as="h2" font="Space Grotesk" weight={800}>
+            Simple, Secure, Social
+          </Typography>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              gap: 16,
+              alignItems: "stretch",
+            }}
+          >
+            {/* Left column: two cards */}
+            <div style={{ display: "grid", gap: 16 }}>
+              {leftItems.map((it) => (
+                <Card
+                  key={it.title}
+                  title={it.title}
+                  text={it.text}
+                  iconSrc={it.iconSrc}
+                />
+              ))}
+            </div>
+
+            {/* Middle column: tall image */}
+            <div>
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  overflow: "hidden",
+                }}
+              >
+                <Image
+                  src="/image 105.png"
+                  alt="VaultPay app preview"
+                  width={560}
+                  height={781}
+                />
+              </div>
+            </div>
+
+            {/* Right column: two cards */}
+            <div style={{ display: "grid", gap: 16 }}>
+              {rightItems.map((it) => (
+                <Card
+                  key={it.title}
+                  title={it.title}
+                  text={it.text}
+                  iconSrc={it.iconSrc}
+                />
+              ))}
+            </div>
+          </div>
+        </Stack>
+      </Container>
+    </section>
+  );
+};
 
 export default function Home() {
   return (
@@ -19,173 +638,183 @@ export default function Home() {
       <Navbar />
       <Container size="lg" style={{ paddingTop: 24, paddingBottom: 48 }}>
         <Stack gap="xl">
-          {/* Header */}
-          <Stack gap="xs">
-            <Typography as="h1" font="Space Grotesk" weight={800}>
-              Component Showcase
-            </Typography>
-            <Typography as="p" color="#666">
-              A quick tour of reusable UI building blocks styled with Vanilla
-              Extract. Images
-            </Typography>
-            <Grid columns={3} gap="md">
-              <AppImage
-                src="/logo_horizontal.png"
-                alt="Vault Pay Logo"
-                width={203}
-                height={41}
-                shape="square"
-              />
-              <AppImage
-                src="/image 103.png"
-                alt="Person Holding Phone And using Vault App"
-                width={229}
-                height={326}
-                shape="square"
-              />
-            </Grid>
-          </Stack>
-        </Stack>
-
-        {/* Cards */}
-        <section>
-          <Stack gap="sm">
-            <Typography as="h2" font="Space Grotesk" weight={700}>
-              Cards
-            </Typography>
-            <Grid minColWidth={260} gap="md">
-              <Card
-                variant="plain"
-                header={
-                  <Typography as="h4" font="Space Grotesk">
-                    Plain Card
-                  </Typography>
-                }
-              >
-                <Typography as="p">Simple container with border.</Typography>
-                <AppLink href="/" variant="primary">
-                  Learn more
-                </AppLink>
-              </Card>
-              <Card
-                variant="elevated"
-                header={
-                  <Typography as="h4" font="Space Grotesk">
-                    Elevated
-                  </Typography>
-                }
-                interactive
-              >
-                <Typography as="p">Shadow and hover interaction.</Typography>
-                <div style={{ marginTop: 8 }}>
-                  <Button variant="primary" size="small" label="Action" />
-                </div>
-              </Card>
-              <Card
-                variant="outline"
-                header={
-                  <Typography as="h4" font="Space Grotesk">
-                    Outline
-                  </Typography>
-                }
-              >
-                <Typography as="p">
-                  Outlined style with neutral look.
+          <HeroSection />
+          {/* Feature Section: Borderless payments for all */}
+          <section style={{ padding: "24px 0" }}>
+            <Container size="md">
+              <Stack gap="sm">
+                <Typography as="h2" font="Space Grotesk" weight={800}>
+                  Borderless payments for all
                 </Typography>
-              </Card>
-            </Grid>
-          </Stack>
-        </section>
-
-        {/* Accordion */}
-        <section>
-          <Stack gap="sm">
-            <Typography as="h2" font="Space Grotesk" weight={700}>
-              Accordion
-            </Typography>
-            <Accordion
-              items={[
-                {
-                  id: "a",
-                  header: <Typography as="h5">What is Vaultpay?</Typography>,
-                  content: <Typography as="p">A demo UI kit.</Typography>,
-                  defaultOpen: true,
-                },
-                {
-                  id: "b",
-                  header: <Typography as="h5">What stack?</Typography>,
-                  content: (
-                    <Typography as="p">
-                      Next.js 15 + Vanilla Extract.
+                <Grid
+                  minColWidth={320}
+                  gap="lg"
+                  style={{ alignItems: "center" }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        height: "min(50vw, 300px)",
+                        borderRadius: 12,
+                        overflow: "hidden",
+                      }}
+                    >
+                      <Image
+                        src="/image 95.png"
+                        alt="Cross-border payments"
+                        fill
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Typography as="h3" font="Space Grotesk" weight={700}>
+                      Built for a World <br /> Without Limits
                     </Typography>
-                  ),
-                },
-                {
-                  id: "c",
-                  header: <Typography as="h5">Is it accessible?</Typography>,
-                  content: (
                     <Typography as="p">
-                      Built with semantics, can extend ARIA patterns.
+                      VaultPay lets you send, receive, and manage money across
+                      countries, currencies, and communities—without the usual
+                      friction. Whether you're supporting family, traveling, or
+                      building your business, we make it feel effortless.
                     </Typography>
-                  ),
-                },
-              ]}
-            />
-          </Stack>
-        </section>
+                    <Button
+                      variant="secondary"
+                      size="medium"
+                      label="Learn more"
+                    />
+                  </div>
+                </Grid>
+              </Stack>
+            </Container>
+          </section>
 
-        {/* Carousel */}
-        <section>
-          <Stack gap="sm">
-            <Typography as="h2" font="Space Grotesk" weight={700}>
-              Carousel
-            </Typography>
-            <Carousel
-              images={[
-                { src: "/next.svg", alt: "Next", width: 1200, height: 400 },
-                { src: "/vercel.svg", alt: "Vercel", width: 1200, height: 400 },
-                { src: "/globe.svg", alt: "Globe", width: 1200, height: 400 },
-              ]}
-              intervalMs={2500}
-              autoPlay
-              loop
-              showDots
-              showArrows
-              style={{ borderRadius: 12, overflow: "hidden" }}
-            />
-          </Stack>
-        </section>
+          {/* Feature Grid: image on top, title and subtitle */}
+          <section style={{ padding: "24px 0" }}>
+            <Container size="full">
+              <Grid minColWidth={220} gap="xl" style={{ alignItems: "start" }}>
+                <div>
+                  <Image
+                    src="/image 104.png"
+                    alt="Fast transfers"
+                    width={476}
+                    height={386}
+                  />
+                  <Typography
+                    as="h4"
+                    font="Space Grotesk"
+                    style={{ marginTop: 8 }}
+                  >
+                    Multi-Currency Wallet
+                  </Typography>
+                  <Typography as="p">
+                    Hold and convert money across currencies with real-time FX
+                    rates and no hidden fees.
+                  </Typography>
+                </div>
+                <div>
+                  <Image
+                    src="/image 123.png"
+                    alt="Multi-currency wallet"
+                    width={476}
+                    height={386}
+                  />
+                  <Typography
+                    as="h4"
+                    font="Space Grotesk"
+                    style={{ marginTop: 8 }}
+                  >
+                    Cross-Border Transfers{" "}
+                  </Typography>
+                  <Typography as="p">
+                    Send money instantly to friends and family in other
+                    countries—no middlemen, no delays.
+                  </Typography>
+                </div>
+                <div>
+                  <Image
+                    src="/image 124.png"
+                    alt="Social by design"
+                    width={476}
+                    height={386}
+                  />
+                  <Typography
+                    as="h4"
+                    font="Space Grotesk"
+                    style={{ marginTop: 8 }}
+                  >
+                    Global Bill Pay
+                  </Typography>
+                  <Typography as="p">
+                    Pay for utilities, phone service, or subscriptions across
+                    borders using one simple interface.
+                  </Typography>
+                </div>
+              </Grid>
+            </Container>
+          </section>
 
-        {/* Links */}
-        <section>
-          <Stack gap="sm">
-            <Typography as="h2" font="Space Grotesk" weight={700}>
-              Links
-            </Typography>
-            <div
-              style={{
-                display: "flex",
-                gap: 12,
-                alignItems: "center",
-                flexWrap: "wrap",
-              }}
-            >
-              <AppLink href="/" variant="default">
-                Default link
-              </AppLink>
-              <AppLink href="/" variant="subtle">
-                Subtle link
-              </AppLink>
-              <AppLink href="/" variant="primary">
-                Primary link
-              </AppLink>
-              <AppLink href="/" variant="button">
-                Button-style link
-              </AppLink>
-            </div>
-          </Stack>
-        </section>
+          {/* Feature Section: Borderless payments for all */}
+          <section style={{ padding: "24px 0" }}>
+            <Container size="md">
+              <Stack gap="sm">
+                <Typography as="h1" font="Space Grotesk" weight={800}>
+                  Use everywhere you use Visa & Mastercard.
+                </Typography>
+                <Grid
+                  minColWidth={320}
+                  gap="lg"
+                  style={{ alignItems: "center" }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        height: "min(50vw, 300px)",
+                        borderRadius: 12,
+                        overflow: "hidden",
+                      }}
+                    >
+                      <Image
+                        src="/visa.PNG"
+                        alt="Cross-border payments"
+                        fill
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Typography as="h3" font="Space Grotesk" weight={700}>
+                      Accepted wherever life takes you
+                    </Typography>
+                    <Typography as="p">
+                      VaultPay is partnered with Mastercard® and Visa®, so your
+                      card works almost everywhere. From local shops to global
+                      retailers, restaurants to ride-shares, you can pay with
+                      confidence knowing VaultPay is accepted anywhere Visa and
+                      Mastercard are. One card, borderless access.{" "}
+                    </Typography>
+                    <Button
+                      variant="secondary"
+                      size="medium"
+                      label="Learn more"
+                    />
+                  </div>
+                </Grid>
+              </Stack>
+            </Container>
+          </section>
+
+          <BenefitsSection />
+          <SimpleSecureSocial />
+          <SecurityTrustSection />
+          <TestimonialsSection />
+          <CallToActionSection />
+        </Stack>
       </Container>
+      <Footer />
     </>
   );
 }

@@ -24,6 +24,7 @@ export const left = style({
 export const right = style({
   display: "flex",
   alignItems: "center",
+  paddingRight: 12,
   gap: 12,
 });
 

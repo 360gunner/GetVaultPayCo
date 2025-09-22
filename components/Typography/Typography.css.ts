@@ -4,6 +4,7 @@ import { vars } from "../../styles/theme.css";
 export const base = style({
   color: vars.color.foreground,
   fontFamily: vars.font.body,
+  fontWeight: 400,
   margin: 0,
 });
 
