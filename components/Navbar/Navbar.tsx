@@ -1,10 +1,12 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import * as s from "./Navbar.css";
 import Container from "@/components/Layout/Container";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
 import ImageButton from "@/components/ImageButton/ImageButton";
 import { vars } from "@/styles/theme.css";
+import MegaMenu from "@/components/MegaMenu/MegaMenu";
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {}
 
@@ -46,6 +48,7 @@ const BgShape: React.FC = () => (
 );
 
 export const Navbar: React.FC<NavbarProps> = ({ className, ...rest }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <nav className={[s.root, className].filter(Boolean).join(" ")} {...rest}>
       <BgShape />
@@ -77,11 +80,15 @@ export const Navbar: React.FC<NavbarProps> = ({ className, ...rest }) => {
                 variant="filled"
                 shape="pill"
                 icon={{ variant: "menu" }}
+                onClick={() => setMenuOpen(true)}
               />
             </div>
           </div>
         </Container>
       </div>
+      {menuOpen && (
+        <MegaMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+      )}{" "}
     </nav>
   );
 };
