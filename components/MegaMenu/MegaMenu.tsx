@@ -118,7 +118,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
               </Typography>
               {group.items.map((it) => (
                 <div key={it} className={s.navItem} role="link" tabIndex={0}>
-                  <Typography as="span">{it}</Typography>
+                  <Typography as="span" className={s.navItemText}>{it}</Typography>
                   <svg
                     width="16"
                     height="16"

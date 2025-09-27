@@ -137,7 +137,7 @@ export const actionIconTopRight = style({
 export const navCols = style({
   display: "grid",
   gridTemplateColumns: "repeat(2, minmax(0,1fr))",
-  gap: 12,
+  gap: 8,
   "@media": {
     "screen and (max-width: 720px)": {
       gridTemplateColumns: "1fr",
@@ -148,20 +148,25 @@ export const navCols = style({
 export const navGroup = style({
   display: "flex",
   flexDirection: "column",
-  gap: 8,
+  gap: 4,
+  marginBottom: 0,
 });
 
 export const navTitle = style({
   fontWeight: 700,
+  fontSize: 14,
 });
 
 export const navItem = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  padding: "6px 0",
-  borderBottom: "1px solid rgba(0,0,0,0.06)",
-  ":last-child": { borderBottom: "none" },
+  padding: "2px 0",
+  borderBottom: "none",
+});
+
+export const navItemText = style({
+  fontSize: 13,
 });
 
 export const bottomBanner = style({
