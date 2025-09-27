@@ -305,12 +305,25 @@ const TestimonialsSection: React.FC = () => {
   ];
 
   return (
-    <Container size="xl" style={{ padding: vars.space.xl }}>
+    <Container
+      size="xl"
+      style={{
+        padding: vars.space.xl,
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <section
         style={{
-          padding: "64px 0",
+          padding: "80px 0",
           background: vars.gradients.vpGradient,
           borderRadius: 16,
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Container size="lg">
@@ -321,16 +334,16 @@ const TestimonialsSection: React.FC = () => {
                   key={name}
                   style={{
                     borderRadius: 16,
-                    padding: 16,
+                    padding: 24,
                     display: "flex",
                     flexDirection: "column",
-                    gap: 12,
+                    gap: 16,
                     height: "100%",
                     alignItems: "center",
                     textAlign: "center",
                   }}
                 >
-                  <Typography as="h4" style={{ fontWeight: 400 }}>
+                  <Typography as="h4" style={{ fontWeight: 400, fontSize: 24 }}>
                     {text}
                   </Typography>
                   <div
@@ -344,8 +357,8 @@ const TestimonialsSection: React.FC = () => {
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <div
                         style={{
-                          width: 76,
-                          height: 76,
+                          width: 92,
+                          height: 92,
                           borderRadius: "50%",
                           overflow: "hidden",
                           position: "relative",
@@ -359,7 +372,7 @@ const TestimonialsSection: React.FC = () => {
                         />
                       </div>
                     </div>
-                    <Typography as="p" style={{ fontWeight: 400 }}>
+                    <Typography as="p" style={{ fontWeight: 400, fontSize: 16 }}>
                       {name}
                     </Typography>
                   </div>
