@@ -176,11 +176,26 @@ export const bannerOverlay = style({
   position: "absolute",
   inset: 0,
   display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  flexDirection: "column",
+  // Push content to the bottom of the image (cross-axis in a row)
+  alignItems: "flex-end",
+  // Keep content starting from the left; inner row will handle spacing
+  justifyContent: "flex-start",
   gap: 12,
   color: vars.color.vaultWhite,
-  textAlign: "center",
+  textAlign: "left",
   padding: 16,
+});
+
+export const bannerRow = style({
+  display: "flex",
+  alignItems: "flex-end",
+  justifyContent: "space-between",
+  width: "100%",
+  gap: 12,
+});
+
+export const bannerTitle = style({
+  fontSize: 36,
+  lineHeight: 1,
+  fontWeight: 800,
 });

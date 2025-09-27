@@ -119,15 +119,15 @@ export const Navbar: React.FC<NavbarProps> = ({ className, ...rest }) => {
                         // Inline X icon so we don't depend on assets
                         children: (
                           <svg
-                            width="18"
-                            height="18"
+                            width="24"
+                            height="24"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
                               d="M18 6L6 18M6 6l12 12"
-                              stroke="currentColor"
+                              stroke="white"
                               strokeWidth={2}
                               strokeLinecap="round"
                             />

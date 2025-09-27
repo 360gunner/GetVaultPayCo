@@ -151,23 +151,26 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
             style={{ objectFit: "cover" }}
           />
           <div className={s.bannerOverlay}>
-            <Typography
-              as="h2"
-              font="Space Grotesk"
-              weight={800}
-              style={{ color: "#fff", fontSize: 28 }}
-            >
-              Start your vault
-            </Typography>
-            <Button
-              variant="colored"
-              size="medium"
-              backgroundColor={vars.color.neonMint}
-            >
-              <Typography as="span" style={{ margin: 0, fontWeight: 700 }}>
-                Signup for Free
+            <div className={s.bannerRow}>
+              <Typography
+                as="h2"
+                font="Space Grotesk"
+                weight={800}
+                className={s.bannerTitle}
+                style={{ color: "#fff" }}
+              >
+                Start your vault
               </Typography>
-            </Button>
+              <Button
+                variant="colored"
+                size="medium"
+                backgroundColor={vars.color.neonMint}
+              >
+                <Typography as="span" style={{ margin: 0, fontWeight: 700 }}>
+                  Signup for Free
+                </Typography>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
