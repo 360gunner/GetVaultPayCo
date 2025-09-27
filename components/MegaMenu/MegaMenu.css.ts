@@ -71,7 +71,7 @@ export const closeBtn = style({
 
 export const content = style({
   display: "grid",
-  gridTemplateColumns: "1.4fr 1fr",
+  gridTemplateColumns: "1fr 1fr",
   gap: 16,
   padding: `${vars.space.lg}`,
   flex: 1,
