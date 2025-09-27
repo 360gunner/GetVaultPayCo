@@ -43,7 +43,7 @@ const BenefitsSection: React.FC = () => {
         size="lg"
         style={{ paddingLeft: "64px", paddingRight: "64px" }}
       >
-        <Grid minColWidth={360} gap="xl" style={{ alignItems: "center" }}>
+        <Grid minColWidth={360} style={{ alignItems: "center", columnGap: 60 }}>
           {/* Left: Title + rows */}
           <div
             style={{
@@ -339,7 +339,7 @@ const TestimonialsSection: React.FC = () => {
           justifyContent: "center",
         }}
       >
-        <Container size="lg">
+        <Container size="full">
           <Stack gap="md">
             <Grid minColWidth={220} gap="lg" style={{ alignItems: "stretch" }}>
               {testimonials.map(({ text, name, avatar }) => (
@@ -356,7 +356,7 @@ const TestimonialsSection: React.FC = () => {
                     textAlign: "center",
                   }}
                 >
-                  <Typography as="h4" style={{ fontWeight: 400, fontSize: 24 }}>
+                  <Typography as="h4" style={{ fontWeight: 400, fontSize: 32 }}>
                     {text}
                   </Typography>
                   <div
@@ -370,8 +370,8 @@ const TestimonialsSection: React.FC = () => {
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <div
                         style={{
-                          width: 92,
-                          height: 92,
+                          width: 112,
+                          height: 112,
                           borderRadius: "50%",
                           overflow: "hidden",
                           position: "relative",
@@ -387,7 +387,11 @@ const TestimonialsSection: React.FC = () => {
                     </div>
                     <Typography
                       as="p"
-                      style={{ fontWeight: 400, fontSize: 16 }}
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 20,
+                        marginTop: "1rem",
+                      }}
                     >
                       {name}
                     </Typography>

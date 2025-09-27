@@ -1,7 +1,7 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style, styleVariants } from "@vanilla-extract/css";
 
 export const root = style({
-  display: 'grid',
+  display: "grid",
 });
 
 export const gap = styleVariants({
@@ -11,4 +11,8 @@ export const gap = styleVariants({
   md: { gap: 12 },
   lg: { gap: 16 },
   xl: { gap: 24 },
+  xxl: { gap: 32 },
+  xxxl: { gap: 48 },
+  "4xl": { gap: 64 },
+  "5xl": { gap: 80 },
 });
