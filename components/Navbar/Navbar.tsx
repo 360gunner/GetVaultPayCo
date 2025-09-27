@@ -100,6 +100,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className, ...rest }) => {
                 variant={menuOpen ? "ghost" : "secondary"}
                 size="medium"
                 label="Sign up"
+                style={{ border: !menuOpen ? "none" : undefined }}
                 backgroundColor={menuOpen ? undefined : vars.color.vaultWhite}
               />
               <Button

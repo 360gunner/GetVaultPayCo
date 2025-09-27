@@ -20,7 +20,7 @@ export const overlay = style({
   height: "100vh",
   // Reserve space for the navbar so it acts as the top bar of the mega menu
   paddingTop: 72,
-  paddingRight: vars.space.xl,
+  paddingRight: 0,
   background: vars.gradients.vpGradient,
   backdropFilter: "blur(6px)",
   overflow: "hidden",
@@ -71,11 +71,15 @@ export const closeBtn = style({
 
 export const content = style({
   display: "grid",
-  gridTemplateColumns: "1fr 1fr",
+  gridTemplateColumns: "0.7fr 1fr",
   gap: 16,
+  columnGap: 64,
   padding: `${vars.space.lg}`,
+  paddingTop: 0,
+  paddingBottom: 0,
   flex: 1,
   minHeight: 0,
+  maxHeight: "100%",
   // Allow scrolling but hide scrollbars
   overflow: "auto",
   msOverflowStyle: "none", // IE and Edge
@@ -94,8 +98,12 @@ globalStyle(`${content}::-webkit-scrollbar`, {
 
 export const cardsGrid = style({
   display: "grid",
+  maxHeight: "100%",
   gridTemplateColumns: "repeat(2, minmax(0,1fr))",
-  gap: 12,
+  // set horizontal and vertical gap
+  columnGap: -12,
+  rowGap: 10,
+
   "@media": {
     "screen and (max-width: 520px)": {
       gridTemplateColumns: "1fr",
@@ -127,9 +135,10 @@ export const actionLabel = style({
   padding: `${vars.space.sm} ${vars.space.xxxl}`,
   left: 0,
   bottom: 0,
+  paddingBottom: 0,
   fontWeight: 400,
-  fontSize: 20,
-  maxWidth: "80%",
+  fontSize: 18,
+  maxWidth: "90%",
 });
 
 export const actionIconTopRight = style({
@@ -148,8 +157,10 @@ export const actionIconTopRight = style({
 
 export const navCols = style({
   display: "grid",
+  maxHeight: "100%",
   gridTemplateColumns: "repeat(2, minmax(0,1fr))",
-  gap: 8,
+  rowGap: 8,
+  columnGap: 16,
   "@media": {
     "screen and (max-width: 720px)": {
       gridTemplateColumns: "1fr",
@@ -166,7 +177,7 @@ export const navGroup = style({
 
 export const navTitle = style({
   fontWeight: 700,
-  fontSize: 14,
+  fontSize: 20,
 });
 
 export const navItem = style({
@@ -174,19 +185,25 @@ export const navItem = style({
   alignItems: "center",
   justifyContent: "space-between",
   padding: "2px 0",
-
+  paddingRight: vars.space["4xl"],
   borderBottom: "none",
   cursor: "pointer",
 });
 
 export const navItemText = style({
-  fontSize: 13,
+  marginBottom: 0,
+  fontSize: 16,
+});
+
+export const navItemArrow = style({
+  fontSize: 20,
+  marginBottom: 0,
 });
 
 export const bottomBanner = style({
   position: "relative",
   width: "100%",
-  height: 160,
+  height: "22vh",
   borderRadius: 16,
   overflow: "hidden",
 });
@@ -210,11 +227,14 @@ export const bannerRow = style({
   alignItems: "flex-end",
   justifyContent: "space-between",
   width: "100%",
+  // padding: " 0 16px",
   gap: 12,
 });
 
 export const bannerTitle = style({
-  fontSize: 36,
+  fontSize: 76,
   lineHeight: 1,
   fontWeight: 800,
+  marginBottom: 0,
+  textShadow: "0 4px 16.7px rgba(0, 0, 0, 0.69)",
 });

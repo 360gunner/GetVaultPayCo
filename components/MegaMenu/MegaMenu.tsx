@@ -111,29 +111,23 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
               <Typography
                 as="h4"
                 font="Space Grotesk"
-                weight={700}
+                weight={400}
                 className={s.navTitle}
               >
                 {group.title}
               </Typography>
               {group.items.map((it) => (
                 <div key={it} className={s.navItem} role="link" tabIndex={0}>
-                  <Typography as="span" className={s.navItemText}>{it}</Typography>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <Typography as="span" className={s.navItemText}>
+                    {it}
+                  </Typography>
+                  <Typography
+                    as="span"
+                    className={s.navItemArrow}
+                    font="Instrument Sans"
                   >
-                    <path
-                      d="M9 5l7 7-7 7"
-                      stroke="#111"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    →
+                  </Typography>{" "}
                 </div>
               ))}
             </div>
@@ -142,7 +136,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
       </div>
 
       {/* Bottom banner */}
-      <div style={{ padding: 16 }}>
+      <div style={{ padding: 16, paddingTop: 8 }}>
         <div className={s.bottomBanner}>
           <Image
             src="/image 96.png"
@@ -155,7 +149,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
               <Typography
                 as="h2"
                 font="Space Grotesk"
-                weight={800}
+                weight={400}
                 className={s.bannerTitle}
                 style={{ color: "#fff" }}
               >
@@ -166,7 +160,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
                 size="medium"
                 backgroundColor={vars.color.neonMint}
               >
-                <Typography as="span" style={{ margin: 0, fontWeight: 700 }}>
+                <Typography as="span" style={{ margin: 0, fontWeight: 400 }}>
                   Signup for Free
                 </Typography>
               </Button>
