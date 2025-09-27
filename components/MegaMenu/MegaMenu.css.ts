@@ -1,4 +1,4 @@
-import { keyframes, style } from "@vanilla-extract/css";
+import { keyframes, style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "@/styles/theme.css";
 
 const fadeIn = keyframes({
@@ -76,13 +76,20 @@ export const content = style({
   padding: `${vars.space.lg}`,
   flex: 1,
   minHeight: 0,
-  // Prevent internal scrolling; children must adapt to available space
-  overflow: "hidden",
+  // Allow scrolling but hide scrollbars
+  overflow: "auto",
+  msOverflowStyle: "none", // IE and Edge
+  scrollbarWidth: "none", // Firefox
   "@media": {
     "screen and (max-width: 1024px)": {
       gridTemplateColumns: "1fr",
     },
   },
+});
+
+// Hide scrollbars for WebKit browsers
+globalStyle(`${content}::-webkit-scrollbar`, {
+  display: "none",
 });
 
 export const cardsGrid = style({
@@ -100,6 +107,7 @@ export const actionCard = style({
   position: "relative",
   background: "transparent",
   color: vars.color.vaultWhite,
+  cursor: "pointer",
   padding: vars.space.xl,
   minHeight: 96,
   aspectRatio: "300 / 154",
@@ -166,7 +174,9 @@ export const navItem = style({
   alignItems: "center",
   justifyContent: "space-between",
   padding: "2px 0",
+
   borderBottom: "none",
+  cursor: "pointer",
 });
 
 export const navItemText = style({
