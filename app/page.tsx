@@ -43,7 +43,7 @@ const BenefitsSection: React.FC = () => {
         size="lg"
         style={{ paddingLeft: "64px", paddingRight: "64px" }}
       >
-        <Grid minColWidth={360} gap="sm" style={{ alignItems: "center" }}>
+        <Grid minColWidth={360} gap="xl" style={{ alignItems: "center" }}>
           {/* Left: Title + rows */}
           <div
             style={{
@@ -54,7 +54,12 @@ const BenefitsSection: React.FC = () => {
               justifyContent: "space-between",
             }}
           >
-            <Typography as="h1" font="Space Grotesk" weight={400}>
+            <Typography
+              as="h1"
+              font="Space Grotesk"
+              weight={400}
+              style={{ fontSize: 64 }}
+            >
               How it Works{" "}
             </Typography>
             <div
@@ -71,15 +76,15 @@ const BenefitsSection: React.FC = () => {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 12,
-                    maxWidth: "75%",
+                    rowGap: 10,
+                    // maxWidth: "75%",
                   }}
                 >
                   <div
                     style={{
-                      width: 76,
-                      height: 76,
-                      borderRadius: 14,
+                      width: 96,
+                      height: 96,
+                      borderRadius: 18,
                       background: "#000",
                       display: "flex",
                       alignItems: "center",
@@ -109,17 +114,25 @@ const BenefitsSection: React.FC = () => {
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: "36px",
+                      gap: 12,
+                      padding: "8px 0 ",
                     }}
                   >
-                    <Typography as="h5" style={{ margin: 0, fontWeight: 400 }}>
+                    <Typography
+                      font="Instrument Sans"
+                      as="h5"
+                      style={{ margin: 0, fontWeight: 400, fontSize: 32 }}
+                    >
                       {title}
                     </Typography>
                     <Typography
+                      font="Instrument Sans"
                       as="p"
+                      weight={400}
                       style={{
                         margin: 0,
                         lineHeight: "91%",
-                        fontSize: "18px",
+                        fontSize: "24px",
                         letterSpacing: "-0.58px",
                       }}
                     >
@@ -372,7 +385,10 @@ const TestimonialsSection: React.FC = () => {
                         />
                       </div>
                     </div>
-                    <Typography as="p" style={{ fontWeight: 400, fontSize: 16 }}>
+                    <Typography
+                      as="p"
+                      style={{ fontWeight: 400, fontSize: 16 }}
+                    >
                       {name}
                     </Typography>
                   </div>
