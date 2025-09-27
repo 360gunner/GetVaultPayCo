@@ -100,6 +100,7 @@ export const actionCard = style({
   position: "relative",
   background: "transparent",
   color: vars.color.vaultWhite,
+  padding: vars.space.xl,
   minHeight: 96,
   aspectRatio: "300 / 154",
   overflow: "hidden",
@@ -115,9 +116,12 @@ export const actionBg = style({
 
 export const actionLabel = style({
   position: "absolute",
-  left: 16,
-  bottom: 12,
-  fontWeight: 700,
+  padding: `${vars.space.sm} ${vars.space.xxxl}`,
+  left: 0,
+  bottom: 0,
+  fontWeight: 400,
+  fontSize: 20,
+  maxWidth: "80%",
 });
 
 export const actionIconTopRight = style({

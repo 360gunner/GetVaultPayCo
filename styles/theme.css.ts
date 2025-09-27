@@ -32,6 +32,10 @@ export const vars = createThemeContract({
     md: "8px",
     lg: "12px",
     xl: "12px",
+    xxl: "24px",
+    xxxl: "32px",
+    "4xl": "48px",
+    "5xl": "64px",
   },
   radius: {
     pill: null,
@@ -70,6 +74,10 @@ export const themeClass = createTheme(vars, {
     md: "12px",
     lg: "16px",
     xl: "24px",
+    xxl: "24px",
+    xxxl: "32px",
+    "4xl": "48px",
+    "5xl": "64px",
   },
   radius: {
     pill: "3em",
