@@ -14,10 +14,12 @@ const fadeOut = keyframes({
 export const overlay = style({
   position: "fixed",
   inset: 0,
-  zIndex: 1000,
+  zIndex: 1,
   display: "flex",
   flexDirection: "column",
   height: "100vh",
+  // Reserve space for the navbar so it acts as the top bar of the mega menu
+  paddingTop: 72,
   paddingRight: vars.space.xl,
   background: vars.gradients.vpGradient,
   backdropFilter: "blur(6px)",
@@ -74,7 +76,8 @@ export const content = style({
   padding: `${vars.space.lg}`,
   flex: 1,
   minHeight: 0,
-  overflow: "auto",
+  // Prevent internal scrolling; children must adapt to available space
+  overflow: "hidden",
   "@media": {
     "screen and (max-width: 1024px)": {
       gridTemplateColumns: "1fr",

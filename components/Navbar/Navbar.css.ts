@@ -42,5 +42,6 @@ export const bgShape = style({
 
 export const content = style({
   position: "relative",
-  zIndex: 1,
+  // Ensure navbar buttons/content sit above the mega menu overlay
+  zIndex: 2,
 });

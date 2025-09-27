@@ -2,7 +2,7 @@ import React from "react";
 import * as s from "./Button.css";
 import Typography, { TypographyProps } from "../Typography/Typography";
 import { vars } from "@/styles/theme.css";
-type ButtonVariants = "primary" | "colored" | "secondary";
+type ButtonVariants = "primary" | "colored" | "secondary" | "ghost";
 export interface ButtonProps {
   style?: React.CSSProperties;
   variant?: ButtonVariants;
@@ -33,6 +33,8 @@ export const Button: React.FC<ButtonProps> = ({
       ? s.primary
       : variant === "colored"
       ? s.colored
+      : variant === "ghost"
+      ? s.ghost
       : s.secondary;
   const paddingEqualClass = paddingEqual ? s.paddingEqual : "";
   return (

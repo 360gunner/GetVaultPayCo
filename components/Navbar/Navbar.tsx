@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as s from "./Navbar.css";
 import Container from "@/components/Layout/Container";
 import Image from "next/image";
@@ -49,6 +49,34 @@ const BgShape: React.FC = () => (
 
 export const Navbar: React.FC<NavbarProps> = ({ className, ...rest }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  // Lock the page scroll when the mega menu is open
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const html = document.documentElement;
+    const body = document.body;
+    const originalHtmlOverflow = html.style.overflow;
+    const originalBodyOverflow = body.style.overflow;
+    const originalBodyPaddingRight = body.style.paddingRight;
+
+    if (menuOpen) {
+      const scrollBarWidth = window.innerWidth - html.clientWidth;
+      html.style.overflow = "hidden";
+      body.style.overflow = "hidden";
+      if (scrollBarWidth > 0) {
+        body.style.paddingRight = `${scrollBarWidth}px`;
+      }
+    } else {
+      html.style.overflow = originalHtmlOverflow || "";
+      body.style.overflow = originalBodyOverflow || "";
+      body.style.paddingRight = originalBodyPaddingRight || "";
+    }
+
+    return () => {
+      html.style.overflow = originalHtmlOverflow || "";
+      body.style.overflow = originalBodyOverflow || "";
+      body.style.paddingRight = originalBodyPaddingRight || "";
+    };
+  }, [menuOpen]);
   return (
     <nav className={[s.root, className].filter(Boolean).join(" ")} {...rest}>
       <BgShape />
@@ -69,18 +97,46 @@ export const Navbar: React.FC<NavbarProps> = ({ className, ...rest }) => {
             </div>
             <div className={s.right}>
               <Button
-                variant="secondary"
+                variant={menuOpen ? "ghost" : "secondary"}
                 size="medium"
                 label="Sign up"
-                backgroundColor={vars.color.vaultWhite}
+                backgroundColor={menuOpen ? undefined : vars.color.vaultWhite}
               />
-              <Button variant="primary" size="medium" label="Sign in" />
+              <Button
+                variant={menuOpen ? "ghost" : "primary"}
+                size="medium"
+                label="Sign in"
+              />
               <ImageButton
-                aria-label="Open menu"
+                aria-label={menuOpen ? "Close menu" : "Open menu"}
+                aria-pressed={menuOpen}
                 variant="filled"
                 shape="pill"
-                icon={{ variant: "menu" }}
-                onClick={() => setMenuOpen(true)}
+                icon={
+                  menuOpen
+                    ? {
+                        alt: "Close",
+                        // Inline X icon so we don't depend on assets
+                        children: (
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M18 6L6 18M6 6l12 12"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        ),
+                      }
+                    : { variant: "menu" }
+                }
+                onClick={() => setMenuOpen((prev) => !prev)}
               />
             </div>
           </div>

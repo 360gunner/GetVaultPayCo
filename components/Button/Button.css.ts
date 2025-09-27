@@ -26,6 +26,13 @@ export const secondary = style({
   color: vars.color.muted,
 });
 
+export const ghost = style({
+  backgroundColor: "transparent",
+  color: vars.color.vaultBlack,
+  border: `1px solid ${vars.color.vaultBlack}`,
+  boxShadow: "none",
+});
+
 export const small = style({
   padding: `${vars.space.sm} ${vars.space.md}`,
   fontSize: "12px",

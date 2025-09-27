@@ -5,7 +5,6 @@ import Typography from "@/components/Typography/Typography";
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icon/Icon";
 import { vars } from "@/styles/theme.css";
-import Container from "@/components/Layout/Container";
 
 export type MegaMenuProps = {
   open: boolean;
@@ -62,44 +61,6 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
       data-state={open ? "open" : "closed"}
       aria-hidden={!open}
     >
-      {/* Top actions */}
-      <div className={s.topBar}>
-        <Container
-          size="full"
-          style={{ paddingRight: vars.space.xl, paddingLeft: vars.space.lg }}
-        >
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
-            <div className={s.topLeft}>
-              <Image src="/logo_horizontal.png" alt="Vault Logo" width={128} height={21} priority />
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <button className={s.pillBtn}>Signup</button>
-              <button className={s.pillBtn}>Login</button>
-              <button
-                className={s.closeBtn}
-                onClick={onClose}
-                aria-label="Close menu"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M18 6L6 18M6 6l12 12"
-                    stroke={vars.color.vaultWhite}
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </Container>
-      </div>
-
       {/* Main content */}
       <div className={s.content}>
         {/* Left: Action cards */}
