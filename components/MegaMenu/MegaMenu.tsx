@@ -18,16 +18,20 @@ type ActionItem = {
   alt?: string;
 };
 const actions: ActionItem[] = [
-  { label: "Send money internationally", variant: "globe", alt: "Globe" },
-  { label: "Pay bills", src: "/drop_icon.png", alt: "Pay bills" },
-  { label: "Order a Card", src: "/card_icon.png", alt: "Order a Card" },
+  {
+    label: "Send money internationally",
+    src: "/globe_green_icon.png",
+    alt: "Globe",
+  },
+  { label: "Pay bills", src: "/drop_green_icon.png", alt: "Pay bills" },
+  { label: "Order a Card", src: "/heart_green_icon.png", alt: "Order a Card" },
   {
     label: "Share with friends & family",
-    src: "/friend_icon.png",
+    src: "/gift_green_icon.png",
     alt: "Share",
   },
-  { label: "Set up your shop", src: "/shop_icon.png", alt: "Shop" },
-  { label: "Refill your Wallet", src: "/dollar_icon.png", alt: "Wallet" },
+  { label: "Set up your shop", src: "/bag_green_icon.png", alt: "Shop" },
+  { label: "Refill your Wallet", src: "/dollar_green_icon.png", alt: "Wallet" },
 ];
 
 const nav = [
