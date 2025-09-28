@@ -7,6 +7,8 @@ import StepsWithImageSection from "@/components/sections/StepsWithImageSection";
 import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
 import Typography from "@/components/Typography/Typography";
 import BorderlessFeatureSection from "@/components/sections/BorderlessFeatureSection";
+import WaysToUseGridSection from "@/components/sections/WaysToUseGridSection";
+import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 
 export default function SendAndReceivePage() {
   return (
@@ -158,6 +160,100 @@ export default function SendAndReceivePage() {
         }
         buttonLabel="Learn more"
       />
+      <WaysToUseGridSection
+        title={<>Ways to use Vault Pay</>}
+        containerSize="xl"
+        sectionPadding="48px 24px"
+        minColWidth={220}
+        gap="xl"
+        items={[
+          {
+            src: "/Group 985.png",
+            alt: "Pay friends",
+            label: "Pay friends",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 986.png",
+            alt: "Split bills",
+            label: "Split bills",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 987.png",
+            alt: "Budgeting",
+            label: "Budgeting",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 988.png",
+            alt: "Top up",
+            label: "Top up",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 989.png",
+            alt: "Phone airtime",
+            label: "Phone airtime",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 990.png",
+            alt: "Transport",
+            label: "Transport",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 991.png",
+            alt: "Groceries",
+            label: "Groceries",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 992.png",
+            alt: "Subscriptions",
+            label: "Subscriptions",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 993.png",
+            alt: "Travel",
+            label: "Travel",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 994.png",
+            alt: "Dining",
+            label: "Dining",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 995.png",
+            alt: "Shopping",
+            label: "Shopping",
+            width: 360,
+            height: 278,
+          },
+          {
+            src: "/Group 996.png",
+            alt: "Donations",
+            label: "Donations",
+            width: 360,
+            height: 278,
+          },
+        ]}
+      />
+      <BottomCallToActionBanner />
       <Footer />
     </>
   );
