@@ -113,11 +113,12 @@ export default function SignUpPage() {
               display: "grid",
               gridTemplateColumns: "1fr auto 1fr",
               alignItems: "center",
+              padding: "0 16px",
               gap: 12,
               margin: "32px 0",
             }}
           >
-            <div style={{ height: 1, background: vars.color.vaultBlack }} />
+            <div style={{ height: 1, background: vars.color.vaultNavie }} />
             <Typography
               as="span"
               font="Instrument Sans"
@@ -130,7 +131,7 @@ export default function SignUpPage() {
             >
               Or
             </Typography>
-            <div style={{ height: 1, background: vars.color.vaultBlack }} />
+            <div style={{ height: 1, background: vars.color.vaultNavie }} />
           </div>
 
           {/* Social buttons */}
