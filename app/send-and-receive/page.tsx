@@ -4,6 +4,8 @@ import SplitHero from "@/components/sections/SplitHero";
 import FeatureGridSection from "@/components/sections/FeatureGridSection";
 import { vars } from "@/styles/theme.css";
 import StepsWithImageSection from "@/components/sections/StepsWithImageSection";
+import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
+import Typography from "@/components/Typography/Typography";
 
 export default function SendAndReceivePage() {
   return (
@@ -79,7 +81,7 @@ export default function SendAndReceivePage() {
           },
           {
             title: "Pay & Save",
-            text: "Send, spend, and organize bills all in one place.",
+            text: "Send, spend, and pay bills all in one place.",
             iconSrc: "/dollar_icon.png",
           },
         ]}
@@ -89,6 +91,48 @@ export default function SendAndReceivePage() {
         minColWidth={360}
         columnGap={60}
         titleFontSize={64}
+      />
+      <GrayShapeBackgroundGridSection
+        eyebrow="PRICING"
+        title="No hidden fees, no surprises."
+        body={
+          <div>
+            <Typography
+              as="p"
+              font="Instrument Sans"
+              weight={400}
+              style={{
+                margin: 0,
+                fontSize: 20,
+                lineHeight: "91%",
+                letterSpacing: "-0.58px",
+              }}
+            >
+              Enjoy minimal fees when sending or receiving money using your
+              Vault Pay account or linked bank account.
+            </Typography>
+            <Typography
+              as="p"
+              font="Instrument Sans"
+              weight={400}
+              style={{
+                marginTop: "1rem",
+                fontSize: "24px",
+                letterSpacing: "-0.58px",
+              }}
+            >
+              $0 Signup fees <br />
+              $0 Monthly fees
+              <br />
+              $0 Annual fees
+            </Typography>
+          </div>
+        }
+        buttonLabel="Learn more"
+        imageSrc="/Group 980.png"
+        imageAlt="Security illustration"
+        imageWidth={609 / 1.3}
+        imageHeight={649 / 1.3}
       />
       <Footer />
     </>
