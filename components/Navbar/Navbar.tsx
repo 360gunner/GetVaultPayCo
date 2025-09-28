@@ -92,8 +92,8 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
               <Image
                 src="/logo_horizontal.png"
                 alt="Vault Logo"
-                width={128}
-                height={21}
+                width={203 / 1.1}
+                height={40 / 1.1}
                 priority
               />
             </div>
@@ -102,13 +102,17 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
                 variant={menuOpen ? "ghost" : "secondary"}
                 size="medium"
                 label="Sign up"
-                style={{ boxShadow: !menuOpen ? "none" : undefined }}
+                style={{
+                  boxShadow: !menuOpen ? "none" : undefined,
+                  fontSize: 20,
+                }}
                 backgroundColor={menuOpen ? undefined : vars.color.vaultWhite}
               />
               <Button
                 variant={menuOpen ? "ghost" : "primary"}
                 size="medium"
                 label="Sign in"
+                style={{ fontSize: 20 }}
               />
               <ImageButton
                 aria-label={menuOpen ? "Close menu" : "Open menu"}

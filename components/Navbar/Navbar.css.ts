@@ -4,14 +4,14 @@ import { vars } from "../../styles/theme.css";
 export const root = style({
   position: "relative",
   width: "100%",
-  minHeight: 72,
+  minHeight: 88,
 });
 
 export const inner = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  height: 72,
+  height: 88,
 });
 
 export const left = style({

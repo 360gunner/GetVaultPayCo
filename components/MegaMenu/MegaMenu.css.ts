@@ -19,7 +19,7 @@ export const overlay = style({
   flexDirection: "column",
   height: "100vh",
   // Reserve space for the navbar so it acts as the top bar of the mega menu
-  paddingTop: 72,
+  paddingTop: 88,
   paddingRight: 0,
   background: vars.gradients.vpGradient,
   backdropFilter: "blur(6px)",
