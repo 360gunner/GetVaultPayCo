@@ -6,6 +6,7 @@ import { vars } from "@/styles/theme.css";
 import StepsWithImageSection from "@/components/sections/StepsWithImageSection";
 import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
 import Typography from "@/components/Typography/Typography";
+import BorderlessFeatureSection from "@/components/sections/BorderlessFeatureSection";
 
 export default function SendAndReceivePage() {
   return (
@@ -30,6 +31,7 @@ export default function SendAndReceivePage() {
         imageHeight={649}
         minColWidth={360}
       />
+
       <FeatureGridSection
         containerSize="full"
         sectionPadding="24px"
@@ -133,6 +135,28 @@ export default function SendAndReceivePage() {
         imageAlt="Security illustration"
         imageWidth={609 / 1.3}
         imageHeight={649 / 1.3}
+      />
+      <BorderlessFeatureSection
+        heading={
+          <>
+            Give your money <br /> a voice
+          </>
+        }
+        imageSrc="/Group 984.png"
+        imageAlt="Cross-border payments"
+        rightTitle={<></>}
+        imageWidth={623}
+        imageHeight={458}
+        imageStyle={{ transform: "translateX(-24px)" }}
+        rightBody={
+          <>
+            Express yourself with every payment: Share your transactions with
+            friends  Easily tip your followers with just a click! Share or send
+            payments, follow, and keep track of your friends' purchases on your
+            timeline.
+          </>
+        }
+        buttonLabel="Learn more"
       />
       <Footer />
     </>
