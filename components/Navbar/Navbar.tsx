@@ -8,7 +8,9 @@ import ImageButton from "@/components/ImageButton/ImageButton";
 import { vars } from "@/styles/theme.css";
 import MegaMenu from "@/components/MegaMenu/MegaMenu";
 
-export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {}
+export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
+  noBg?: boolean;
+}
 
 const BgShape: React.FC = () => (
   <div className={s.bgShape} aria-hidden>
@@ -47,7 +49,7 @@ const BgShape: React.FC = () => (
   </div>
 );
 
-export const Navbar: React.FC<NavbarProps> = ({ className, ...rest }) => {
+export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   // Lock the page scroll when the mega menu is open
   useEffect(() => {
@@ -79,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className, ...rest }) => {
   }, [menuOpen]);
   return (
     <nav className={[s.root, className].filter(Boolean).join(" ")} {...rest}>
-      <BgShape />
+      {!noBg && <BgShape />}
       <div className={s.content}>
         <Container
           size="full"

@@ -4,7 +4,6 @@ import { vars } from "../../styles/theme.css";
 export const root = style({
   position: "relative",
   width: "100%",
-  background: vars.color.background,
   minHeight: 72,
 });
 
