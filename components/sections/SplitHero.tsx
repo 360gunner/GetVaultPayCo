@@ -23,6 +23,8 @@ export interface SplitHeroProps {
   imageStyle?: React.CSSProperties;
   gridTemplateColumns?: string;
   containerStyle?: React.CSSProperties;
+  underImage?: React.ReactNode;
+  titleFontSize?: number;
 }
 
 const SplitHero: React.FC<SplitHeroProps> = ({
@@ -41,6 +43,8 @@ const SplitHero: React.FC<SplitHeroProps> = ({
   imageStyle,
   gridTemplateColumns = "1fr 1fr",
   containerStyle,
+  underImage,
+  titleFontSize,
 }) => {
   return (
     <Container
@@ -87,7 +91,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
               font="Space Grotesk"
               weight={400}
               style={{
-                fontSize: 72,
+                fontSize: titleFontSize || 72,
                 marginBottom: vars.space.md,
                 lineHeight: "91%",
               }}
@@ -121,7 +125,16 @@ const SplitHero: React.FC<SplitHeroProps> = ({
           </Stack>
         </div>
         {/* Right column: image */}
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            justifyContent: "start",
+            justifyItems: "start",
+            alignContent: "start",
+          }}
+        >
           <Image
             src={imageSrc}
             alt={imageAlt}
@@ -129,6 +142,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
             height={imageHeight}
             style={imageStyle}
           />
+          {underImage}
         </div>
       </Grid>
     </Container>
