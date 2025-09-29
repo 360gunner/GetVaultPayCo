@@ -9,6 +9,7 @@ import Accordion, {
   type AccordionItem,
 } from "@/components/Accordion/Accordion";
 import { vars } from "@/styles/theme.css";
+import Footer from "@/components/Footer/Footer";
 
 export const metadata = {
   title: "Help Center | VaultPay",
@@ -89,28 +90,28 @@ const featuredItems: WaysToUseItem[] = [
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
-    header: "How do I create a VaultPay account?",
+    header: "Main headline statement goals here.",
     content:
-      "Download the app, sign up with your phone number or email, and follow the prompts to verify your identity.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     defaultOpen: true,
   },
   {
     id: "faq-2",
-    header: "What countries and currencies are supported?",
+    header: "Main headline statement goals here.",
     content:
-      "VaultPay supports a growing list of regions and currencies. Check the app for availability in your country.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   },
   {
     id: "faq-3",
-    header: "Are there fees for international transfers?",
+    header: "Main headline statement goals here.",
     content:
-      "We keep fees transparent and low. You’ll see any applicable fee before confirming a transfer.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   },
   {
     id: "faq-4",
     header: "How do I contact support?",
     content:
-      "Tap Help in the app or visit the Contact Support category above to reach our team.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   },
 ];
 
@@ -201,7 +202,7 @@ export default function HelpCenterPage() {
             font="Space Grotesk"
             weight={400}
             align="left"
-            style={{ fontSize: 48 }}
+            style={{ fontSize: 64 }}
           >
             FAQs
           </Typography>
@@ -210,6 +211,7 @@ export default function HelpCenterPage() {
           </div>
         </Container>
       </section>
+      <Footer />
     </>
   );
 }

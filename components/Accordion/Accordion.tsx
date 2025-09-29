@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import * as s from "./Accordion.css";
+import Typography from "../Typography/Typography";
 
 export interface AccordionItem {
   id: string;
@@ -49,31 +50,61 @@ export const Accordion: React.FC<AccordionProps> = ({
               className={s.header}
               onClick={() => toggle(item.id)}
               aria-expanded={isOpen}
+              aria-controls={`accordion-panel-${item.id}`}
             >
-              <span>{item.header}</span>
-              <span
-                className={[s.chevron, isOpen && s.chevronOpen]
-                  .filter(Boolean)
-                  .join(" ")}
+              <Typography as="h2" font="Instrument Sans" weight={400}>
+                {item.header}
+              </Typography>
+            </button>
+            {isOpen && (
+              <div
+                id={`accordion-panel-${item.id}`}
+                className={s.panel}
+                role="region"
               >
+                <Typography as="h6" font="Instrument Sans" weight={400}>
+                  {item.content}
+                </Typography>
+              </div>
+            )}
+            <button
+              className={s.icon}
+              onClick={() => toggle(item.id)}
+              aria-label={isOpen ? "Collapse section" : "Expand section"}
+              aria-expanded={isOpen}
+              aria-controls={`accordion-panel-${item.id}`}
+            >
+              {isOpen ? (
+                // Minus icon
                 <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
+                  width="28"
+                  height="1"
+                  viewBox="0 0 34 1"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    d="M6 9l6 6 6-6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                  <line y1="0.5" x2="34" y2="0.5" stroke="black" />
+                </svg>
+              ) : (
+                // Plus icon
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 34 34"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line y1="16.5" x2="34" y2="16.5" stroke="black" />
+                  <line
+                    x1="17.5"
+                    y1="2.18557e-08"
+                    x2="17.5"
+                    y2="34"
+                    stroke="black"
                   />
                 </svg>
-              </span>
+              )}
             </button>
-            {isOpen && <div className={s.panel}>{item.content}</div>}
           </div>
         );
       })}
