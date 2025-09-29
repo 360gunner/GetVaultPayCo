@@ -321,7 +321,7 @@ const TestimonialsSection: React.FC = () => {
 
   return (
     <Container
-      size="xl"
+      size="full"
       style={{
         padding: vars.space.xl,
         minHeight: "100vh",
@@ -358,7 +358,7 @@ const TestimonialsSection: React.FC = () => {
                     textAlign: "center",
                   }}
                 >
-                  <Typography as="h4" style={{ fontWeight: 400, fontSize: 32 }}>
+                  <Typography as="h4" style={{ fontWeight: 400, fontSize: 40 }}>
                     {text}
                   </Typography>
                   <div
