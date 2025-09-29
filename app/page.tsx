@@ -862,8 +862,9 @@ export default function Home() {
                       building your business, we make it feel effortless.
                     </Typography>
                     <Button
+                      style={{ marginTop: vars.space.lg }}
                       variant="secondary"
-                      size="medium"
+                      size="large"
                       label="Learn more"
                     />
                   </div>
