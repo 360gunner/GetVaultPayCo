@@ -9,7 +9,36 @@ import Typography from "@/components/Typography/Typography";
 import CardGridWithCentralImageSection from "@/components/sections/CardGridWithCentralImageSection";
 import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
-
+import ImageLeftEyebrowRightSection from "@/components/sections/ImageLeftEyebrowRightSection";
+import BigImageBanner from "@/components/sections/BigImageBanner";
+import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
+const faqItems: AccordionItem[] = [
+  {
+    id: "faq-1",
+    header: "Main headline statement goals here.",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    defaultOpen: true,
+  },
+  {
+    id: "faq-2",
+    header: "Main headline statement goals here.",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  },
+  {
+    id: "faq-3",
+    header: "Main headline statement goals here.",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  },
+  {
+    id: "faq-4",
+    header: "How do I contact support?",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  },
+];
 export default function BorderlessTransfersPage() {
   return (
     <>
@@ -90,88 +119,59 @@ export default function BorderlessTransfersPage() {
           },
         ]}
       />
-      <CardGridWithCentralImageSection
-        containerSize="xl"
-        containerStyle={{ padding: `${vars.space.xl} ${vars.space["5xl"]}` }}
-        leftItems={[
-          {
-            title: "Make payments",
-            text: "Store, send, convert, and protect your money in seconds.",
-            iconSrc: "/dollar_icon.png",
-          },
-
-          {
-            title: "Send Money",
-            text: "Organize recurring payments and never miss a due date.",
-            iconSrc: "/smile_icon.png",
-          },
-        ]}
-        image={{
-          src: "/image 1055.png",
-          alt: "Vault Pay app preview",
-          height: 781,
-          aspectRatio: 56 / 78,
-          width: 560,
-        }}
-        rightItems={[
-          {
-            title: "Transfer",
-            text: "Organize recurring payments and never miss a due date.",
-            iconSrc: "/send_icon.png",
-          },
-
-          {
-            title: "Recieve Money",
-            text: "Share, split, and interact with money like never before.",
-            iconSrc: "/signal_icon.png",
-          },
-        ]}
-      />
-
-      <GrayShapeBackgroundGridSection
-        eyebrow="DIRECT DEPOSIT"
-        title="Top-up with easy, seamless direct deposit"
-        body="Move money into your VaultPay account without friction. Connect your employer or bank once, and your funds arrive automatically—no delays, no hidden fees. Whether you’re topping up for everyday payments, travel, or cross-border transfers, direct deposit keeps your VaultPay balance ready when you need it."
-        buttonLabel="Sign Up"
-        imageSrc="/Group 1007.png"
-        imageAlt="Security illustration"
-        imageWidth={609 / 1.3}
-        imageHeight={649 / 1.3}
-      />
-      <SplitHero
-        title="Get the most with the Vault Pay Card"
-        description="If you’re approved for a Vault Pay Prepaid Card, you can add money with Prepaid card or  from a verified bank account right into Vault."
-        buttonLabel="Learn more"
-        buttonVariant="secondary"
-        imageSrc="/Group 1009.png"
-        imageAlt="Vault Pay card"
+      <ImageLeftEyebrowRightSection
+        variant="ltr"
         containerSize="lg"
-        titleFontSize={60}
-        gridTemplateColumns="1.3fr 1fr"
-        containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
-        imageWidth={685}
-        imageStyle={{
-          width: "100%",
-          height: "auto",
+        sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
+        image={{
+          src: "/image 955.png",
+          alt: "Vault Pay card",
+          width: 569,
+          height: 458,
         }}
-        imageHeight={649}
-        minColWidth={360}
+        eyebrow="GLOBAL PURCHASE"
+        title="Shop around the world."
+        text={`Shop anywhere in the world without borders. VaultPay lets you pay online or in-store across currencies with the same ease as buying at home. Backed by Visa® and Mastercard®, your purchases are accepted worldwide, secured by VaultPay’s always-on protection.`}
+      />
+      <ImageLeftEyebrowRightSection
+        variant="rtl"
+        containerSize="lg"
+        sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
+        image={{
+          src: "/image 1033.png",
+          alt: "Vault Pay card",
+          width: 569,
+          height: 458,
+        }}
         underImage={
           <Image
-            src="/Image1122.png"
-            alt="Finally A Wallet I can manage at all times"
-            width={621}
-            height={319}
+            src="/Group 97.png"
+            alt="Vault Pay card"
+            width={281}
+            height={69}
             style={{
-              // alignSelf: "center",
-              height: "auto",
-              display: "block",
-              transform: "translateY(-50%) translateX(-70%)",
+              position: "absolute",
+              right: 0,
+              bottom: 0,
+
+              transform: "translateY(-90%) translateX(30%)",
             }}
           />
         }
+        eyebrow="GLOBAL TRANSFER"
+        title="Send money home with ease."
+        text={`Move money across borders in seconds. With VaultPay, you can send and receive funds internationally without hidden fees or delays. Whether paying suppliers, supporting family, or splitting costs abroad, VaultPay makes global transfers simple, fast, and reliable.`}
       />
-
+      <BigImageBanner
+        image={{ src: "/Group 1014.png", alt: "Borderless payments" }}
+        containerSize="full"
+        sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
+        rounded={16}
+        shadow
+        aspectRatio="1360 / 906"
+        fit="cover"
+      />
+      <Accordion items={faqItems} multiple />
       <BottomCallToActionBanner />
       <Footer />
     </>
