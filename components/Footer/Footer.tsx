@@ -82,7 +82,7 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
             <div>
               <div style={{ marginBottom: 48 }}>
                 <div className={s.linksRow}>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="/send-and-receive" style={{ color: vars.color.vaultWhite }}>
                     Send & Receive
                   </AppLink>
                   <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
@@ -100,7 +100,7 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
                   <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
                     Jobs
                   </AppLink>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="/help-center" style={{ color: vars.color.vaultWhite }}>
                     Help
                   </AppLink>
                 </div>
@@ -134,7 +134,7 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
                   Contact
                 </AppLink>
                 <AppLink
-                  href="#"
+                  href="/privacy"
                   style={{ color: vars.color.vaultWhite }}
                   className={s.muted}
                 >

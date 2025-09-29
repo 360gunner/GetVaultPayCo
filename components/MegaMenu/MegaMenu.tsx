@@ -38,11 +38,11 @@ const actions: ActionItem[] = [
 // Map action labels to routes used in Link wrappers
 const actionRouteMap: Record<string, string> = {
   "Send money internationally": "/borderless-transfers",
-  "Pay bills": "/",
-  "Order a Card": "/cards",
-  "Share with friends & family": "/",
-  "Set up your shop": "/",
-  "Refill your Wallet": "/",
+  "Pay bills": "/manage-your-wallet",
+  "Order a Card": "/help-center",
+  "Share with friends & family": "/send-and-receive",
+  "Set up your shop": "/help-center",
+  "Refill your Wallet": "/manage-your-wallet",
 };
 
 const nav = [
@@ -71,17 +71,17 @@ const nav = [
 
 // Map nav item labels to routes used in Link wrappers
 const navRouteMap: Record<string, string> = {
-  "How it Works": "/",
-  "Manage your wallet": "/",
+  "How it Works": "/send-and-receive",
+  "Manage your wallet": "/manage-your-wallet",
   "Borderless transfers": "/borderless-transfers",
   "Security & Protection": "/security-and-protection",
-  "Business Accounts": "/",
-  "Online & In-App": "/",
-  "In Stores": "/",
-  Advantages: "/",
-  "Ways to Pay": "/",
-  Cards: "/",
-  "Share with a Friend": "/",
+  "Business Accounts": "/help-center",
+  "Online & In-App": "/help-center",
+  "In Stores": "/help-center",
+  Advantages: "/help-center",
+  "Ways to Pay": "/help-center",
+  Cards: "/help-center",
+  "Share with a Friend": "/help-center",
 };
 
 const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
@@ -174,7 +174,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
       <div style={{ padding: 16, paddingTop: 8 }}>
         <div className={s.bottomBanner}>
           <Image
-            src="/image 96.png"
+            src="/image 967.png"
             alt="Start your vault"
             fill
             style={{ objectFit: "cover" }}

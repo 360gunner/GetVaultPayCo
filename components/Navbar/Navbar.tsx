@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import * as s from "./Navbar.css";
 import Container from "@/components/Layout/Container";
 import Image from "next/image";
+import Link from "next/link";
 import Button from "@/components/Button/Button";
 import ImageButton from "@/components/ImageButton/ImageButton";
 import { vars } from "@/styles/theme.css";
@@ -116,39 +117,43 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
               />
             </div>
             <div className={s.right}>
-              <Button
-                variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "secondary"}
-                size="medium"
-                label="Sign up"
-                style={{
-                  boxShadow: !menuOpen ? "none" : undefined,
-                  fontSize: 20,
-                  ...(darkGhost
-                    ? {
-                        color: "#fff",
-                        border: "1px solid #fff",
-                        backgroundColor: "transparent",
-                      }
-                    : menuOpen
-                    ? {}
-                    : { backgroundColor: vars.color.vaultWhite }),
-                }}
-              />
-              <Button
-                variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "primary"}
-                size="medium"
-                label="Sign in"
-                style={{
-                  fontSize: 20,
-                  ...(darkGhost
-                    ? {
-                        color: "#fff",
-                        border: "1px solid #fff",
-                        backgroundColor: "transparent",
-                      }
-                    : {}),
-                }}
-              />
+              <Link href="/signup" style={{ textDecoration: "none" }}>
+                <Button
+                  variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "secondary"}
+                  size="medium"
+                  label="Sign up"
+                  style={{
+                    boxShadow: !menuOpen ? "none" : undefined,
+                    fontSize: 20,
+                    ...(darkGhost
+                      ? {
+                          color: "#fff",
+                          border: "1px solid #fff",
+                          backgroundColor: "transparent",
+                        }
+                      : menuOpen
+                      ? {}
+                      : { backgroundColor: vars.color.vaultWhite }),
+                  }}
+                />
+              </Link>
+              <Link href="/signin" style={{ textDecoration: "none" }}>
+                <Button
+                  variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "primary"}
+                  size="medium"
+                  label="Sign in"
+                  style={{
+                    fontSize: 20,
+                    ...(darkGhost
+                      ? {
+                          color: "#fff",
+                          border: "1px solid #fff",
+                          backgroundColor: "transparent",
+                        }
+                      : {}),
+                  }}
+                />
+              </Link>
               <ImageButton
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-pressed={menuOpen}
