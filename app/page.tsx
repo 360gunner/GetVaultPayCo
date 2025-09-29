@@ -815,7 +815,10 @@ export default function Home() {
                 <Grid
                   minColWidth={320}
                   gap="xl"
-                  style={{ alignItems: "center" }}
+                  style={{
+                    alignItems: "center",
+                    gridTemplateColumns: "1fr auto",
+                  }}
                 >
                   <div>
                     <div
