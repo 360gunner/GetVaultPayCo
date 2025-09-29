@@ -799,7 +799,10 @@ export default function Home() {
           <HeroSection />
           {/* Feature Section: Borderless payments for all */}
           <section style={{ padding: "24px 0" }}>
-            <Container size="lg">
+            <Container
+              size="xl"
+              style={{ padding: `${vars.space.xl}  ${vars.space["4xl"]}` }}
+            >
               <Stack gap="sm">
                 <Typography
                   as="h1"
@@ -811,7 +814,7 @@ export default function Home() {
                 </Typography>
                 <Grid
                   minColWidth={320}
-                  gap="lg"
+                  gap="xl"
                   style={{ alignItems: "center" }}
                 >
                   <div>
@@ -846,7 +849,10 @@ export default function Home() {
                     >
                       Built for a World <br /> Without Limits
                     </Typography>
-                    <Typography as="p" style={{ fontSize: "20px" }}>
+                    <Typography
+                      as="p"
+                      style={{ fontSize: "20px", maxWidth: "30ch" }}
+                    >
                       VaultPay lets you send, receive, and manage money across
                       countries, currencies, and communities—without the usual
                       friction. Whether you're supporting family, traveling, or
