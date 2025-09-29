@@ -10,6 +10,8 @@ import MegaMenu from "@/components/MegaMenu/MegaMenu";
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   noBg?: boolean;
+  // When true, navbar has no background and UI controls appear as white/outlined on dark backgrounds
+  darkGhost?: boolean;
 }
 
 const BgShape: React.FC = () => (
@@ -51,6 +53,14 @@ const BgShape: React.FC = () => (
 
 export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [darkGhost, setDarkGhost] = useState(rest.darkGhost || false);
+  const toggleDarkGhostOnMenuToggle = () => {
+    if (menuOpen) {
+      setDarkGhost(false);
+    } else {
+      setDarkGhost(rest.darkGhost || false);
+    }
+  };
   // Lock the page scroll when the mega menu is open
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -79,9 +89,17 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
       body.style.paddingRight = originalBodyPaddingRight || "";
     };
   }, [menuOpen]);
+  useEffect(() => {
+    toggleDarkGhostOnMenuToggle();
+  }, [menuOpen]);
+  const showBg = !noBg && !darkGhost;
+  const logoSrc = darkGhost
+    ? "/logo_horizontal_white.png"
+    : "/logo_horizontal.png";
+
   return (
     <nav className={[s.root, className].filter(Boolean).join(" ")} {...rest}>
-      {!noBg && <BgShape />}
+      {showBg && <BgShape />}
       <div className={s.content}>
         <Container
           size="full"
@@ -90,7 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
           <div className={s.inner}>
             <div className={s.left}>
               <Image
-                src="/logo_horizontal.png"
+                src={logoSrc}
                 alt="Vault Logo"
                 width={203 / 1.1}
                 height={40 / 1.1}
@@ -99,31 +117,55 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
             </div>
             <div className={s.right}>
               <Button
-                variant={menuOpen ? "ghost" : "secondary"}
+                variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "secondary"}
                 size="medium"
                 label="Sign up"
                 style={{
                   boxShadow: !menuOpen ? "none" : undefined,
                   fontSize: 20,
+                  ...(darkGhost
+                    ? {
+                        color: "#fff",
+                        border: "1px solid #fff",
+                        backgroundColor: "transparent",
+                      }
+                    : menuOpen
+                    ? {}
+                    : { backgroundColor: vars.color.vaultWhite }),
                 }}
-                backgroundColor={menuOpen ? undefined : vars.color.vaultWhite}
               />
               <Button
-                variant={menuOpen ? "ghost" : "primary"}
+                variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "primary"}
                 size="medium"
                 label="Sign in"
-                style={{ fontSize: 20 }}
+                style={{
+                  fontSize: 20,
+                  ...(darkGhost
+                    ? {
+                        color: "#fff",
+                        border: "1px solid #fff",
+                        backgroundColor: "transparent",
+                      }
+                    : {}),
+                }}
               />
               <ImageButton
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-pressed={menuOpen}
-                variant="filled"
+                variant={darkGhost ? "ghost" : "filled"}
                 shape="pill"
+                style={
+                  darkGhost
+                    ? {
+                        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.9)",
+                        color: "#fff",
+                      }
+                    : undefined
+                }
                 icon={
                   menuOpen
                     ? {
                         alt: "Close",
-                        // Inline X icon so we don't depend on assets
                         children: (
                           <svg
                             width="24"
@@ -134,6 +176,39 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
                           >
                             <path
                               d="M18 6L6 18M6 6l12 12"
+                              stroke={darkGhost ? "white" : "white"}
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        ),
+                      }
+                    : darkGhost
+                    ? {
+                        alt: "Menu",
+                        // White outlined hamburger for dark ghost mode
+                        children: (
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M4 7h16"
+                              stroke="white"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                            />
+                            <path
+                              d="M4 12h16"
+                              stroke="white"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                            />
+                            <path
+                              d="M4 17h16"
                               stroke="white"
                               strokeWidth={2}
                               strokeLinecap="round"

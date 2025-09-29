@@ -191,11 +191,13 @@ export const navItem = style({
 });
 
 export const navItemText = style({
+  color: vars.color.vaultBlack,
   marginBottom: 0,
   fontSize: 16,
 });
 
 export const navItemArrow = style({
+  color: vars.color.vaultBlack,
   fontSize: 20,
   marginBottom: 0,
 });
