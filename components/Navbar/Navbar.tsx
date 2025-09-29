@@ -108,13 +108,15 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
         >
           <div className={s.inner}>
             <div className={s.left}>
-              <Image
-                src={logoSrc}
-                alt="Vault Logo"
-                width={203 / 1.1}
-                height={40 / 1.1}
-                priority
-              />
+              <Link href="/" style={{ display: "inline-block" }}>
+                <Image
+                  src={logoSrc}
+                  alt="Vault Logo"
+                  width={203 / 1.1}
+                  height={40 / 1.1}
+                  priority
+                />
+              </Link>
             </div>
             <div className={s.right}>
               <Link href="/signup" style={{ textDecoration: "none" }}>

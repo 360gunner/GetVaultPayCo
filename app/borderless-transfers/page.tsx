@@ -76,49 +76,7 @@ export default function BorderlessTransfersPage() {
           />
         }
       />
-      <Container size="full">
-        <Typography
-          as="h1"
-          font="Instrument Sans"
-          weight={400}
-          style={{
-            fontSize: "60px",
-            lineHeight: "91%",
-            letterSpacing: "-0.58px",
-          }}
-        >
-          Start Your Vault Pay Wallet
-        </Typography>
-      </Container>
-      <FeatureGridSection
-        containerSize="full"
-        sectionPadding="24px"
-        minColWidth={280}
-        gap="xl"
-        items={[
-          {
-            src: "/Group 1000.png",
-            alt: "Fast transfers",
-            title: "Add a bank account",
-            description:
-              "Link an existing bank account to your Vault Pay account.",
-          },
-          {
-            src: "/Group 1001.png",
-            alt: "Multi-currency wallet",
-            title: "Verify account",
-            description:
-              "Verify your bank account to be sure your money gets there.",
-          },
-          {
-            src: "/Group 1002.png",
-            alt: "Social by design",
-            title: "Use & Transfer funds",
-            description:
-              "You’re good to go. Move money from Vault Pay to your bank account anytime.",
-          },
-        ]}
-      />
+
       <ImageLeftEyebrowRightSection
         variant="ltr"
         containerSize="lg"
@@ -172,10 +130,21 @@ export default function BorderlessTransfersPage() {
         fit="cover"
       />
       <Container
-        size="full"
+        size="xl"
         style={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
       >
-        <Accordion items={faqItems} multiple />
+        <Typography
+          as="h1"
+          font="Space Grotesk"
+          weight={400}
+          align="left"
+          style={{ fontSize: 64 }}
+        >
+          FAQs
+        </Typography>
+        <div style={{ marginTop: vars.space.lg }}>
+          <Accordion items={faqItems} multiple />
+        </div>
       </Container>
       <BottomCallToActionBanner />
       <Footer />
