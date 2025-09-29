@@ -47,6 +47,6 @@ export const medium = style({
 });
 
 export const large = style({
-  padding: `${vars.space.lg} ${vars.space.xl}`,
+  padding: `${vars.space.xl} ${vars.space.xxl}`,
   fontSize: "16px",
 });
