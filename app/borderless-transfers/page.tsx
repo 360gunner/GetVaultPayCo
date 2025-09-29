@@ -171,7 +171,12 @@ export default function BorderlessTransfersPage() {
         aspectRatio="1360 / 906"
         fit="cover"
       />
-      <Accordion items={faqItems} multiple />
+      <Container
+        size="full"
+        style={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
+      >
+        <Accordion items={faqItems} multiple />
+      </Container>
       <BottomCallToActionBanner />
       <Footer />
     </>
