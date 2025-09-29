@@ -819,7 +819,7 @@ export default function Home() {
                       style={{
                         position: "relative",
                         width: "100%",
-                        height: "min(50vw, 300px)",
+                        aspectRatio: "569/458",
                         borderRadius: 12,
                         overflow: "hidden",
                       }}
