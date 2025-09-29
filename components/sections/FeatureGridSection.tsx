@@ -63,13 +63,13 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
                   as="h4"
                   font="Instrument Sans"
                   weight={400}
-                  style={{ marginTop: vars.space.lg }}
+                  style={{ marginTop: vars.space.lg, fontSize: "30px" }}
                 >
                   {title}
                 </Typography>
                 <Typography
                   as="p"
-                  style={{ maxWidth: "75%", fontSize: "16px" }}
+                  style={{ maxWidth: "75%", fontSize: "20px" }}
                 >
                   {description}
                 </Typography>

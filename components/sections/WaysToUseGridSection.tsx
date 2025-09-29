@@ -24,9 +24,7 @@ export interface WaysToUseGridSectionProps {
 }
 
 const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
-  title = (
-    <>Ways to use Vault Pay</>
-  ),
+  title = <>Ways to use Vault Pay</>,
   items,
   containerSize = "full",
   sectionPadding = "24px 0",
@@ -52,7 +50,12 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
           {items.map(({ src, alt, label, width = 240, height = 180 }) => (
             <div key={label}>
               <Image src={src} alt={alt} width={width} height={height} />
-              <Typography as="h4" font="Instrument Sans" weight={400} style={{ marginTop: vars.space.lg }}>
+              <Typography
+                as="h4"
+                font="Instrument Sans"
+                weight={400}
+                style={{ marginTop: vars.space.lg, fontSize: "30px" }}
+              >
                 {label}
               </Typography>
             </div>
