@@ -820,7 +820,7 @@ export default function Home() {
                     gridTemplateColumns: "1fr auto",
                   }}
                 >
-                  <div>
+                  <div style={{ padding: vars.space.xl }}>
                     <div
                       style={{
                         position: "relative",
