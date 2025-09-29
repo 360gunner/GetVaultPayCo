@@ -859,7 +859,7 @@ export default function Home() {
               <Grid minColWidth={220} gap="xl" style={{ alignItems: "start" }}>
                 <div>
                   <Image
-                    src="/image 104.png"
+                    src="/Image 104.png"
                     alt="Fast transfers"
                     width={476}
                     unoptimized={true}
@@ -883,7 +883,7 @@ export default function Home() {
                 </div>
                 <div>
                   <Image
-                    src="/image 123.png"
+                    src="/Image 123.png"
                     alt="Multi-currency wallet"
                     width={476}
                     unoptimized={true}
@@ -907,7 +907,7 @@ export default function Home() {
                 </div>
                 <div>
                   <Image
-                    src="/image 124.png"
+                    src="/Image 124.png"
                     alt="Social by design"
                     width={476}
                     height={386}
