@@ -4,6 +4,7 @@ import Grid from "@/components/Layout/Grid";
 import Typography from "@/components/Typography/Typography";
 import { vars } from "@/styles/theme.css";
 import Image from "next/image";
+import Button from "@/components/Button/Button";
 
 export interface FeatureItem {
   src: string;
@@ -12,6 +13,8 @@ export interface FeatureItem {
   description: string;
   width?: number;
   height?: number;
+  buttonLabel?: string;
+  buttonHref?: string;
 }
 
 export interface FeatureGridSectionProps {
@@ -38,7 +41,16 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
           style={{ alignItems: "start" }}
         >
           {items.map(
-            ({ src, alt, title, description, width = 476, height = 386 }) => (
+            ({
+              src,
+              alt,
+              title,
+              description,
+              width = 476,
+              height = 386,
+              buttonLabel,
+              buttonHref,
+            }) => (
               <div key={title}>
                 <Image
                   src={src}
@@ -61,6 +73,18 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
                 >
                   {description}
                 </Typography>
+                {buttonLabel && (
+                  <Button
+                    style={{
+                      borderColor: vars.color.vaultBlack,
+                      borderWidth: "1px",
+                      borderStyle: "solid",
+                      boxShadow: "none",
+                    }}
+                    variant="secondary"
+                    label={buttonLabel}
+                  />
+                )}
               </div>
             )
           )}

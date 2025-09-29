@@ -24,6 +24,7 @@ export interface SplitHeroProps {
   gridTemplateColumns?: string;
   containerStyle?: React.CSSProperties;
   underImage?: React.ReactNode;
+  underDescription?: React.ReactNode;
   titleFontSize?: number;
 }
 
@@ -44,6 +45,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
   gridTemplateColumns = "1fr 1fr",
   containerStyle,
   underImage,
+  underDescription,
   titleFontSize,
 }) => {
   return (
@@ -112,6 +114,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
                 {description}
               </Typography>
             ) : null}
+            {underDescription}
             {buttonLabel ? (
               <div>
                 <Button
