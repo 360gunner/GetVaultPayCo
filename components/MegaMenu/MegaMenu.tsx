@@ -1,6 +1,7 @@
 import React from "react";
 import * as s from "./MegaMenu.css";
 import Image from "next/image";
+import Link from "next/link";
 import Typography from "@/components/Typography/Typography";
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icon/Icon";
@@ -34,6 +35,16 @@ const actions: ActionItem[] = [
   { label: "Refill your Wallet", src: "/dollar_green_icon.png", alt: "Wallet" },
 ];
 
+// Map action labels to routes used in Link wrappers
+const actionRouteMap: Record<string, string> = {
+  "Send money internationally": "/borderless-transfers",
+  "Pay bills": "/",
+  "Order a Card": "/cards",
+  "Share with friends & family": "/",
+  "Set up your shop": "/",
+  "Refill your Wallet": "/",
+};
+
 const nav = [
   {
     title: "Send & Receive",
@@ -58,6 +69,21 @@ const nav = [
   },
 ];
 
+// Map nav item labels to routes used in Link wrappers
+const navRouteMap: Record<string, string> = {
+  "How it Works": "/",
+  "Manage your wallet": "/",
+  "Borderless transfers": "/borderless-transfers",
+  "Security & Protection": "/security-and-protection",
+  "Business Accounts": "/",
+  "Online & In-App": "/",
+  "In Stores": "/",
+  Advantages: "/",
+  "Ways to Pay": "/",
+  Cards: "/",
+  "Share with a Friend": "/",
+};
+
 const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
   return (
     <div
@@ -70,11 +96,11 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
         {/* Left: Action cards */}
         <div className={s.cardsGrid}>
           {actions.map((a) => (
-            <div
+            <Link
               key={a.label}
               className={s.actionCard}
-              role="button"
-              tabIndex={0}
+              href={actionRouteMap[a.label] || "/"}
+              onClick={onClose}
             >
               {/* SVG black background with slight slant */}
               <svg
@@ -104,7 +130,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
               >
                 {a.label}
               </Typography>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -121,7 +147,12 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
                 {group.title}
               </Typography>
               {group.items.map((it) => (
-                <div key={it} className={s.navItem} role="link" tabIndex={0}>
+                <Link
+                  key={it}
+                  className={s.navItem}
+                  href={navRouteMap[it] || "/"}
+                  onClick={onClose}
+                >
                   <Typography as="span" className={s.navItemText}>
                     {it}
                   </Typography>
@@ -132,7 +163,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
                   >
                     →
                   </Typography>{" "}
-                </div>
+                </Link>
               ))}
             </div>
           ))}
@@ -159,15 +190,17 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
               >
                 Start your vault
               </Typography>
-              <Button
-                variant="colored"
-                size="medium"
-                backgroundColor={vars.color.neonMint}
-              >
-                <Typography as="span" style={{ margin: 0, fontWeight: 400 }}>
-                  Signup for Free
-                </Typography>
-              </Button>
+              <Link href="/signup" onClick={onClose}>
+                <Button
+                  variant="colored"
+                  size="medium"
+                  backgroundColor={vars.color.neonMint}
+                >
+                  <Typography as="span" style={{ margin: 0, fontWeight: 400 }}>
+                    Signup for Free
+                  </Typography>
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

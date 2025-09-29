@@ -862,6 +862,7 @@ export default function Home() {
                     src="/image 104.png"
                     alt="Fast transfers"
                     width={476}
+                    unoptimized={true}
                     height={386}
                   />
                   <Typography
@@ -885,6 +886,7 @@ export default function Home() {
                     src="/image 123.png"
                     alt="Multi-currency wallet"
                     width={476}
+                    unoptimized={true}
                     height={386}
                   />
                   <Typography
@@ -909,6 +911,7 @@ export default function Home() {
                     alt="Social by design"
                     width={476}
                     height={386}
+                    unoptimized={true}
                   />
                   <Typography
                     as="h4"

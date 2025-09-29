@@ -32,18 +32,38 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
   return (
     <section style={{ padding: sectionPadding }}>
       <Container size={containerSize}>
-        <Grid minColWidth={minColWidth} gap={gap} style={{ alignItems: "start" }}>
-          {items.map(({ src, alt, title, description, width = 476, height = 386 }) => (
-            <div key={title}>
-              <Image src={src} alt={alt} width={width} height={height} />
-              <Typography as="h4" font="Instrument Sans" weight={400} style={{ marginTop: vars.space.lg }}>
-                {title}
-              </Typography>
-              <Typography as="p" style={{ maxWidth: "75%", fontSize: "16px" }}>
-                {description}
-              </Typography>
-            </div>
-          ))}
+        <Grid
+          minColWidth={minColWidth}
+          gap={gap}
+          style={{ alignItems: "start" }}
+        >
+          {items.map(
+            ({ src, alt, title, description, width = 476, height = 386 }) => (
+              <div key={title}>
+                <Image
+                  src={src}
+                  alt={alt}
+                  width={width}
+                  height={height}
+                  unoptimized={true}
+                />
+                <Typography
+                  as="h4"
+                  font="Instrument Sans"
+                  weight={400}
+                  style={{ marginTop: vars.space.lg }}
+                >
+                  {title}
+                </Typography>
+                <Typography
+                  as="p"
+                  style={{ maxWidth: "75%", fontSize: "16px" }}
+                >
+                  {description}
+                </Typography>
+              </div>
+            )
+          )}
         </Grid>
       </Container>
     </section>
