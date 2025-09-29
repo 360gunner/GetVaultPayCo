@@ -40,7 +40,7 @@ const BenefitsSection: React.FC = () => {
   return (
     <section style={{ padding: "24px 0", minHeight: "100vh" }}>
       <Container
-        size="lg"
+        size="xl"
         style={{ paddingLeft: "64px", paddingRight: "64px" }}
       >
         <Grid minColWidth={360} style={{ alignItems: "center", columnGap: 60 }}>
@@ -58,7 +58,7 @@ const BenefitsSection: React.FC = () => {
               as="h1"
               font="Space Grotesk"
               weight={400}
-              style={{ fontSize: 64 }}
+              style={{ fontSize: 80 }}
             >
               How it Works{" "}
             </Typography>
@@ -82,9 +82,9 @@ const BenefitsSection: React.FC = () => {
                 >
                   <div
                     style={{
-                      width: 96,
-                      height: 96,
-                      borderRadius: 18,
+                      width: 118,
+                      height: 118,
+                      borderRadius: 20,
                       background: "#000",
                       display: "flex",
                       alignItems: "center",
@@ -93,11 +93,11 @@ const BenefitsSection: React.FC = () => {
                     }}
                   >
                     {iconSrc ? (
-                      <Image src={iconSrc} alt={title} width={48} height={48} />
+                      <Image src={iconSrc} alt={title} width={72} height={72} />
                     ) : (
                       <svg
-                        width="48"
-                        height="48"
+                        width="72"
+                        height="72"
                         viewBox="0 0 48 48"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@ const BenefitsSection: React.FC = () => {
                     <Typography
                       font="Instrument Sans"
                       as="h5"
-                      style={{ margin: 0, fontWeight: 400, fontSize: 32 }}
+                      style={{ margin: 0, fontWeight: 400, fontSize: 40 }}
                     >
                       {title}
                     </Typography>
@@ -132,7 +132,7 @@ const BenefitsSection: React.FC = () => {
                       style={{
                         margin: 0,
                         lineHeight: "91%",
-                        fontSize: "24px",
+                        fontSize: "26px",
                         letterSpacing: "-0.58px",
                       }}
                     >
@@ -157,10 +157,11 @@ const BenefitsSection: React.FC = () => {
                 aria-hidden
                 style={{
                   position: "absolute",
-                  right: -16,
-                  bottom: 16,
+                  right: 0,
+                  bottom: 0,
                   width: 300,
                   height: 200,
+                  transform: "translate(0%, 20%)",
                   zIndex: 0,
                   pointerEvents: "none",
                 }}
@@ -184,13 +185,14 @@ const BenefitsSection: React.FC = () => {
                   borderRadius: 12,
                   overflow: "hidden",
                   zIndex: 1,
+                  aspectRatio: "458 / 653",
                 }}
               >
                 <Image
                   src="/image 100.png"
                   alt="VaultPay preview"
-                  width={458 / 1.2}
-                  height={653 / 1.2}
+                  width={458}
+                  height={653}
                 />
               </div>
             </div>
