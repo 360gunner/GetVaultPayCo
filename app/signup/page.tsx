@@ -184,7 +184,7 @@ export default function SignUpPage() {
           {/* Footer text */}
           <div
             style={{
-              marginTop: 20,
+              marginTop: 32,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -193,26 +193,40 @@ export default function SignUpPage() {
               fontSize: 14,
             }}
           >
-            <span>Already have an account?</span>
-            <Link
-              href="/signin"
-              style={{ color: "#2563eb", textDecoration: "none" }}
+            <Typography
+              as="span"
+              font="Instrument Sans"
+              style={{ fontSize: 16 }}
+              weight={400}
             >
-              Sign in
-            </Link>
+              Already have an account?{" "}
+              <Link
+                href="/signin"
+                style={{ color: "#2563eb", textDecoration: "none" }}
+              >
+                Sign in
+              </Link>
+            </Typography>
           </div>
 
           {/* Bottom copyright */}
           <div
             style={{
-              marginTop: 16,
+              marginTop: 32,
               textAlign: "center",
               color: "#6b7280",
               fontFamily: "Instrument Sans, system-ui, sans-serif",
               fontSize: 12,
             }}
           >
-            © 2025 ALL RIGHTS RESERVED
+            <Typography
+              as="span"
+              font="Instrument Sans"
+              style={{ fontSize: 16 }}
+              weight={400}
+            >
+              © 2025 ALL RIGHTS RESERVED
+            </Typography>
           </div>
         </div>
       </main>
