@@ -888,13 +888,13 @@ export default function Home() {
                     as="h4"
                     font="Instrument Sans"
                     weight={400}
-                    style={{ marginTop: vars.space.lg }}
+                    style={{ marginTop: vars.space.lg, fontSize: 30 }}
                   >
                     Multi-Currency Wallet
                   </Typography>
                   <Typography
                     as="p"
-                    style={{ maxWidth: "75%", fontSize: "16px" }}
+                    style={{ maxWidth: "75%", fontSize: "20px" }}
                   >
                     Hold and convert money across currencies with real-time FX
                     rates and no hidden fees.
@@ -912,13 +912,13 @@ export default function Home() {
                     as="h4"
                     font="Instrument Sans"
                     weight={400}
-                    style={{ marginTop: vars.space.lg }}
+                    style={{ marginTop: vars.space.lg, fontSize: 30 }}
                   >
                     Cross-Border Transfers{" "}
                   </Typography>
                   <Typography
                     as="p"
-                    style={{ maxWidth: "75%", fontSize: "16px" }}
+                    style={{ maxWidth: "75%", fontSize: "20px" }}
                   >
                     Send money instantly to friends and family in other
                     countries—no middlemen, no delays.
@@ -936,13 +936,13 @@ export default function Home() {
                     as="h4"
                     font="Instrument Sans"
                     weight={400}
-                    style={{ marginTop: vars.space.lg }}
+                    style={{ marginTop: vars.space.lg, fontSize: "30px" }}
                   >
                     Global Bill Pay
                   </Typography>
                   <Typography
                     as="p"
-                    style={{ maxWidth: "75%", fontSize: "16px" }}
+                    style={{ maxWidth: "75%", fontSize: "20px" }}
                   >
                     Pay for utilities, phone service, or subscriptions across
                     borders using one simple interface.
@@ -955,17 +955,25 @@ export default function Home() {
           {/* Feature Section: Borderless payments for all */}
           <section style={{ padding: "24px 0" }}>
             <Container
-              size="lg"
+              size="xl"
               style={{ paddingRight: "48px", paddingLeft: "48px" }}
             >
               <Stack gap="sm">
-                <Typography as="h1" font="Space Grotesk" weight={400}>
+                <Typography
+                  as="h1"
+                  font="Space Grotesk"
+                  weight={400}
+                  style={{ fontSize: "80px" }}
+                >
                   Use everywhere you use <br /> Visa & Mastercard.
                 </Typography>
                 <Grid
                   minColWidth={320}
                   gap="xl"
-                  style={{ alignItems: "center" }}
+                  style={{
+                    alignItems: "center",
+                    gridTemplateColumns: "1fr 1fr",
+                  }}
                 >
                   <div>
                     <Image
@@ -976,10 +984,15 @@ export default function Home() {
                     />
                   </div>
                   <div style={{ maxWidth: "80%" }}>
-                    <Typography as="h2" font="Instrument Sans" weight={400}>
+                    <Typography
+                      as="h2"
+                      font="Instrument Sans"
+                      weight={400}
+                      style={{ fontSize: "40px" }}
+                    >
                       Accepted wherever life takes you
                     </Typography>
-                    <Typography as="p">
+                    <Typography as="p" style={{ fontSize: "20px" }}>
                       VaultPay is partnered with Mastercard® and Visa®, so your
                       card works almost everywhere. From local shops to global
                       retailers, restaurants to ride-shares, you can pay with
@@ -987,8 +1000,9 @@ export default function Home() {
                       Mastercard are. One card, borderless access.{" "}
                     </Typography>
                     <Button
+                      style={{ marginTop: vars.space.lg }}
                       variant="secondary"
-                      size="medium"
+                      size="large"
                       label="Learn more"
                     />
                   </div>
