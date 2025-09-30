@@ -62,7 +62,8 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
           zIndex: 1,
           padding: `${vars.space.xxl} ${vars.space["xxl"]}`,
           paddingTop: `calc(90vw * 865 / 1400 * 0.15)`,
-          paddingRight: `calc(90vw * 0.1)`,
+          paddingRight: `calc(90vw * 0.05)`,
+          paddingLeft: `calc(90vw * 0.05)`,
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
@@ -103,7 +104,11 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
               as="h1"
               font="Instrument Sans"
               weight={400}
-              style={{ marginBottom: vars.space.xl, fontSize: 60 }}
+              style={{
+                marginBottom: vars.space.xl,
+                fontSize: 60,
+                maxWidth: "12ch",
+              }}
             >
               {title}
             </Typography>

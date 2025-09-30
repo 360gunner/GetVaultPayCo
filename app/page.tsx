@@ -14,6 +14,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { vars } from "@/styles/theme.css";
 import Image from "next/image";
+import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
 
 const BenefitsSection: React.FC = () => {
   const items: Array<{
@@ -524,136 +525,164 @@ const HeroSection: React.FC = () => {
 };
 const SecurityTrustSection: React.FC = () => {
   return (
-    <section
-      style={{
-        margin: `${vars.space.xl} 0`,
-        padding: 0,
-        position: "relative",
-        aspectRatio: "1400/865",
-        minHeight: "100vh",
-      }}
-    >
-      <Image
-        src="/bg_shape_cropped.svg"
-        alt="Background Shape"
-        width={1400}
-        height={865}
-        style={{
-          maxWidth: `95vw`,
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: `95vw`,
-          objectFit: "contain",
-          zIndex: -1,
-        }}
-      />
-      <Container
-        size="2xl"
-        style={{
-          zIndex: 1,
-          padding: `${vars.space.xxl} ${vars.space["xxl"]}`,
-          marginTop: `calc(90vw * 865 / 1400 * 0.15)`,
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          alignItems: "center",
-          height: `calc(90vw * 865 / 1400 * 0.85)`,
-        }}
-      >
-        <Grid
-          minColWidth={360}
-          gap="lg"
+    <GrayShapeBackgroundGridSection
+      imageSrc="/image1044.png"
+      imageWidth={690}
+      imageHeight={649}
+      eyebrow="SECURITY & TRUST"
+      title="The safe, speedy & secure borderless payment app."
+      body={
+        <Typography
+          as="p"
           style={{
-            alignItems: "center",
-            flex: 1,
-            justifyContent: "center",
-            height: "100%",
+            marginTop: vars.space.xl,
+            maxWidth: "30ch",
+            fontSize: 20,
           }}
         >
-          {/* Left column */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "start",
-              height: "100%",
-              justifyContent: "center",
-            }}
-          >
-            <Typography
-              as="h6"
-              font="Space Grotesk"
-              weight={400}
-              style={{ fontSize: 20 }}
-            >
-              SECURITY & TRUST
-            </Typography>
-            <Typography
-              as="h1"
-              font="Instrument Sans"
-              weight={400}
-              style={{ marginBottom: vars.space.xl, fontSize: 60 }}
-            >
-              The safe, speedy & secure borderless payment app.{" "}
-            </Typography>
-            <Typography
-              as="p"
-              style={{
-                marginTop: vars.space.xl,
-                maxWidth: "70%",
-                fontSize: 20,
-              }}
-            >
-              End-to-End Encryption – Your data is encrypted at every step.
-              <br />
-              <br />
-              PCI-DSS Compliant – We never store sensitive info directly.
-              <br />
-              <br />
-              Fraud Monitoring – AI-powered systems flag and prevent risk.
-            </Typography>
-            <div style={{ marginTop: vars.space.md }}>
-              <Button
-                variant="secondary"
-                size="medium"
-                style={{
-                  backgroundColor: "#fff",
-                  border: "1px solid black",
-                  boxShadow: "none",
-                  width: "9rem",
-                }}
-              >
-                <Typography as="span" style={{ fontSize: "12px" }} weight={400}>
-                  {" "}
-                  Learn more
-                </Typography>
-              </Button>
-            </div>
-          </div>
-          {/* Right column */}
-          <div>
-            <div
-              style={{
-                position: "relative",
-                aspectRatio: "690/649",
-                width: "100%",
-                borderRadius: 12,
-              }}
-            >
-              <Image
-                src="/image1044.png"
-                alt="Security illustration"
-                fill
-                // width={609}
-                // height={649}
-              />
-            </div>
-          </div>
-        </Grid>
-      </Container>
-    </section>
+          End-to-End Encryption – Your data is encrypted at every step.
+          <br />
+          <br />
+          PCI-DSS Compliant – We never store sensitive info directly.
+          <br />
+          <br />
+          Fraud Monitoring – AI-powered systems flag and prevent risk.
+        </Typography>
+      }
+      buttonLabel="Learn more"
+    />
   );
+  // return (
+  //   <section
+  //     style={{
+  //       margin: `${vars.space.xl} 0`,
+  //       padding: 0,
+  //       position: "relative",
+  //       aspectRatio: "1400/865",
+  //       minHeight: "100vh",
+  //     }}
+  //   >
+  //     <Image
+  //       src="/bg_shape_cropped.svg"
+  //       alt="Background Shape"
+  //       width={1400}
+  //       height={865}
+  //       style={{
+  //         maxWidth: `95vw`,
+  //         position: "absolute",
+  //         left: 0,
+  //         top: 0,
+  //         width: `95vw`,
+  //         objectFit: "contain",
+  //         zIndex: -1,
+  //       }}
+  //     />
+  //     <Container
+  //       size="2xl"
+  //       style={{
+  //         zIndex: 1,
+  //         padding: `${vars.space.xxl} ${vars.space["xxl"]}`,
+  //         marginTop: `calc(90vw * 865 / 1400 * 0.15)`,
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         flexDirection: "column",
+  //         alignItems: "center",
+  //         height: `calc(90vw * 865 / 1400 * 0.85)`,
+  //       }}
+  //     >
+  //       <Grid
+  //         minColWidth={360}
+  //         gap="lg"
+  //         style={{
+  //           alignItems: "center",
+  //           flex: 1,
+  //           justifyContent: "center",
+  //           height: "100%",
+  //         }}
+  //       >
+  //         {/* Left column */}
+  //         <div
+  //           style={{
+  //             display: "flex",
+  //             flexDirection: "column",
+  //             alignItems: "start",
+  //             height: "100%",
+  //             justifyContent: "center",
+  //           }}
+  //         >
+  //           <Typography
+  //             as="h6"
+  //             font="Space Grotesk"
+  //             weight={400}
+  //             style={{ fontSize: 20 }}
+  //           >
+  //             SECURITY & TRUST
+  //           </Typography>
+  //           <Typography
+  //             as="h1"
+  //             font="Instrument Sans"
+  //             weight={400}
+  //             style={{ marginBottom: vars.space.xl, fontSize: 60 }}
+  //           >
+  //             The safe, speedy & secure borderless payment app.{" "}
+  //           </Typography>
+  //           <Typography
+  //             as="p"
+  //             style={{
+  //               marginTop: vars.space.xl,
+  //               maxWidth: "70%",
+  //               fontSize: 20,
+  //             }}
+  //           >
+  //             End-to-End Encryption – Your data is encrypted at every step.
+  //             <br />
+  //             <br />
+  //             PCI-DSS Compliant – We never store sensitive info directly.
+  //             <br />
+  //             <br />
+  //             Fraud Monitoring – AI-powered systems flag and prevent risk.
+  //           </Typography>
+  //           <div style={{ marginTop: vars.space.md }}>
+  //             <Button
+  //               variant="secondary"
+  //               size="medium"
+  //               style={{
+  //                 backgroundColor: "#fff",
+  //                 border: "1px solid black",
+  //                 boxShadow: "none",
+  //                 width: "9rem",
+  //               }}
+  //             >
+  //               <Typography as="span" style={{ fontSize: "12px" }} weight={400}>
+  //                 {" "}
+  //                 Learn more
+  //               </Typography>
+  //             </Button>
+  //           </div>
+  //         </div>
+  //         {/* Right column */}
+  //         <div>
+  //           <div
+  //             style={{
+  //               position: "relative",
+  //               aspectRatio: "690/649",
+  //               width: "100%",
+  //               borderRadius: 12,
+  //             }}
+  //           >
+  //             <Image
+  //               src="/image1044.png"
+  //               alt="Security illustration"
+  //               fill
+  //               // width={609}
+  //               // height={649}
+  //             />
+  //           </div>
+  //         </div>
+  //       </Grid>
+  //     </Container>
+  //   </section>
+  // );
 };
 
 const SimpleSecureSocial: React.FC = () => {

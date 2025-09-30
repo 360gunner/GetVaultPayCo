@@ -104,6 +104,7 @@ export default function SendAndReceivePage() {
                 margin: 0,
                 fontSize: 20,
                 lineHeight: "91%",
+                maxWidth: "25ch",
                 letterSpacing: "-0.58px",
               }}
             >
