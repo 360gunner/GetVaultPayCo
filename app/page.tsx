@@ -41,7 +41,11 @@ const BenefitsSection: React.FC = () => {
     <section style={{ padding: "24px 0", minHeight: "100vh" }}>
       <Container
         size="xl"
-        style={{ paddingLeft: "64px", paddingRight: "64px" }}
+        style={{
+          paddingLeft: "64px",
+          paddingRight: "64px",
+          overflowX: "hidden",
+        }}
       >
         <Grid minColWidth={360} style={{ alignItems: "center", columnGap: 60 }}>
           {/* Left: Title + rows */}
@@ -159,9 +163,9 @@ const BenefitsSection: React.FC = () => {
                   position: "absolute",
                   right: 0,
                   bottom: 0,
-                  width: 300,
-                  height: 200,
-                  transform: "translate(0%, 20%)",
+                  width: 463,
+                  height: 238,
+                  transform: "translate(25%, -60%)",
                   zIndex: 0,
                   pointerEvents: "none",
                 }}
@@ -188,12 +192,7 @@ const BenefitsSection: React.FC = () => {
                   aspectRatio: "458 / 653",
                 }}
               >
-                <Image
-                  src="/image 100.png"
-                  alt="VaultPay preview"
-                  width={458}
-                  height={653}
-                />
+                <Image src="/image 100.png" alt="VaultPay preview" fill />
               </div>
             </div>
           </div>
@@ -215,7 +214,7 @@ const CallToActionSection: React.FC = () => {
             as="h4"
             font="Space Grotesk"
             weight={400}
-            style={{ marginLeft: "48px" }}
+            style={{ marginLeft: "48px", fontSize: 20 }}
           >
             Move Money Freely. Globally. Securely.
           </Typography>
@@ -223,7 +222,7 @@ const CallToActionSection: React.FC = () => {
             as="h1"
             font="Instrument Sans"
             weight={400}
-            style={{ marginLeft: "48px" }}
+            style={{ marginLeft: "48px", fontSize: 60 }}
           >
             Join thousands of users building <br /> better financial lives with{" "}
             <br />
@@ -527,81 +526,127 @@ const SecurityTrustSection: React.FC = () => {
   return (
     <section
       style={{
-        padding: "4rem 0",
-        paddingTop: "5rem",
-        backgroundImage: "url('/gray_bg_shape.png')",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "-8rem bottom",
-        backgroundSize: "auto 100%",
+        margin: `${vars.space.xl} 0`,
+        padding: 0,
+        position: "relative",
+        aspectRatio: "1400/865",
         minHeight: "100vh",
       }}
     >
-      <Container size="lg">
-        <Grid minColWidth={360} gap="lg" style={{ alignItems: "center" }}>
+      <Image
+        src="/bg_shape_cropped.svg"
+        alt="Background Shape"
+        width={1400}
+        height={865}
+        style={{
+          maxWidth: `95vw`,
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: `95vw`,
+          objectFit: "contain",
+          zIndex: -1,
+        }}
+      />
+      <Container
+        size="2xl"
+        style={{
+          zIndex: 1,
+          padding: `${vars.space.xxl} ${vars.space["xxl"]}`,
+          marginTop: `calc(90vw * 865 / 1400 * 0.15)`,
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          height: `calc(90vw * 865 / 1400 * 0.85)`,
+        }}
+      >
+        <Grid
+          minColWidth={360}
+          gap="lg"
+          style={{
+            alignItems: "center",
+            flex: 1,
+            justifyContent: "center",
+            height: "100%",
+          }}
+        >
           {/* Left column */}
-          <div>
-            <Stack gap="sm">
-              <Typography as="h6" font="Space Grotesk" weight={400}>
-                SECURITY & TRUST
-              </Typography>
-              <Typography
-                as="h1"
-                font="Instrument Sans"
-                weight={400}
-                style={{ marginBottom: vars.space.xl }}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              height: "100%",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              as="h6"
+              font="Space Grotesk"
+              weight={400}
+              style={{ fontSize: 20 }}
+            >
+              SECURITY & TRUST
+            </Typography>
+            <Typography
+              as="h1"
+              font="Instrument Sans"
+              weight={400}
+              style={{ marginBottom: vars.space.xl, fontSize: 60 }}
+            >
+              The safe, speedy & secure borderless payment app.{" "}
+            </Typography>
+            <Typography
+              as="p"
+              style={{
+                marginTop: vars.space.xl,
+                maxWidth: "70%",
+                fontSize: 20,
+              }}
+            >
+              End-to-End Encryption – Your data is encrypted at every step.
+              <br />
+              <br />
+              PCI-DSS Compliant – We never store sensitive info directly.
+              <br />
+              <br />
+              Fraud Monitoring – AI-powered systems flag and prevent risk.
+            </Typography>
+            <div style={{ marginTop: vars.space.md }}>
+              <Button
+                variant="secondary"
+                size="medium"
+                style={{
+                  backgroundColor: "#fff",
+                  border: "1px solid black",
+                  boxShadow: "none",
+                  width: "9rem",
+                }}
               >
-                The safe, speedy & secure borderless payment app.{" "}
-              </Typography>
-              <Typography
-                as="p"
-                style={{ marginTop: vars.space.xl, maxWidth: "70%" }}
-              >
-                End-to-End Encryption – Your data is encrypted at every step.
-                <br />
-                <br />
-                PCI-DSS Compliant – We never store sensitive info directly.
-                <br />
-                <br />
-                Fraud Monitoring – AI-powered systems flag and prevent risk.
-              </Typography>
-              <div style={{ marginTop: vars.space.md }}>
-                <Button
-                  variant="secondary"
-                  size="medium"
-                  style={{
-                    backgroundColor: "#fff",
-                    border: "1px solid black",
-                    boxShadow: "none",
-                    width: "9rem",
-                  }}
-                >
-                  <Typography
-                    as="span"
-                    style={{ fontSize: "12px" }}
-                    weight={400}
-                  >
-                    {" "}
-                    Learn more
-                  </Typography>
-                </Button>
-              </div>
-            </Stack>
+                <Typography as="span" style={{ fontSize: "12px" }} weight={400}>
+                  {" "}
+                  Learn more
+                </Typography>
+              </Button>
+            </div>
           </div>
           {/* Right column */}
           <div>
             <div
               style={{
                 position: "relative",
+                aspectRatio: "690/649",
                 width: "100%",
-                height: "min(60vw, 360px)",
                 borderRadius: 12,
               }}
             >
               <Image
                 src="/image1044.png"
                 alt="Security illustration"
-                width={609}
-                height={649}
+                fill
+                // width={609}
+                // height={649}
               />
             </div>
           </div>
@@ -650,8 +695,8 @@ const SimpleSecureSocial: React.FC = () => {
     <div
       style={{
         background: vars.gradients.vpGradient,
-        borderRadius: 16,
-        padding: 16,
+        borderRadius: 30,
+        padding: 24,
         flex: 1,
         display: "flex",
         flexDirection: "column",
@@ -662,9 +707,9 @@ const SimpleSecureSocial: React.FC = () => {
     >
       <div
         style={{
-          width: 44,
-          height: 44,
-          borderRadius: 8,
+          width: 80,
+          height: 80,
+          borderRadius: 11,
           background: "#000",
           display: "flex",
           alignItems: "center",
@@ -672,11 +717,11 @@ const SimpleSecureSocial: React.FC = () => {
         }}
       >
         {iconSrc ? (
-          <Image src={iconSrc} alt={title} width={22} height={22} />
+          <Image src={iconSrc} alt={title} width={48} height={48} />
         ) : (
           <svg
-            width="22"
-            height="22"
+            width="48"
+            height="48"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -696,28 +741,39 @@ const SimpleSecureSocial: React.FC = () => {
           gap: 4,
         }}
       >
-        <Typography as="h4" font="Instrument Sans" weight={400}>
+        <Typography
+          as="h4"
+          font="Instrument Sans"
+          weight={400}
+          style={{ fontSize: 30 }}
+        >
           {title}
         </Typography>
-        <Typography font="Instrument Sans" as="p">
+        <Typography font="Instrument Sans" as="p" style={{ fontSize: 20 }}>
           {text}
         </Typography>
       </div>
     </div>
   );
 
+  const gridGap = vars.space["xxxl"];
   return (
     <section style={{ padding: "24px 0", minHeight: "90vh" }}>
-      <Container size="xl">
+      <Container size="2xl" style={{ padding: gridGap }}>
         <Stack gap="sm">
-          <Typography as="h2" font="Space Grotesk" weight={400}>
+          <Typography
+            as="h2"
+            font="Space Grotesk"
+            weight={400}
+            style={{ fontSize: 60 }}
+          >
             Simple, Secure, Social
           </Typography>
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1.5fr 1fr",
-              gap: 16,
+              gap: gridGap,
               alignItems: "stretch",
             }}
           >
@@ -728,7 +784,7 @@ const SimpleSecureSocial: React.FC = () => {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 alignItems: "end",
-                gap: 16,
+                gap: gridGap,
               }}
             >
               {leftItems.map((it) => (
@@ -770,7 +826,7 @@ const SimpleSecureSocial: React.FC = () => {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 alignItems: "start",
-                gap: 16,
+                gap: gridGap,
               }}
             >
               {rightItems.map((it) => (
@@ -877,7 +933,7 @@ export default function Home() {
 
           {/* Feature Grid: image on top, title and subtitle */}
           <section style={{ padding: "24px" }}>
-            <Container size="full">
+            <Container size="2xl">
               <Grid minColWidth={220} gap="xl" style={{ alignItems: "start" }}>
                 <div>
                   <Image
@@ -958,7 +1014,7 @@ export default function Home() {
           {/* Feature Section: Borderless payments for all */}
           <section style={{ padding: "24px 0" }}>
             <Container
-              size="xl"
+              size="2xl"
               style={{ paddingRight: "48px", paddingLeft: "48px" }}
             >
               <Stack gap="sm">
@@ -978,12 +1034,18 @@ export default function Home() {
                     gridTemplateColumns: "1fr 1fr",
                   }}
                 >
-                  <div>
+                  <div
+                    style={{
+                      aspectRatio: "569/458",
+                      width: "100%",
+                      position: "relative",
+                    }}
+                  >
                     <Image
                       src="/visa.PNG"
                       alt="Cross-border payments"
-                      width={569}
-                      height={458}
+                      fill
+                      style={{ objectFit: "cover" }}
                     />
                   </div>
                   <div style={{ maxWidth: "80%" }}>

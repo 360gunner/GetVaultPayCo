@@ -14,6 +14,6 @@ export const size = styleVariants({
   md: { maxWidth: 768 },
   lg: { maxWidth: 1024 },
   xl: { maxWidth: 1280 },
-  "2xl": { maxWidth: 1536 },
+  "2xl": { maxWidth: 1920 },
   full: { maxWidth: "100%" },
 });

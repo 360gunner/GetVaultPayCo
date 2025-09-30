@@ -31,7 +31,7 @@ export const vars = createThemeContract({
     sm: "6px",
     md: "8px",
     lg: "12px",
-    xl: "12px",
+    xl: "16px",
     xxl: "24px",
     xxxl: "32px",
     "4xl": "48px",
