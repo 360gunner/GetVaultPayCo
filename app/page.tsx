@@ -427,7 +427,7 @@ const HeroSection: React.FC = () => {
               as="h1"
               font="Space Grotesk"
               style={{
-                fontSize: 96,
+                fontSize: 130,
                 fontWeight: 400,
                 lineHeight: "91%",
                 letterSpacing: "-2%",
@@ -454,7 +454,7 @@ const HeroSection: React.FC = () => {
                 size="medium"
                 backgroundColor={vars.color.neonMint}
               >
-                <Typography as="span" margin={0} style={{ fontSize: 20 }}>
+                <Typography as="span" margin={0} style={{ fontSize: 26 }}>
                   Start for Free
                 </Typography>
               </Button>
