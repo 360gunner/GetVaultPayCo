@@ -16,19 +16,18 @@ export default function SendAndReceivePage() {
       <Navbar />
       <SplitHero
         eyebrow="SEND & RECEIVE"
-        title="Your powerful personal payments wallet."
+        title={"Your powerful personal payments wallet."}
         description="Opt for the ease of Vault Pay payment services. Sending money and making online payments has never been simpler, quicker, or more secure. No need to share your bank account or credit card codes during transactions. Just use your email address or scan the QR code – that's all it takes for seamless transfers and online purchases."
         buttonLabel="Learn more"
         buttonVariant="secondary"
         imageSrc="/Group 979.png"
         imageAlt="Send and receive"
-        containerSize="xl"
         gridTemplateColumns="1fr 1fr"
         containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
         imageWidth={600}
         imageStyle={{
           width: "100%",
-          height: "auto",
+          // height: "auto",
         }}
         imageHeight={649}
         minColWidth={360}
@@ -89,12 +88,8 @@ export default function SendAndReceivePage() {
             iconSrc: "/dollar_icon.png",
           },
         ]}
-        imageSrc="/image 100.png"
+        imageSrc="/image 103.png"
         imageAlt="VaultPay preview"
-        containerSize="lg"
-        minColWidth={360}
-        columnGap={60}
-        titleFontSize={64}
       />
       <GrayShapeBackgroundGridSection
         eyebrow="PRICING"
@@ -135,8 +130,8 @@ export default function SendAndReceivePage() {
         buttonLabel="Learn more"
         imageSrc="/Group 980.png"
         imageAlt="Security illustration"
-        imageWidth={609 / 1.3}
-        imageHeight={649 / 1.3}
+        imageWidth={609}
+        imageHeight={649}
       />
       <BorderlessFeatureSection
         heading={
@@ -149,7 +144,7 @@ export default function SendAndReceivePage() {
         rightTitle={<></>}
         imageWidth={623}
         imageHeight={458}
-        imageStyle={{ transform: "translateX(-24px)" }}
+        imageStyle={{ transform: "translateX(0%)" }}
         rightBody={
           <>
             Express yourself with every payment: Share your transactions with
@@ -162,7 +157,7 @@ export default function SendAndReceivePage() {
       />
       <WaysToUseGridSection
         title={<>Ways to use Vault Pay</>}
-        containerSize="xl"
+        containerSize="2xl"
         sectionPadding="48px 24px"
         minColWidth={220}
         gap="xl"

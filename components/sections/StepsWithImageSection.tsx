@@ -34,15 +34,25 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
   decorativeSrc,
   decorativeWidth = 463,
   decorativeHeight = 238,
-  containerSize = "lg",
+  containerSize = "xl",
   minColWidth = 360,
   columnGap = 60,
-  titleFontSize = 64,
+  titleFontSize = 80,
 }) => {
   return (
     <section style={{ padding: "24px 0", minHeight: "100vh" }}>
-      <Container size={containerSize} style={{ paddingLeft: "64px", paddingRight: "64px" }}>
-        <Grid minColWidth={minColWidth} style={{ alignItems: "center", columnGap }}>
+      <Container
+        size={containerSize}
+        style={{
+          paddingLeft: "64px",
+          paddingRight: "64px",
+          overflowX: "hidden",
+        }}
+      >
+        <Grid
+          minColWidth={minColWidth}
+          style={{ alignItems: "center", columnGap }}
+        >
           {/* Left: Title + rows */}
           <div
             style={{
@@ -53,7 +63,12 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
               justifyContent: "space-between",
             }}
           >
-            <Typography as="h1" font="Space Grotesk" weight={400} style={{ fontSize: titleFontSize }}>
+            <Typography
+              as="h1"
+              font="Space Grotesk"
+              weight={400}
+              style={{ fontSize: titleFontSize }}
+            >
               {title}
             </Typography>
             <div
@@ -64,20 +79,21 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                 justifyContent: "space-between",
               }}
             >
-              {items.map(({ title: itemTitle, text, iconSrc }) => (
+              {items.map(({ title, text, iconSrc }) => (
                 <div
-                  key={itemTitle}
+                  key={title}
                   style={{
                     display: "flex",
                     alignItems: "center",
                     rowGap: 10,
+                    // maxWidth: "75%",
                   }}
                 >
                   <div
                     style={{
-                      width: 96,
-                      height: 96,
-                      borderRadius: 18,
+                      width: 118,
+                      height: 118,
+                      borderRadius: 20,
                       background: "#000",
                       display: "flex",
                       alignItems: "center",
@@ -86,10 +102,19 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                     }}
                   >
                     {iconSrc ? (
-                      <Image src={iconSrc} alt={itemTitle} width={48} height={48} />
+                      <Image src={iconSrc} alt={title} width={72} height={72} />
                     ) : (
-                      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z" fill="#FFFFFF" />
+                      <svg
+                        width="72"
+                        height="72"
+                        viewBox="0 0 48 48"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z"
+                          fill="#FFFFFF"
+                        />
                       </svg>
                     )}
                   </div>
@@ -102,14 +127,23 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                       padding: "8px 0 ",
                     }}
                   >
-                    <Typography font="Instrument Sans" as="h5" style={{ margin: 0, fontWeight: 400, fontSize: 32 }}>
-                      {itemTitle}
+                    <Typography
+                      font="Instrument Sans"
+                      as="h5"
+                      style={{ margin: 0, fontWeight: 400, fontSize: 40 }}
+                    >
+                      {title}
                     </Typography>
                     <Typography
                       font="Instrument Sans"
                       as="p"
                       weight={400}
-                      style={{ margin: 0, lineHeight: "91%", fontSize: "24px", letterSpacing: "-0.58px" }}
+                      style={{
+                        margin: 0,
+                        lineHeight: "91%",
+                        fontSize: "26px",
+                        letterSpacing: "-0.58px",
+                      }}
                     >
                       {text}
                     </Typography>
@@ -118,25 +152,40 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
               ))}
             </div>
           </div>
-          {/* Right: Image with optional decorative shape */}
+          {/* Right: Image with decorative shape */}
           <div>
-            <div style={{ position: "relative", width: "100%" }}>
-              {decorativeSrc ? (
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                // height: "min(60vw, 653px)",
+              }}
+            >
+              {/* Decorative shape (behind), bottom-right */}
+              {decorativeSrc && (
                 <div
                   aria-hidden
                   style={{
                     position: "absolute",
-                    right: -16,
-                    bottom: 16,
-                    width: 300,
-                    height: 200,
+                    right: 0,
+                    bottom: 0,
+                    width: 463,
+                    height: 238,
+                    transform: "translate(25%, -60%)",
                     zIndex: 0,
                     pointerEvents: "none",
                   }}
                 >
-                  <Image src={decorativeSrc} alt="decorative shape" width={decorativeWidth} height={decorativeHeight} />
+                  <Image
+                    src={decorativeSrc ?? "/decorative_vector_shape_1.png"}
+                    alt="decorative shape"
+                    width={decorativeWidth}
+                    height={decorativeHeight}
+                  />
                 </div>
-              ) : null}
+              )}
+
+              {/* Image box (on top) */}
               <div
                 style={{
                   position: "relative",
@@ -147,9 +196,10 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                   borderRadius: 12,
                   overflow: "hidden",
                   zIndex: 1,
+                  aspectRatio: "458 / 653",
                 }}
               >
-                <Image src={imageSrc} alt={imageAlt} width={458 / 1.2} height={653 / 1.2} />
+                <Image src={imageSrc} alt={imageAlt} fill />
               </div>
             </div>
           </div>

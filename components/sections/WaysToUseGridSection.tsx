@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "@/components/Layout/Container";
+import Container, { ContainerSize } from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
 import Typography from "@/components/Typography/Typography";
 import Image from "next/image";
@@ -16,7 +16,7 @@ export type WaysToUseItem = {
 export interface WaysToUseGridSectionProps {
   title?: React.ReactNode;
   items: WaysToUseItem[]; // expect 12 items for 4x3 grid
-  containerSize?: "sm" | "md" | "lg" | "xl" | "full";
+  containerSize?: ContainerSize;
   sectionPadding?: string | number;
   minColWidth?: number; // 220 gives up to 4 cols like homepage grid
   gap?: "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl" | "4xl" | "5xl";
@@ -35,7 +35,12 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
   return (
     <section style={{ padding: sectionPadding }}>
       <Container size={containerSize}>
-        <Typography as="h1" font="Space Grotesk" weight={400}>
+        <Typography
+          as="h1"
+          font="Space Grotesk"
+          weight={400}
+          style={{ fontSize: 60 }}
+        >
           {title}
         </Typography>
         <Grid

@@ -1,4 +1,4 @@
-import Container from "@/components/Layout/Container";
+import Container, { ContainerSize } from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
 import Stack from "@/components/Layout/Stack";
 import Typography from "@/components/Typography/Typography";
@@ -9,14 +9,14 @@ import React from "react";
 
 export interface SplitHeroProps {
   eyebrow?: string;
-  title: string;
+  title: string | React.ReactNode;
   description?: string;
   buttonLabel?: string;
   buttonVariant?: "primary" | "secondary" | "colored" | "ghost";
   onButtonClick?: () => void;
   imageSrc: string;
   imageAlt?: string;
-  containerSize?: "sm" | "md" | "lg" | "xl" | "full";
+  containerSize?: ContainerSize;
   minColWidth?: number;
   imageWidth?: number;
   imageHeight?: number;
@@ -37,16 +37,16 @@ const SplitHero: React.FC<SplitHeroProps> = ({
   onButtonClick,
   imageSrc,
   imageAlt = "",
-  containerSize = "lg",
+  containerSize = "2xl",
   minColWidth = 360,
   imageWidth = 520,
   imageHeight = 520,
   imageStyle,
-  gridTemplateColumns = "1fr 1fr",
+  gridTemplateColumns = "auto 1fr",
   containerStyle,
   underImage,
   underDescription,
-  titleFontSize,
+  titleFontSize = 80,
 }) => {
   return (
     <Container
@@ -64,69 +64,64 @@ const SplitHero: React.FC<SplitHeroProps> = ({
         minColWidth={minColWidth}
         style={{
           alignItems: "center",
+          justifyContent: "center",
           columnGap: vars.space["4xl"],
           gridTemplateColumns,
+          width: "100%",
         }}
       >
         {/* Left column: text */}
-        <div
-          style={{
-            height: "100%",
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
-        >
-          <Stack gap="sm">
-            {eyebrow ? (
-              <Typography
-                as="p"
-                font="Space Grotesk"
-                style={{ fontSize: 20, marginBottom: vars.space.sm }}
-              >
-                {eyebrow}
-              </Typography>
-            ) : null}
+
+        <Stack gap="lg">
+          {eyebrow ? (
             <Typography
-              as="h1"
+              as="p"
               font="Space Grotesk"
-              weight={400}
+              style={{ fontSize: 20, marginBottom: vars.space.sm }}
+            >
+              {eyebrow}
+            </Typography>
+          ) : null}
+          <Typography
+            as="h1"
+            font="Space Grotesk"
+            weight={400}
+            style={{
+              fontSize: titleFontSize,
+              marginBottom: vars.space.md,
+              maxWidth: "12ch",
+              lineHeight: "91%",
+            }}
+          >
+            {title}
+          </Typography>
+          {description ? (
+            <Typography
+              font="Instrument Sans"
+              as="p"
               style={{
-                fontSize: titleFontSize || 72,
-                marginBottom: vars.space.md,
-                lineHeight: "91%",
+                maxWidth: "40ch",
+                fontSize: 20,
+                lineHeight: "120%",
+                letterSpacing: "-0.4px",
               }}
             >
-              {title}
+              {description}
             </Typography>
-            {description ? (
-              <Typography
-                font="Instrument Sans"
-                as="p"
-                style={{
-                  maxWidth: "40ch",
-                  fontSize: 20,
-                  lineHeight: "120%",
-                  letterSpacing: "-0.4px",
-                }}
-              >
-                {description}
-              </Typography>
-            ) : null}
-            {underDescription}
-            {buttonLabel ? (
-              <div>
-                <Button
-                  variant={buttonVariant}
-                  size="medium"
-                  label={buttonLabel}
-                  onClick={onButtonClick}
-                />
-              </div>
-            ) : null}
-          </Stack>
-        </div>
+          ) : null}
+          {underDescription}
+          {buttonLabel ? (
+            <div>
+              <Button
+                variant={buttonVariant}
+                size="medium"
+                label={buttonLabel}
+                onClick={onButtonClick}
+              />
+            </div>
+          ) : null}
+        </Stack>
+
         {/* Right column: image */}
         <div
           style={{
@@ -136,13 +131,16 @@ const SplitHero: React.FC<SplitHeroProps> = ({
             justifyContent: "start",
             justifyItems: "start",
             alignContent: "start",
+            position: "relative",
+            aspectRatio: `${imageWidth} / ${imageHeight}`,
           }}
         >
           <Image
             src={imageSrc}
             alt={imageAlt}
-            width={imageWidth}
-            height={imageHeight}
+            fill
+            // width={imageWidth}
+            // height={imageHeight}
             style={imageStyle}
           />
           {underImage}

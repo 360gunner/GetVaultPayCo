@@ -47,20 +47,29 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
 }) => {
   return (
     <section style={{ padding: "24px 0" }}>
-      <Container size="md">
-        <Stack gap="sm">
-          <Typography as="h1" font="Space Grotesk" weight={400}>
+      <Container size="2xl">
+        <Stack gap="sm" style={{ padding: vars.space.xxl }}>
+          <Typography
+            as="h1"
+            font="Space Grotesk"
+            weight={400}
+            style={{ fontSize: 80, paddingLeft: "5vw" }}
+          >
             {heading}
           </Typography>
-          <Grid minColWidth={320} gap="lg" style={{ alignItems: "center" }}>
-            <div>
-              <Image
-                src={imageSrc}
-                alt={imageAlt}
-                width={imageWidth}
-                height={imageHeight}
-                style={imageStyle}
-              />
+          <Grid
+            minColWidth={320}
+            gap="xl"
+            style={{ alignItems: "center", gridTemplateColumns: "1.5fr 1fr" }}
+          >
+            <div
+              style={{
+                width: "100%",
+                aspectRatio: `${imageWidth} / ${imageHeight}`,
+                position: "relative",
+              }}
+            >
+              <Image src={imageSrc} alt={imageAlt} fill style={imageStyle} />
             </div>
             <div
               style={{
@@ -68,11 +77,18 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
                 paddingBottom: vars.space.xl,
               }}
             >
-              <Typography as="h2" font="Instrument Sans" weight={400}>
+              <Typography
+                as="h2"
+                font="Instrument Sans"
+                style={{ fontSize: 30 }}
+                weight={400}
+              >
                 {rightTitle}
               </Typography>
-              <Typography as="p">{rightBody}</Typography>
-              <Button variant="secondary" size="medium" label={buttonLabel} />
+              <Typography as="p" style={{ fontSize: 20, maxWidth: "40ch" }}>
+                {rightBody}
+              </Typography>
+              <Button variant="secondary" size="large" label={buttonLabel} />
             </div>
           </Grid>
         </Stack>
