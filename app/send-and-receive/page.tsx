@@ -109,7 +109,9 @@ export default function SendAndReceivePage() {
             >
               Enjoy minimal fees when sending or receiving money using your
               Vault Pay account or linked bank account.
+              <br />
             </Typography>
+
             <Typography
               as="p"
               font="Instrument Sans"
@@ -121,7 +123,9 @@ export default function SendAndReceivePage() {
               }}
             >
               $0 Signup fees <br />
+              <br />
               $0 Monthly fees
+              <br />
               <br />
               $0 Annual fees
             </Typography>

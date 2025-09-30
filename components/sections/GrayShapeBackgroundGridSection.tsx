@@ -16,6 +16,7 @@ export interface SecurityTrustProps {
   imageAlt?: string;
   imageWidth?: number;
   imageHeight?: number;
+  gridTemplateColumns?: string;
 }
 
 const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
@@ -27,6 +28,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
   imageAlt = "Security illustration",
   imageWidth = 609,
   imageHeight = 649,
+  gridTemplateColumns,
 }) => {
   return (
     <section
@@ -59,7 +61,8 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
         style={{
           zIndex: 1,
           padding: `${vars.space.xxl} ${vars.space["xxl"]}`,
-          marginTop: `calc(90vw * 865 / 1400 * 0.15)`,
+          paddingTop: `calc(90vw * 865 / 1400 * 0.15)`,
+          paddingRight: `calc(90vw * 0.1)`,
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
@@ -75,6 +78,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             flex: 1,
             justifyContent: "center",
             height: "100%",
+            gridTemplateColumns: gridTemplateColumns || "1fr 1fr",
           }}
         >
           {/* Left column */}
