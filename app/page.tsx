@@ -274,7 +274,7 @@ const CallToActionSection: React.FC = () => {
                 <Typography
                   as="h1"
                   font="Space Grotesk"
-                  style={{ color: "#fff", fontWeight: 400, fontSize: 96 }}
+                  style={{ color: "#fff", fontWeight: 400, fontSize: 130 }}
                 >
                   Start your vault
                 </Typography>
