@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "@/components/Layout/Container";
+import Container, { ContainerSize } from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
 import Typography from "@/components/Typography/Typography";
 import { vars } from "@/styles/theme.css";
@@ -19,7 +19,7 @@ export interface FeatureItem {
 
 export interface FeatureGridSectionProps {
   items: FeatureItem[];
-  containerSize?: "sm" | "md" | "lg" | "xl" | "full";
+  containerSize?: ContainerSize;
   sectionPadding?: string | number;
   minColWidth?: number; // controls how many columns fit; use 220 for up to 4 cols
   gap?: "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl" | "4xl" | "5xl";

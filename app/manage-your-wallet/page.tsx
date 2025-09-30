@@ -22,16 +22,9 @@ export default function ManageYourWalletPage() {
         buttonVariant="secondary"
         imageSrc="/Group 998.png"
         imageAlt="Send and receive"
-        containerSize="xl"
-        gridTemplateColumns="1fr 1fr"
         containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
         imageWidth={685}
-        imageStyle={{
-          width: "100%",
-          height: "auto",
-        }}
         imageHeight={649}
-        minColWidth={360}
         underImage={
           <Image
             src="/Group 999.png"
@@ -42,12 +35,15 @@ export default function ManageYourWalletPage() {
               // alignSelf: "center",
               width: "65%",
               height: "auto",
-              transform: "translateY(-30%) translateX(10%)",
+              position: "absolute",
+              bottom: 0,
+
+              transform: "translateY(70%) translateX(10%)",
             }}
           />
         }
       />
-      <Container size="full">
+      <Container size="2xl" style={{ paddingTop: "calc(226px * 0.3 + 32px)" }}>
         <Typography
           as="h1"
           font="Instrument Sans"
@@ -62,7 +58,7 @@ export default function ManageYourWalletPage() {
         </Typography>
       </Container>
       <FeatureGridSection
-        containerSize="full"
+        containerSize="2xl"
         sectionPadding="24px"
         minColWidth={280}
         gap="xl"
@@ -91,7 +87,7 @@ export default function ManageYourWalletPage() {
         ]}
       />
       <CardGridWithCentralImageSection
-        containerSize="xl"
+        containerSize="2xl"
         containerStyle={{ padding: `${vars.space.xl} ${vars.space["5xl"]}` }}
         leftItems={[
           {
@@ -145,15 +141,17 @@ export default function ManageYourWalletPage() {
         buttonVariant="secondary"
         imageSrc="/Group 1009.png"
         imageAlt="Vault Pay card"
-        containerSize="lg"
+        containerSize="2xl"
         titleFontSize={60}
-        gridTemplateColumns="1.3fr 1fr"
+        gridTemplateColumns="1.1fr 1fr"
         containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
         imageWidth={685}
-        imageStyle={{
-          width: "100%",
-          height: "auto",
-        }}
+        imageStyle={
+          {
+            // width: "100%",
+            // height: "auto",
+          }
+        }
         imageHeight={649}
         minColWidth={360}
         underImage={
@@ -166,7 +164,9 @@ export default function ManageYourWalletPage() {
               // alignSelf: "center",
               height: "auto",
               display: "block",
-              transform: "translateY(-50%) translateX(-70%)",
+              position: "absolute",
+              bottom: 0,
+              transform: "translateY(50%) translateX(-70%)",
             }}
           />
         }

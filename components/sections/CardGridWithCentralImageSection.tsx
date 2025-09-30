@@ -19,7 +19,13 @@ interface CardGridWithCentralImageSectionProps {
 }
 const CardGridWithCentralImageSection: React.FC<
   CardGridWithCentralImageSectionProps
-> = ({ leftItems, image, rightItems, containerSize, containerStyle }) => {
+> = ({
+  leftItems,
+  image,
+  rightItems,
+  containerSize = "2xl",
+  containerStyle,
+}) => {
   const Card = ({
     title,
     text,
@@ -32,8 +38,8 @@ const CardGridWithCentralImageSection: React.FC<
     <div
       style={{
         background: vars.gradients.vpGradient,
-        borderRadius: 16,
-        padding: 16,
+        borderRadius: 30,
+        padding: 24,
         flex: 1,
         display: "flex",
         flexDirection: "column",
@@ -44,9 +50,9 @@ const CardGridWithCentralImageSection: React.FC<
     >
       <div
         style={{
-          width: 44,
-          height: 44,
-          borderRadius: 8,
+          width: 80,
+          height: 80,
+          borderRadius: 11,
           background: "#000",
           display: "flex",
           alignItems: "center",
@@ -54,11 +60,11 @@ const CardGridWithCentralImageSection: React.FC<
         }}
       >
         {iconSrc ? (
-          <Image src={iconSrc} alt={title} width={22} height={22} />
+          <Image src={iconSrc} alt={title} width={48} height={48} />
         ) : (
           <svg
-            width="22"
-            height="22"
+            width="48"
+            height="48"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -78,89 +84,112 @@ const CardGridWithCentralImageSection: React.FC<
           gap: 4,
         }}
       >
-        <Typography as="h4" font="Instrument Sans" weight={400}>
+        <Typography
+          as="h4"
+          font="Instrument Sans"
+          weight={400}
+          style={{ fontSize: 30 }}
+        >
           {title}
         </Typography>
-        <Typography font="Instrument Sans" as="p">
+        <Typography font="Instrument Sans" as="p" style={{ fontSize: 20 }}>
           {text}
         </Typography>
       </div>
     </div>
   );
 
+  const gridGap = vars.space["xxxl"];
   return (
     <section style={{ padding: "24px 0", minHeight: "90vh" }}>
-      <Container size={containerSize} style={containerStyle}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1.5fr 1fr",
-            gap: 16,
-            alignItems: "stretch",
-          }}
-        >
-          {/* Left column: two cards */}
+      <Container
+        size={containerSize}
+        style={{ padding: gridGap, ...containerStyle }}
+      >
+        <Stack gap="sm">
+          <Typography
+            as="h2"
+            font="Space Grotesk"
+            weight={400}
+            style={{ fontSize: 60 }}
+          >
+            Simple, Secure, Social
+          </Typography>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              alignItems: "end",
-              gap: 16,
+              display: "grid",
+              gridTemplateColumns: "1fr 1.5fr 1fr",
+              gap: gridGap,
+              alignItems: "stretch",
             }}
           >
-            {leftItems.map((it) => (
-              <Card
-                key={it.title}
-                title={it.title}
-                text={it.text}
-                iconSrc={it.iconSrc}
-              />
-            ))}
-          </div>
-
-          {/* Middle column: tall image */}
-          <div
-            style={{
-              aspectRatio: image.aspectRatio,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              height={image.height}
-              width={image.width}
+            {/* Left column: two cards */}
+            <div
               style={{
-                margin: "0 auto",
-                objectFit: "cover",
-                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                alignItems: "end",
+                gap: gridGap,
               }}
-            />
-          </div>
+            >
+              {leftItems.map((it) => (
+                <Card
+                  key={it.title}
+                  title={it.title}
+                  text={it.text}
+                  iconSrc={it.iconSrc}
+                />
+              ))}
+            </div>
 
-          {/* Right column: two cards */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              alignItems: "start",
-              gap: 16,
-            }}
-          >
-            {rightItems.map((it) => (
-              <Card
-                key={it.title}
-                title={it.title}
-                text={it.text}
-                iconSrc={it.iconSrc}
+            {/* Middle column: tall image */}
+            <div
+              style={{
+                aspectRatio:
+                  image.aspectRatio ||
+                  (image.width && image.height
+                    ? `${image.width}/${image.height}`
+                    : "56/78"),
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                style={{
+                  margin: "0 auto",
+                  objectFit: "cover",
+                  flex: 1,
+                }}
+                height={781}
               />
-            ))}
+            </div>
+
+            {/* Right column: two cards */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                alignItems: "start",
+                gap: gridGap,
+              }}
+            >
+              {rightItems.map((it) => (
+                <Card
+                  key={it.title}
+                  title={it.title}
+                  text={it.text}
+                  iconSrc={it.iconSrc}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        </Stack>
       </Container>
     </section>
   );
