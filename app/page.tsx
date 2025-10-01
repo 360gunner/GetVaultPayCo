@@ -39,7 +39,14 @@ const BenefitsSection: React.FC = () => {
     },
   ];
   return (
-    <section style={{ padding: "24px 0", minHeight: "100vh" }}>
+    <section
+      style={{
+        padding: "24px 0",
+        minHeight: "100vh",
+        marginTop: vars.space["4xl"],
+        marginBottom: vars.space["4xl"],
+      }}
+    >
       <Container
         size="xl"
         style={{
@@ -813,7 +820,14 @@ const SimpleSecureSocial: React.FC = () => {
   };
   const gridGap = vars.space["xxxl"];
   return (
-    <section style={{ padding: "24px 0", minHeight: "90vh" }}>
+    <section
+      style={{
+        padding: "24px 0",
+        minHeight: "90vh",
+        marginTop: vars.space["4xl"],
+        marginBottom: vars.space["4xl"],
+      }}
+    >
       <Container size="2xl" style={{ padding: gridGap }}>
         <Stack gap="sm">
           <Typography
@@ -1069,7 +1083,13 @@ export default function Home() {
           </section>
 
           {/* Feature Section: Borderless payments for all */}
-          <section style={{ padding: "24px 0" }}>
+          <section
+            style={{
+              padding: "24px 0",
+              marginTop: vars.space["4xl"],
+              marginBottom: vars.space["4xl"],
+            }}
+          >
             <Container
               size="2xl"
               style={{ paddingRight: "48px", paddingLeft: "48px" }}
