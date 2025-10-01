@@ -18,34 +18,41 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
 const BgShape: React.FC = () => (
   <div className={s.bgShape} aria-hidden>
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 1440 133"
+      width="1440"
+      height="135"
+      viewBox="0 0 1440 135"
       fill="none"
+      xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMaxYMax slice"
-      style={{ width: "100%", height: "100%", display: "block" }}
+      style={{
+        width: "103%",
+        height: "100%",
+        display: "block",
+        transform: "translateX(-2%)",
+      }}
     >
       <path
-        d="M1440 -8L-0.999988 -8C-14.5515 -8.00001 -17.7217 15.1459 -22 28L-30.5 57.5L-41.3663 91.6082C-48.1454 111.977 -32.9796 133 -11.5061 133L1370.65 133C1384.2 133 1396.23 124.326 1400.51 111.472L1440 -8Z"
-        fill="url(#paint0_linear_2245_312)"
+        d="M1442 -5.99994L1.00001 -5.99994C-12.5515 -5.99994 -15.7217 17.146 -20 30.0001L-28.5 59.5001L-39.3663 93.6082C-46.1454 113.977 -30.9796 135 -9.5061 135L1372.65 135C1386.2 135 1398.23 126.326 1402.51 113.472L1442 -5.99994Z"
+        fill="url(#paint0_linear_1_799)"
       />
       <defs>
         <linearGradient
-          id="paint0_linear_2245_312"
-          x1="249.216"
-          y1="-8.38997"
-          x2="-37.2109"
-          y2="115.275"
+          id="paint0_linear_1_799"
+          x1="251.216"
+          y1="-6.38991"
+          x2="-35.2109"
+          y2="117.275"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#06FF89" />
-          <stop offset="0.08" stopColor="#2CFF8D" />
-          <stop offset="0.19" stopColor="#5EFF93" />
-          <stop offset="0.29" stopColor="#85FF98" />
-          <stop offset="0.39" stopColor="#A1FF9C" />
-          <stop offset="0.47" stopColor="#B2FF9E" />
-          <stop offset="0.54" stopColor="#B8FF9F" />
-          <stop offset="0.71" stopColor="#C3F5B7" />
-          <stop offset="1" stopColor="#DBE2EA" />
+          <stop stop-color="#06FF89" />
+          <stop offset="0.08" stop-color="#2CFF8D" />
+          <stop offset="0.19" stop-color="#5EFF93" />
+          <stop offset="0.29" stop-color="#85FF98" />
+          <stop offset="0.39" stop-color="#A1FF9C" />
+          <stop offset="0.47" stop-color="#B2FF9E" />
+          <stop offset="0.54" stop-color="#B8FF9F" />
+          <stop offset="0.71" stop-color="#C3F5B7" />
+          <stop offset="1" stop-color="#DBE2EA" />
         </linearGradient>
       </defs>
     </svg>
@@ -121,7 +128,9 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
             <div className={s.right}>
               <Link href="/signup" style={{ textDecoration: "none" }}>
                 <Button
-                  variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "secondary"}
+                  variant={
+                    darkGhost ? "ghost" : menuOpen ? "ghost" : "secondary"
+                  }
                   size="medium"
                   label="Sign up"
                   style={{
