@@ -37,31 +37,32 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
         padding: 0,
         position: "relative",
         aspectRatio: "1400/865",
-        minHeight: "100vh",
+        maxHeight: "120vh",
         maxWidth: "100vw",
       }}
     >
-      <Image
-        src="/bg_shape_cropped.svg"
-        alt="Background Shape"
-        width={1400}
-        height={865}
-        style={{
-          maxWidth: `95vw`,
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: `95vw`,
-          objectFit: "contain",
-          zIndex: -1,
-        }}
-      />
+      <div style={{ position: "absolute", left: 0, top: 0, zIndex: -1 }}>
+        <Image
+          src="/bg_shape_cropped.svg"
+          alt="Background Shape"
+          width={1400}
+          height={865}
+          style={{
+            maxWidth: `95vw`,
+
+            aspectRatio: "1400/865",
+            width: `99vw`,
+            maxHeight: "120vh",
+          }}
+        />
+      </div>
+
       <Container
         size="2xl"
         style={{
           zIndex: 1,
           padding: `${vars.space.xxl} ${vars.space["xxl"]}`,
-          paddingTop: `calc(90vw * 865 / 1400 * 0.15)`,
+          paddingTop: `min(calc(90vw * 865 / 1400 * 0.12), calc(100vh * 0.12))`,
           paddingRight: `calc(90vw * 0.05)`,
           paddingLeft: `calc(90vw * 0.05)`,
           display: "flex",
@@ -69,6 +70,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
           flexDirection: "column",
           alignItems: "center",
           height: `calc(90vw * 865 / 1400 * 0.85)`,
+          maxHeight: "95vh",
         }}
       >
         <Grid
@@ -79,6 +81,8 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             flex: 1,
             justifyContent: "center",
             height: "100%",
+            width: "100%",
+            maxHeight: "95vh",
             gridTemplateColumns: gridTemplateColumns || "1fr 1fr",
           }}
         >
