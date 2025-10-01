@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "1440",
   initialScale: 1,
-  height: "700",
+  height: "900",
   colorScheme: "only light",
   viewportFit: "cover",
   maximumScale: 2,
