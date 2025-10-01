@@ -101,6 +101,7 @@ export default function ManageYourWalletPage() {
             title: "Make payments",
             text: "Store, send, convert, and protect your money in seconds.",
             iconSrc: "/dollar_icon.png",
+            index: 1,
             floatingTopRightImage: (
               <Image
                 src="/visa_mastercard.png"
@@ -120,6 +121,7 @@ export default function ManageYourWalletPage() {
             title: "Send Money",
             text: "Organize recurring payments and never miss a due date.",
             iconSrc: "/smile_icon.png",
+            index: 2,
           },
         ]}
         image={{
@@ -134,12 +136,14 @@ export default function ManageYourWalletPage() {
             title: "Transfer",
             text: "Organize recurring payments and never miss a due date.",
             iconSrc: "/send_icon.png",
+            index: 3,
           },
 
           {
             title: "Recieve Money",
             text: "Share, split, and interact with money like never before.",
             iconSrc: "/signal_icon.png",
+            index: 4,
           },
         ]}
       />

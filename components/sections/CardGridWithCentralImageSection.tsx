@@ -8,6 +8,7 @@ type SSSItem = {
   text: string;
   iconSrc?: string;
   floatingTopRightImage?: React.ReactNode;
+  index?: number;
 };
 interface CardGridWithCentralImageSectionProps {
   leftItems: SSSItem[];
@@ -36,84 +37,102 @@ const CardGridWithCentralImageSection: React.FC<
     text,
     iconSrc,
     floatingTopRightImage,
+    index,
   }: {
     title: string;
     text: string;
     iconSrc?: string;
     floatingTopRightImage?: React.ReactNode;
-  }) => (
-    <div
-      style={{
-        background: vars.gradients.vpGradient,
-        borderRadius: 30,
-        padding: 24,
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        aspectRatio: "1/1",
-        gap: 8,
-        maxWidth: "30vw",
-      }}
-    >
+    index?: number;
+  }) => {
+    const getGradient = (index?: number) => {
+      switch (index) {
+        case 1:
+          return vars.gradients.vpGradient;
+        case 2:
+          return vars.gradients.vpGradient2;
+        case 3:
+          return vars.gradients.vpGradient3;
+        case 4:
+          return vars.gradients.vpGradient4;
+        default:
+          return vars.gradients.vpGradient;
+      }
+    };
+    return (
       <div
         style={{
+          background: getGradient(index),
+          borderRadius: 30,
+          padding: 24,
+          flex: 1,
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          flexDirection: "column",
+          aspectRatio: "1/1",
+          gap: 8,
+          maxWidth: "30vw",
         }}
       >
         <div
           style={{
-            width: 80,
-            height: 80,
-            borderRadius: 11,
-            background: "#000",
             display: "flex",
+            justifyContent: "space-between",
             alignItems: "center",
-            justifyContent: "center",
           }}
         >
-          {iconSrc ? (
-            <Image src={iconSrc} alt={title} width={48} height={48} />
-          ) : (
-            <svg
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z"
-                fill="#FFFFFF"
-              />
-            </svg>
-          )}
+          <div
+            style={{
+              width: 80,
+              height: 80,
+              borderRadius: 11,
+              background: "#000",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {iconSrc ? (
+              <Image src={iconSrc} alt={title} width={48} height={48} />
+            ) : (
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z"
+                  fill="#FFFFFF"
+                />
+              </svg>
+            )}
+          </div>
+          {floatingTopRightImage}
         </div>
-        {floatingTopRightImage}
-      </div>
-      <div
-        style={{
-          marginTop: "auto",
-          display: "flex",
-          flexDirection: "column",
-          gap: 4,
-        }}
-      >
-        <Typography
-          as="h4"
-          font="Instrument Sans"
-          weight={400}
-          style={{ fontSize: 30 }}
+        <div
+          style={{
+            marginTop: "auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: 4,
+          }}
         >
-          {title}
-        </Typography>
-        <Typography font="Instrument Sans" as="p" style={{ fontSize: 20 }}>
-          {text}
-        </Typography>
+          <Typography
+            as="h4"
+            font="Instrument Sans"
+            weight={400}
+            style={{ fontSize: 30 }}
+          >
+            {title}
+          </Typography>
+          <Typography font="Instrument Sans" as="p" style={{ fontSize: 20 }}>
+            {text}
+          </Typography>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const gridGap = vars.space["xxxl"];
   return (
@@ -155,6 +174,7 @@ const CardGridWithCentralImageSection: React.FC<
                   title={it.title}
                   text={it.text}
                   iconSrc={it.iconSrc}
+                  index={it.index}
                   floatingTopRightImage={it.floatingTopRightImage}
                 />
               ))}
@@ -202,6 +222,7 @@ const CardGridWithCentralImageSection: React.FC<
                   title={it.title}
                   text={it.text}
                   iconSrc={it.iconSrc}
+                  index={it.index}
                   floatingTopRightImage={it.floatingTopRightImage}
                 />
               ))}

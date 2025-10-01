@@ -686,17 +686,24 @@ const SecurityTrustSection: React.FC = () => {
 };
 
 const SimpleSecureSocial: React.FC = () => {
-  type SSSItem = { title: string; text: string; iconSrc?: string };
+  type SSSItem = {
+    title: string;
+    text: string;
+    iconSrc?: string;
+    index: number;
+  };
   const leftItems: SSSItem[] = [
     {
       title: "Wallet",
       text: "Store, send, convert, and protect your money in seconds.",
       iconSrc: "/signup_icon.png",
+      index: 1,
     },
     {
       title: "Bills",
       text: "Organize recurring payments and never miss a due date.",
       iconSrc: "/drop_icon.png",
+      index: 2,
     },
   ];
   const rightItems: SSSItem[] = [
@@ -704,11 +711,13 @@ const SimpleSecureSocial: React.FC = () => {
       title: "Send international",
       text: "Organize recurring payments and never miss a due date.",
       iconSrc: "/globe_icon.png",
+      index: 3,
     },
     {
       title: "Social Payments",
       text: "Share, split, and interact with money like never before.",
       iconSrc: "/friend_icon.png",
+      index: 4,
     },
   ];
 
@@ -716,75 +725,92 @@ const SimpleSecureSocial: React.FC = () => {
     title,
     text,
     iconSrc,
+    index,
   }: {
     title: string;
     text: string;
     iconSrc?: string;
-  }) => (
-    <div
-      style={{
-        background: vars.gradients.vpGradient,
-        borderRadius: 30,
-        padding: 24,
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        aspectRatio: "1/1",
-        gap: 8,
-        maxWidth: "30vw",
-      }}
-    >
+    index: number;
+  }) => {
+    const getGradient = (index: number) => {
+      switch (index) {
+        case 1:
+          return vars.gradients.vpGradient;
+        case 2:
+          return vars.gradients.vpGradient2;
+        case 3:
+          return vars.gradients.vpGradient3;
+        case 4:
+          return vars.gradients.vpGradient4;
+        default:
+          return vars.gradients.vpGradient;
+      }
+    };
+    return (
       <div
         style={{
-          width: 80,
-          height: 80,
-          borderRadius: 11,
-          background: "#000",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {iconSrc ? (
-          <Image src={iconSrc} alt={title} width={48} height={48} />
-        ) : (
-          <svg
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z"
-              fill="#FFFFFF"
-            />
-          </svg>
-        )}
-      </div>
-      <div
-        style={{
-          marginTop: "auto",
+          background: getGradient(index),
+          borderRadius: 30,
+          padding: 24,
+          flex: 1,
           display: "flex",
           flexDirection: "column",
-          gap: 4,
+          aspectRatio: "1/1",
+          gap: 8,
+          maxWidth: "30vw",
         }}
       >
-        <Typography
-          as="h4"
-          font="Instrument Sans"
-          weight={400}
-          style={{ fontSize: 30 }}
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            borderRadius: 11,
+            background: "#000",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          {title}
-        </Typography>
-        <Typography font="Instrument Sans" as="p" style={{ fontSize: 20 }}>
-          {text}
-        </Typography>
+          {iconSrc ? (
+            <Image src={iconSrc} alt={title} width={48} height={48} />
+          ) : (
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z"
+                fill="#FFFFFF"
+              />
+            </svg>
+          )}
+        </div>
+        <div
+          style={{
+            marginTop: "auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: 4,
+          }}
+        >
+          <Typography
+            as="h4"
+            font="Instrument Sans"
+            weight={400}
+            style={{ fontSize: 30 }}
+          >
+            {title}
+          </Typography>
+          <Typography font="Instrument Sans" as="p" style={{ fontSize: 20 }}>
+            {text}
+          </Typography>
+        </div>
       </div>
-    </div>
-  );
-
+    );
+  };
   const gridGap = vars.space["xxxl"];
   return (
     <section style={{ padding: "24px 0", minHeight: "90vh" }}>
@@ -822,6 +848,7 @@ const SimpleSecureSocial: React.FC = () => {
                   title={it.title}
                   text={it.text}
                   iconSrc={it.iconSrc}
+                  index={it.index}
                 />
               ))}
             </div>
@@ -864,6 +891,7 @@ const SimpleSecureSocial: React.FC = () => {
                   title={it.title}
                   text={it.text}
                   iconSrc={it.iconSrc}
+                  index={it.index}
                 />
               ))}
             </div>

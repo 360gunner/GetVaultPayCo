@@ -25,6 +25,12 @@ export const vars = createThemeContract({
   gradients: {
     vpGradient:
       "linear-gradient(45deg, #06FF89 11.42%, #4DFF91 37.59%, #99FF9B 67.99%, #B8FF9F 82.13%)",
+    vpGradient2:
+      "linear-gradient(45deg, #06FF89 11.42%, #99FF9B 28.28%, #4DFF91 62.5%, #B8FF9F 82.13%)",
+    vpGradient3:
+      "linear-gradient(45deg, #06FF89 11.42%, #4DFF91 37.59%, #99FF9B 67.99%, #B8FF9F 82.13%)",
+    vpGradient4:
+      "linear-gradient(45deg, #06FF89 11.42%, #99FF9B 28.28%, #4DFF91 62.5%, #B8FF9F 82.13%)",
   },
   space: {
     xs: "4px",
@@ -64,6 +70,13 @@ export const themeClass = createTheme(vars, {
   gradients: {
     vpGradient:
       "linear-gradient(45deg, #06FF89 11.42%, #4DFF91 37.59%, #99FF9B 67.99%, #B8FF9F 82.13%)",
+    vpGradient2:
+      "linear-gradient(45deg, #06FF89 11.42%, #99FF9B 28.28%, #4DFF91 62.5%, #B8FF9F 82.13%)",
+    vpGradient3:
+      "linear-gradient(45deg, #06FF89 11.42%, #4DFF91 37.59%, #99FF9B 67.99%, #B8FF9F 82.13%)",
+
+    vpGradient4:
+      "linear-gradient(45deg, #06FF89 11.42%, #99FF9B 28.28%, #4DFF91 62.5%, #B8FF9F 82.13%)",
   },
   font: {
     body: "var(--font-instrument-sans)",
