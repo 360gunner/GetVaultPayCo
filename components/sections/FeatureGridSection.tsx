@@ -21,6 +21,7 @@ export interface FeatureGridSectionProps {
   items: FeatureItem[];
   containerSize?: ContainerSize;
   sectionPadding?: string | number;
+  sectionStyle?: React.CSSProperties;
   minColWidth?: number; // controls how many columns fit; use 220 for up to 4 cols
   gap?: "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl" | "4xl" | "5xl";
 }
@@ -29,11 +30,12 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
   items,
   containerSize = "full",
   sectionPadding = "24px",
+  sectionStyle = {},
   minColWidth = 220,
   gap = "xl",
 }) => {
   return (
-    <section style={{ padding: sectionPadding }}>
+    <section style={{ padding: sectionPadding, ...sectionStyle }}>
       <Container size={containerSize}>
         <Grid
           minColWidth={minColWidth}
@@ -69,7 +71,12 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
                 </Typography>
                 <Typography
                   as="p"
-                  style={{ maxWidth: "75%", fontSize: "20px" }}
+                  style={{
+                    maxWidth: "30ch",
+                    fontSize: "20px",
+                    lineHeight: "120%",
+                    letterSpacing: "-0.4px",
+                  }}
                 >
                   {description}
                 </Typography>

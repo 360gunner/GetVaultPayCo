@@ -23,7 +23,11 @@ export default function SendAndReceivePage() {
         imageSrc="/Group 979.png"
         imageAlt="Send and receive"
         gridTemplateColumns="1fr 1fr"
-        containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
+        containerStyle={{
+          padding: `${vars.space.xl} ${vars.space["4xl"]}`,
+          marginTop: vars.space["4xl"],
+          marginBottom: vars.space["4xl"],
+        }}
         imageWidth={600}
         imageStyle={{
           width: "100%",
@@ -35,41 +39,49 @@ export default function SendAndReceivePage() {
 
       <FeatureGridSection
         containerSize="full"
-        sectionPadding="24px"
+        sectionPadding={vars.space.md}
+        sectionStyle={{
+          marginTop: vars.space["4xl"],
+          marginBottom: vars.space["4xl"],
+        }}
         minColWidth={220}
-        gap="xl"
+        gap="lg"
         items={[
           {
-            src: "/image 104.png",
-            alt: "Fast transfers",
-            title: "Multi-Currency Wallet",
+            src: "/Mask group102.png",
+            alt: "Manage your money, anywhere",
+            title: "Manage your money, anywhere",
             description:
               "Hold and convert money across currencies with real-time FX rates and no hidden fees.",
           },
           {
-            src: "/image 123.png",
-            alt: "Multi-currency wallet",
-            title: "Cross-Border Transfers",
+            src: "/Mask group101.png",
+            alt: "Pay in-app & online",
+            title: "Pay in-app & online",
             description:
-              "Send money instantly to friends and family in other countries—no middlemen, no delays.",
+              "Enjoy 24/7 access to free statements every day, aiding you in better financial accessibility, budgeting, and money management.",
           },
           {
-            src: "/image 124.png",
-            alt: "Social by design",
-            title: "Global Bill Pay",
+            src: "/Mask group103.png",
+            alt: "Pay in-store",
+            title: "Pay in-store",
             description:
-              "Pay for utilities, phone service, or subscriptions across borders using one simple interface.",
+              "Share or send payments, follow, and keep track of your friends' purchases on your timeline.",
           },
           {
-            src: "/image 104.png",
-            alt: "Secure savings",
-            title: "Secure Savings",
+            src: "/Mask group104.png",
+            alt: "Pay with Vault Pay card",
+            title: "Pay with Vault Pay card",
             description:
-              "Grow your savings with transparent yields and full control over your funds.",
+              "Pay with your Vault Pay card at any merchant accepting Mastercard, Visa, or UnionPay.",
           },
         ]}
       />
       <StepsWithImageSection
+        sectionStyle={{
+          marginTop: vars.space["4xl"],
+          marginBottom: vars.space["4xl"],
+        }}
         title="How it Works"
         items={[
           {
@@ -165,6 +177,10 @@ export default function SendAndReceivePage() {
         containerSize="2xl"
         sectionPadding="48px 24px"
         minColWidth={220}
+        sectionStyle={{
+          marginTop: vars.space["4xl"],
+          marginBottom: vars.space["4xl"],
+        }}
         gap="xl"
         items={[
           {

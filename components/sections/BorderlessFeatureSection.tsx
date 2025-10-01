@@ -47,13 +47,13 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
 }) => {
   return (
     <section style={{ padding: "24px 0" }}>
-      <Container size="2xl">
+      <Container size="xl">
         <Stack gap="sm" style={{ padding: vars.space.xxl }}>
           <Typography
             as="h1"
             font="Space Grotesk"
             weight={400}
-            style={{ fontSize: 80, paddingLeft: "5vw" }}
+            style={{ fontSize: 80, paddingLeft: "3vw" }}
           >
             {heading}
           </Typography>

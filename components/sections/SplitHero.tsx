@@ -65,7 +65,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
         style={{
           alignItems: "center",
           justifyContent: "center",
-          columnGap: vars.space["4xl"],
+          columnGap: vars.space["xxl"],
           gridTemplateColumns,
           width: "100%",
         }}
@@ -96,18 +96,22 @@ const SplitHero: React.FC<SplitHeroProps> = ({
             {title}
           </Typography>
           {description ? (
-            <Typography
-              font="Instrument Sans"
-              as="p"
-              style={{
-                maxWidth: "40ch",
-                fontSize: 20,
-                lineHeight: "120%",
-                letterSpacing: "-0.4px",
-              }}
-            >
-              {description}
-            </Typography>
+            typeof description === "string" ? (
+              <Typography
+                font="Instrument Sans"
+                as="p"
+                style={{
+                  maxWidth: "40ch",
+                  fontSize: 20,
+                  lineHeight: "120%",
+                  letterSpacing: "-0.4px",
+                }}
+              >
+                {description}
+              </Typography>
+            ) : (
+              description
+            )
           ) : null}
           {underDescription}
           {buttonLabel ? (

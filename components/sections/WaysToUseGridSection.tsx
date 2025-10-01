@@ -18,6 +18,7 @@ export interface WaysToUseGridSectionProps {
   items: WaysToUseItem[]; // expect 12 items for 4x3 grid
   containerSize?: ContainerSize;
   sectionPadding?: string | number;
+  sectionStyle?: React.CSSProperties;
   minColWidth?: number; // 220 gives up to 4 cols like homepage grid
   gap?: "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl" | "4xl" | "5xl";
   columns?: number; // force exact number of columns, e.g., 4
@@ -28,18 +29,19 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
   items,
   containerSize = "full",
   sectionPadding = "24px 0",
+  sectionStyle = {},
   minColWidth = 220,
   gap = "xl",
   columns = 4,
 }) => {
   return (
-    <section style={{ padding: sectionPadding }}>
+    <section style={{ padding: sectionPadding, ...sectionStyle }}>
       <Container size={containerSize}>
         <Typography
           as="h1"
           font="Space Grotesk"
           weight={400}
-          style={{ fontSize: 60 }}
+          style={{ fontSize: 60, marginBottom: vars.space.xxl }}
         >
           {title}
         </Typography>

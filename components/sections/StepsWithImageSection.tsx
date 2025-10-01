@@ -24,6 +24,7 @@ export interface StepsWithImageSectionProps {
   minColWidth?: number;
   columnGap?: number;
   titleFontSize?: number;
+  sectionStyle?: React.CSSProperties;
 }
 
 const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
@@ -38,9 +39,10 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
   minColWidth = 360,
   columnGap = 60,
   titleFontSize = 80,
+  sectionStyle = {},
 }) => {
   return (
-    <section style={{ padding: "24px 0", minHeight: "100vh" }}>
+    <section style={{ padding: "24px 0", minHeight: "100vh", ...sectionStyle }}>
       <Container
         size={containerSize}
         style={{
