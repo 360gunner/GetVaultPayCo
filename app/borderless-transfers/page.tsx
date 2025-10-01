@@ -53,12 +53,11 @@ export default function BorderlessTransfersPage() {
         imageAlt="Send and receive"
         containerSize="xl"
         gridTemplateColumns="1fr 1fr"
-        containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
-        imageWidth={685}
-        imageStyle={{
-          width: "100%",
-          height: "auto",
+        containerStyle={{
+          padding: `${vars.space.xl} ${vars.space["4xl"]}`,
+          marginBottom: "calc(231px * 0.4 + 48px)",
         }}
+        imageWidth={685}
         imageHeight={649}
         minColWidth={360}
         underImage={
@@ -68,10 +67,11 @@ export default function BorderlessTransfersPage() {
             width={522}
             height={231}
             style={{
-              alignSelf: "end",
+              position: "absolute",
+              bottom: 0,
               width: "70%",
               height: "auto",
-              transform: "translateY(-40%) translateX(-10%)",
+              transform: "translateY(60%) translateX(20%)",
             }}
           />
         }

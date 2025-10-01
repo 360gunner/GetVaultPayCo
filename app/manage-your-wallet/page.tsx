@@ -18,11 +18,14 @@ export default function ManageYourWalletPage() {
         eyebrow="MANAGE & TOP-UP"
         title="Move your money faster"
         description="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute.*Transfer speed depends on your bank and could take up to 30 minutes. Transfers are reviewed which may result in delays or funds being frozen or removed from your Vault Pay account."
-        buttonLabel="Learn more"
+        buttonLabel="Get Started"
         buttonVariant="secondary"
         imageSrc="/Group 998.png"
         imageAlt="Send and receive"
-        containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
+        containerStyle={{
+          padding: `${vars.space.xl} ${vars.space["4xl"]}`,
+          marginBottom: "calc(226px * 0.3 + 48px)",
+        }}
         imageWidth={685}
         imageHeight={649}
         underImage={
@@ -58,6 +61,10 @@ export default function ManageYourWalletPage() {
         </Typography>
       </Container>
       <FeatureGridSection
+        sectionStyle={{
+          marginTop: vars.space["4xl"],
+          marginBottom: vars.space["4xl"],
+        }}
         containerSize="2xl"
         sectionPadding="24px"
         minColWidth={280}
@@ -144,7 +151,10 @@ export default function ManageYourWalletPage() {
         containerSize="2xl"
         titleFontSize={60}
         gridTemplateColumns="1.1fr 1fr"
-        containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
+        containerStyle={{
+          padding: `${vars.space.xl} ${vars.space["4xl"]}`,
+          marginBottom: "calc(319px * 0.5 + 48px)",
+        }}
         imageWidth={685}
         imageStyle={
           {

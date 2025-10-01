@@ -118,6 +118,7 @@ export default function WaysToPayPage() {
         containerStyle={{
           padding: `${vars.space.xl} ${vars.space["4xl"]}`,
           marginTop: vars.space["4xl"],
+          marginBottom: "calc(319px * 0.5 + 48px)",
         }}
         underDescription={
           <Image
@@ -135,10 +136,6 @@ export default function WaysToPayPage() {
           />
         }
         imageWidth={685}
-        imageStyle={{
-          width: "100%",
-          height: "auto",
-        }}
         imageHeight={649}
         minColWidth={360}
         underImage={
@@ -148,10 +145,12 @@ export default function WaysToPayPage() {
             width={621}
             height={319}
             style={{
+              position: "absolute",
+              bottom: 0,
               // alignSelf: "center",
               height: "auto",
               display: "block",
-              transform: "translateY(-50%) translateX(-70%)",
+              transform: "translateY(50%) translateX(-70%)",
             }}
           />
         }
