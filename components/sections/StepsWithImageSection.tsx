@@ -9,6 +9,7 @@ export type StepItem = {
   title: string;
   text: string;
   iconSrc?: string;
+  underDescriptionImage?: React.ReactNode;
 };
 
 export interface StepsWithImageSectionProps {
@@ -81,7 +82,7 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                 justifyContent: "space-between",
               }}
             >
-              {items.map(({ title, text, iconSrc }) => (
+              {items.map(({ title, text, iconSrc, underDescriptionImage }) => (
                 <div
                   key={title}
                   style={{
@@ -125,6 +126,7 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: "36px",
+                      position: "relative",
                       gap: 12,
                       padding: "8px 0 ",
                     }}
@@ -149,6 +151,7 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                     >
                       {text}
                     </Typography>
+                    {underDescriptionImage}
                   </div>
                 </div>
               ))}

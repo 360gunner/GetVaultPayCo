@@ -9,6 +9,7 @@ import Typography from "@/components/Typography/Typography";
 import BorderlessFeatureSection from "@/components/sections/BorderlessFeatureSection";
 import WaysToUseGridSection from "@/components/sections/WaysToUseGridSection";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
+import Image from "next/image";
 
 export default function SendAndReceivePage() {
   return (
@@ -98,6 +99,22 @@ export default function SendAndReceivePage() {
             title: "Pay & Save",
             text: "Send, spend, and pay bills all in one place.",
             iconSrc: "/dollar_icon.png",
+            underDescriptionImage: (
+              <Image
+                src="/visa_mastercard.png"
+                alt="Vault Pay card"
+                width={124}
+                unoptimized
+                height={47}
+                style={{
+                  width: "100px",
+                  height: "auto",
+                  display: "block",
+                  transform: "translateY(30%) translateX(0%)",
+                  marginBottom: vars.space.md,
+                }}
+              />
+            ),
           },
         ]}
         imageSrc="/image 103.png"
