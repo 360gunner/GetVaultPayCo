@@ -3,7 +3,12 @@ import Image from "next/image";
 import Typography from "@/components/Typography/Typography";
 import Container, { ContainerProps } from "@/components/Layout/Container";
 import Stack from "@/components/Layout/Stack";
-type SSSItem = { title: string; text: string; iconSrc?: string };
+type SSSItem = {
+  title: string;
+  text: string;
+  iconSrc?: string;
+  floatingTopRightImage?: React.ReactNode;
+};
 interface CardGridWithCentralImageSectionProps {
   leftItems: SSSItem[];
   image: {
@@ -30,10 +35,12 @@ const CardGridWithCentralImageSection: React.FC<
     title,
     text,
     iconSrc,
+    floatingTopRightImage,
   }: {
     title: string;
     text: string;
     iconSrc?: string;
+    floatingTopRightImage?: React.ReactNode;
   }) => (
     <div
       style={{
@@ -50,31 +57,40 @@ const CardGridWithCentralImageSection: React.FC<
     >
       <div
         style={{
-          width: 80,
-          height: 80,
-          borderRadius: 11,
-          background: "#000",
           display: "flex",
+          justifyContent: "space-between",
           alignItems: "center",
-          justifyContent: "center",
         }}
       >
-        {iconSrc ? (
-          <Image src={iconSrc} alt={title} width={48} height={48} />
-        ) : (
-          <svg
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z"
-              fill="#FFFFFF"
-            />
-          </svg>
-        )}
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            borderRadius: 11,
+            background: "#000",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {iconSrc ? (
+            <Image src={iconSrc} alt={title} width={48} height={48} />
+          ) : (
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z"
+                fill="#FFFFFF"
+              />
+            </svg>
+          )}
+        </div>
+        {floatingTopRightImage}
       </div>
       <div
         style={{
@@ -139,6 +155,7 @@ const CardGridWithCentralImageSection: React.FC<
                   title={it.title}
                   text={it.text}
                   iconSrc={it.iconSrc}
+                  floatingTopRightImage={it.floatingTopRightImage}
                 />
               ))}
             </div>
@@ -185,6 +202,7 @@ const CardGridWithCentralImageSection: React.FC<
                   title={it.title}
                   text={it.text}
                   iconSrc={it.iconSrc}
+                  floatingTopRightImage={it.floatingTopRightImage}
                 />
               ))}
             </div>

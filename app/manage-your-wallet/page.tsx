@@ -101,6 +101,19 @@ export default function ManageYourWalletPage() {
             title: "Make payments",
             text: "Store, send, convert, and protect your money in seconds.",
             iconSrc: "/dollar_icon.png",
+            floatingTopRightImage: (
+              <Image
+                src="/visa_mastercard.png"
+                alt="Vault Pay card"
+                width={124}
+                unoptimized
+                height={47}
+                style={{
+                  aspectRatio: "124 / 47",
+                  maxWidth: "124px",
+                }}
+              />
+            ),
           },
 
           {
