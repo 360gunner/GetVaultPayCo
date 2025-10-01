@@ -44,15 +44,15 @@ const BgShape: React.FC = () => (
           y2="117.275"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#06FF89" />
-          <stop offset="0.08" stop-color="#2CFF8D" />
-          <stop offset="0.19" stop-color="#5EFF93" />
-          <stop offset="0.29" stop-color="#85FF98" />
-          <stop offset="0.39" stop-color="#A1FF9C" />
-          <stop offset="0.47" stop-color="#B2FF9E" />
-          <stop offset="0.54" stop-color="#B8FF9F" />
-          <stop offset="0.71" stop-color="#C3F5B7" />
-          <stop offset="1" stop-color="#DBE2EA" />
+          <stop stopColor="#06FF89" />
+          <stop offset="0.08" stopColor="#2CFF8D" />
+          <stop offset="0.19" stopColor="#5EFF93" />
+          <stop offset="0.29" stopColor="#85FF98" />
+          <stop offset="0.39" stopColor="#A1FF9C" />
+          <stop offset="0.47" stopColor="#B2FF9E" />
+          <stop offset="0.54" stopColor="#B8FF9F" />
+          <stop offset="0.71" stopColor="#C3F5B7" />
+          <stop offset="1" stopColor="#DBE2EA" />
         </linearGradient>
       </defs>
     </svg>
