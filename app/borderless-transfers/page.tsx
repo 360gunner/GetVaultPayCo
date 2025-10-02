@@ -131,7 +131,7 @@ export default function BorderlessTransfersPage() {
         fit="cover"
       />
       <Container
-        size="xl"
+        size="2xl"
         style={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
       >
         <Typography
@@ -139,9 +139,11 @@ export default function BorderlessTransfersPage() {
           font="Space Grotesk"
           weight={400}
           align="left"
-          style={{ fontSize: 64 }}
+          style={{
+            fontSize: 64,
+          }}
         >
-          FAQs
+          What is Purchase Protection?
         </Typography>
         <div style={{ marginTop: vars.space.lg }}>
           <Accordion items={faqItems} multiple />

@@ -105,7 +105,7 @@ export default function BorderlessTransfersPage() {
         text={`When you shop in stores with your Vault Pay Debit Card, pay a Vault business profile, or use your Vault Pay account when making an in-app purchase or scanning a QR-code at checkout, your eligible purchases can be covered by Purchase Protection — no toggle needed. All so you can shop and pay with confidence.`}
       />
       <Container
-        size="full"
+        size="2xl"
         style={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
       >
         <Typography

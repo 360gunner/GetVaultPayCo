@@ -196,7 +196,7 @@ export default function HelpCenterPage() {
 
       {/* FAQs */}
       <section style={{ padding: "40px 0 80px" }}>
-        <Container size="xl">
+        <Container size="2xl">
           <Typography
             as="h1"
             font="Space Grotesk"
