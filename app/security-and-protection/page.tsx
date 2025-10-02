@@ -55,10 +55,6 @@ export default function BorderlessTransfersPage() {
         gridTemplateColumns="1fr 1fr"
         containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
         imageWidth={685}
-        imageStyle={{
-          width: "100%",
-          height: "auto",
-        }}
         imageHeight={649}
         minColWidth={360}
       />
