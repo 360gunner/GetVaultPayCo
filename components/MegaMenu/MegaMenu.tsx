@@ -41,7 +41,7 @@ const actionRouteMap: Record<string, string> = {
   "Pay bills": "/manage-your-wallet",
   "Order a Card": "/cards",
   "Share with friends & family": "/send-and-receive",
-  "Set up your shop": "/help-center",
+  "Set up your shop": "/business-overview",
   "Refill your Wallet": "/manage-your-wallet",
 };
 
@@ -75,7 +75,7 @@ const navRouteMap: Record<string, string> = {
   "Manage your wallet": "/manage-your-wallet",
   "Borderless transfers": "/borderless-transfers",
   "Security & Protection": "/security-and-protection",
-  "Business Accounts": "/help-center",
+  "Business Accounts": "/business-overview",
   "Online & In-App": "/pay-online",
   "In Stores": "/pay-in-store",
   Advantages: "/help-center",
