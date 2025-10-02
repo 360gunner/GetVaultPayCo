@@ -6,6 +6,7 @@ import Typography from "@/components/Typography/Typography";
 import Button from "@/components/Button/Button";
 import { vars } from "@/styles/theme.css";
 import Link from "next/link";
+import { ContainerSize } from "@/components/Layout/Container";
 
 export interface BigImageOverlayImageSpec {
   src: string;
@@ -24,7 +25,7 @@ export interface BigImageOverlaySectionProps {
   text?: React.ReactNode;
   buttonLabel?: string;
   buttonHref?: string;
-  containerSize?: "sm" | "md" | "lg" | "xl" | "full";
+  containerSize?: ContainerSize;
   sectionPadding?: string | number;
   rounded?: number;
   shadow?: boolean;

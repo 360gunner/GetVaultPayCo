@@ -49,7 +49,7 @@ export default function WaysToPayPage() {
           src: "/Group 1015.png",
           alt: "Vault Pay Ways To Pay Hero Image",
         }}
-        containerSize="xl"
+        containerSize="2xl"
         sectionPadding={`${vars.space.xl} ${vars.space["lg"]}`}
         eyebrow="WAYS TO PAY"
         title="Use Vault Pay for every way you pay."
@@ -112,7 +112,7 @@ export default function WaysToPayPage() {
         buttonVariant="secondary"
         imageSrc="/Group 1009.png"
         imageAlt="Vault Pay card"
-        containerSize="lg"
+        containerSize="xl"
         titleFontSize={60}
         gridTemplateColumns="1.3fr 1fr"
         containerStyle={{

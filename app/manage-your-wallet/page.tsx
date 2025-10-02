@@ -166,7 +166,7 @@ export default function ManageYourWalletPage() {
         buttonVariant="secondary"
         imageSrc="/Group 1009.png"
         imageAlt="Vault Pay card"
-        containerSize="2xl"
+        containerSize="xl"
         titleFontSize={60}
         gridTemplateColumns="1.1fr 1fr"
         containerStyle={{
