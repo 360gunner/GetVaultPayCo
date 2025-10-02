@@ -9,17 +9,17 @@ import Typography from "@/components/Typography/Typography";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
 
-export default function PayOnlinePage() {
+export default function PayInStorePage() {
   return (
     <>
       <Navbar />
       <SplitHero
-        eyebrow="PAY ONLINE"
-        title={"Pay online with confidence."}
-        description={`Use VaultPay to pay on websites, in mobile apps, and across streaming, travel, and e-commerce platforms with just a click. With built-in security and instant authorization, your purchases stay protected while your checkout stays seamless. Wherever Visa® and Mastercard® are accepted online, VaultPay is too.`}
+        eyebrow="PAY IN STORE"
+        title={"Simple, safe in-store payment."}
+        description={`Tap, swipe, or scan to pay at millions of stores worldwide—from your neighborhood café to international retailers. With support for contactless payments and QR codes, VaultPay makes in-person purchases fast, secure, and effortless. Accepted anywhere Visa® and Mastercard® are, VaultPay turns your phone or card into a borderless wallet.`}
         buttonLabel="Get Started"
         buttonVariant="secondary"
-        imageSrc="/image 1022.png"
+        imageSrc="/image 102_2.png"
         containerSize="2xl"
         imageAlt="Send and receive"
         gridTemplateColumns="1fr 1fr"
@@ -62,7 +62,7 @@ export default function PayOnlinePage() {
             letterSpacing: "-0.58px",
           }}
         >
-          Use Vault Pay online with ease.{" "}
+          Leave your cash in the bank{" "}
         </Typography>
       </Container>
       <FeatureGridSection
@@ -72,25 +72,25 @@ export default function PayOnlinePage() {
         gap="xl"
         items={[
           {
-            src: "/Mask group22.png",
-            alt: "Online stores",
-            title: "Online stores",
+            src: "/Group 1017.png",
+            alt: "Contactless",
+            title: "Contactless",
             description:
-              "Checkout securely at your favorite shops worldwide with VaultPay.",
+              "Tap and go with instant, secure contactless payments.",
           },
           {
-            src: "/Mask group_fortnite.png",
-            alt: "In-app & gaming",
-            title: "In-app & gaming",
+            src: "/Group 1018.png",
+            alt: "Send in-store",
+            title: "Send in-store",
             description:
-              "Level up with seamless in-app and gaming purchases powered by VaultPay.",
+              "Split the bill, tip, or send money instantly while you shop.",
           },
           {
-            src: "/Mask group24.png",
-            alt: "Subscriptions & Bills",
-            title: "Subscriptions & Bills",
+            src: "/Group 1019.png",
+            alt: "Cards",
+            title: "Cards",
             description:
-              "Keep your memberships running smoothly with automatic VaultPay billing.",
+              "Use VaultPay virtual or physical cards anywhere Visa® and Mastercard® are accepted.",
           },
         ]}
       />
