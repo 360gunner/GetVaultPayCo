@@ -161,6 +161,8 @@ const BenefitsSection: React.FC = () => {
               style={{
                 position: "relative",
                 width: "100%",
+                minWidth: "458px",
+
                 // height: "min(60vw, 653px)",
               }}
             >
@@ -169,11 +171,11 @@ const BenefitsSection: React.FC = () => {
                 aria-hidden
                 style={{
                   position: "absolute",
-                  right: 0,
-                  bottom: 0,
+                  right: "0",
+                  bottom: "15%",
                   width: 463,
                   height: 238,
-                  transform: "translate(25%, -60%)",
+                  // transform: "translate(25%, -60%)",
                   zIndex: 0,
                   pointerEvents: "none",
                 }}
@@ -192,8 +194,7 @@ const BenefitsSection: React.FC = () => {
                   position: "relative",
                   alignSelf: "center",
                   textAlign: "center",
-                  width: "100%",
-                  height: "100%",
+                  width: "85%",
                   borderRadius: 12,
                   overflow: "hidden",
                   zIndex: 1,
