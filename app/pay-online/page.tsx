@@ -44,22 +44,45 @@ export default function PayOnlinePage() {
   return (
     <>
       <Navbar />
-      <BigImageOverlaySection
-        image={{
-          src: "/Group 1015.png",
-          alt: "Vault Pay Ways To Pay Hero Image",
-        }}
-        containerSize="xl"
-        sectionPadding={`${vars.space.xl} ${vars.space["lg"]}`}
-        eyebrow="WAYS TO PAY"
-        title="Use Vault Pay for every way you pay."
-        text="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute."
+      <SplitHero
+        eyebrow="PAY ONLINE"
+        title={"Pay online with confidence."}
+        description={`Use VaultPay to pay on websites, in mobile apps, and across streaming, travel, and e-commerce platforms with just a click. With built-in security and instant authorization, your purchases stay protected while your checkout stays seamless. Wherever Visa® and Mastercard® are accepted online, VaultPay is too.`}
         buttonLabel="Get Started"
-        buttonHref="/signup"
-        aspectRatio="1360 / 784"
-        fullBleed={false}
+        buttonVariant="secondary"
+        imageSrc="/image 1022.png"
+        containerSize="2xl"
+        imageAlt="Send and receive"
+        gridTemplateColumns="1fr 1fr"
+        containerStyle={{
+          padding: `${vars.space.xl} ${vars.space["4xl"]}`,
+          marginTop: vars.space["4xl"],
+          marginBottom: vars.space["4xl"],
+        }}
+        imageWidth={600}
+        imageStyle={{
+          width: "100%",
+          // height: "auto",
+        }}
+        imageHeight={649}
+        minColWidth={360}
+        underDescription={
+          <Image
+            src="/visa_mastercard.png"
+            alt="Vault Pay card"
+            width={124}
+            unoptimized
+            height={47}
+            style={{
+              width: "100px",
+              height: "auto",
+              display: "block",
+              marginBottom: vars.space.md,
+            }}
+          />
+        }
       />
-      <Container size="full" style={{ paddingTop: vars.space["4xl"] }}>
+      <Container size="2xl" style={{ paddingTop: vars.space["4xl"] }}>
         <Typography
           as="h1"
           font="Instrument Sans"
@@ -70,38 +93,35 @@ export default function PayOnlinePage() {
             letterSpacing: "-0.58px",
           }}
         >
-          Payment made simple.
+          Use Vault Pay online with ease.{" "}
         </Typography>
       </Container>
       <FeatureGridSection
-        containerSize="full"
+        containerSize="2xl"
         sectionPadding="24px"
         minColWidth={280}
         gap="xl"
         items={[
           {
-            src: "/Mask group.png",
-            alt: "Fast transfers",
-            title: "Pay online & in-app",
-            buttonLabel: "Learn more",
+            src: "/Mask group22.png",
+            alt: "Online stores",
+            title: "Online stores",
             description:
-              "Checkout instantly with VaultPay anywhere digital payments are accepted.",
+              "Checkout securely at your favorite shops worldwide with VaultPay.",
           },
           {
-            src: "/Mask group1.png",
-            alt: "Multi-currency wallet",
-            title: "Pay in-store",
-            buttonLabel: "Learn more",
+            src: "/Mask group_fortnite.png",
+            alt: "In-app & gaming",
+            title: "In-app & gaming",
             description:
-              "Tap, swipe, or scan—VaultPay works seamlessly at the register.",
+              "Level up with seamless in-app and gaming purchases powered by VaultPay.",
           },
           {
-            src: "/Group 1016.png",
-            alt: "Social by design",
-            title: "Vault Pay Cards",
-            buttonLabel: "Learn more",
+            src: "/Mask group24.png",
+            alt: "Subscriptions & Bills",
+            title: "Subscriptions & Bills",
             description:
-              "Get physical and virtual cards backed by Visa® and Mastercard® for everyday use.",
+              "Keep your memberships running smoothly with automatic VaultPay billing.",
           },
         ]}
       />
@@ -112,12 +132,13 @@ export default function PayOnlinePage() {
         buttonVariant="secondary"
         imageSrc="/Group 1009.png"
         imageAlt="Vault Pay card"
-        containerSize="lg"
+        containerSize="xl"
         titleFontSize={60}
         gridTemplateColumns="1.3fr 1fr"
         containerStyle={{
           padding: `${vars.space.xl} ${vars.space["4xl"]}`,
           marginTop: vars.space["4xl"],
+          marginBottom: "calc(319px * 0.5 + 48px)",
         }}
         underDescription={
           <Image
@@ -135,10 +156,6 @@ export default function PayOnlinePage() {
           />
         }
         imageWidth={685}
-        imageStyle={{
-          width: "100%",
-          height: "auto",
-        }}
         imageHeight={649}
         minColWidth={360}
         underImage={
@@ -148,10 +165,12 @@ export default function PayOnlinePage() {
             width={621}
             height={319}
             style={{
+              position: "absolute",
+              bottom: 0,
               // alignSelf: "center",
               height: "auto",
               display: "block",
-              transform: "translateY(-50%) translateX(-70%)",
+              transform: "translateY(50%) translateX(-70%)",
             }}
           />
         }
