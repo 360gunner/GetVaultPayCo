@@ -72,7 +72,6 @@ export default function SignInPage() {
                 start managing your projects.
               </Typography>
 
-              {/* Form (copied from signup page for identical structure) */}
               <form
                 onSubmit={(e) => e.preventDefault()}
                 style={{ display: "grid", gap: 12 }}
@@ -92,12 +91,35 @@ export default function SignInPage() {
                   required
                   labelColor={vars.color.neonMint}
                 />
+                <Typography
+                  as="p"
+                  font="Instrument Sans"
+                  style={{
+                    marginTop: 0,
+                    marginBottom: 0,
+                    fontSize: 16,
+                    color: vars.color.cloudSilver,
+                    fontWeight: 400,
+                    lineHeight: 1.6,
+                    textAlign: "right",
+                    letterSpacing: "0.2px",
+                  }}
+                >
+                  <Link
+                    href="/security-and-protection"
+                    style={{
+                      textDecoration: "none",
+                      color: vars.color.cloudSilver,
+                    }}
+                  >
+                    Forgot Password?
+                  </Link>
+                </Typography>
 
                 <Button
                   variant="colored"
                   size="large"
                   style={{
-                    marginTop: 16,
                     width: "100%",
                     background: vars.color.neonMint,
                     padding: "12px 16px",
@@ -117,7 +139,6 @@ export default function SignInPage() {
                 </Button>
               </form>
 
-              {/* Separator (copied) */}
               <div
                 style={{
                   color: vars.color.vaultWhite,
@@ -149,7 +170,6 @@ export default function SignInPage() {
                 />
               </div>
 
-              {/* Social buttons (copied) */}
               <div style={{ display: "grid", gap: 18 }}>
                 <SocialButton
                   label="Sign in with Google"
@@ -196,7 +216,6 @@ export default function SignInPage() {
                 />
               </div>
 
-              {/* Footer text (copied) */}
               <div
                 style={{
                   marginTop: 32,
@@ -214,20 +233,19 @@ export default function SignInPage() {
                   style={{ fontSize: 16, color: vars.color.cloudSilver }}
                   weight={400}
                 >
-                  Already have an account?{" "}
+                  Don't you have an account?{" "}
                   <Link
-                    href="/signin"
+                    href="/signup"
                     style={{
                       color: vars.color.neonMint,
                       textDecoration: "none",
                     }}
                   >
-                    Sign in
+                    Sign up
                   </Link>
                 </Typography>
               </div>
 
-              {/* Bottom copyright (copied) */}
               <div
                 style={{
                   marginTop: 32,
