@@ -308,7 +308,7 @@ const CallToActionSection: React.FC = () => {
   );
 };
 
-const TestimonialsSection: React.FC = () => {
+export const TestimonialsSection: React.FC = () => {
   const testimonials = [
     {
       text: `“VaultPay makes it so easy to split bills with my friends while traveling.”`,

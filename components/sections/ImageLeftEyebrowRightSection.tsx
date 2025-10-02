@@ -4,6 +4,7 @@ import Grid from "@/components/Layout/Grid";
 import Typography from "@/components/Typography/Typography";
 import Image from "next/image";
 import { vars } from "@/styles/theme.css";
+import Button from "../Button/Button";
 
 export interface ImageSpec {
   src: string;
@@ -16,6 +17,7 @@ export interface ImageSpec {
 
 export interface ImageLeftEyebrowRightSectionProps {
   image: ImageSpec;
+  dark?: boolean;
   eyebrow?: React.ReactNode; // optional small label above the title
   title: React.ReactNode; // main heading on the right
   text?: React.ReactNode; // supporting paragraph on the right
@@ -26,6 +28,8 @@ export interface ImageLeftEyebrowRightSectionProps {
   columns?: number;
   sectionVerticalMargin?: string | number;
   underImage?: React.ReactNode;
+  buttonLabel?: string;
+  buttonHref?: string;
 }
 
 const ImageLeftEyebrowRightSection: React.FC<
@@ -33,6 +37,7 @@ const ImageLeftEyebrowRightSection: React.FC<
 > = ({
   image,
   eyebrow,
+  dark,
   title,
   text,
   variant = "ltr",
@@ -42,6 +47,8 @@ const ImageLeftEyebrowRightSection: React.FC<
   columns = 2,
   sectionVerticalMargin = vars.space["4xl"],
   underImage,
+  buttonLabel,
+  buttonHref,
 }) => {
   const { src, alt, width = 560, height = 420, priority, style } = image;
 
@@ -71,7 +78,10 @@ const ImageLeftEyebrowRightSection: React.FC<
             as="h6"
             font="Space Grotesk"
             weight={400}
-            style={{ margin: 0 }}
+            style={{
+              margin: 0,
+              color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
+            }}
           >
             {eyebrow}
           </Typography>
@@ -85,7 +95,11 @@ const ImageLeftEyebrowRightSection: React.FC<
           as="h2"
           font="Instrument Sans"
           weight={400}
-          style={{ marginTop: eyebrow ? vars.space.sm : 0, fontSize: 40 }}
+          style={{
+            marginTop: eyebrow ? vars.space.sm : 0,
+            fontSize: 40,
+            color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
+          }}
         >
           {title}
         </Typography>
@@ -99,7 +113,11 @@ const ImageLeftEyebrowRightSection: React.FC<
             as="p"
             font="Instrument Sans"
             weight={400}
-            style={{ marginTop: vars.space.md, fontSize: 20 }}
+            style={{
+              marginTop: vars.space.md,
+              fontSize: 20,
+              color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
+            }}
           >
             {text}
           </Typography>
@@ -107,6 +125,17 @@ const ImageLeftEyebrowRightSection: React.FC<
           text
         )
       ) : null}
+      {buttonLabel && (
+        <Button
+          variant="secondary"
+          style={{
+            backgroundColor: dark
+              ? vars.color.vaultWhite
+              : vars.color.vaultBlack,
+          }}
+          label={buttonLabel}
+        />
+      )}
     </div>
   );
 

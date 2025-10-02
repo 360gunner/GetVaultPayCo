@@ -2,6 +2,7 @@
 import React from "react";
 import * as s from "./Accordion.css";
 import Typography from "../Typography/Typography";
+import { vars } from "@/styles/theme.css";
 
 export interface AccordionItem {
   id: string;
@@ -12,11 +13,13 @@ export interface AccordionItem {
 
 export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
   items: AccordionItem[];
+  dark?: boolean;
   multiple?: boolean;
 }
 
 export const Accordion: React.FC<AccordionProps> = ({
   items,
+  dark,
   multiple = false,
   className,
   ...rest
@@ -45,14 +48,29 @@ export const Accordion: React.FC<AccordionProps> = ({
       {items.map((item) => {
         const isOpen = openIds.has(item.id);
         return (
-          <div key={item.id} className={s.item}>
+          <div
+            key={item.id}
+            className={s.item}
+            style={{
+              borderTop: dark
+                ? "1px solid white"
+                : "1px solid rgba(0,0,0,0.08)",
+            }}
+          >
             <button
               className={s.header}
               onClick={() => toggle(item.id)}
               aria-expanded={isOpen}
               aria-controls={`accordion-panel-${item.id}`}
             >
-              <Typography as="h2" font="Instrument Sans" weight={400}>
+              <Typography
+                as="h2"
+                font="Instrument Sans"
+                weight={400}
+                style={{
+                  color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
+                }}
+              >
                 {item.header}
               </Typography>
             </button>
@@ -62,7 +80,14 @@ export const Accordion: React.FC<AccordionProps> = ({
                 className={s.panel}
                 role="region"
               >
-                <Typography as="h6" font="Instrument Sans" weight={400}>
+                <Typography
+                  as="h6"
+                  font="Instrument Sans"
+                  weight={400}
+                  style={{
+                    color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
+                  }}
+                >
                   {item.content}
                 </Typography>
               </div>
@@ -83,7 +108,12 @@ export const Accordion: React.FC<AccordionProps> = ({
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <line y1="0.5" x2="34" y2="0.5" stroke="black" />
+                  <line
+                    y1="0.5"
+                    x2="34"
+                    y2="0.5"
+                    stroke={dark ? "white" : "black"}
+                  />
                 </svg>
               ) : (
                 // Plus icon
@@ -94,13 +124,18 @@ export const Accordion: React.FC<AccordionProps> = ({
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <line y1="16.5" x2="34" y2="16.5" stroke="black" />
+                  <line
+                    y1="16.5"
+                    x2="34"
+                    y2="16.5"
+                    stroke={dark ? "white" : "black"}
+                  />
                   <line
                     x1="17.5"
                     y1="2.18557e-08"
                     x2="17.5"
                     y2="34"
-                    stroke="black"
+                    stroke={dark ? "white" : "black"}
                   />
                 </svg>
               )}

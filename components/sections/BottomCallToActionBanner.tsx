@@ -5,7 +5,12 @@ import Typography from "../Typography/Typography";
 import Image from "next/image";
 import Button from "../Button/Button";
 
-const BottomCallToActionBanner: React.FC = () => {
+interface BottomCallToActionBannerProps {
+  dark?: boolean;
+}
+const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
+  props: BottomCallToActionBannerProps
+) => {
   return (
     <section style={{ padding: "64px 0" }}>
       <Container
@@ -22,7 +27,7 @@ const BottomCallToActionBanner: React.FC = () => {
           }}
         >
           <Image
-            src="/image 96.png"
+            src={props.dark ? "/cta_banner_dark.png" : "/image 96.png"}
             alt="VaultPay devices"
             width={1200}
             height={560}

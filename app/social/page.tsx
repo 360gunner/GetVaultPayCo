@@ -83,7 +83,6 @@ export default function SocialPage() {
             src: "/Group 1021.png",
             alt: "Send money home",
             title: "Send money home",
-            buttonLabel: "Learn more",
             description:
               "Support family abroad with just a tap — fast, secure, and borderless.",
           },
@@ -91,7 +90,6 @@ export default function SocialPage() {
             src: "/Group 1022.png",
             alt: "Tip your friends",
             title: "Tip your friends",
-            buttonLabel: "Learn more",
             description:
               "Celebrate moments big and small — from lunch to life events.",
           },
@@ -99,7 +97,6 @@ export default function SocialPage() {
             src: "/Group 1023.png",
             alt: "Share your purchases",
             title: "Share your purchases",
-            buttonLabel: "Learn more",
             description:
               "Make your money social — tag, react, and show love with every spend.",
           },

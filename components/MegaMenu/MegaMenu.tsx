@@ -81,7 +81,7 @@ const navRouteMap: Record<string, string> = {
   Advantages: "/help-center",
   "Ways to Pay": "/ways-to-pay",
   Cards: "/cards",
-  "Share with a Friend": "/send-and-receive",
+  "Share with a Friend": "/social",
 };
 
 const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {

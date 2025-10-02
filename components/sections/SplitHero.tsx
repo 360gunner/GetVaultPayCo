@@ -9,6 +9,7 @@ import React from "react";
 
 export interface SplitHeroProps {
   eyebrow?: string;
+  dark?: boolean;
   title: string | React.ReactNode;
   description?: string;
   buttonLabel?: string;
@@ -31,6 +32,7 @@ export interface SplitHeroProps {
 
 const SplitHero: React.FC<SplitHeroProps> = ({
   eyebrow,
+  dark = false,
   title,
   description,
   buttonLabel,
@@ -89,6 +91,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
             font="Space Grotesk"
             weight={400}
             style={{
+              color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
               fontSize: titleFontSize,
               marginBottom: vars.space.md,
               maxWidth: "12ch",
@@ -101,6 +104,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
             typeof description === "string" ? (
               <Typography
                 font="Instrument Sans"
+                color={dark ? vars.color.vaultWhite : vars.color.vaultBlack}
                 as="p"
                 style={{
                   maxWidth: "40ch",
@@ -119,6 +123,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
             <Typography
               as="p"
               font="Instrument Sans"
+              color={dark ? vars.color.vaultWhite : vars.color.vaultBlack}
               style={{
                 fontSize: 14,
                 marginBottom: vars.space.sm,
@@ -136,6 +141,9 @@ const SplitHero: React.FC<SplitHeroProps> = ({
                 size="medium"
                 label={buttonLabel}
                 onClick={onButtonClick}
+                style={{
+                  backgroundColor: dark ? vars.color.vaultWhite : undefined,
+                }}
               />
             </div>
           ) : null}

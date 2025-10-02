@@ -22,6 +22,8 @@ export interface FeatureGridSectionProps {
   containerSize?: ContainerSize;
   sectionPadding?: string | number;
   sectionStyle?: React.CSSProperties;
+  dark?: boolean;
+  center?: boolean;
   minColWidth?: number; // controls how many columns fit; use 220 for up to 4 cols
   gap?: "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl" | "4xl" | "5xl";
 }
@@ -31,6 +33,8 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
   containerSize = "full",
   sectionPadding = "24px",
   sectionStyle = {},
+  dark = false,
+  center = false,
   minColWidth = 220,
   gap = "xl",
 }) => {
@@ -40,7 +44,10 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
         <Grid
           minColWidth={minColWidth}
           gap={gap}
-          style={{ alignItems: "start" }}
+          style={{
+            alignItems: center ? "center" : "start",
+            justifyContent: center ? "center" : "start",
+          }}
         >
           {items.map(
             ({
@@ -65,7 +72,11 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
                   as="h4"
                   font="Instrument Sans"
                   weight={400}
-                  style={{ marginTop: vars.space.lg, fontSize: "30px" }}
+                  style={{
+                    marginTop: vars.space.lg,
+                    fontSize: "30px",
+                    color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
+                  }}
                 >
                   {title}
                 </Typography>
@@ -76,6 +87,7 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
                     fontSize: "20px",
                     lineHeight: "120%",
                     letterSpacing: "-0.4px",
+                    color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
                   }}
                 >
                   {description}
@@ -87,6 +99,7 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
                       borderWidth: "1px",
                       borderStyle: "solid",
                       boxShadow: "none",
+                      backgroundColor: dark ? vars.color.vaultWhite : undefined,
                     }}
                     variant="secondary"
                     label={buttonLabel}
