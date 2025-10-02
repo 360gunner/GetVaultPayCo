@@ -81,7 +81,11 @@ const SplitHero: React.FC<SplitHeroProps> = ({
             <Typography
               as="p"
               font="Space Grotesk"
-              style={{ fontSize: 20, marginBottom: vars.space.sm }}
+              style={{
+                fontSize: 20,
+                marginBottom: vars.space.sm,
+                color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
+              }}
             >
               {eyebrow}
             </Typography>
