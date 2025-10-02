@@ -82,7 +82,6 @@ export default function BorderlessTransfersPage() {
           width: 569,
           height: 458,
         }}
-        eyebrow="GLOBAL TRANSFER"
         title="In-app purchase protection"
         text={`Before you send your payment, tap the toggle in the app to tell Vault Pay that you're paying for a good or service. Purchase Protection can be applied for eligible items, and the seller pays a small transaction fee.`}
       />

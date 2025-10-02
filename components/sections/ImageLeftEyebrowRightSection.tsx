@@ -24,6 +24,7 @@ export interface ImageLeftEyebrowRightSectionProps {
   sectionPadding?: string | number;
   gap?: "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl" | "4xl" | "5xl";
   columns?: number;
+  sectionVerticalMargin?: string | number;
   underImage?: React.ReactNode;
 }
 
@@ -37,8 +38,9 @@ const ImageLeftEyebrowRightSection: React.FC<
   variant = "ltr",
   containerSize = "lg",
   sectionPadding = "24px 0",
-  gap = "lg",
+  gap = "xxl",
   columns = 2,
+  sectionVerticalMargin = vars.space["4xl"],
   underImage,
 }) => {
   const { src, alt, width = 560, height = 420, priority, style } = image;
@@ -83,7 +85,7 @@ const ImageLeftEyebrowRightSection: React.FC<
           as="h2"
           font="Instrument Sans"
           weight={400}
-          style={{ marginTop: eyebrow ? vars.space.sm : 0 }}
+          style={{ marginTop: eyebrow ? vars.space.sm : 0, fontSize: 40 }}
         >
           {title}
         </Typography>
@@ -96,7 +98,8 @@ const ImageLeftEyebrowRightSection: React.FC<
           <Typography
             as="p"
             font="Instrument Sans"
-            style={{ marginTop: vars.space.md }}
+            weight={400}
+            style={{ marginTop: vars.space.md, fontSize: 20 }}
           >
             {text}
           </Typography>
@@ -108,12 +111,22 @@ const ImageLeftEyebrowRightSection: React.FC<
   );
 
   return (
-    <section style={{ padding: sectionPadding }}>
+    <section
+      style={{
+        padding: sectionPadding,
+        marginTop: sectionVerticalMargin,
+        marginBottom: sectionVerticalMargin,
+      }}
+    >
       <Container size={containerSize}>
         <Grid
           columns={columns}
           gap={gap}
-          style={{ alignItems: "center", columnGap: vars.space.lg }}
+          style={{
+            alignItems: "center",
+            columnGap: vars.space.xxl,
+            gridTemplateColumns: variant === "ltr" ? "1.3fr 1fr" : "1fr 1.3fr",
+          }}
         >
           {variant === "rtl" ? (
             <>
