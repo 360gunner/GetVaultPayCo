@@ -54,7 +54,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
     <Container
       size={containerSize}
       style={{
-        minHeight: "100vh",
+        minHeight: "min(100vh, 1200)",
         display: "flex",
         alignItems: "center",
         paddingTop: vars.space.xl,

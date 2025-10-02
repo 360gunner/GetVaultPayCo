@@ -51,7 +51,7 @@ export default function BorderlessTransfersPage() {
         buttonVariant="secondary"
         imageSrc="/image 102.png"
         imageAlt="Send and receive"
-        containerSize="xl"
+        containerSize="2xl"
         gridTemplateColumns="1fr 1fr"
         containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
         imageWidth={685}
