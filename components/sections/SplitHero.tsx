@@ -16,6 +16,7 @@ export interface SplitHeroProps {
   onButtonClick?: () => void;
   imageSrc: string;
   imageAlt?: string;
+  textNote?: string;
   containerSize?: ContainerSize;
   minColWidth?: number;
   imageWidth?: number;
@@ -37,6 +38,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
   onButtonClick,
   imageSrc,
   imageAlt = "",
+  textNote,
   containerSize = "2xl",
   minColWidth = 360,
   imageWidth = 520,
@@ -113,6 +115,19 @@ const SplitHero: React.FC<SplitHeroProps> = ({
               description
             )
           ) : null}
+          {textNote && (
+            <Typography
+              as="p"
+              font="Instrument Sans"
+              style={{
+                fontSize: 14,
+                marginBottom: vars.space.sm,
+                maxWidth: "60ch",
+              }}
+            >
+              {textNote}
+            </Typography>
+          )}
           {underDescription}
           {buttonLabel ? (
             <div>

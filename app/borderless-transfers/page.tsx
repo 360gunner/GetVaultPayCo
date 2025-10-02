@@ -46,8 +46,9 @@ export default function BorderlessTransfersPage() {
       <SplitHero
         eyebrow="BORDERLESS"
         title="A global wallet for your money"
-        description="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute.*Transfer speed depends on your bank and could take up to 30 minutes. Transfers are reviewed which may result in delays or funds being frozen or removed from your Vault Pay account."
+        description="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute."
         buttonLabel="Get Started"
+        textNote="*Transfer speed depends on your bank and could take up to 30 minutes. Transfers are reviewed which may result in delays or funds being frozen or removed from your Vault Pay account."
         buttonVariant="secondary"
         imageSrc="/Group 1010.png"
         imageAlt="Send and receive"

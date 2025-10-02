@@ -17,7 +17,8 @@ export default function ManageYourWalletPage() {
       <SplitHero
         eyebrow="MANAGE & TOP-UP"
         title="Move your money faster"
-        description="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute.*Transfer speed depends on your bank and could take up to 30 minutes. Transfers are reviewed which may result in delays or funds being frozen or removed from your Vault Pay account."
+        description="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute."
+        textNote="*Transfer speed depends on your bank and could take up to 30 minutes. Transfers are reviewed which may result in delays or funds being frozen or removed from your Vault Pay account."
         buttonLabel="Get Started"
         buttonVariant="secondary"
         imageSrc="/Group 998.png"
