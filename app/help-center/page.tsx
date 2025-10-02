@@ -207,7 +207,7 @@ export default function HelpCenterPage() {
             FAQs
           </Typography>
           <div style={{ marginTop: vars.space.lg }}>
-            <Accordion items={faqItems} multiple />
+            <Accordion items={faqItems} />
           </div>
         </Container>
       </section>

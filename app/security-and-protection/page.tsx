@@ -120,7 +120,7 @@ export default function BorderlessTransfersPage() {
           What is Purchase Protection?
         </Typography>
         <div style={{ marginTop: vars.space.lg }}>
-          <Accordion items={faqItems} multiple />
+          <Accordion items={faqItems} />
         </div>
       </Container>
       <BottomCallToActionBanner />
