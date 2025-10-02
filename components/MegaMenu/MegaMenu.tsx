@@ -39,7 +39,7 @@ const actions: ActionItem[] = [
 const actionRouteMap: Record<string, string> = {
   "Send money internationally": "/borderless-transfers",
   "Pay bills": "/manage-your-wallet",
-  "Order a Card": "/help-center",
+  "Order a Card": "/cards",
   "Share with friends & family": "/send-and-receive",
   "Set up your shop": "/help-center",
   "Refill your Wallet": "/manage-your-wallet",
@@ -76,12 +76,12 @@ const navRouteMap: Record<string, string> = {
   "Borderless transfers": "/borderless-transfers",
   "Security & Protection": "/security-and-protection",
   "Business Accounts": "/help-center",
-  "Online & In-App": "/help-center",
-  "In Stores": "/help-center",
+  "Online & In-App": "/pay-online",
+  "In Stores": "/pay-in-store",
   Advantages: "/help-center",
-  "Ways to Pay": "/help-center",
-  Cards: "/help-center",
-  "Share with a Friend": "/help-center",
+  "Ways to Pay": "/ways-to-pay",
+  Cards: "/cards",
+  "Share with a Friend": "/send-and-receive",
 };
 
 const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
