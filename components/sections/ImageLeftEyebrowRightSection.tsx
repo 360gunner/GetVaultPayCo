@@ -19,7 +19,7 @@ export interface ImageLeftEyebrowRightSectionProps {
   image: ImageSpec;
   dark?: boolean;
   eyebrow?: React.ReactNode; // optional small label above the title
-  title: React.ReactNode; // main heading on the right
+  title?: React.ReactNode; // main heading on the right
   text?: React.ReactNode; // supporting paragraph on the right
   variant?: "ltr" | "rtl"; // controls whether image is on left or right
   containerSize?: "sm" | "md" | "lg" | "xl" | "full";
@@ -90,21 +90,25 @@ const ImageLeftEyebrowRightSection: React.FC<
         )
       ) : null}
 
-      {typeof title === "string" ? (
-        <Typography
-          as="h2"
-          font="Instrument Sans"
-          weight={400}
-          style={{
-            marginTop: eyebrow ? vars.space.sm : 0,
-            fontSize: 40,
-            color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
-          }}
-        >
-          {title}
-        </Typography>
-      ) : (
-        title
+      {title && (
+        <>
+          {typeof title === "string" ? (
+            <Typography
+              as="h2"
+              font="Instrument Sans"
+              weight={400}
+              style={{
+                marginTop: eyebrow ? vars.space.sm : 0,
+                fontSize: 40,
+                color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
+              }}
+            >
+              {title}
+            </Typography>
+          ) : (
+            title
+          )}
+        </>
       )}
 
       {text ? (

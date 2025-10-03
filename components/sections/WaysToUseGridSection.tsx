@@ -18,6 +18,8 @@ export interface WaysToUseGridSectionProps {
   items: WaysToUseItem[]; // expect 12 items for 4x3 grid
   containerSize?: ContainerSize;
   sectionPadding?: string | number;
+  titleStyle?: React.CSSProperties;
+  dark?: boolean;
   sectionStyle?: React.CSSProperties;
   minColWidth?: number; // 220 gives up to 4 cols like homepage grid
   gap?: "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl" | "4xl" | "5xl";
@@ -29,10 +31,12 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
   items,
   containerSize = "full",
   sectionPadding = "24px 0",
+  dark = false,
   sectionStyle = {},
   minColWidth = 220,
   gap = "xl",
   columns = 4,
+  titleStyle = {},
 }) => {
   return (
     <section style={{ padding: sectionPadding, ...sectionStyle }}>
@@ -41,7 +45,12 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
           as="h1"
           font="Space Grotesk"
           weight={400}
-          style={{ fontSize: 60, marginBottom: vars.space.xxl }}
+          style={{
+            fontSize: 60,
+            marginBottom: vars.space.xxl,
+            color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
+            ...titleStyle,
+          }}
         >
           {title}
         </Typography>
@@ -61,7 +70,11 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
                 as="h4"
                 font="Instrument Sans"
                 weight={400}
-                style={{ marginTop: vars.space.lg, fontSize: "30px" }}
+                style={{
+                  marginTop: vars.space.lg,
+                  fontSize: "30px",
+                  color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
+                }}
               >
                 {label}
               </Typography>

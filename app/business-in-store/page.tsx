@@ -39,7 +39,7 @@ const faqItems: AccordionItem[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   },
 ];
-export default function BorderlessTransfersPage() {
+export default function BusinessInStorePage() {
   return (
     <main style={{ backgroundColor: vars.color.vaultNavie }}>
       <Navbar />
@@ -71,7 +71,7 @@ export default function BorderlessTransfersPage() {
           height: 458,
         }}
         dark
-        eyebrow="GROW YOUR POS INTEGRATION"
+        eyebrow="POS INTEGRATION"
         title="Connect with ease"
         text={
           "VaultPay integrates seamlessly with your existing point-of-sale systems, so you can start accepting payments without disruption. From contactless to card, in-store transactions work smoothly alongside your current setup—no extra hardware required."
