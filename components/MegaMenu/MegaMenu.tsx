@@ -38,9 +38,9 @@ const actions: ActionItem[] = [
 // Map action labels to routes used in Link wrappers
 const actionRouteMap: Record<string, string> = {
   "Send money internationally": "/borderless-transfers",
-  "Pay bills": "/manage-your-wallet",
+  "Pay bills": "/ways-to-pay",
   "Order a Card": "/cards",
-  "Share with friends & family": "/send-and-receive",
+  "Share with friends & family": "/social",
   "Set up your shop": "/business-overview",
   "Refill your Wallet": "/manage-your-wallet",
 };
@@ -61,11 +61,11 @@ const nav = [
   },
   {
     title: "Use to Pay",
-    items: ["Ways to Pay", "Online & In-App", "In Stores", "Cards"],
+    items: ["Ways to Pay", "Online & In App", "In Stores ", "Cards"],
   },
   {
     title: "Social",
-    items: ["How it Works", "Share with a Friend"],
+    items: ["How it Works ", "Share with a Friend "],
   },
 ];
 
@@ -76,12 +76,17 @@ const navRouteMap: Record<string, string> = {
   "Borderless transfers": "/borderless-transfers",
   "Security & Protection": "/security-and-protection",
   "Business Accounts": "/business-overview",
-  "Online & In-App": "/pay-online",
-  "In Stores": "/pay-in-store",
-  Advantages: "/help-center",
+  "Online & In-App": "/business-online",
+  "In Stores": "/business-in-store",
+  Advantages: "/advantages",
   "Ways to Pay": "/ways-to-pay",
   Cards: "/cards",
   "Share with a Friend": "/social",
+  "Ways To Pay": "/ways-to-pay",
+  "Online & In App": "/pay-online",
+  "In Stores ": "/pay-online",
+  "How it Works ": "/social",
+  "Share with a Friend ": "/social",
 };
 
 const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
