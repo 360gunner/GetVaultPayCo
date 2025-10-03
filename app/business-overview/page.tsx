@@ -224,7 +224,7 @@ export default function BusinessOverviewPage() {
         </Container>
       </section>
       <BottomCallToActionBanner dark />
-      <Footer />
+      <Footer dark />
     </main>
   );
 }

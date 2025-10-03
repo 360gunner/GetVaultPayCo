@@ -246,7 +246,7 @@ export default function BusinessInStorePage() {
 
       <TestimonialsSection />
       <BottomCallToActionBanner dark />
-      <Footer />
+      <Footer dark />
     </main>
   );
 }

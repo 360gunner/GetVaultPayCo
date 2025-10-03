@@ -113,7 +113,7 @@ export default function BusinessOnlinePage() {
       />
 
       <BottomCallToActionBanner dark />
-      <Footer />
+      <Footer dark />
     </main>
   );
 }

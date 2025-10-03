@@ -6,11 +6,20 @@ import { AppLink } from "@/components/Link/AppLink";
 import Typography from "../Typography/Typography";
 import { vars } from "@/styles/theme.css";
 
-export interface FooterProps extends React.HTMLAttributes<HTMLElement> {}
+export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
+  dark?: boolean;
+}
 
-const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
+const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
   return (
-    <footer className={[s.root, className].filter(Boolean).join(" ")} {...rest}>
+    <footer
+      className={[s.root, className].filter(Boolean).join(" ")}
+      style={{
+        ...style,
+        backgroundColor: dark ? vars.color.vaultBlack : vars.color.vaultNavie,
+      }}
+      {...rest}
+    >
       <Container
         size="full"
         style={{ paddingRight: vars.space.xl, paddingLeft: vars.space.xl }}
@@ -82,7 +91,10 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
             <div>
               <div style={{ marginBottom: 48 }}>
                 <div className={s.linksRow}>
-                  <AppLink href="/send-and-receive" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink
+                    href="/send-and-receive"
+                    style={{ color: vars.color.vaultWhite }}
+                  >
                     Send & Receive
                   </AppLink>
                   <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
@@ -100,7 +112,10 @@ const Footer: React.FC<FooterProps> = ({ className, ...rest }) => {
                   <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
                     Jobs
                   </AppLink>
-                  <AppLink href="/help-center" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink
+                    href="/help-center"
+                    style={{ color: vars.color.vaultWhite }}
+                  >
                     Help
                   </AppLink>
                 </div>
