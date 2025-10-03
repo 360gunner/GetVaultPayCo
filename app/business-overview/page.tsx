@@ -43,7 +43,7 @@ const faqItems: AccordionItem[] = [
 ];
 export default function BusinessOverviewPage() {
   return (
-    <main style={{ backgroundColor: vars.color.vaultNavie }}>
+    <div style={{ backgroundColor: vars.color.vaultNavie }}>
       <Navbar />
       <BigImageOverlaySection
         image={{
@@ -225,6 +225,6 @@ export default function BusinessOverviewPage() {
       </section>
       <BottomCallToActionBanner dark />
       <Footer dark />
-    </main>
+    </div>
   );
 }

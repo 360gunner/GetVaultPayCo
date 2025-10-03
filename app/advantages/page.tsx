@@ -43,7 +43,7 @@ const faqItems: AccordionItem[] = [
 ];
 export default function BusinessInStorePage() {
   return (
-    <main style={{ backgroundColor: vars.color.vaultNavie }}>
+    <div style={{ backgroundColor: vars.color.vaultNavie }}>
       <Navbar />
       <SplitHero
         eyebrow="ADVANTAGES"
@@ -247,6 +247,6 @@ export default function BusinessInStorePage() {
       <TestimonialsSection />
       <BottomCallToActionBanner dark />
       <Footer dark />
-    </main>
+    </div>
   );
 }

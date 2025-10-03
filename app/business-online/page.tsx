@@ -41,7 +41,7 @@ const faqItems: AccordionItem[] = [
 ];
 export default function BusinessOnlinePage() {
   return (
-    <main style={{ backgroundColor: vars.color.vaultNavie }}>
+    <div style={{ backgroundColor: vars.color.vaultNavie }}>
       <Navbar />
       <SplitHero
         eyebrow="ONLINE & IN-APP"
@@ -114,6 +114,6 @@ export default function BusinessOnlinePage() {
 
       <BottomCallToActionBanner dark />
       <Footer dark />
-    </main>
+    </div>
   );
 }
