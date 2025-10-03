@@ -185,6 +185,7 @@ export default function BusinessInStorePage() {
             fontSize: 20,
             marginBottom: vars.space.xxl,
             color: vars.color.vaultWhite,
+            maxWidth: "40ch",
           }}
         >
           Vault Pay is already accepted by more than 1 million merchants, with
