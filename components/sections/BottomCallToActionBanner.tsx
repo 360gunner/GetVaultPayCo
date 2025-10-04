@@ -4,6 +4,7 @@ import Stack from "../Layout/Stack";
 import Typography from "../Typography/Typography";
 import Image from "next/image";
 import Button from "../Button/Button";
+import { responsiveFont } from "@/styles/responsive-font";
 
 interface BottomCallToActionBannerProps {
   dark?: boolean;
@@ -15,14 +16,17 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
     <section style={{ padding: "64px 0" }}>
       <Container
         size="full"
-        style={{ paddingRight: vars.space.xl, paddingLeft: vars.space.xl }}
+        style={{
+          paddingRight: responsiveFont(16),
+          paddingLeft: responsiveFont(16),
+        }}
       >
         {/* Image with overlay content */}
         <div
           style={{
             position: "relative",
             width: "100%",
-            borderRadius: 16,
+            borderRadius: responsiveFont(16),
             overflow: "hidden",
           }}
         >
@@ -40,7 +44,7 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              padding: 24,
+              padding: responsiveFont(24),
             }}
           >
             <div
@@ -48,7 +52,7 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                gap: 12,
+                gap: responsiveFont(12),
                 textAlign: "center",
                 color: "#fff",
               }}
@@ -58,22 +62,37 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
                 alt="VaultPay"
                 width={69}
                 height={69}
+                style={{
+                  width: responsiveFont(69),
+                  height: responsiveFont(69),
+                }}
               />
               <Typography
                 as="h1"
                 font="Space Grotesk"
-                style={{ color: "#fff", fontWeight: 400, fontSize: 96 }}
+                style={{
+                  color: "#fff",
+                  fontWeight: 400,
+                  fontSize: responsiveFont(96),
+                }}
               >
                 Start your vault
               </Typography>
               <Button
                 variant="colored"
                 size="large"
+                style={{
+                  padding: `${responsiveFont(16)} ${responsiveFont(24)}`,
+                }}
                 backgroundColor={vars.color.neonMint}
               >
                 <Typography
                   as="span"
-                  style={{ margin: 0, fontWeight: 400, fontSize: "26px" }}
+                  style={{
+                    margin: 0,
+                    fontWeight: 400,
+                    fontSize: responsiveFont(26),
+                  }}
                 >
                   Download The App
                 </Typography>

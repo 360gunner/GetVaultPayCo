@@ -16,6 +16,7 @@ import { vars } from "@/styles/theme.css";
 import Image from "next/image";
 import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
 import { responsiveFont } from "@/styles/responsive-font";
+import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 
 const BenefitsSection: React.FC = () => {
   const items: Array<{
@@ -207,103 +208,6 @@ const BenefitsSection: React.FC = () => {
             </div>
           </div>
         </Grid>
-      </Container>
-    </section>
-  );
-};
-
-const CallToActionSection: React.FC = () => {
-  return (
-    <section style={{ padding: "64px 0" }}>
-      <Container
-        size="full"
-        style={{ paddingRight: vars.space.xl, paddingLeft: vars.space.xl }}
-      >
-        <Stack gap="md">
-          <Typography
-            as="h4"
-            font="Space Grotesk"
-            weight={400}
-            style={{ marginLeft: "48px", fontSize: 20 }}
-          >
-            Move Money Freely. Globally. Securely.
-          </Typography>
-          <Typography
-            as="h1"
-            font="Instrument Sans"
-            weight={400}
-            style={{ marginLeft: "48px", fontSize: 60 }}
-          >
-            Join thousands of users building <br /> better financial lives with{" "}
-            <br />
-            VaultPay.
-          </Typography>
-
-          {/* Image with overlay content */}
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              borderRadius: 16,
-              overflow: "hidden",
-            }}
-          >
-            <Image
-              src="/image 96.png"
-              alt="VaultPay devices"
-              width={1200}
-              height={560}
-              style={{ width: "100%", height: "auto" }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: 24,
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 12,
-                  textAlign: "center",
-                  color: "#fff",
-                }}
-              >
-                <Image
-                  src="/vault_logo_icon_white.png"
-                  alt="VaultPay"
-                  width={69}
-                  height={69}
-                />
-                <Typography
-                  as="h1"
-                  font="Space Grotesk"
-                  style={{ color: "#fff", fontWeight: 400, fontSize: 130 }}
-                >
-                  Start your vault
-                </Typography>
-                <Button
-                  variant="colored"
-                  size="large"
-                  backgroundColor={vars.color.neonMint}
-                >
-                  <Typography
-                    as="span"
-                    style={{ margin: 0, fontWeight: 400, fontSize: "26px" }}
-                  >
-                    Download The App
-                  </Typography>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Stack>
       </Container>
     </section>
   );
@@ -1158,7 +1062,7 @@ export default function Home() {
           <SimpleSecureSocial />
           <SecurityTrustSection />
           <TestimonialsSection />
-          <CallToActionSection />
+          <BottomCallToActionBanner />
         </Stack>
       </Container>
       <Footer />
