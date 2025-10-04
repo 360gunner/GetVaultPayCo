@@ -6,6 +6,7 @@ import Typography from "@/components/Typography/Typography";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
 import { vars } from "@/styles/theme.css";
+import { responsiveFont } from "@/styles/responsive-font";
 
 export interface SecurityTrustProps {
   eyebrow?: string;
@@ -74,7 +75,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
         }}
       >
         <Grid
-          minColWidth={360}
+          minColWidth={responsiveFont(360)}
           gap="lg"
           style={{
             alignItems: "center",
@@ -83,6 +84,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             height: "100%",
             width: "100%",
             maxHeight: "95vh",
+            gap: responsiveFont(24),
             gridTemplateColumns: gridTemplateColumns || "1fr 1fr",
           }}
         >
@@ -100,7 +102,10 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
               as="h6"
               font="Space Grotesk"
               weight={400}
-              style={{ fontSize: 20 }}
+              style={{
+                fontSize: responsiveFont(20),
+                marginBottom: responsiveFont(12),
+              }}
             >
               {eyebrow}
             </Typography>
@@ -109,8 +114,8 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
               font="Instrument Sans"
               weight={400}
               style={{
-                marginBottom: vars.space.xl,
-                fontSize: 60,
+                marginBottom: responsiveFont(16),
+                fontSize: responsiveFont(60),
                 maxWidth: "12ch",
               }}
             >
@@ -122,7 +127,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
                 style={{
                   marginTop: vars.space.xl,
                   maxWidth: "70%",
-                  fontSize: 20,
+                  fontSize: responsiveFont(20),
                 }}
               >
                 {body}
@@ -130,7 +135,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             ) : (
               body
             )}
-            <div style={{ marginTop: vars.space.md }}>
+            <div style={{ marginTop: responsiveFont(8) }}>
               <Button
                 variant="secondary"
                 size="medium"
@@ -138,10 +143,15 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
                   backgroundColor: "#fff",
                   border: "1px solid black",
                   boxShadow: "none",
-                  width: "9rem",
+                  minWidth: responsiveFont(100),
+                  padding: `${responsiveFont(12)} ${responsiveFont(24)}`,
                 }}
               >
-                <Typography as="span" style={{ fontSize: "12px" }} weight={400}>
+                <Typography
+                  as="span"
+                  style={{ fontSize: responsiveFont(12) }}
+                  weight={400}
+                >
                   {buttonLabel}
                 </Typography>
               </Button>

@@ -15,6 +15,7 @@ import Footer from "@/components/Footer/Footer";
 import { vars } from "@/styles/theme.css";
 import Image from "next/image";
 import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
+import { responsiveFont } from "@/styles/responsive-font";
 
 const BenefitsSection: React.FC = () => {
   const items: Array<{
@@ -543,16 +544,15 @@ const SecurityTrustSection: React.FC = () => {
         <Typography
           as="p"
           style={{
-            marginTop: vars.space.xl,
+            marginTop: responsiveFont(16),
             maxWidth: "30ch",
-            fontSize: 20,
+
+            fontSize: responsiveFont(20),
           }}
         >
           End-to-End Encryption – Your data is encrypted at every step.
           <br />
-          <br />
           PCI-DSS Compliant – We never store sensitive info directly.
-          <br />
           <br />
           Fraud Monitoring – AI-powered systems flag and prevent risk.
         </Typography>
