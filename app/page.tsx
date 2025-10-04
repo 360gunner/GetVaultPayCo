@@ -330,13 +330,15 @@ const HeroSection: React.FC = () => {
           gap="lg"
           style={{
             alignItems: "stretch",
-            gridTemplateColumns: "2fr 1fr",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
             gap: vars.space.lg,
             padding: vars.space.lg,
+            gridAutoFlow: "dense",
+            maxWidth: "100vw",
             paddingBottom: 0,
           }}
         >
-          <div>
+          <div style={{ gridColumn: "span 2" }}>
             <Typography
               as="h1"
               font="Space Grotesk"
@@ -352,13 +354,14 @@ const HeroSection: React.FC = () => {
           </div>
           <div
             style={{
+              minWidth: "300px",
               display: "flex",
               alignItems: "flex-start",
               justifyContent: "center",
               flexDirection: "column",
             }}
           >
-            <Typography as="p" style={{ fontSize: 20 }}>
+            <Typography as="p" style={{ fontSize: 20, minWidth: "25ch" }}>
               VaultPay is your borderless social wallet—pay, transfer, and save
               across currencies with ease, community, and control
             </Typography>
@@ -456,7 +459,9 @@ const SecurityTrustSection: React.FC = () => {
         >
           End-to-End Encryption – Your data is encrypted at every step.
           <br />
+          <br />
           PCI-DSS Compliant – We never store sensitive info directly.
+          <br />
           <br />
           Fraud Monitoring – AI-powered systems flag and prevent risk.
         </Typography>

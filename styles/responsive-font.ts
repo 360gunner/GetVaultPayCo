@@ -22,10 +22,11 @@ export const responsiveFont = (
   minWidth = 500,
   maxWidth = 1280
 ): string => {
+  const min_multiplier = 0.75;
   const _minPx =
     typeof minPx === "number" && !Number.isNaN(minPx)
       ? minPx
-      : Math.max(0, Math.round((maxPx * minWidth) / maxWidth));
+      : Math.max(0, Math.round((maxPx * minWidth * min_multiplier) / maxWidth));
 
   // Guard rails
   const _maxPx = Math.max(_minPx, maxPx);

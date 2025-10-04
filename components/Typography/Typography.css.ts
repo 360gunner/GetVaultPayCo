@@ -49,13 +49,11 @@ export const asStyles = styleVariants({
   },
   p: {
     fontSize: "14px",
-    lineHeight: "24px",
     marginBottom: "1em",
     color: vars.color.muted,
   },
   span: {
     fontSize: "14px",
-    lineHeight: "24px",
     marginBottom: "1em",
     color: "inherit",
   },
