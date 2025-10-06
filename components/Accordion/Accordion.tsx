@@ -3,6 +3,7 @@ import React from "react";
 import * as s from "./Accordion.css";
 import Typography from "../Typography/Typography";
 import { vars } from "@/styles/theme.css";
+import { responsiveFont } from "@/styles/responsive-font";
 
 export interface AccordionItem {
   id: string;
@@ -68,6 +69,7 @@ export const Accordion: React.FC<AccordionProps> = ({
                 font="Instrument Sans"
                 weight={400}
                 style={{
+                  fontSize: responsiveFont(36),
                   color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
                 }}
               >
@@ -85,6 +87,7 @@ export const Accordion: React.FC<AccordionProps> = ({
                   font="Instrument Sans"
                   weight={400}
                   style={{
+                    fontSize: responsiveFont(20),
                     color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
                   }}
                 >

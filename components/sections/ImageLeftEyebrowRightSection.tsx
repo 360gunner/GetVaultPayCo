@@ -5,6 +5,7 @@ import Typography from "@/components/Typography/Typography";
 import Image from "next/image";
 import { vars } from "@/styles/theme.css";
 import Button from "../Button/Button";
+import { responsiveFont } from "@/styles/responsive-font";
 
 export interface ImageSpec {
   src: string;
@@ -80,6 +81,7 @@ const ImageLeftEyebrowRightSection: React.FC<
             weight={400}
             style={{
               margin: 0,
+              fontSize: responsiveFont(16),
               color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
             }}
           >
@@ -99,7 +101,7 @@ const ImageLeftEyebrowRightSection: React.FC<
               weight={400}
               style={{
                 marginTop: eyebrow ? vars.space.sm : 0,
-                fontSize: 40,
+                fontSize: responsiveFont(40),
                 color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
               }}
             >
@@ -119,7 +121,7 @@ const ImageLeftEyebrowRightSection: React.FC<
             weight={400}
             style={{
               marginTop: vars.space.md,
-              fontSize: 20,
+              fontSize: responsiveFont(20),
               color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
             }}
           >
