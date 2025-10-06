@@ -10,6 +10,7 @@ import BorderlessFeatureSection from "@/components/sections/BorderlessFeatureSec
 import WaysToUseGridSection from "@/components/sections/WaysToUseGridSection";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 import Image from "next/image";
+import { responsiveFont } from "@/styles/responsive-font";
 
 export default function SendAndReceivePage() {
   return (
@@ -131,7 +132,7 @@ export default function SendAndReceivePage() {
               weight={400}
               style={{
                 margin: 0,
-                fontSize: 20,
+                fontSize: responsiveFont(20),
                 lineHeight: "91%",
                 maxWidth: "25ch",
                 letterSpacing: "-0.58px",
@@ -148,7 +149,7 @@ export default function SendAndReceivePage() {
               weight={400}
               style={{
                 marginTop: "1rem",
-                fontSize: "24px",
+                fontSize: responsiveFont(24),
                 letterSpacing: "-0.58px",
               }}
             >

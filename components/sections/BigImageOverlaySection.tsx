@@ -7,6 +7,7 @@ import Button from "@/components/Button/Button";
 import { vars } from "@/styles/theme.css";
 import Link from "next/link";
 import { ContainerSize } from "@/components/Layout/Container";
+import { responsiveFont } from "@/styles/responsive-font";
 
 export interface BigImageOverlayImageSpec {
   src: string;
@@ -106,7 +107,11 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                   as="h6"
                   font="Space Grotesk"
                   weight={400}
-                  style={{ margin: 0, color: "#fff" }}
+                  style={{
+                    margin: 0,
+                    color: "#fff",
+                    fontSize: responsiveFont(20),
+                  }}
                 >
                   {eyebrow}
                 </Typography>
@@ -123,7 +128,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                 style={{
                   marginTop: eyebrow ? vars.space.sm : 0,
                   color: "#fff",
-                  fontSize: 76,
+                  fontSize: responsiveFont(76),
                   lineHeight: 1.05,
                 }}
               >
@@ -141,7 +146,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                   style={{
                     marginTop: vars.space.md,
                     color: "#fff",
-                    fontSize: 18,
+                    fontSize: responsiveFont(18),
                   }}
                 >
                   {text}
@@ -162,14 +167,19 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                       color: vars.color.vaultBlack,
                       border: "none",
                       borderRadius: vars.radius.pill,
-                      padding: `${vars.space.md} ${vars.space.lg}`,
+                      padding: `${responsiveFont(8)} ${responsiveFont(12)}`,
                       boxShadow: "none",
+                      verticalAlign: "center",
+                      textAlign: "center",
                     }}
                   >
                     <Typography
                       as="span"
                       font="Instrument Sans"
-                      style={{ fontSize: 18 }}
+                      style={{
+                        fontSize: responsiveFont(18),
+                        alignSelf: "center",
+                      }}
                     >
                       {buttonLabel}
                     </Typography>

@@ -6,6 +6,7 @@ import Button from "@/components/Button/Button";
 import { vars } from "@/styles/theme.css";
 import Image from "next/image";
 import React from "react";
+import { responsiveFont } from "@/styles/responsive-font";
 
 export interface SplitHeroProps {
   eyebrow?: string;
@@ -82,7 +83,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
               as="p"
               font="Space Grotesk"
               style={{
-                fontSize: 20,
+                fontSize: responsiveFont(20),
                 marginBottom: vars.space.sm,
                 color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
               }}
@@ -96,7 +97,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
             weight={400}
             style={{
               color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
-              fontSize: titleFontSize,
+              fontSize: responsiveFont(titleFontSize),
               marginBottom: vars.space.md,
               maxWidth: "12ch",
               lineHeight: "91%",
@@ -112,7 +113,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
                 as="p"
                 style={{
                   maxWidth: "40ch",
-                  fontSize: 20,
+                  fontSize: responsiveFont(20),
                   lineHeight: "120%",
                   letterSpacing: "-0.4px",
                 }}
@@ -129,7 +130,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
               font="Instrument Sans"
               color={dark ? vars.color.vaultWhite : vars.color.vaultBlack}
               style={{
-                fontSize: 14,
+                fontSize: responsiveFont(14),
                 marginBottom: vars.space.sm,
                 maxWidth: "60ch",
               }}

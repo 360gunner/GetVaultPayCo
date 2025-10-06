@@ -4,6 +4,7 @@ import Grid from "@/components/Layout/Grid";
 import Typography from "@/components/Typography/Typography";
 import Image from "next/image";
 import { vars } from "@/styles/theme.css";
+import { responsiveFont } from "@/styles/responsive-font";
 
 export type WaysToUseItem = {
   src: string;
@@ -46,7 +47,7 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
           font="Space Grotesk"
           weight={400}
           style={{
-            fontSize: 60,
+            fontSize: responsiveFont(60),
             marginBottom: vars.space.xxl,
             color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
             ...titleStyle,
@@ -55,7 +56,6 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
           {title}
         </Typography>
         <Grid
-          minColWidth={minColWidth}
           gap={gap}
           style={{
             alignItems: "start",
@@ -72,7 +72,7 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
                 weight={400}
                 style={{
                   marginTop: vars.space.lg,
-                  fontSize: "30px",
+                  fontSize: responsiveFont(30),
                   color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
                 }}
               >

@@ -42,3 +42,11 @@ export const responsiveFont = (
   )}vw)`;
   return `clamp(${_minPx}px, ${fluid}, ${_maxPx}px)`;
 };
+
+export const windowScaledUnit = (
+  px: number,
+  minWidth = 500,
+  maxWidth = 1280
+): number => {
+  return Math.max(0, Math.round((px * minWidth) / maxWidth));
+};
