@@ -9,6 +9,7 @@ import Typography from "@/components/Typography/Typography";
 import CardGridWithCentralImageSection from "@/components/sections/CardGridWithCentralImageSection";
 import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
+import { responsiveFont } from "@/styles/responsive-font";
 
 export default function ManageYourWalletPage() {
   return (
@@ -112,7 +113,7 @@ export default function ManageYourWalletPage() {
                 height={47}
                 style={{
                   aspectRatio: "124 / 47",
-                  maxWidth: "124px",
+                  maxWidth: responsiveFont(124),
                 }}
               />
             ),
