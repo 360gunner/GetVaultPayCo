@@ -10,6 +10,7 @@ import SocialButton from "@/components/Button/SocialButton";
 import Container from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
 import Image from "next/image";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export default function SignInPage() {
   return (
@@ -22,7 +23,7 @@ export default function SignInPage() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "48px 16px",
+          padding: `${fluidUnit(48, 24)} ${fluidUnit(16, 8)}`,
           paddingTop: 0,
         }}
       >
@@ -32,12 +33,12 @@ export default function SignInPage() {
             gap="lg"
             style={{
               alignItems: "start",
-              columnGap: 40,
-              paddingTop: vars.space["4xl"],
+              columnGap: fluidUnit(40, 24),
+              paddingTop: fluidUnit(64, 24),
             }}
           >
             {/* Left: Title, subtitle, form */}
-            <div style={{ maxWidth: 400 }}>
+            <div style={{ maxWidth: fluidUnit(400) }}>
               <Typography
                 as="h1"
                 font="Instrument Sans"
@@ -45,7 +46,7 @@ export default function SignInPage() {
                   margin: 0,
                   marginBottom: 8,
                   fontWeight: 400,
-                  fontSize: 40,
+                  fontSize: fluidUnit(40),
                   lineHeight: 1.1,
                   letterSpacing: "-0.5px",
                   textAlign: "left",
@@ -60,7 +61,7 @@ export default function SignInPage() {
                 style={{
                   margin: 0,
                   marginBottom: 24,
-                  fontSize: 20,
+                  fontSize: fluidUnit(20),
                   textAlign: "left",
                   color: "#E6E6E6",
                   fontWeight: 400,
@@ -74,7 +75,7 @@ export default function SignInPage() {
 
               <form
                 onSubmit={(e) => e.preventDefault()}
-                style={{ display: "grid", gap: 12 }}
+                style={{ display: "grid", gap: fluidUnit(12) }}
               >
                 <TextInput
                   label="Email"
@@ -97,7 +98,7 @@ export default function SignInPage() {
                   style={{
                     marginTop: 0,
                     marginBottom: 0,
-                    fontSize: 16,
+                    fontSize: fluidUnit(16),
                     color: vars.color.cloudSilver,
                     fontWeight: 400,
                     lineHeight: 1.6,
@@ -122,7 +123,7 @@ export default function SignInPage() {
                   style={{
                     width: "100%",
                     background: vars.color.neonMint,
-                    padding: "12px 16px",
+                    padding: `${fluidUnit(12)} ${fluidUnit(16)}`,
                     borderRadius: 12,
                     color: vars.color.vaultBlack,
                     fontWeight: 600,
@@ -132,7 +133,7 @@ export default function SignInPage() {
                   <Typography
                     as="span"
                     font="Instrument Sans"
-                    style={{ fontSize: 20 }}
+                    style={{ fontSize: fluidUnit(20) }}
                   >
                     Sign In
                   </Typography>
@@ -145,9 +146,9 @@ export default function SignInPage() {
                   display: "grid",
                   gridTemplateColumns: "1fr auto 1fr",
                   alignItems: "center",
-                  padding: "0 16px",
-                  gap: 12,
-                  margin: "32px 0",
+                  padding: `0 ${fluidUnit(16)}`,
+                  gap: fluidUnit(12),
+                  margin: `${fluidUnit(32)} 0`,
                 }}
               >
                 <div
@@ -158,7 +159,7 @@ export default function SignInPage() {
                   font="Instrument Sans"
                   style={{
                     margin: 0,
-                    fontSize: 16,
+                    fontSize: fluidUnit(16),
                     textAlign: "center",
                     color: vars.color.vaultWhite,
                   }}
@@ -170,11 +171,16 @@ export default function SignInPage() {
                 />
               </div>
 
-              <div style={{ display: "grid", gap: 18 }}>
+              <div style={{ display: "grid", gap: fluidUnit(18) }}>
                 <SocialButton
                   label="Sign in with Google"
                   icon={
                     <svg
+                      style={{
+                        height: fluidUnit(28),
+
+                        width: fluidUnit(28),
+                      }}
                       xmlns="http://www.w3.org/2000/svg"
                       width="28"
                       height="28"
@@ -204,6 +210,11 @@ export default function SignInPage() {
                   label="Sign in with Facebook"
                   icon={
                     <svg
+                      style={{
+                        height: fluidUnit(28),
+
+                        width: fluidUnit(28),
+                      }}
                       xmlns="http://www.w3.org/2000/svg"
                       width="28"
                       height="28"
@@ -218,19 +229,22 @@ export default function SignInPage() {
 
               <div
                 style={{
-                  marginTop: 32,
+                  marginTop: fluidUnit(32),
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: 6,
+                  gap: fluidUnit(6),
                   fontFamily: "Instrument Sans, system-ui, sans-serif",
-                  fontSize: 14,
+                  fontSize: fluidUnit(14),
                 }}
               >
                 <Typography
                   as="span"
                   font="Instrument Sans"
-                  style={{ fontSize: 16, color: vars.color.cloudSilver }}
+                  style={{
+                    fontSize: fluidUnit(16),
+                    color: vars.color.cloudSilver,
+                  }}
                   weight={400}
                 >
                   Don't you have an account?{" "}
@@ -248,17 +262,17 @@ export default function SignInPage() {
 
               <div
                 style={{
-                  marginTop: 32,
+                  marginTop: fluidUnit(32),
                   textAlign: "center",
                   color: "#6b7280",
                   fontFamily: "Instrument Sans, system-ui, sans-serif",
-                  fontSize: 12,
+                  fontSize: fluidUnit(12),
                 }}
               >
                 <Typography
                   as="span"
                   font="Instrument Sans"
-                  style={{ fontSize: 16 }}
+                  style={{ fontSize: fluidUnit(16) }}
                   weight={400}
                 >
                   © 2025 ALL RIGHTS RESERVED
@@ -271,9 +285,9 @@ export default function SignInPage() {
               style={{
                 position: "relative",
                 width: "100%",
-                maxWidth: 640,
+                maxWidth: fluidUnit(640),
                 margin: "0 auto",
-                borderRadius: 16,
+                borderRadius: fluidUnit(16),
                 overflow: "hidden",
               }}
             >

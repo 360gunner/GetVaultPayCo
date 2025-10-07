@@ -8,6 +8,7 @@ import Button from "@/components/Button/Button";
 import ImageButton from "@/components/ImageButton/ImageButton";
 import { vars } from "@/styles/theme.css";
 import MegaMenu from "@/components/MegaMenu/MegaMenu";
+import { hideOnSmallScreen } from "@/styles/hide-on-small-screen.css";
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   noBg?: boolean;
@@ -126,7 +127,11 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
               </Link>
             </div>
             <div className={s.right}>
-              <Link href="/signup" style={{ textDecoration: "none" }}>
+              <Link
+                href="/signup"
+                style={{ textDecoration: "none" }}
+                className={hideOnSmallScreen}
+              >
                 <Button
                   variant={
                     darkGhost ? "ghost" : menuOpen ? "ghost" : "secondary"
@@ -148,7 +153,11 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
                   }}
                 />
               </Link>
-              <Link href="/signin" style={{ textDecoration: "none" }}>
+              <Link
+                href="/signin"
+                style={{ textDecoration: "none" }}
+                className={hideOnSmallScreen}
+              >
                 <Button
                   variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "primary"}
                   size="medium"
