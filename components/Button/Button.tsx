@@ -8,6 +8,7 @@ export interface ButtonProps {
   variant?: ButtonVariants;
   backgroundColor?: string;
   paddingEqual?: boolean;
+  textStyle?: React.CSSProperties;
   size?: "small" | "medium" | "large";
   font?: TypographyProps["font"];
   label?: string;
@@ -24,6 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
   font = "Instrument Sans",
   children,
   style,
+  textStyle,
   ...props
 }) => {
   const sizeClass =
@@ -45,11 +47,11 @@ export const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {label ? (
-        <Typography as="span" margin={0} font={font}>
+        <Typography as="span" margin={0} font={font} style={textStyle}>
           {label}
         </Typography>
       ) : typeof children === "string" ? (
-        <Typography as="span" margin={0} font={font}>
+        <Typography as="span" margin={0} font={font} style={textStyle}>
           {children}
         </Typography>
       ) : (

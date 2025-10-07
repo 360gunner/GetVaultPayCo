@@ -43,7 +43,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
   buttonLabel,
   buttonHref = "#",
   containerSize = "full",
-  sectionPadding = `${vars.space.xl} 0`,
+  sectionPadding = `${fluidUnit(28, 12)} 0`,
   rounded = 16,
   shadow = false,
   aspectRatio = "16 / 9",
@@ -88,7 +88,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
       )}
 
       <div
-        style={{ position: "absolute", inset: 0, padding: vars.space["xxl"] }}
+        style={{ position: "absolute", inset: 0, padding: fluidUnit(48, 12) }}
       >
         <Grid
           columns={2}
@@ -96,7 +96,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
           style={{
             height: "100%",
             alignItems: "center",
-            paddingLeft: vars.space["xl"],
+            paddingLeft: fluidUnit(28, 12),
           }}
         >
           {/* Left column content */}
@@ -110,7 +110,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                   style={{
                     margin: 0,
                     color: "#fff",
-                    fontSize: fluidUnit(20),
+                    fontSize: fluidUnit(20, 10),
                   }}
                 >
                   {eyebrow}
@@ -126,9 +126,9 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                 font="Space Grotesk"
                 weight={400}
                 style={{
-                  marginTop: eyebrow ? vars.space.sm : 0,
+                  marginTop: eyebrow ? fluidUnit(8) : 0,
                   color: "#fff",
-                  fontSize: fluidUnit(76),
+                  fontSize: fluidUnit(76, 20),
                   lineHeight: 1.05,
                 }}
               >
@@ -144,9 +144,9 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                   as="p"
                   font="Instrument Sans"
                   style={{
-                    marginTop: vars.space.md,
+                    marginTop: fluidUnit(8),
                     color: "#fff",
-                    fontSize: fluidUnit(18),
+                    fontSize: fluidUnit(18, 10),
                   }}
                 >
                   {text}
@@ -157,7 +157,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
             ) : null}
 
             {buttonLabel && (
-              <div style={{ marginTop: vars.space.lg }}>
+              <div style={{ marginTop: fluidUnit(24, 8) }}>
                 <Link href={buttonHref} style={{ textDecoration: "none" }}>
                   <Button
                     variant="secondary"
@@ -167,7 +167,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                       color: vars.color.vaultBlack,
                       border: "none",
                       borderRadius: vars.radius.pill,
-                      padding: `${fluidUnit(8)} ${fluidUnit(12)}`,
+                      padding: `${fluidUnit(20, 10)} ${fluidUnit(24, 10)}`,
                       boxShadow: "none",
                       verticalAlign: "center",
                       textAlign: "center",
@@ -177,7 +177,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                       as="span"
                       font="Instrument Sans"
                       style={{
-                        fontSize: fluidUnit(18),
+                        fontSize: fluidUnit(18, 12),
                         alignSelf: "center",
                       }}
                     >

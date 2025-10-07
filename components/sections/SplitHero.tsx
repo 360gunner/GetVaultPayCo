@@ -145,8 +145,10 @@ const SplitHero: React.FC<SplitHeroProps> = ({
                 variant={buttonVariant}
                 size="medium"
                 label={buttonLabel}
+                textStyle={{ fontSize: fluidUnit(20, 12) }}
                 onClick={onButtonClick}
                 style={{
+                  padding: `${fluidUnit(16, 12)} ${fluidUnit(24, 12)}`,
                   backgroundColor: dark ? vars.color.vaultWhite : undefined,
                 }}
               />

@@ -96,7 +96,7 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
                 variant="secondary"
                 size="large"
                 style={{
-                  padding: `${fluidUnit(20)} ${fluidUnit(24)}`,
+                  padding: `${fluidUnit(20, 10)} ${fluidUnit(24, 12)}`,
                 }}
               >
                 <Typography
@@ -104,7 +104,7 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
                   font="Instrument Sans"
                   weight={400}
                   style={{
-                    fontSize: fluidUnit(20),
+                    fontSize: fluidUnit(20, 12),
                     width: "fit-content",
                   }}
                 >

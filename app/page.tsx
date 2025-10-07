@@ -796,9 +796,13 @@ export default function Home() {
                       building your business, we make it feel effortless.
                     </Typography>
                     <Button
-                      style={{ marginTop: fluidUnit(24) }}
+                      style={{
+                        marginTop: fluidUnit(24),
+                        padding: `${fluidUnit(16, 10)} ${fluidUnit(16, 10)}`,
+                      }}
                       variant="secondary"
                       size="large"
+                      textStyle={{ fontSize: fluidUnit(20, 12) }}
                       label="Learn more"
                     />
                   </div>
@@ -948,9 +952,13 @@ export default function Home() {
                       Mastercard are. One card, borderless access.{" "}
                     </Typography>
                     <Button
-                      style={{ marginTop: fluidUnit(16) }}
+                      style={{
+                        marginTop: fluidUnit(16),
+                        padding: `${fluidUnit(16, 8)} ${fluidUnit(16, 8)}`,
+                      }}
                       variant="secondary"
                       size="large"
+                      textStyle={{ fontSize: fluidUnit(20, 12) }}
                       label="Learn more"
                     />
                   </div>

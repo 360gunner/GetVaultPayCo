@@ -144,12 +144,12 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
                   border: "1px solid black",
                   boxShadow: "none",
                   minWidth: fluidUnit(100),
-                  padding: `${fluidUnit(12)} ${fluidUnit(24)}`,
+                  padding: `${fluidUnit(16, 8)} ${fluidUnit(24, 10)}`,
                 }}
               >
                 <Typography
                   as="span"
-                  style={{ fontSize: fluidUnit(12) }}
+                  style={{ fontSize: fluidUnit(14, 8) }}
                   weight={400}
                 >
                   {buttonLabel}
