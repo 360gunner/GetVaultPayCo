@@ -27,8 +27,8 @@ export default function SignUpPage() {
         <div
           style={{
             width: "100%",
-            maxWidth: 430,
-            borderRadius: 16,
+            maxWidth: fluidUnit(430, 240),
+            borderRadius: fluidUnit(16),
             paddingTop: 0,
           }}
         >
@@ -38,9 +38,9 @@ export default function SignUpPage() {
             font="Instrument Sans"
             style={{
               margin: 0,
-              marginBottom: 8,
+              marginBottom: fluidUnit(8),
               fontWeight: 400,
-              fontSize: fluidUnit(60, 40),
+              fontSize: fluidUnit(60, 30),
               lineHeight: 1.1,
               letterSpacing: "-0.5px",
               textAlign: "center",
@@ -53,8 +53,8 @@ export default function SignUpPage() {
             font="Instrument Sans"
             style={{
               margin: 0,
-              marginBottom: 18,
-              fontSize: fluidUnit(20, 16),
+              marginBottom: fluidUnit(18),
+              fontSize: fluidUnit(20, 12),
               textAlign: "center",
               color: vars.color.vaultNavie,
               fontWeight: 400,
@@ -68,7 +68,7 @@ export default function SignUpPage() {
           {/* Form */}
           <form
             onSubmit={(e) => e.preventDefault()}
-            style={{ display: "grid", gap: 12 }}
+            style={{ display: "grid", gap: fluidUnit(12) }}
           >
             <TextInput
               label="Email"
@@ -88,10 +88,10 @@ export default function SignUpPage() {
               variant="secondary"
               size="large"
               style={{
-                marginTop: 16,
+                marginTop: fluidUnit(16),
                 width: "100%",
-                padding: "12px 16px",
-                borderRadius: 12,
+                padding: `${fluidUnit(12)} ${fluidUnit(16)}`,
+                borderRadius: fluidUnit(12),
                 background: vars.color.vaultNavie,
                 color: "#fff",
                 fontWeight: 600,
@@ -101,7 +101,7 @@ export default function SignUpPage() {
               <Typography
                 as="span"
                 font="Instrument Sans"
-                style={{ fontSize: 20 }}
+                style={{ fontSize: fluidUnit(20) }}
               >
                 Sign Up
               </Typography>
@@ -125,7 +125,7 @@ export default function SignUpPage() {
               font="Instrument Sans"
               style={{
                 margin: 0,
-                fontSize: 16,
+                fontSize: fluidUnit(16),
                 textAlign: "center",
                 color: vars.color.vaultNavie,
               }}
@@ -136,11 +136,15 @@ export default function SignUpPage() {
           </div>
 
           {/* Social buttons */}
-          <div style={{ display: "grid", gap: 18 }}>
+          <div style={{ display: "grid", gap: fluidUnit(18) }}>
             <SocialButton
               label="Sign in with Google"
               icon={
                 <svg
+                  style={{
+                    height: fluidUnit(28),
+                    width: fluidUnit(28),
+                  }}
                   xmlns="http://www.w3.org/2000/svg"
                   width="28"
                   height="28"
@@ -170,6 +174,10 @@ export default function SignUpPage() {
               label="Sign in with Facebook"
               icon={
                 <svg
+                  style={{
+                    height: fluidUnit(28),
+                    width: fluidUnit(28),
+                  }}
                   xmlns="http://www.w3.org/2000/svg"
                   width="28"
                   height="28"
@@ -185,19 +193,19 @@ export default function SignUpPage() {
           {/* Footer text */}
           <div
             style={{
-              marginTop: 32,
+              marginTop: fluidUnit(32),
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: 6,
+              gap: fluidUnit(6),
               fontFamily: "Instrument Sans, system-ui, sans-serif",
-              fontSize: 14,
+              fontSize: fluidUnit(14),
             }}
           >
             <Typography
               as="span"
               font="Instrument Sans"
-              style={{ fontSize: 16 }}
+              style={{ fontSize: fluidUnit(16) }}
               weight={400}
             >
               Already have an account?{" "}
@@ -213,17 +221,17 @@ export default function SignUpPage() {
           {/* Bottom copyright */}
           <div
             style={{
-              marginTop: 32,
+              marginTop: fluidUnit(32),
               textAlign: "center",
               color: "#6b7280",
               fontFamily: "Instrument Sans, system-ui, sans-serif",
-              fontSize: 12,
+              fontSize: fluidUnit(12),
             }}
           >
             <Typography
               as="span"
               font="Instrument Sans"
-              style={{ fontSize: 16 }}
+              style={{ fontSize: fluidUnit(16) }}
               weight={400}
             >
               © 2025 ALL RIGHTS RESERVED
