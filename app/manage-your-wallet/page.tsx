@@ -9,7 +9,7 @@ import Typography from "@/components/Typography/Typography";
 import CardGridWithCentralImageSection from "@/components/sections/CardGridWithCentralImageSection";
 import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export default function ManageYourWalletPage() {
   return (
@@ -113,7 +113,7 @@ export default function ManageYourWalletPage() {
                 height={47}
                 style={{
                   aspectRatio: "124 / 47",
-                  maxWidth: responsiveFont(124),
+                  maxWidth: fluidUnit(124),
                 }}
               />
             ),

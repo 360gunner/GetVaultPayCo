@@ -3,7 +3,7 @@ import Image from "next/image";
 import Typography from "@/components/Typography/Typography";
 import Container, { ContainerProps } from "@/components/Layout/Container";
 import Stack from "@/components/Layout/Stack";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 type SSSItem = {
   title: string;
   text: string;
@@ -64,8 +64,8 @@ const CardGridWithCentralImageSection: React.FC<
       <div
         style={{
           background: getGradient(index),
-          borderRadius: responsiveFont(30),
-          padding: responsiveFont(24),
+          borderRadius: fluidUnit(30),
+          padding: fluidUnit(24),
           flex: 1,
           display: "flex",
           flexDirection: "column",
@@ -83,9 +83,9 @@ const CardGridWithCentralImageSection: React.FC<
         >
           <div
             style={{
-              width: responsiveFont(80),
-              height: responsiveFont(80),
-              borderRadius: responsiveFont(11),
+              width: fluidUnit(80),
+              height: fluidUnit(80),
+              borderRadius: fluidUnit(11),
               background: "#000",
               display: "flex",
               alignItems: "center",
@@ -99,15 +99,15 @@ const CardGridWithCentralImageSection: React.FC<
                 width={48}
                 height={48}
                 style={{
-                  height: responsiveFont(48),
-                  width: responsiveFont(48),
+                  height: fluidUnit(48),
+                  width: fluidUnit(48),
                 }}
               />
             ) : (
               <svg
                 style={{
-                  width: responsiveFont(48),
-                  height: responsiveFont(48),
+                  width: fluidUnit(48),
+                  height: fluidUnit(48),
                 }}
                 width="48"
                 height="48"
@@ -129,21 +129,21 @@ const CardGridWithCentralImageSection: React.FC<
             marginTop: "auto",
             display: "flex",
             flexDirection: "column",
-            gap: responsiveFont(4),
+            gap: fluidUnit(4),
           }}
         >
           <Typography
             as="h4"
             font="Instrument Sans"
             weight={400}
-            style={{ fontSize: responsiveFont(30) }}
+            style={{ fontSize: fluidUnit(30) }}
           >
             {title}
           </Typography>
           <Typography
             font="Instrument Sans"
             as="p"
-            style={{ fontSize: responsiveFont(20) }}
+            style={{ fontSize: fluidUnit(20) }}
           >
             {text}
           </Typography>
@@ -152,7 +152,7 @@ const CardGridWithCentralImageSection: React.FC<
     );
   };
 
-  const gridGap = responsiveFont(60);
+  const gridGap = fluidUnit(60);
   return (
     <section style={{ padding: "24px 0", minHeight: "90vh" }}>
       <Container
@@ -164,7 +164,7 @@ const CardGridWithCentralImageSection: React.FC<
             as="h2"
             font="Space Grotesk"
             weight={400}
-            style={{ fontSize: responsiveFont(60) }}
+            style={{ fontSize: fluidUnit(60) }}
           >
             Simple, Secure, Social
           </Typography>

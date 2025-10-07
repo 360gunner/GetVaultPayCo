@@ -15,7 +15,7 @@ import Footer from "@/components/Footer/Footer";
 import { vars } from "@/styles/theme.css";
 import Image from "next/image";
 import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 
 const BenefitsSection: React.FC = () => {
@@ -259,17 +259,17 @@ export const TestimonialsSection: React.FC = () => {
             <Grid
               minColWidth={100}
               gap="lg"
-              style={{ alignItems: "stretch", gap: responsiveFont(16) }}
+              style={{ alignItems: "stretch", gap: fluidUnit(16) }}
             >
               {testimonials.map(({ text, name, avatar }) => (
                 <div
                   key={name}
                   style={{
                     borderRadius: 16,
-                    padding: responsiveFont(24),
+                    padding: fluidUnit(24),
                     display: "flex",
                     flexDirection: "column",
-                    gap: responsiveFont(16),
+                    gap: fluidUnit(16),
                     height: "100%",
                     alignItems: "center",
                     textAlign: "center",
@@ -277,7 +277,7 @@ export const TestimonialsSection: React.FC = () => {
                 >
                   <Typography
                     as="h4"
-                    style={{ fontWeight: 400, fontSize: responsiveFont(40) }}
+                    style={{ fontWeight: 400, fontSize: fluidUnit(40) }}
                   >
                     {text}
                   </Typography>
@@ -285,15 +285,15 @@ export const TestimonialsSection: React.FC = () => {
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      gap: responsiveFont(8),
+                      gap: fluidUnit(8),
                       marginTop: "auto",
                     }}
                   >
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <div
                         style={{
-                          width: responsiveFont(112),
-                          height: responsiveFont(112),
+                          width: fluidUnit(112),
+                          height: fluidUnit(112),
                           borderRadius: "50%",
                           overflow: "hidden",
                           position: "relative",
@@ -311,7 +311,7 @@ export const TestimonialsSection: React.FC = () => {
                       as="p"
                       style={{
                         fontWeight: 400,
-                        fontSize: responsiveFont(20),
+                        fontSize: fluidUnit(20),
                         marginTop: "1rem",
                       }}
                     >
@@ -458,10 +458,10 @@ const SecurityTrustSection: React.FC = () => {
         <Typography
           as="p"
           style={{
-            marginTop: responsiveFont(16),
+            marginTop: fluidUnit(16),
             maxWidth: "30ch",
 
-            fontSize: responsiveFont(20),
+            fontSize: fluidUnit(20),
           }}
         >
           End-to-End Encryption – Your data is encrypted at every step.
@@ -543,21 +543,21 @@ const SimpleSecureSocial: React.FC = () => {
       <div
         style={{
           background: getGradient(index),
-          borderRadius: responsiveFont(30),
-          padding: responsiveFont(24),
+          borderRadius: fluidUnit(30),
+          padding: fluidUnit(24),
           flex: 1,
           display: "flex",
           flexDirection: "column",
           aspectRatio: "1/1",
-          gap: responsiveFont(8),
+          gap: fluidUnit(8),
           maxWidth: "30vw",
         }}
       >
         <div
           style={{
-            width: responsiveFont(80),
-            height: responsiveFont(80),
-            borderRadius: responsiveFont(11),
+            width: fluidUnit(80),
+            height: fluidUnit(80),
+            borderRadius: fluidUnit(11),
             background: "#000",
             display: "flex",
             alignItems: "center",
@@ -571,14 +571,14 @@ const SimpleSecureSocial: React.FC = () => {
               width={48}
               height={48}
               style={{
-                height: responsiveFont(48),
-                width: responsiveFont(48),
+                height: fluidUnit(48),
+                width: fluidUnit(48),
               }}
             />
           ) : (
             <svg
-              width={responsiveFont(48)}
-              height={responsiveFont(48)}
+              width={fluidUnit(48)}
+              height={fluidUnit(48)}
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -595,21 +595,21 @@ const SimpleSecureSocial: React.FC = () => {
             marginTop: "auto",
             display: "flex",
             flexDirection: "column",
-            gap: responsiveFont(4),
+            gap: fluidUnit(4),
           }}
         >
           <Typography
             as="h4"
             font="Instrument Sans"
             weight={400}
-            style={{ fontSize: responsiveFont(30) }}
+            style={{ fontSize: fluidUnit(30) }}
           >
             {title}
           </Typography>
           <Typography
             font="Instrument Sans"
             as="p"
-            style={{ fontSize: responsiveFont(20) }}
+            style={{ fontSize: fluidUnit(20) }}
           >
             {text}
           </Typography>
@@ -627,13 +627,13 @@ const SimpleSecureSocial: React.FC = () => {
         marginBottom: vars.space["4xl"],
       }}
     >
-      <Container size="2xl" style={{ padding: responsiveFont(48) }}>
+      <Container size="2xl" style={{ padding: fluidUnit(48) }}>
         <Stack gap="sm">
           <Typography
             as="h2"
             font="Space Grotesk"
             weight={400}
-            style={{ fontSize: responsiveFont(60) }}
+            style={{ fontSize: fluidUnit(60) }}
           >
             Simple, Secure, Social
           </Typography>
@@ -641,7 +641,7 @@ const SimpleSecureSocial: React.FC = () => {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1.5fr 1fr",
-              gap: responsiveFont(48),
+              gap: fluidUnit(48),
               alignItems: "stretch",
             }}
           >
@@ -736,7 +736,7 @@ export default function Home() {
                   as="h1"
                   font="Space Grotesk"
                   weight={400}
-                  style={{ fontSize: responsiveFont(80) }}
+                  style={{ fontSize: fluidUnit(80) }}
                 >
                   Borderless <br /> payments for all
                 </Typography>
@@ -751,7 +751,7 @@ export default function Home() {
                   <div
                     style={{
                       padding: vars.space.xl,
-                      minWidth: responsiveFont(569),
+                      minWidth: fluidUnit(569),
                     }}
                   >
                     <div
@@ -775,20 +775,20 @@ export default function Home() {
                     style={{
                       paddingTop: vars.space.xl,
                       paddingBottom: vars.space.xl,
-                      minWidth: responsiveFont(300),
+                      minWidth: fluidUnit(300),
                     }}
                   >
                     <Typography
                       as="h2"
                       font="Instrument Sans"
                       weight={400}
-                      style={{ fontSize: responsiveFont(40) }}
+                      style={{ fontSize: fluidUnit(40) }}
                     >
                       Built for a World <br /> Without Limits
                     </Typography>
                     <Typography
                       as="p"
-                      style={{ fontSize: responsiveFont(20), maxWidth: "30ch" }}
+                      style={{ fontSize: fluidUnit(20), maxWidth: "30ch" }}
                     >
                       VaultPay lets you send, receive, and manage money across
                       countries, currencies, and communities—without the usual
@@ -796,7 +796,7 @@ export default function Home() {
                       building your business, we make it feel effortless.
                     </Typography>
                     <Button
-                      style={{ marginTop: responsiveFont(24) }}
+                      style={{ marginTop: fluidUnit(24) }}
                       variant="secondary"
                       size="large"
                       label="Learn more"
@@ -904,7 +904,7 @@ export default function Home() {
                   as="h1"
                   font="Space Grotesk"
                   weight={400}
-                  style={{ fontSize: responsiveFont(80) }}
+                  style={{ fontSize: fluidUnit(80) }}
                 >
                   Use everywhere you use <br /> Visa & Mastercard.
                 </Typography>
@@ -918,7 +918,7 @@ export default function Home() {
                 >
                   <div
                     style={{
-                      minWidth: responsiveFont(569),
+                      minWidth: fluidUnit(569),
                       aspectRatio: "569/458",
                       width: "100%",
                       position: "relative",
@@ -936,11 +936,11 @@ export default function Home() {
                       as="h2"
                       font="Instrument Sans"
                       weight={400}
-                      style={{ fontSize: responsiveFont(40) }}
+                      style={{ fontSize: fluidUnit(40) }}
                     >
                       Accepted wherever life takes you
                     </Typography>
-                    <Typography as="p" style={{ fontSize: responsiveFont(20) }}>
+                    <Typography as="p" style={{ fontSize: fluidUnit(20) }}>
                       VaultPay is partnered with Mastercard® and Visa®, so your
                       card works almost everywhere. From local shops to global
                       retailers, restaurants to ride-shares, you can pay with
@@ -948,7 +948,7 @@ export default function Home() {
                       Mastercard are. One card, borderless access.{" "}
                     </Typography>
                     <Button
-                      style={{ marginTop: responsiveFont(16) }}
+                      style={{ marginTop: fluidUnit(16) }}
                       variant="secondary"
                       size="large"
                       label="Learn more"

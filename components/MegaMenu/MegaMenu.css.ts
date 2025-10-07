@@ -1,6 +1,6 @@
 import { keyframes, style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "@/styles/theme.css";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 const fadeIn = keyframes({
   from: { opacity: 0 },
@@ -235,7 +235,7 @@ export const bannerRow = style({
 });
 
 export const bannerTitle = style({
-  fontSize: responsiveFont(76),
+  fontSize: fluidUnit(76),
   lineHeight: 1,
   fontWeight: 800,
   marginBottom: 0,

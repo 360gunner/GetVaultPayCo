@@ -3,7 +3,7 @@ import Footer from "@/components/Footer/Footer";
 import Container from "@/components/Layout/Container";
 import Stack from "@/components/Layout/Stack";
 import Typography from "@/components/Typography/Typography";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 const PrivacyTitle: React.FC<{ title: string }> = ({ title }) => {
   return (
     <Typography
@@ -29,7 +29,7 @@ const PrivacyPageH1: React.FC<{ children: string }> = ({ children }) => {
       as="h1"
       font="Space Grotesk"
       weight={400}
-      style={{ fontSize: responsiveFont(80, 40) }}
+      style={{ fontSize: fluidUnit(80, 40) }}
     >
       {children}
     </Typography>
@@ -45,7 +45,7 @@ export default function PrivacyPolicyPage() {
         style={{
           paddingTop: 32,
           paddingBottom: 64,
-          marginLeft: responsiveFont(26),
+          marginLeft: fluidUnit(26),
         }}
       >
         <PrivacyPageH1>Privacy Policy</PrivacyPageH1>

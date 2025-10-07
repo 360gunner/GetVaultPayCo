@@ -6,7 +6,7 @@ import Typography from "@/components/Typography/Typography";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
 import { vars } from "@/styles/theme.css";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export interface BorderlessFeatureSectionProps {
   heading?: React.ReactNode; // allows exact markup like "Borderless <br /> payments for all"
@@ -54,7 +54,7 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
             as="h1"
             font="Space Grotesk"
             weight={400}
-            style={{ fontSize: responsiveFont(80), paddingLeft: "3vw" }}
+            style={{ fontSize: fluidUnit(80), paddingLeft: "3vw" }}
           >
             {heading}
           </Typography>
@@ -81,14 +81,14 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
               <Typography
                 as="h2"
                 font="Instrument Sans"
-                style={{ fontSize: responsiveFont(30) }}
+                style={{ fontSize: fluidUnit(30) }}
                 weight={400}
               >
                 {rightTitle}
               </Typography>
               <Typography
                 as="p"
-                style={{ fontSize: responsiveFont(20), maxWidth: "40ch" }}
+                style={{ fontSize: fluidUnit(20), maxWidth: "40ch" }}
               >
                 {rightBody}
               </Typography>
@@ -96,7 +96,7 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
                 variant="secondary"
                 size="large"
                 style={{
-                  padding: `${responsiveFont(20)} ${responsiveFont(24)}`,
+                  padding: `${fluidUnit(20)} ${fluidUnit(24)}`,
                 }}
               >
                 <Typography
@@ -104,7 +104,7 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
                   font="Instrument Sans"
                   weight={400}
                   style={{
-                    fontSize: responsiveFont(20),
+                    fontSize: fluidUnit(20),
                     width: "fit-content",
                   }}
                 >

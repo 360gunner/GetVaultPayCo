@@ -4,7 +4,7 @@ import Stack from "../Layout/Stack";
 import Typography from "../Typography/Typography";
 import Image from "next/image";
 import Button from "../Button/Button";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 interface BottomCallToActionBannerProps {
   dark?: boolean;
@@ -17,8 +17,8 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
       <Container
         size="full"
         style={{
-          paddingRight: responsiveFont(16),
-          paddingLeft: responsiveFont(16),
+          paddingRight: fluidUnit(16),
+          paddingLeft: fluidUnit(16),
         }}
       >
         {/* Image with overlay content */}
@@ -26,7 +26,7 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
           style={{
             position: "relative",
             width: "100%",
-            borderRadius: responsiveFont(16),
+            borderRadius: fluidUnit(16),
             overflow: "hidden",
           }}
         >
@@ -44,7 +44,7 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              padding: responsiveFont(24),
+              padding: fluidUnit(24),
             }}
           >
             <div
@@ -52,7 +52,7 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                gap: responsiveFont(12),
+                gap: fluidUnit(12),
                 textAlign: "center",
                 color: "#fff",
               }}
@@ -63,8 +63,8 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
                 width={69}
                 height={69}
                 style={{
-                  width: responsiveFont(69),
-                  height: responsiveFont(69),
+                  width: fluidUnit(69),
+                  height: fluidUnit(69),
                 }}
               />
               <Typography
@@ -73,7 +73,7 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
                 style={{
                   color: "#fff",
                   fontWeight: 400,
-                  fontSize: responsiveFont(96),
+                  fontSize: fluidUnit(96),
                 }}
               >
                 Start your vault
@@ -82,7 +82,7 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
                 variant="colored"
                 size="large"
                 style={{
-                  padding: `${responsiveFont(16)} ${responsiveFont(24)}`,
+                  padding: `${fluidUnit(16)} ${fluidUnit(24)}`,
                 }}
                 backgroundColor={vars.color.neonMint}
               >
@@ -91,7 +91,7 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
                   style={{
                     margin: 0,
                     fontWeight: 400,
-                    fontSize: responsiveFont(26),
+                    fontSize: fluidUnit(26),
                   }}
                 >
                   Download The App

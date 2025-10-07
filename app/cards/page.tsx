@@ -10,7 +10,7 @@ import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBa
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
 import Button from "@/components/Button/Button";
 import Grid from "@/components/Layout/Grid";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 type GridItemProps = {
   imageSrc: string;
   title: string;
@@ -72,7 +72,7 @@ const FindTheCardForYou = () => {
             font="Instrument Sans"
             weight={400}
             style={{
-              fontSize: responsiveFont(40),
+              fontSize: fluidUnit(40),
               lineHeight: "91%",
               letterSpacing: "-0.58px",
             }}
@@ -84,7 +84,7 @@ const FindTheCardForYou = () => {
             font="Instrument Sans"
             weight={400}
             style={{
-              fontSize: responsiveFont(20),
+              fontSize: fluidUnit(20),
               lineHeight: "150%",
               letterSpacing: "-0.24px",
             }}

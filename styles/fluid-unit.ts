@@ -12,11 +12,11 @@
  *   intercept = min - slope * minWidth
  *
  * Usage examples:
- *   responsiveFont(60)                    // max 60px at 1280px, min derived at 600px
- *   responsiveFont(60, 42)                // max 60px, min 42px between 600px–1280px
- *   responsiveFont(60, 42, 480, 1440)     // custom breakpoints
+ *   fluidUnit(60)                    // max 60px at 1280px, min derived at 600px
+ *   fluidUnit(60, 42)                // max 60px, min 42px between 600px–1280px
+ *   fluidUnit(60, 42, 480, 1440)     // custom breakpoints
  */
-export const responsiveFont = (
+export const fluidUnit = (
   maxPx: number,
   minPx?: number,
   minWidth = 500,

@@ -7,7 +7,7 @@ import Typography from "@/components/Typography/Typography";
 import Button from "@/components/Button/Button";
 import TextInput from "@/components/Form/TextInput";
 import SocialButton from "@/components/Button/SocialButton";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export default function SignUpPage() {
   return (
@@ -40,7 +40,7 @@ export default function SignUpPage() {
               margin: 0,
               marginBottom: 8,
               fontWeight: 400,
-              fontSize: responsiveFont(60, 40),
+              fontSize: fluidUnit(60, 40),
               lineHeight: 1.1,
               letterSpacing: "-0.5px",
               textAlign: "center",
@@ -54,7 +54,7 @@ export default function SignUpPage() {
             style={{
               margin: 0,
               marginBottom: 18,
-              fontSize: responsiveFont(20, 16),
+              fontSize: fluidUnit(20, 16),
               textAlign: "center",
               color: vars.color.vaultNavie,
               fontWeight: 400,

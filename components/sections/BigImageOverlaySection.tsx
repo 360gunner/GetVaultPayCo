@@ -7,7 +7,7 @@ import Button from "@/components/Button/Button";
 import { vars } from "@/styles/theme.css";
 import Link from "next/link";
 import { ContainerSize } from "@/components/Layout/Container";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export interface BigImageOverlayImageSpec {
   src: string;
@@ -110,7 +110,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                   style={{
                     margin: 0,
                     color: "#fff",
-                    fontSize: responsiveFont(20),
+                    fontSize: fluidUnit(20),
                   }}
                 >
                   {eyebrow}
@@ -128,7 +128,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                 style={{
                   marginTop: eyebrow ? vars.space.sm : 0,
                   color: "#fff",
-                  fontSize: responsiveFont(76),
+                  fontSize: fluidUnit(76),
                   lineHeight: 1.05,
                 }}
               >
@@ -146,7 +146,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                   style={{
                     marginTop: vars.space.md,
                     color: "#fff",
-                    fontSize: responsiveFont(18),
+                    fontSize: fluidUnit(18),
                   }}
                 >
                   {text}
@@ -167,7 +167,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                       color: vars.color.vaultBlack,
                       border: "none",
                       borderRadius: vars.radius.pill,
-                      padding: `${responsiveFont(8)} ${responsiveFont(12)}`,
+                      padding: `${fluidUnit(8)} ${fluidUnit(12)}`,
                       boxShadow: "none",
                       verticalAlign: "center",
                       textAlign: "center",
@@ -177,7 +177,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                       as="span"
                       font="Instrument Sans"
                       style={{
-                        fontSize: responsiveFont(18),
+                        fontSize: fluidUnit(18),
                         alignSelf: "center",
                       }}
                     >

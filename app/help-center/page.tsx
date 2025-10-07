@@ -10,7 +10,7 @@ import Accordion, {
 } from "@/components/Accordion/Accordion";
 import { vars } from "@/styles/theme.css";
 import Footer from "@/components/Footer/Footer";
-import { responsiveFont } from "@/styles/responsive-font";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export const metadata = {
   title: "Help Center | VaultPay",
@@ -142,7 +142,7 @@ export default function HelpCenterPage() {
           <Grid
             columns={3}
             gap="lg"
-            style={{ alignItems: "stretch", gap: responsiveFont(32) }}
+            style={{ alignItems: "stretch", gap: fluidUnit(32) }}
           >
             {cardItems.map((item) => (
               <a
@@ -152,7 +152,7 @@ export default function HelpCenterPage() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: responsiveFont(16),
+                  gap: fluidUnit(16),
                   padding: "18px 20px",
                   border: "1px solid #000",
                   borderRadius: 999,
@@ -165,7 +165,7 @@ export default function HelpCenterPage() {
                   as="h6"
                   font="Instrument Sans"
                   weight={400}
-                  style={{ margin: 0, fontSize: responsiveFont(16, 8) }}
+                  style={{ margin: 0, fontSize: fluidUnit(16, 8) }}
                 >
                   {item.label}
                 </Typography>
