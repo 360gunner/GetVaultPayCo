@@ -145,7 +145,7 @@ export default function BorderlessTransfersPage() {
             fontSize: 64,
           }}
         >
-          What is Purchase Protection?
+          FAQs
         </Typography>
         <div style={{ marginTop: vars.space.lg }}>
           <Accordion items={faqItems} />
