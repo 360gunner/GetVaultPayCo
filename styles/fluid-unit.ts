@@ -39,7 +39,7 @@ export const fluidUnit = (
   // Build CSS string. 1vw equals 1% of viewport width, so multiply slope by 100.
   const fluid = `calc(${intercept.toFixed(4)}px + ${(slope * 100).toFixed(
     6
-  )}vw)`;
+  )}  * var(--vw))`;
   return `clamp(${_minPx}px, ${fluid}, ${_maxPx}px)`;
 };
 
