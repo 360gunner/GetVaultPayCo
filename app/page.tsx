@@ -337,20 +337,20 @@ const HeroSection: React.FC = () => {
           gap="lg"
           style={{
             alignItems: "stretch",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gridTemplateColumns: "2fr 1fr",
             gap: vars.space.lg,
             padding: vars.space.lg,
             gridAutoFlow: "dense",
-            maxWidth: "100vw",
+            maxWidth: "calc(100* var(--vw))",
             paddingBottom: 0,
           }}
         >
-          <div style={{ gridColumn: "span 2" }}>
+          <div>
             <Typography
               as="h1"
               font="Space Grotesk"
               style={{
-                fontSize: 130,
+                fontSize: fluidUnit(130),
                 fontWeight: 400,
                 lineHeight: "91%",
                 letterSpacing: "-2%",
@@ -361,14 +361,16 @@ const HeroSection: React.FC = () => {
           </div>
           <div
             style={{
-              minWidth: "300px",
               display: "flex",
               alignItems: "flex-start",
               justifyContent: "center",
               flexDirection: "column",
             }}
           >
-            <Typography as="p" style={{ fontSize: 20, minWidth: "25ch" }}>
+            <Typography
+              as="p"
+              style={{ fontSize: fluidUnit(20), minWidth: "25ch" }}
+            >
               VaultPay is your borderless social wallet—pay, transfer, and save
               across currencies with ease, community, and control
             </Typography>
@@ -378,7 +380,11 @@ const HeroSection: React.FC = () => {
                 size="medium"
                 backgroundColor={vars.color.neonMint}
               >
-                <Typography as="span" margin={0} style={{ fontSize: 26 }}>
+                <Typography
+                  as="span"
+                  margin={0}
+                  style={{ fontSize: fluidUnit(26, 14) }}
+                >
                   Start for Free
                 </Typography>
               </Button>
