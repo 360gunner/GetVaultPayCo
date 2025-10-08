@@ -12,8 +12,8 @@ export default function useViewportUnits() {
       console.log("CalculateAndSet");
       // Use visualViewport when available to account for mobile UI chrome
       const vv = window.visualViewport;
-      const width = vv?.width ?? window.innerWidth;
-      const height = vv?.height ?? window.innerHeight;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
 
       const vw = width * 0.01;
       const vh = height * 0.01;
