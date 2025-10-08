@@ -38,8 +38,8 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
         padding: 0,
         position: "relative",
         aspectRatio: "1400/865",
-        maxHeight: "120vh",
-        maxWidth: "100vw",
+        maxHeight: "calc(120 * var(--vh))",
+        maxWidth: "calc(100 * var(--vw))",
       }}
     >
       <div style={{ position: "absolute", left: 0, top: 0, zIndex: -1 }}>
@@ -49,11 +49,11 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
           width={1400}
           height={865}
           style={{
-            maxWidth: `95vw`,
+            maxWidth: `calc(95  * var(--vw))`,
 
             aspectRatio: "1400/865",
-            width: `99vw`,
-            maxHeight: "120vh",
+            width: `calc(99 * var(--vw))`,
+            maxHeight: "calc(120* var(--vh))",
           }}
         />
       </div>
