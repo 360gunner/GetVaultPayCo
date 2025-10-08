@@ -136,14 +136,14 @@ const CardGridWithCentralImageSection: React.FC<
             as="h4"
             font="Instrument Sans"
             weight={400}
-            style={{ fontSize: fluidUnit(30) }}
+            style={{ fontSize: fluidUnit(30, 14) }}
           >
             {title}
           </Typography>
           <Typography
             font="Instrument Sans"
             as="p"
-            style={{ fontSize: fluidUnit(20) }}
+            style={{ fontSize: fluidUnit(20, 10) }}
           >
             {text}
           </Typography>
