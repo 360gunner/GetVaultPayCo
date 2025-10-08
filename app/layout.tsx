@@ -21,13 +21,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  width: "1440",
+  width: "",
   initialScale: 1,
 
   height: "900",
   colorScheme: "only light",
   viewportFit: "cover",
-  maximumScale: 2,
+  maximumScale: 4,
   userScalable: true,
 };
 
