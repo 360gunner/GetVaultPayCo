@@ -97,9 +97,14 @@ const FindTheCardForYou = () => {
               label={props.buttonLabel}
               variant="secondary"
               size="medium"
+              textStyle={{ fontSize: fluidUnit(18, 12) }}
               style={{
-                minWidth: "6rem",
+                backgroundColor: "white",
                 marginTop: vars.space.md,
+                minWidth: "5rem",
+                boxShadow: "none",
+                border: "1px solid black",
+                padding: `${fluidUnit(18, 14)} ${fluidUnit(22, 18)}`,
               }}
             />
           </div>
@@ -115,7 +120,7 @@ const FindTheCardForYou = () => {
         style={{
           paddingTop: vars.space["4xl"],
           padding: vars.space["4xl"],
-          backgroundColor: vars.color.cloudSilver,
+          backgroundColor: "D9D9D9",
         }}
       >
         <Typography
@@ -224,21 +229,21 @@ export default function PayInStorePage() {
         gap="xl"
         items={[
           {
-            src: "/Group 1017.png",
+            src: "/Group 1037.png",
             alt: "Add money easily",
             title: "Add money easily",
             description:
               "Need to build up your balance? Tap “Add Money” to transfer cash into your Vault Pay account from our ATM's.",
           },
           {
-            src: "/Group 1018.png",
+            src: "/Group 1038.png",
             alt: "Touch-free NFC shopping",
             title: "Touch-free NFC shopping",
             description:
               "No more inserting chips or swiping card. Just tap your card and go.",
           },
           {
-            src: "/Group 1019.png",
+            src: "/Group 1039.png",
             alt: "ATM access",
             title: "ATM access",
             description:
