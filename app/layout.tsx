@@ -24,12 +24,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "1440",
   initialScale: 1,
-  minimumScale: 1,
   height: "900",
   colorScheme: "only light",
   viewportFit: "auto",
-  maximumScale: 1,
-
   userScalable: true,
 };
 
