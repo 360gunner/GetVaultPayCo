@@ -63,15 +63,15 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
         style={{
           zIndex: 1,
           padding: `${vars.space.xxl} ${vars.space["xxl"]}`,
-          paddingTop: `min(calc(90vw * 865 / 1400 * 0.12), calc(100vh * 0.12))`,
-          paddingRight: `calc(90vw * 0.05)`,
-          paddingLeft: `calc(90vw * 0.05)`,
+          paddingTop: `min(calc(90 * var(--vw) * 865 / 1400 * 0.12), calc(100 * var(--vh) * 0.12))`,
+          paddingRight: `calc(90 * var(--vw) * 0.05)`,
+          paddingLeft: `calc(90 * var(--vw) * 0.05)`,
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
           alignItems: "center",
-          height: `calc(90vw * 865 / 1400 * 0.85)`,
-          maxHeight: "95vh",
+          height: `calc(90 * var(--vw) * 865 / 1400 * 0.85)`,
+          maxHeight: "95 * var(--vh)",
         }}
       >
         <Grid
@@ -83,7 +83,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             justifyContent: "center",
             height: "100%",
             width: "100%",
-            maxHeight: "95vh",
+            maxHeight: "95 * var(--vh)",
             gap: fluidUnit(24),
             gridTemplateColumns: gridTemplateColumns || "1fr 1fr",
           }}

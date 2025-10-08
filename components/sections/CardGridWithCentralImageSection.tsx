@@ -71,7 +71,7 @@ const CardGridWithCentralImageSection: React.FC<
           flexDirection: "column",
           aspectRatio: "1/1",
           gap: 8,
-          maxWidth: "30vw",
+          maxWidth: "30 * var(--vw)",
         }}
       >
         <div

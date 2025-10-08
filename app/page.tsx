@@ -550,7 +550,7 @@ const SimpleSecureSocial: React.FC = () => {
           flexDirection: "column",
           aspectRatio: "1/1",
           gap: fluidUnit(8),
-          maxWidth: "30vw",
+          maxWidth: "30 * var(--vw)",
         }}
       >
         <div
