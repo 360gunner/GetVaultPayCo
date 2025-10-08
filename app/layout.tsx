@@ -27,7 +27,7 @@ export const viewport: Viewport = {
   height: "900",
   colorScheme: "only light",
   viewportFit: "cover",
-  maximumScale: 4,
+  maximumScale: 1,
   userScalable: true,
 };
 
