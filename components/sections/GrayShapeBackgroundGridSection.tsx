@@ -44,6 +44,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
     >
       <div style={{ position: "absolute", left: 0, top: 0, zIndex: -1 }}>
         <Image
+          unoptimized
           src="/bg_shape_cropped.svg"
           alt="Background Shape"
           width={1400}
@@ -168,6 +169,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
               }}
             >
               <Image
+                unoptimized
                 src={imageSrc}
                 alt={imageAlt}
                 fill

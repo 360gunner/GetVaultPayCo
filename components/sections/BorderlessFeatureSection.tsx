@@ -70,7 +70,13 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
                 position: "relative",
               }}
             >
-              <Image src={imageSrc} alt={imageAlt} fill style={imageStyle} />
+              <Image
+                unoptimized
+                src={imageSrc}
+                alt={imageAlt}
+                fill
+                style={imageStyle}
+              />
             </div>
             <div
               style={{

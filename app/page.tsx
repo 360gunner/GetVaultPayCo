@@ -203,7 +203,12 @@ const BenefitsSection: React.FC = () => {
                   aspectRatio: "458 / 653",
                 }}
               >
-                <Image src="/image 100.png" alt="VaultPay preview" fill />
+                <Image
+                  unoptimized
+                  src="/image 100.png"
+                  alt="VaultPay preview"
+                  fill
+                />
               </div>
             </div>
           </div>
@@ -404,6 +409,7 @@ const HeroSection: React.FC = () => {
           }}
         >
           <Image
+            unoptimized
             src="/image 94.png"
             alt="Vault app preview"
             fill
@@ -682,6 +688,7 @@ const SimpleSecureSocial: React.FC = () => {
               }}
             >
               <Image
+                unoptimized
                 src="/image 105.png"
                 alt="VaultPay app preview"
                 width={560}
@@ -770,6 +777,7 @@ export default function Home() {
                       }}
                     >
                       <Image
+                        unoptimized
                         src="/image 95.png"
                         alt="Cross-border payments"
                         fill
@@ -935,6 +943,7 @@ export default function Home() {
                     }}
                   >
                     <Image
+                      unoptimized
                       src="/visa.PNG"
                       alt="Cross-border payments"
                       fill

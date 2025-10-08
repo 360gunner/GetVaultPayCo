@@ -31,6 +31,7 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
           }}
         >
           <Image
+            unoptimized
             src={props.dark ? "/cta_banner_dark.png" : "/image 96.png"}
             alt="VaultPay devices"
             width={1200}

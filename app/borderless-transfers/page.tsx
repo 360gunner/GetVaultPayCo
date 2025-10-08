@@ -63,6 +63,7 @@ export default function BorderlessTransfersPage() {
         minColWidth={360}
         underImage={
           <Image
+            unoptimized
             src="/Group 1011.png"
             alt="Finally A Wallet I can manage at all times"
             width={522}
@@ -104,6 +105,7 @@ export default function BorderlessTransfersPage() {
         }}
         underImage={
           <Image
+            unoptimized
             src="/Group 97.png"
             alt="Vault Pay card"
             width={281}

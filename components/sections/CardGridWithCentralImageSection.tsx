@@ -212,6 +212,7 @@ const CardGridWithCentralImageSection: React.FC<
               }}
             >
               <Image
+                unoptimized
                 src={image.src}
                 alt={image.alt}
                 width={image.width}

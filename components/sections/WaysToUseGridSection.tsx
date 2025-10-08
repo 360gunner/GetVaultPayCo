@@ -65,7 +65,13 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
         >
           {items.map(({ src, alt, label, width = 240, height = 180 }) => (
             <div key={label}>
-              <Image src={src} alt={alt} width={width} height={height} />
+              <Image
+                unoptimized
+                src={src}
+                alt={alt}
+                width={width}
+                height={height}
+              />
               <Typography
                 as="h4"
                 font="Instrument Sans"

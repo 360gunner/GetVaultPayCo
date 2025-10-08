@@ -59,6 +59,7 @@ const FindTheCardForYou = () => {
           }}
         >
           <Image
+            unoptimized
             src={props.imageSrc}
             alt={props.title}
             height={props.imageHeight}

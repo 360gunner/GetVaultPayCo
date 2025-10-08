@@ -170,6 +170,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
           }}
         >
           <Image
+            unoptimized
             src={imageSrc}
             alt={imageAlt}
             fill

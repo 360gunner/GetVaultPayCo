@@ -63,6 +63,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
     >
       {image.width && image.height ? (
         <Image
+          unoptimized
           src={image.src}
           alt={image.alt}
           width={image.width}
@@ -78,6 +79,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
         />
       ) : (
         <Image
+          unoptimized
           src={image.src}
           alt={image.alt}
           fill

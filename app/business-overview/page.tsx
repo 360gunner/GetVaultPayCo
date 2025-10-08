@@ -121,6 +121,7 @@ export default function BusinessOverviewPage() {
         underDescription={<div style={{ height: vars.space["5xl"] }}></div>}
         underImage={
           <Image
+            unoptimized
             src="/Mask group_1023.png"
             alt="Finally A Wallet I can manage at all times"
             width={621}

@@ -182,6 +182,7 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                   }}
                 >
                   <Image
+                    unoptimized
                     src={decorativeSrc ?? "/decorative_vector_shape_1.png"}
                     alt="decorative shape"
                     width={decorativeWidth}
@@ -204,7 +205,7 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                   aspectRatio: "458 / 653",
                 }}
               >
-                <Image src={imageSrc} alt={imageAlt} fill />
+                <Image unoptimized src={imageSrc} alt={imageAlt} fill />
               </div>
             </div>
           </div>

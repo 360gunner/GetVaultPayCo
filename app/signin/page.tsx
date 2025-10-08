@@ -292,6 +292,7 @@ export default function SignInPage() {
               }}
             >
               <Image
+                unoptimized
                 src="/Login Art.png"
                 alt="VaultPay devices"
                 width={623}

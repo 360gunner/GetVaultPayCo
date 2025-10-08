@@ -60,6 +60,7 @@ const ImageLeftEyebrowRightSection: React.FC<
       }}
     >
       <Image
+        unoptimized
         src={src}
         alt={alt}
         width={width}

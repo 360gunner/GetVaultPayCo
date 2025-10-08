@@ -140,6 +140,7 @@ export default function WaysToPayPage() {
         minColWidth={360}
         underImage={
           <Image
+            unoptimized
             src="/Image1122.png"
             alt="Finally A Wallet I can manage at all times"
             width={621}

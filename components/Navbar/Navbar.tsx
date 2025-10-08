@@ -118,6 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
             <div className={s.left}>
               <Link href="/" style={{ display: "inline-block" }}>
                 <Image
+                  unoptimized
                   src={logoSrc}
                   alt="Vault Logo"
                   width={203 / 1.1}

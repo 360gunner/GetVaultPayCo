@@ -41,12 +41,14 @@ const BigImageBanner: React.FC<BigImageBannerProps> = ({
         overflow: "hidden",
         boxShadow: shadow ? "0 8px 28px rgba(0,0,0,0.12)" : undefined,
         // If width/height not provided, aspectRatio + fill image preserves ratio
-        aspectRatio: image.width && image.height ? undefined : (aspectRatio as any),
+        aspectRatio:
+          image.width && image.height ? undefined : (aspectRatio as any),
       }}
     >
       {image.width && image.height ? (
         // When intrinsic dimensions provided, Next.js will preserve aspect ratio with height:auto
         <Image
+          unoptimized
           src={image.src}
           alt={image.alt}
           width={image.width}
@@ -58,6 +60,7 @@ const BigImageBanner: React.FC<BigImageBannerProps> = ({
       ) : (
         // Fallback to fill mode with CSS aspect-ratio
         <Image
+          unoptimized
           src={image.src}
           alt={image.alt}
           fill

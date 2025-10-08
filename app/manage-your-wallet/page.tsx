@@ -32,6 +32,7 @@ export default function ManageYourWalletPage() {
         imageHeight={649}
         underImage={
           <Image
+            unoptimized
             src="/Group 999.png"
             alt="Finally A Wallet I can manage at all times"
             width={516}
@@ -185,6 +186,7 @@ export default function ManageYourWalletPage() {
         minColWidth={360}
         underImage={
           <Image
+            unoptimized
             src="/Image1122.png"
             alt="Finally A Wallet I can manage at all times"
             width={621}

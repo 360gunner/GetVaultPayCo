@@ -179,6 +179,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
       <div style={{ padding: 16, paddingTop: 8 }}>
         <div className={s.bottomBanner}>
           <Image
+            unoptimized
             src="/image 967.png"
             alt="Start your vault"
             fill
