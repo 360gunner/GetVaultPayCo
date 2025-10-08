@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  width: "",
+  width: "2900",
   initialScale: 1,
 
   height: "900",
