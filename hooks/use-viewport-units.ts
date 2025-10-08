@@ -1,5 +1,7 @@
 "use client";
 import { useEffect } from "react";
+const MOBILE_WIDTH = 450;
+const DEFAULT_VIEWPORT_WIDTH = 1440;
 
 export default function useViewportUnits() {
   useEffect(() => {
@@ -11,9 +13,12 @@ export default function useViewportUnits() {
     const calculateAndSet = () => {
       console.log("CalculateAndSet");
       // Use visualViewport when available to account for mobile UI chrome
-      const vv = window.visualViewport;
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+      let vv = window.visualViewport;
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      if (width < MOBILE_WIDTH) {
+        width = DEFAULT_VIEWPORT_WIDTH;
+      }
 
       const vw = width * 0.01;
       const vh = height * 0.01;
