@@ -1,3 +1,24 @@
+# VaultPay
+
+Modern web app for VaultPay, built with Next.js 15 and TypeScript.
+
+## Quick Start
+
+- Install: `npm install`
+- Dev: `npm run dev` → http://localhost:3000
+- Build: `npm run build`
+- Start: `npm run start`
+- Lint: `npm run lint`
+
+## Documentation
+
+- `docs/DEVELOPER_GUIDE.md` — setup, stack, structure, styling, conventions, common tasks, troubleshooting
+- `docs/PROJECT_REFERENCE.md` — routes map, components catalog, styling primitives
+- `docs/OPERATIONS.md` — run/build/lint, environment, testing, operations tips
+ - `docs/FLUID_DESIGN.md` — deep dive into fluid sizing (`--vw`/`--vh`, `fluidUnit()`, viewport meta)
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
