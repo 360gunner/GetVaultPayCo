@@ -359,6 +359,7 @@ const HeroSection: React.FC = () => {
                 fontWeight: 400,
                 lineHeight: "91%",
                 letterSpacing: "-2%",
+                marginBottom: fluidUnit(18, 12),
               }}
             >
               The human <br /> way to money
@@ -405,6 +406,7 @@ const HeroSection: React.FC = () => {
             aspectRatio: "1360/906",
             marginTop: 16,
             borderRadius: 16,
+            maxHeight: "100vh",
             overflow: "hidden",
           }}
         >
