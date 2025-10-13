@@ -503,13 +503,13 @@ const SimpleSecureSocial: React.FC = () => {
     {
       title: "Wallet",
       text: "Store, send, convert, and protect your money in seconds.",
-      iconSrc: "/signup_icon.png",
+      iconSrc: "/signup_icon.svg",
       index: 1,
     },
     {
       title: "Bills",
       text: "Organize recurring payments and never miss a due date.",
-      iconSrc: "/drop_icon.png",
+      iconSrc: "/drop_icon.svg",
       index: 2,
     },
   ];
@@ -517,13 +517,13 @@ const SimpleSecureSocial: React.FC = () => {
     {
       title: "Send international",
       text: "Organize recurring payments and never miss a due date.",
-      iconSrc: "/globe_icon.png",
+      iconSrc: "/globe_icon.svg",
       index: 3,
     },
     {
       title: "Social Payments",
       text: "Share, split, and interact with money like never before.",
-      iconSrc: "/friend_icon.png",
+      iconSrc: "/friend_icon.svg",
       index: 4,
     },
   ];
