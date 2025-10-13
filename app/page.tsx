@@ -282,7 +282,7 @@ export const TestimonialsSection: React.FC = () => {
                 >
                   <Typography
                     as="h4"
-                    style={{ fontWeight: 400, fontSize: fluidUnit(40) }}
+                    style={{ fontWeight: 400, fontSize: fluidUnit(36) }}
                   >
                     {text}
                   </Typography>
