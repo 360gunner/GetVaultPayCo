@@ -100,16 +100,22 @@ globalStyle(`${content}::-webkit-scrollbar`, {
 export const cardsGrid = style({
   display: "grid",
   maxHeight: "100%",
-  gridTemplateColumns: "repeat(2, minmax(0,1fr))",
+  // make max width of cards 300 px in gridTemplateColumns
+  gridTemplateColumns: "repeat(2, minmax(0,300px))",
   // set horizontal and vertical gap
   columnGap: -12,
-  rowGap: 10,
 
-  "@media": {
-    "screen and (max-width: 520px)": {
-      gridTemplateColumns: "1fr",
-    },
-  },
+  //center stuff
+  rowGap: 10,
+  justifyContent: "center",
+  // alignItems: "center",
+
+  // "@media": {
+  //   "screen and (max-width: 520px)": {
+
+  //     gridTemplateColumns: "1fr",
+  //   },
+  // },
 });
 
 export const actionCard = style({
