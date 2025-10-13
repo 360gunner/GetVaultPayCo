@@ -178,7 +178,6 @@ export const navGroup = style({
 
 export const navTitle = style({
   fontWeight: 700,
-  fontSize: 20,
 });
 
 export const navItem = style({
@@ -193,8 +192,8 @@ export const navItem = style({
 
 export const navItemText = style({
   color: vars.color.vaultBlack,
+  fontWeight: 400,
   marginBottom: 0,
-  fontSize: 16,
 });
 
 export const navItemArrow = style({

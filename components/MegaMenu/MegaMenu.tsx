@@ -148,6 +148,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
                 as="h4"
                 font="Space Grotesk"
                 weight={400}
+                style={{ fontSize: fluidUnit(30, 22) }}
                 className={s.navTitle}
               >
                 {group.title}
@@ -159,7 +160,11 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
                   href={navRouteMap[it] || "/"}
                   onClick={onClose}
                 >
-                  <Typography as="span" className={s.navItemText}>
+                  <Typography
+                    as="span"
+                    className={s.navItemText}
+                    style={{ fontSize: fluidUnit(20, 16) }}
+                  >
                     {it}
                   </Typography>
                   <Typography
