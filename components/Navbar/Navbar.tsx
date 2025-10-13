@@ -103,8 +103,8 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
   }, [menuOpen]);
   const showBg = !noBg && !darkGhost;
   const logoSrc = darkGhost
-    ? "/logo_horizontal_white.png"
-    : "/logo_horizontal.png";
+    ? "/logo_horizontal_white.svg"
+    : "/logo_horizontal.svg";
 
   return (
     <nav className={[s.root, className].filter(Boolean).join(" ")} {...rest}>

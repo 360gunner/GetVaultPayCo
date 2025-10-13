@@ -32,7 +32,7 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
               <div className={s.logo}>
                 <Image
                   unoptimized
-                  src="/logo_horizontal_white.png"
+                  src="/logo_horizontal_white.svg"
                   width={203 * 1.3}
                   height={41 * 1.3}
                   alt="Vault Pay"
