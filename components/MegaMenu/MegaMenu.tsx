@@ -6,6 +6,7 @@ import Typography from "@/components/Typography/Typography";
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icon/Icon";
 import { vars } from "@/styles/theme.css";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export type MegaMenuProps = {
   open: boolean;
@@ -180,33 +181,44 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
         <div className={s.bottomBanner}>
           <Image
             unoptimized
-            src="/image 967.png"
+            src="/image 96.png"
             alt="Start your vault"
             fill
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "cover", objectPosition: "10% 25%" }}
           />
           <div className={s.bannerOverlay}>
-            <div className={s.bannerRow}>
+            <div className={s.bannerContent}>
               <Typography
-                as="h2"
+                as="h1"
                 font="Space Grotesk"
-                weight={400}
-                className={s.bannerTitle}
-                style={{ color: "#fff" }}
+                style={{
+                  color: "#fff",
+                  fontWeight: 400,
+                  marginBottom: fluidUnit(8),
+                  fontSize: fluidUnit(76, 38),
+                }}
               >
                 Start your vault
               </Typography>
-              <Link href="/signup" onClick={onClose}>
-                <Button
-                  variant="colored"
-                  size="medium"
-                  backgroundColor={vars.color.neonMint}
+              <Button
+                variant="colored"
+                size="large"
+                style={{
+                  padding: `${fluidUnit(14, 12)} ${fluidUnit(20, 12)}`,
+                }}
+                backgroundColor={vars.color.neonMint}
+              >
+                <Typography
+                  as="span"
+                  style={{
+                    margin: 0,
+                    fontWeight: 400,
+                    fontSize: fluidUnit(22, 12),
+                  }}
                 >
-                  <Typography as="span" style={{ margin: 0, fontWeight: 400 }}>
-                    Signup for Free
-                  </Typography>
-                </Button>
-              </Link>
+                  Download The App
+                </Typography>
+              </Button>
             </div>
           </div>
         </div>

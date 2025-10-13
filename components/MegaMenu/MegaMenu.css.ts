@@ -15,7 +15,7 @@ const fadeOut = keyframes({
 export const overlay = style({
   position: "fixed",
   inset: 0,
-  zIndex: 1,
+  zIndex: 899,
   display: "flex",
   flexDirection: "column",
   height: "100vh",
@@ -206,7 +206,8 @@ export const navItemArrow = style({
 export const bottomBanner = style({
   position: "relative",
   width: "100%",
-  height: "22vh",
+  minHeight: "150px",
+  aspectRatio: "1360/200",
   borderRadius: 16,
   overflow: "hidden",
 });
@@ -225,9 +226,11 @@ export const bannerOverlay = style({
   padding: 16,
 });
 
-export const bannerRow = style({
+export const bannerContent = style({
+  zIndex: 9000,
   display: "flex",
-  alignItems: "flex-end",
+  alignItems: "center",
+  flexDirection: "column",
   justifyContent: "space-between",
   width: "100%",
   // padding: " 0 16px",

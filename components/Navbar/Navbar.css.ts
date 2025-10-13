@@ -4,6 +4,7 @@ import { vars } from "../../styles/theme.css";
 export const root = style({
   position: "relative",
   width: "100%",
+  zIndex: 999,
   minHeight: 88,
 });
 
@@ -42,5 +43,5 @@ export const bgShape = style({
 export const content = style({
   position: "relative",
   // Ensure navbar buttons/content sit above the mega menu overlay
-  zIndex: 2,
+  zIndex: 1000,
 });
