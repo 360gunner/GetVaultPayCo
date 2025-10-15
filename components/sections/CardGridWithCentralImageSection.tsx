@@ -154,7 +154,13 @@ const CardGridWithCentralImageSection: React.FC<
 
   const gridGap = fluidUnit(60);
   return (
-    <section style={{ padding: "24px 0", minHeight: "90vh" }}>
+    <section
+      style={{
+        padding: "24px 0",
+        marginTop: fluidUnit(98),
+        marginBottom: fluidUnit(98),
+      }}
+    >
       <Container
         size={containerSize}
         style={{ padding: gridGap, ...containerStyle }}
