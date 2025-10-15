@@ -86,17 +86,17 @@ export default function SendAndReceivePage() {
           {
             title: "Sign up",
             text: "Create your free account in minutes.",
-            iconSrc: "/signup_icon.png",
+            iconSrc: "/signup_icon.svg",
           },
           {
             title: "Secure Wallet",
             text: "Safeguard your funds and financial data.",
-            iconSrc: "/shield_icon.png",
+            iconSrc: "/shield_icon.svg",
           },
           {
             title: "Pay & Save",
             text: "Send, spend, and pay bills all in one place.",
-            iconSrc: "/dollar_icon.png",
+            iconSrc: "/dollar_icon.svg",
             underDescriptionImage: (
               <Image
                 src="/visa_mastercard.png"
