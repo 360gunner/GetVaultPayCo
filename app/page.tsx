@@ -44,7 +44,6 @@ const BenefitsSection: React.FC = () => {
     <section
       style={{
         padding: "24px 0",
-        minHeight: "100vh",
         marginTop: vars.space["4xl"],
         marginBottom: vars.space["4xl"],
       }}
@@ -242,7 +241,6 @@ export const TestimonialsSection: React.FC = () => {
       size="full"
       style={{
         padding: vars.space.xl,
-        minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -636,7 +634,6 @@ const SimpleSecureSocial: React.FC = () => {
     <section
       style={{
         padding: "24px 0",
-        minHeight: "90vh",
         marginTop: vars.space["4xl"],
         marginBottom: vars.space["4xl"],
       }}
