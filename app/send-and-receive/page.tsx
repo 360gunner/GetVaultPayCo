@@ -80,10 +80,7 @@ export default function SendAndReceivePage() {
         ]}
       />
       <StepsWithImageSection
-        sectionStyle={{
-          marginTop: vars.space["4xl"],
-          marginBottom: vars.space["4xl"],
-        }}
+        sectionStyle={{}}
         title="How it Works"
         items={[
           {

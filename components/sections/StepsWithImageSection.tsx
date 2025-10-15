@@ -4,6 +4,7 @@ import Grid from "@/components/Layout/Grid";
 import Typography from "@/components/Typography/Typography";
 import { vars } from "@/styles/theme.css";
 import Image from "next/image";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export type StepItem = {
   title: string;
@@ -43,7 +44,14 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
   sectionStyle = {},
 }) => {
   return (
-    <section style={{ padding: "24px 0", minHeight: "100vh", ...sectionStyle }}>
+    <section
+      style={{
+        padding: "24px 0",
+        marginTop: fluidUnit(98),
+        marginBottom: fluidUnit(98),
+        ...sectionStyle,
+      }}
+    >
       <Container
         size={containerSize}
         style={{
