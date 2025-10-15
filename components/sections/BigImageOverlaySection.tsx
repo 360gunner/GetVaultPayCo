@@ -131,7 +131,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                   marginTop: eyebrow ? fluidUnit(8) : 0,
                   color: "#fff",
                   fontSize: fluidUnit(76, 20),
-                  lineHeight: 1.05,
+                  lineHeight: "91%",
                 }}
               >
                 {title}

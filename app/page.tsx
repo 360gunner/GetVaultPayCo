@@ -749,7 +749,7 @@ export default function Home() {
                   as="h1"
                   font="Space Grotesk"
                   weight={400}
-                  style={{ fontSize: fluidUnit(80) }}
+                  style={{ fontSize: fluidUnit(80), lineHeight: "91%" }}
                 >
                   Borderless <br /> payments for all
                 </Typography>
@@ -922,7 +922,7 @@ export default function Home() {
                   as="h1"
                   font="Space Grotesk"
                   weight={400}
-                  style={{ fontSize: fluidUnit(80) }}
+                  style={{ fontSize: fluidUnit(80), lineHeight: "91%" }}
                 >
                   Use everywhere you use <br /> Visa & Mastercard.
                 </Typography>

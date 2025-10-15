@@ -118,6 +118,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
                 marginBottom: fluidUnit(16),
                 fontSize: fluidUnit(60),
                 maxWidth: "12ch",
+                lineHeight: "91%",
               }}
             >
               {title}
