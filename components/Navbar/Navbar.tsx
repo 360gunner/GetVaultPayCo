@@ -9,6 +9,7 @@ import ImageButton from "@/components/ImageButton/ImageButton";
 import { vars } from "@/styles/theme.css";
 import MegaMenu from "@/components/MegaMenu/MegaMenu";
 import { hideOnSmallScreen } from "@/styles/hide-on-small-screen.css";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   noBg?: boolean;
@@ -121,13 +122,13 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
                   unoptimized
                   src={logoSrc}
                   alt="Vault Logo"
-                  width={203 / 1.1}
-                  height={40 / 1.1}
+                  width={203 / 1.05}
+                  height={40 / 1.05}
                   priority
                 />
               </Link>
             </div>
-            <div className={s.right}>
+            <div className={s.right} style={{ gap: fluidUnit(20, 12) }}>
               <Link
                 href="/signup"
                 style={{ textDecoration: "none" }}
@@ -137,11 +138,15 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
                   variant={
                     darkGhost ? "ghost" : menuOpen ? "ghost" : "secondary"
                   }
-                  size="medium"
-                  label="Sign up"
+                  size="large"
+                  label="Signup"
+                  textStyle={{ fontSize: fluidUnit(20, 20 * 0.8) }}
                   style={{
+                    padding: `${fluidUnit(18, 18 * 0.8)} ${fluidUnit(
+                      21,
+                      21 * 0.8
+                    )}`,
                     boxShadow: !menuOpen ? "none" : undefined,
-                    fontSize: 20,
                     ...(darkGhost
                       ? {
                           color: "#fff",
@@ -161,10 +166,14 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
               >
                 <Button
                   variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "primary"}
-                  size="medium"
-                  label="Sign in"
+                  size="large"
+                  label="Login"
+                  textStyle={{ fontSize: fluidUnit(20, 20 * 0.8) }}
                   style={{
-                    fontSize: 20,
+                    padding: `${fluidUnit(18, 18 * 0.8)} ${fluidUnit(
+                      21,
+                      21 * 0.8
+                    )}`,
                     ...(darkGhost
                       ? {
                           color: "#fff",
@@ -178,24 +187,28 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
               <ImageButton
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-pressed={menuOpen}
+                size="lg"
                 variant={darkGhost ? "ghost" : "filled"}
                 shape="pill"
-                style={
-                  darkGhost
+                style={{
+                  width: fluidUnit(58, 58 * 0.8),
+                  height: fluidUnit(58, 58 * 0.8),
+                  ...(darkGhost
                     ? {
                         boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.9)",
                         color: "#fff",
                       }
-                    : undefined
-                }
+                    : {}),
+                }}
                 icon={
                   menuOpen
                     ? {
+                        size: "lg",
                         alt: "Close",
                         children: (
                           <svg
-                            width="24"
-                            height="24"
+                            width="36"
+                            height="36"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -211,12 +224,14 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
                       }
                     : darkGhost
                     ? {
+                        size: "lg",
+
                         alt: "Menu",
                         // White outlined hamburger for dark ghost mode
                         children: (
                           <svg
-                            width="24"
-                            height="24"
+                            width="36"
+                            height="36"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -242,7 +257,10 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
                           </svg>
                         ),
                       }
-                    : { variant: "menu" }
+                    : {
+                        size: "lg",
+                        variant: "menu",
+                      }
                 }
                 onClick={() => setMenuOpen((prev) => !prev)}
               />

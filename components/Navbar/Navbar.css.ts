@@ -5,7 +5,7 @@ export const root = style({
   position: "relative",
   width: "100%",
   zIndex: 999,
-  minHeight: 88,
+  minHeight: 96,
 });
 
 export const inner = style({
