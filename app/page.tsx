@@ -249,6 +249,7 @@ export const TestimonialsSection: React.FC = () => {
       <section
         style={{
           padding: "80px 0",
+          paddingTop: "90px",
           background: vars.gradients.vpGradient,
           borderRadius: 16,
           width: "100%",
@@ -262,14 +263,14 @@ export const TestimonialsSection: React.FC = () => {
             <Grid
               minColWidth={100}
               gap="lg"
-              style={{ alignItems: "stretch", gap: fluidUnit(16) }}
+              style={{ alignItems: "stretch", gap: 0 }}
             >
               {testimonials.map(({ text, name, avatar }) => (
                 <div
                   key={name}
                   style={{
                     borderRadius: 16,
-                    padding: fluidUnit(24),
+                    padding: fluidUnit(18),
                     display: "flex",
                     flexDirection: "column",
                     gap: fluidUnit(16),
