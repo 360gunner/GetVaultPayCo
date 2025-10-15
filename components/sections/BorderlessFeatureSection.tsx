@@ -54,7 +54,11 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
             as="h1"
             font="Space Grotesk"
             weight={400}
-            style={{ fontSize: fluidUnit(80), paddingLeft: "3vw" }}
+            style={{
+              fontSize: fluidUnit(80),
+              paddingLeft: "3vw",
+              lineHeight: "91%",
+            }}
           >
             {heading}
           </Typography>
@@ -87,7 +91,7 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
               <Typography
                 as="h2"
                 font="Instrument Sans"
-                style={{ fontSize: fluidUnit(30) }}
+                style={{ fontSize: fluidUnit(30), lineHeight: "91%" }}
                 weight={400}
               >
                 {rightTitle}
