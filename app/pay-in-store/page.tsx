@@ -8,6 +8,7 @@ import FeatureGridSection from "@/components/sections/FeatureGridSection";
 import Typography from "@/components/Typography/Typography";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export default function PayInStorePage() {
   return (
@@ -68,7 +69,8 @@ export default function PayInStorePage() {
       </Container>
       <FeatureGridSection
         containerSize="2xl"
-        sectionPadding="24px"
+        sectionPadding={fluidUnit(24)}
+        columnGap={0}
         minColWidth={280}
         gap="xl"
         items={[

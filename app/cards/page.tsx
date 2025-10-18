@@ -119,9 +119,10 @@ const FindTheCardForYou = () => {
       <Container
         size="2xl"
         style={{
-          paddingTop: vars.space["4xl"],
           padding: vars.space["4xl"],
-          backgroundColor: "D9D9D9",
+          paddingLeft: fluidUnit(24),
+          paddingRight: fluidUnit(24),
+          backgroundColor: "#D9D9D9",
         }}
       >
         <Typography
@@ -210,7 +211,10 @@ export default function PayInStorePage() {
           />
         }
       />
-      <Container size="2xl" style={{ paddingTop: vars.space["4xl"] }}>
+      <Container
+        size="2xl"
+        style={{ paddingTop: vars.space["4xl"], paddingLeft: fluidUnit(24) }}
+      >
         <Typography
           as="h1"
           font="Instrument Sans"
@@ -226,7 +230,8 @@ export default function PayInStorePage() {
       </Container>
       <FeatureGridSection
         containerSize="2xl"
-        sectionPadding="24px"
+        sectionPadding={fluidUnit(24)}
+        columnGap={0}
         minColWidth={280}
         gap="xl"
         items={[

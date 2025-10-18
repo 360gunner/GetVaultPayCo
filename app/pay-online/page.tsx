@@ -8,6 +8,7 @@ import FeatureGridSection from "@/components/sections/FeatureGridSection";
 import Typography from "@/components/Typography/Typography";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
+import { fluidUnit } from "@/styles/fluid-unit";
 
 export default function PayOnlinePage() {
   return (
@@ -52,7 +53,10 @@ export default function PayOnlinePage() {
           />
         }
       />
-      <Container size="2xl" style={{ paddingTop: vars.space["4xl"] }}>
+      <Container
+        size="2xl"
+        style={{ paddingTop: vars.space["4xl"], paddingLeft: fluidUnit(24) }}
+      >
         <Typography
           as="h1"
           font="Instrument Sans"
@@ -68,8 +72,9 @@ export default function PayOnlinePage() {
       </Container>
       <FeatureGridSection
         containerSize="2xl"
-        sectionPadding="24px"
-        minColWidth={280}
+        sectionPadding={fluidUnit(24)}
+        columnGap={0}
+        minColWidth={300}
         gap="xl"
         items={[
           {

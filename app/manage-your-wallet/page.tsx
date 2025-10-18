@@ -50,7 +50,10 @@ export default function ManageYourWalletPage() {
           />
         }
       />
-      <Container size="2xl" style={{ paddingTop: "calc(226px * 0.3 + 32px)" }}>
+      <Container
+        size="2xl"
+        style={{ paddingTop: "calc(226px * 0.3 + 32px)", paddingLeft: 24 }}
+      >
         <Typography
           as="h1"
           font="Instrument Sans"
@@ -70,6 +73,7 @@ export default function ManageYourWalletPage() {
           marginBottom: vars.space["4xl"],
         }}
         containerSize="2xl"
+        columnGap={0}
         sectionPadding="24px"
         minColWidth={280}
         gap="xl"
@@ -99,7 +103,11 @@ export default function ManageYourWalletPage() {
       />
       <CardGridWithCentralImageSection
         containerSize="2xl"
-        containerStyle={{ padding: `${vars.space.xl} ${vars.space["5xl"]}` }}
+        containerStyle={{
+          padding: `${vars.space.xl}`,
+          paddingLeft: fluidUnit(24),
+          paddingRight: fluidUnit(24),
+        }}
         leftItems={[
           {
             title: "Make payments",

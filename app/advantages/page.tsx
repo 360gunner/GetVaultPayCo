@@ -14,6 +14,7 @@ import BigImageBanner from "@/components/sections/BigImageBanner";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
 import WaysToUseGridSection from "@/components/sections/WaysToUseGridSection";
 import { TestimonialsSection } from "../page";
+import { fluidUnit } from "@/styles/fluid-unit";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
@@ -67,9 +68,10 @@ export default function BusinessInStorePage() {
         dark
         title={"Join a growing community of global merchants"}
         containerSize="2xl"
-        sectionPadding="48px 24px"
+        sectionPadding={`48px ${fluidUnit(24)}`}
+        columnGap={0}
         titleStyle={{
-          marginBottom: vars.space.xxxl,
+          marginBottom: vars.space["4xl"],
           maxWidth: "23ch",
         }}
         minColWidth={220}

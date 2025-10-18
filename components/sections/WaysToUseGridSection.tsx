@@ -22,6 +22,8 @@ export interface WaysToUseGridSectionProps {
   titleStyle?: React.CSSProperties;
   dark?: boolean;
   sectionStyle?: React.CSSProperties;
+  columnGap?: number | string;
+  titleFontSize?: number;
   minColWidth?: number; // 220 gives up to 4 cols like homepage grid
   gap?: "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl" | "4xl" | "5xl";
   columns?: number; // force exact number of columns, e.g., 4
@@ -35,6 +37,8 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
   dark = false,
   sectionStyle = {},
   minColWidth = 220,
+  titleFontSize,
+  columnGap,
   gap = "xl",
   columns = 4,
   titleStyle = {},
@@ -47,7 +51,7 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
           font="Space Grotesk"
           weight={400}
           style={{
-            fontSize: fluidUnit(60),
+            fontSize: titleFontSize || fluidUnit(60),
             marginBottom: vars.space.xxl,
             color: dark ? vars.color.vaultWhite : vars.color.vaultBlack,
             ...titleStyle,
@@ -61,6 +65,7 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
             alignItems: "start",
             marginTop: vars.space.lg,
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
+            columnGap,
           }}
         >
           {items.map(({ src, alt, label, width = 240, height = 180 }) => (

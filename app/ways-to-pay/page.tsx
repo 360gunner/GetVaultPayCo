@@ -13,6 +13,7 @@ import ImageLeftEyebrowRightSection from "@/components/sections/ImageLeftEyebrow
 import BigImageBanner from "@/components/sections/BigImageBanner";
 import BigImageOverlaySection from "@/components/sections/BigImageOverlaySection";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
+import { fluidUnit } from "@/styles/fluid-unit";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
@@ -50,7 +51,7 @@ export default function WaysToPayPage() {
           alt: "Vault Pay Ways To Pay Hero Image",
         }}
         containerSize="2xl"
-        sectionPadding={`${vars.space.xl} ${vars.space["lg"]}`}
+        sectionPadding={`${vars.space.xl}${fluidUnit(24)} `}
         eyebrow="WAYS TO PAY"
         title="Use Vault Pay for every way you pay."
         text="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute."
@@ -59,7 +60,10 @@ export default function WaysToPayPage() {
         aspectRatio="1360 / 784"
         fullBleed={false}
       />
-      <Container size="full" style={{ paddingTop: vars.space["4xl"] }}>
+      <Container
+        size="full"
+        style={{ paddingTop: vars.space["4xl"], paddingLeft: fluidUnit(24) }}
+      >
         <Typography
           as="h1"
           font="Instrument Sans"
@@ -75,9 +79,10 @@ export default function WaysToPayPage() {
       </Container>
       <FeatureGridSection
         containerSize="full"
-        sectionPadding="24px"
+        sectionPadding={`${fluidUnit(24)}`}
         minColWidth={280}
         gap="xl"
+        columnGap={0}
         items={[
           {
             src: "/Mask group.png",

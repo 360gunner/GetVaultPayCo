@@ -203,7 +203,12 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
       {fullBleed ? (
         banner
       ) : (
-        <Container size={containerSize}>{banner}</Container>
+        <Container
+          size={containerSize}
+          style={{ paddingLeft: 0, paddingRight: 0 }}
+        >
+          {banner}
+        </Container>
       )}
     </section>
   );

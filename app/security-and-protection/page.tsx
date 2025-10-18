@@ -12,6 +12,7 @@ import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBa
 import ImageLeftEyebrowRightSection from "@/components/sections/ImageLeftEyebrowRightSection";
 import BigImageBanner from "@/components/sections/BigImageBanner";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
+import { fluidUnit } from "@/styles/fluid-unit";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
@@ -102,7 +103,7 @@ export default function BorderlessTransfersPage() {
       />
       <Container
         size="2xl"
-        style={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
+        style={{ padding: `${vars.space.xl} ${fluidUnit(24)}` }}
       >
         <Typography
           as="h1"

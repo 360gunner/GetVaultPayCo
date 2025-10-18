@@ -43,49 +43,76 @@ const featuredItems: WaysToUseItem[] = [
     src: "/MaskGroup101.png",
     alt: "Pay Bills",
     label: "Pay bills",
+    width: 359,
   },
   {
     src: "/MaskGroup102.png",
     alt: "Food Delivery",
     label: "Food delivery",
+    width: 359,
   },
   {
     src: "/MaskGroup103.png",
     alt: "Tips & Gifts Friends",
     label: "Tips & gifts friends",
+    width: 359,
   },
-  { src: "/MaskGroup104.png", alt: "Send to Family", label: "Send to Family" },
+  {
+    src: "/MaskGroup104.png",
+    alt: "Send to Family",
+    label: "Send to Family",
+    width: 359,
+  },
   {
     src: "/MaskGroup105.png",
+    width: 359,
+
     alt: "In-store purchases",
     label: "In-store purchases",
   },
   {
     src: "/MaskGroup105.png",
+    width: 359,
+
     alt: "Online purchases",
     label: "Online purchases",
   },
   {
     src: "/MaskGroup105.png",
     alt: "Ride Hailing",
+    width: 359,
+
     label: "Ride Hailing",
   },
   {
     src: "/MaskGroup105.png",
     alt: "Secure Accounts",
     label: "Secure Accounts",
+    width: 359,
   },
   {
     src: "/MaskGroup105.png",
     alt: "Bank transfers",
     label: "Bank transfers",
+    width: 359,
   },
-  { src: "/MaskGroup105.png", alt: "Physical cards", label: "Physical cards" },
-  { src: "/MaskGroup105.png", alt: "Global Balance", label: "Global Balance" },
+  {
+    src: "/MaskGroup105.png",
+    alt: "Physical cards",
+    label: "Physical cards",
+    width: 359,
+  },
+  {
+    src: "/MaskGroup105.png",
+    alt: "Global Balance",
+    label: "Global Balance",
+    width: 359,
+  },
   {
     src: "/MaskGroup105.png",
     alt: "Convert currencies",
     label: "Convert currencies",
+    width: 359,
   },
 ];
 
@@ -191,8 +218,13 @@ export default function HelpCenterPage() {
         </Container>
         <WaysToUseGridSection
           title={""}
+          columnGap={0}
           items={featuredItems}
-          containerSize="xl"
+          sectionStyle={{
+            paddingLeft: fluidUnit(12),
+            paddingRight: fluidUnit(12),
+          }}
+          containerSize="2xl"
           sectionPadding="8px 0 24px"
           minColWidth={240}
           gap="xl"
@@ -201,8 +233,11 @@ export default function HelpCenterPage() {
       </section>
 
       {/* FAQs */}
-      <section style={{ padding: "40px 0 80px" }}>
-        <Container size="2xl">
+      <section style={{ padding: `40px 0 80px` }}>
+        <Container
+          size="2xl"
+          style={{ paddingLeft: fluidUnit(24), paddingRight: fluidUnit(24) }}
+        >
           <Typography
             as="h1"
             font="Space Grotesk"

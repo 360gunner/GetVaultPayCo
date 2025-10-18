@@ -12,6 +12,7 @@ import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBa
 import ImageLeftEyebrowRightSection from "@/components/sections/ImageLeftEyebrowRightSection";
 import BigImageBanner from "@/components/sections/BigImageBanner";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
+import { fluidUnit } from "@/styles/fluid-unit";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
@@ -127,15 +128,15 @@ export default function BorderlessTransfersPage() {
       <BigImageBanner
         image={{ src: "/Group 1014.png", alt: "Borderless payments" }}
         containerSize="full"
-        sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
-        rounded={16}
+        sectionPadding={`${vars.space.xl} ${fluidUnit(12)}`}
+        rounded={36}
         shadow
         aspectRatio="1360 / 906"
         fit="cover"
       />
       <Container
         size="2xl"
-        style={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
+        style={{ padding: `${vars.space.xl} ${fluidUnit(24)}` }}
       >
         <Typography
           as="h1"

@@ -13,6 +13,7 @@ import ImageLeftEyebrowRightSection from "@/components/sections/ImageLeftEyebrow
 import BigImageBanner from "@/components/sections/BigImageBanner";
 import BigImageOverlaySection from "@/components/sections/BigImageOverlaySection";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
+import { fluidUnit } from "@/styles/fluid-unit";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
@@ -50,7 +51,7 @@ export default function SocialPage() {
           alt: "Social Vaultpay Hero Image",
         }}
         containerSize="2xl"
-        sectionPadding={`${vars.space.xl} ${vars.space["lg"]}`}
+        sectionPadding={`${vars.space.xl} ${fluidUnit(24)}`}
         eyebrow="SOCIAL"
         title="The social side of money"
         text="VaultPay isn’t just about sending and spending — it’s about connection. Our social features make money feel more human, more visible, and more fun. Whether you’re splitting dinner, tipping your favorite DJ, or showing love for a small business, your feed reflects your world."
@@ -59,7 +60,10 @@ export default function SocialPage() {
         aspectRatio="1360 / 784"
         fullBleed={false}
       />
-      <Container size="full" style={{ paddingTop: vars.space["4xl"] }}>
+      <Container
+        size="full"
+        style={{ paddingTop: vars.space["4xl"], paddingLeft: fluidUnit(24) }}
+      >
         <Typography
           as="h1"
           font="Instrument Sans"
@@ -75,7 +79,8 @@ export default function SocialPage() {
       </Container>
       <FeatureGridSection
         containerSize="full"
-        sectionPadding="24px"
+        sectionPadding={fluidUnit(24)}
+        columnGap={0}
         minColWidth={280}
         gap="xl"
         items={[

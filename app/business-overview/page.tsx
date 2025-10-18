@@ -14,6 +14,7 @@ import BigImageBanner from "@/components/sections/BigImageBanner";
 import BigImageOverlaySection from "@/components/sections/BigImageOverlaySection";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
 import { TestimonialsSection } from "../page";
+import { fluidUnit } from "@/styles/fluid-unit";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
@@ -51,7 +52,7 @@ export default function BusinessOverviewPage() {
           alt: "Vault Pay Ways To Pay Hero Image",
         }}
         containerSize="2xl"
-        sectionPadding={`${vars.space.xl} ${vars.space["lg"]}`}
+        sectionPadding={`${vars.space.xl} ${fluidUnit(24)}`}
         eyebrow="BUSINESS"
         title="Take your business to the next level with Vault Pay"
         text="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute."
@@ -60,7 +61,10 @@ export default function BusinessOverviewPage() {
         aspectRatio="1360 / 784"
         fullBleed={false}
       />
-      <Container size="full" style={{ paddingTop: vars.space["4xl"] }}>
+      <Container
+        size="full"
+        style={{ paddingTop: vars.space["4xl"], paddingLeft: fluidUnit(24) }}
+      >
         <Typography
           as="h1"
           font="Instrument Sans"
@@ -143,7 +147,7 @@ export default function BusinessOverviewPage() {
       <ImageLeftEyebrowRightSection
         dark
         variant="ltr"
-        containerSize="lg"
+        containerSize="xl"
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/Group 1030.png",
@@ -160,7 +164,7 @@ export default function BusinessOverviewPage() {
       <ImageLeftEyebrowRightSection
         dark
         variant="rtl"
-        containerSize="lg"
+        containerSize="xl"
         eyebrow="SIMPLE FEES"
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
@@ -177,7 +181,7 @@ export default function BusinessOverviewPage() {
 
       <ImageLeftEyebrowRightSection
         variant="ltr"
-        containerSize="lg"
+        containerSize="xl"
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         dark
         image={{
@@ -195,7 +199,7 @@ export default function BusinessOverviewPage() {
       <ImageLeftEyebrowRightSection
         dark
         variant="rtl"
-        containerSize="lg"
+        containerSize="xl"
         eyebrow="ADVANTAGES"
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{

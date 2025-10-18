@@ -41,6 +41,7 @@ export default function SendAndReceivePage() {
 
       <FeatureGridSection
         containerSize="full"
+        columnGap={0}
         sectionPadding={vars.space.md}
         sectionStyle={{
           marginTop: vars.space["4xl"],
@@ -190,6 +191,10 @@ export default function SendAndReceivePage() {
       />
       <WaysToUseGridSection
         title={<>Ways to use Vault Pay</>}
+        titleStyle={{
+          marginBottom: "1em",
+        }}
+        columnGap={0}
         containerSize="2xl"
         sectionPadding="48px 24px"
         minColWidth={220}

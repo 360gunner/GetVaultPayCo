@@ -24,6 +24,7 @@ export interface FeatureGridSectionProps {
   sectionStyle?: React.CSSProperties;
   dark?: boolean;
   center?: boolean;
+  columnGap?: number | string;
   minColWidth?: number; // controls how many columns fit; use 220 for up to 4 cols
   gap?: "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl" | "4xl" | "5xl";
 }
@@ -36,6 +37,7 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
   dark = false,
   center = false,
   minColWidth = 220,
+  columnGap,
   gap = "xl",
 }) => {
   return (
@@ -47,6 +49,7 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
           style={{
             alignItems: center ? "center" : "start",
             justifyContent: center ? "center" : "start",
+            columnGap,
           }}
         >
           {items.map(
