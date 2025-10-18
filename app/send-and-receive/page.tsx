@@ -176,6 +176,7 @@ export default function SendAndReceivePage() {
         rightTitle={<></>}
         imageWidth={623}
         imageHeight={458}
+        buttonHref="/social"
         imageStyle={{ transform: "translateX(0%)" }}
         rightBody={
           <>

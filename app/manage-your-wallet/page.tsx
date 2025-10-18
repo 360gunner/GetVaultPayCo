@@ -24,6 +24,7 @@ export default function ManageYourWalletPage() {
         buttonVariant="secondary"
         imageSrc="/Group 998.png"
         imageAlt="Send and receive"
+        buttonHref="/signup"
         containerStyle={{
           padding: `${vars.space.xl} ${vars.space["4xl"]}`,
           marginBottom: "calc(226px * 0.3 + 48px)",
@@ -156,6 +157,7 @@ export default function ManageYourWalletPage() {
         title="Top-up with easy, seamless direct deposit"
         body="Move money into your VaultPay account without friction. Connect your employer or bank once, and your funds arrive automatically—no delays, no hidden fees. Whether you’re topping up for everyday payments, travel, or cross-border transfers, direct deposit keeps your VaultPay balance ready when you need it."
         buttonLabel="Sign Up"
+        buttonHref="/signup"
         imageSrc="/Group 1007.png"
         imageAlt="Security illustration"
         imageWidth={609 / 1.3}
@@ -167,6 +169,7 @@ export default function ManageYourWalletPage() {
         buttonLabel="Learn more"
         buttonVariant="secondary"
         imageSrc="/Group 1009.png"
+        buttonHref="/cards"
         imageAlt="Vault Pay card"
         containerSize="xl"
         titleFontSize={60}

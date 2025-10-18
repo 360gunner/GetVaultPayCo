@@ -52,6 +52,7 @@ export default function BorderlessTransfersPage() {
         buttonVariant="secondary"
         imageSrc="/Group 1010.png"
         imageAlt="Send and receive"
+        buttonHref="/signup"
         containerSize="xl"
         gridTemplateColumns="1fr 1fr"
         containerStyle={{

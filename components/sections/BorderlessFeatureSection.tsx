@@ -7,6 +7,7 @@ import Button from "@/components/Button/Button";
 import Image from "next/image";
 import { vars } from "@/styles/theme.css";
 import { fluidUnit } from "@/styles/fluid-unit";
+import Link from "next/link";
 
 export interface BorderlessFeatureSectionProps {
   heading?: React.ReactNode; // allows exact markup like "Borderless <br /> payments for all"
@@ -15,9 +16,11 @@ export interface BorderlessFeatureSectionProps {
   imageWidth?: number;
   imageHeight?: number;
   imageStyle?: React.CSSProperties;
+
   rightTitle?: React.ReactNode; // allows line breaks
   rightBody?: React.ReactNode;
   buttonLabel?: string;
+  buttonHref?: string;
 }
 
 const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
@@ -42,6 +45,7 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
     </>
   ),
   buttonLabel = "Learn more",
+  buttonHref = "#",
   imageWidth = 600,
   imageHeight = 600,
   imageStyle = {},
@@ -102,25 +106,27 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
               >
                 {rightBody}
               </Typography>
-              <Button
-                variant="secondary"
-                size="large"
-                style={{
-                  padding: `${fluidUnit(20, 10)} ${fluidUnit(24, 12)}`,
-                }}
-              >
-                <Typography
-                  as="span"
-                  font="Instrument Sans"
-                  weight={400}
+              <Link href={buttonHref}>
+                <Button
+                  variant="secondary"
+                  size="large"
                   style={{
-                    fontSize: fluidUnit(20, 12),
-                    width: "fit-content",
+                    padding: `${fluidUnit(20, 10)} ${fluidUnit(24, 12)}`,
                   }}
                 >
-                  {buttonLabel}
-                </Typography>
-              </Button>
+                  <Typography
+                    as="span"
+                    font="Instrument Sans"
+                    weight={400}
+                    style={{
+                      fontSize: fluidUnit(20, 12),
+                      width: "fit-content",
+                    }}
+                  >
+                    {buttonLabel}
+                  </Typography>
+                </Button>
+              </Link>
             </div>
           </Grid>
         </Stack>

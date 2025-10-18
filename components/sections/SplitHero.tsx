@@ -7,6 +7,7 @@ import { vars } from "@/styles/theme.css";
 import Image from "next/image";
 import React from "react";
 import { fluidUnit } from "@/styles/fluid-unit";
+import Link from "next/link";
 
 export interface SplitHeroProps {
   eyebrow?: string;
@@ -29,6 +30,7 @@ export interface SplitHeroProps {
   underImage?: React.ReactNode;
   underDescription?: React.ReactNode;
   titleFontSize?: number;
+  buttonHref?: string;
 }
 
 const SplitHero: React.FC<SplitHeroProps> = ({
@@ -42,6 +44,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
   imageSrc,
   imageAlt = "",
   textNote,
+  buttonHref = "#",
   containerSize = "2xl",
   minColWidth = 360,
   imageWidth = 520,
@@ -140,7 +143,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
           )}
           {underDescription}
           {buttonLabel ? (
-            <div>
+            <Link href={buttonHref}>
               <Button
                 variant={buttonVariant}
                 size="medium"
@@ -152,7 +155,7 @@ const SplitHero: React.FC<SplitHeroProps> = ({
                   backgroundColor: dark ? vars.color.vaultWhite : undefined,
                 }}
               />
-            </div>
+            </Link>
           ) : null}
         </Stack>
 
