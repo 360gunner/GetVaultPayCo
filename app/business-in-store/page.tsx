@@ -44,6 +44,7 @@ export default function BusinessInStorePage() {
     <div style={{ backgroundColor: vars.color.vaultNavie }}>
       <Navbar />
       <SplitHero
+        buttonHref="/signup"
         eyebrow="IN-STORE"
         title="Take your shop to the next level."
         dark

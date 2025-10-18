@@ -87,6 +87,7 @@ export default function BusinessOverviewPage() {
             src: "/Mask group_601.png",
             alt: "Fast transfers",
             title: "Pay online & in-app",
+            buttonHref: "/business-online",
             buttonLabel: "Learn more",
             description:
               "Checkout instantly with VaultPay anywhere digital payments are accepted.",
@@ -96,6 +97,7 @@ export default function BusinessOverviewPage() {
             alt: "Multi-currency wallet",
             title: "Pay in-store",
             buttonLabel: "Learn more",
+            buttonHref: "business-in-store",
             description:
               "Tap, swipe, or scan—VaultPay works seamlessly at the register.",
           },
@@ -109,6 +111,7 @@ export default function BusinessOverviewPage() {
         imageAlt="Vault Pay card"
         containerSize="xl"
         titleFontSize={60}
+        buttonHref="/signup"
         gridTemplateColumns="1.3fr 1fr"
         containerStyle={{
           padding: `${vars.space.xl} ${vars.space["4xl"]}`,
@@ -203,6 +206,7 @@ export default function BusinessOverviewPage() {
         }}
         buttonLabel="Learn more"
         title="Get more with Vault Pay"
+        buttonHref="/advantages"
         text={
           "Beyond payments, VaultPay empowers your business with global reach, multi-currency flexibility, and trusted partnerships with Visa® and Mastercard®. Enjoy lower costs, faster transactions, and advanced security built for modern commerce. With VaultPay, you don’t just keep up—you get ahead."
         }

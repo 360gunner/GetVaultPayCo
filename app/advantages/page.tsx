@@ -46,6 +46,7 @@ export default function BusinessInStorePage() {
     <div style={{ backgroundColor: vars.color.vaultNavie }}>
       <Navbar />
       <SplitHero
+        buttonHref="/signup"
         eyebrow="ADVANTAGES"
         title="Sell more with Vault Pay"
         dark

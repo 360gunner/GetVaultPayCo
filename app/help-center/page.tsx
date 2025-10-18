@@ -11,6 +11,7 @@ import Accordion, {
 import { vars } from "@/styles/theme.css";
 import Footer from "@/components/Footer/Footer";
 import { fluidUnit } from "@/styles/fluid-unit";
+import Link from "next/link";
 
 export const metadata = {
   title: "Help Center | VaultPay",
@@ -19,22 +20,22 @@ export const metadata = {
 
 const cardItems: Array<{ label: string; href?: string; description?: string }> =
   [
-    { label: "Payments & Requests", href: "#" },
-    { label: "Signing Up & Signing In", href: "#" },
-    { label: "Bank Transfers & Direct Deposit", href: "#" },
-    { label: "Banks, Cards & Payments", href: "#" },
-    { label: "About Vault Pay", href: "#" },
-    { label: "Account Setting & Security", href: "#" },
+    { label: "Payments & Requests", href: "/signup" },
+    { label: "Signing Up & Signing In", href: "/signup" },
+    { label: "Bank Transfers & Direct Deposit", href: "/signup" },
+    { label: "Banks, Cards & Payments", href: "/signup" },
+    { label: "About Vault Pay", href: "/signup" },
+    { label: "Account Setting & Security", href: "/signup" },
 
-    { label: "Payments & Requests 2", href: "#" },
-    { label: "Signing Up & Signing In 2", href: "#" },
-    { label: "Bank Transfers & Direct Deposit 2", href: "#" },
-    { label: "Banks, Cards & Payments 2", href: "#" },
-    { label: "About Vault Pay 2", href: "#" },
-    { label: "Account Setting & Security 2", href: "#" },
-    { label: "Banks, Cards & Payments 3", href: "#" },
-    { label: "About Vault Pay 3", href: "#" },
-    { label: "Account Setting & Security 3", href: "#" },
+    { label: "Payments & Requests 2", href: "/signup" },
+    { label: "Signing Up & Signing In 2", href: "/signup" },
+    { label: "Bank Transfers & Direct Deposit 2", href: "/signup" },
+    { label: "Banks, Cards & Payments 2", href: "/signup" },
+    { label: "About Vault Pay 2", href: "/signup" },
+    { label: "Account Setting & Security 2", href: "/signup" },
+    { label: "Banks, Cards & Payments 3", href: "/signup" },
+    { label: "About Vault Pay 3", href: "/signup" },
+    { label: "Account Setting & Security 3", href: "/signup" },
   ];
 
 const featuredItems: WaysToUseItem[] = [
@@ -145,9 +146,9 @@ export default function HelpCenterPage() {
             style={{ alignItems: "stretch", gap: fluidUnit(32) }}
           >
             {cardItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                href={item.href || "/signup"}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -169,7 +170,7 @@ export default function HelpCenterPage() {
                 >
                   {item.label}
                 </Typography>
-              </a>
+              </Link>
             ))}
           </Grid>
         </Container>
