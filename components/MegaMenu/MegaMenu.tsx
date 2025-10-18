@@ -205,25 +205,27 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
               >
                 Start your vault
               </Typography>
-              <Button
-                variant="colored"
-                size="large"
-                style={{
-                  padding: `${fluidUnit(14, 12)} ${fluidUnit(20, 12)}`,
-                }}
-                backgroundColor={vars.color.neonMint}
-              >
-                <Typography
-                  as="span"
+              <Link href={"/signup"}>
+                <Button
+                  variant="colored"
+                  size="large"
                   style={{
-                    margin: 0,
-                    fontWeight: 400,
-                    fontSize: fluidUnit(22, 12),
+                    padding: `${fluidUnit(14, 12)} ${fluidUnit(20, 12)}`,
                   }}
+                  backgroundColor={vars.color.neonMint}
                 >
-                  Download The App
-                </Typography>
-              </Button>
+                  <Typography
+                    as="span"
+                    style={{
+                      margin: 0,
+                      fontWeight: 400,
+                      fontSize: fluidUnit(22, 12),
+                    }}
+                  >
+                    Download The App
+                  </Typography>
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

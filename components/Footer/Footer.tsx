@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AppLink } from "@/components/Link/AppLink";
 import Typography from "../Typography/Typography";
 import { vars } from "@/styles/theme.css";
+import Link from "next/link";
 
 export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
   dark?: boolean;
@@ -30,13 +31,15 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
             {/* Left column: logo, long text, copyright */}
             <div>
               <div className={s.logo}>
-                <Image
-                  unoptimized
-                  src="/logo_horizontal_white.svg"
-                  width={203 * 1.3}
-                  height={41 * 1.3}
-                  alt="Vault Pay"
-                />
+                <Link href={"/"}>
+                  <Image
+                    unoptimized
+                    src="/logo_horizontal_white.svg"
+                    width={203 * 1.3}
+                    height={41 * 1.3}
+                    alt="Vault Pay"
+                  />
+                </Link>
               </div>
               <Typography
                 as="p"

@@ -7,6 +7,7 @@ import Button from "@/components/Button/Button";
 import Image from "next/image";
 import { vars } from "@/styles/theme.css";
 import { fluidUnit } from "@/styles/fluid-unit";
+import Link from "next/link";
 
 export interface SecurityTrustProps {
   eyebrow?: string;
@@ -18,6 +19,7 @@ export interface SecurityTrustProps {
   imageWidth?: number;
   imageHeight?: number;
   gridTemplateColumns?: string;
+  buttonHref?: string;
 }
 
 const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
@@ -25,6 +27,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
   title = "The safe, speedy & secure borderless payment app.",
   body = "End-to-End Encryption – Your data is encrypted at every step.\n\nPCI-DSS Compliant – We never store sensitive info directly.\n\nFraud Monitoring – AI-powered systems flag and prevent risk.",
   buttonLabel = "Learn more",
+  buttonHref = "#",
   imageSrc,
   imageAlt = "Security illustration",
   imageWidth = 609,
@@ -138,25 +141,27 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
               body
             )}
             <div style={{ marginTop: fluidUnit(8) }}>
-              <Button
-                variant="secondary"
-                size="medium"
-                style={{
-                  backgroundColor: "#fff",
-                  border: "1px solid black",
-                  boxShadow: "none",
-                  minWidth: fluidUnit(100),
-                  padding: `${fluidUnit(16, 8)} ${fluidUnit(24, 10)}`,
-                }}
-              >
-                <Typography
-                  as="span"
-                  style={{ fontSize: fluidUnit(14, 8) }}
-                  weight={400}
+              <Link href={buttonHref}>
+                <Button
+                  variant="secondary"
+                  size="medium"
+                  style={{
+                    backgroundColor: "#fff",
+                    border: "1px solid black",
+                    boxShadow: "none",
+                    minWidth: fluidUnit(100),
+                    padding: `${fluidUnit(16, 8)} ${fluidUnit(24, 10)}`,
+                  }}
                 >
-                  {buttonLabel}
-                </Typography>
-              </Button>
+                  <Typography
+                    as="span"
+                    style={{ fontSize: fluidUnit(14, 8) }}
+                    weight={400}
+                  >
+                    {buttonLabel}
+                  </Typography>
+                </Button>
+              </Link>
             </div>
           </div>
           {/* Right column */}

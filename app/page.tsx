@@ -17,6 +17,7 @@ import Image from "next/image";
 import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
 import { fluidUnit } from "@/styles/fluid-unit";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
+import Link from "next/link";
 
 const BenefitsSection: React.FC = () => {
   const items: Array<{
@@ -380,19 +381,21 @@ const HeroSection: React.FC = () => {
               across currencies with ease, community, and control
             </Typography>
             <div>
-              <Button
-                variant="colored"
-                size="medium"
-                backgroundColor={vars.color.neonMint}
-              >
-                <Typography
-                  as="span"
-                  margin={0}
-                  style={{ fontSize: fluidUnit(26, 14) }}
+              <Link href={"/signup"}>
+                <Button
+                  variant="colored"
+                  size="medium"
+                  backgroundColor={vars.color.neonMint}
                 >
-                  Start for Free
-                </Typography>
-              </Button>
+                  <Typography
+                    as="span"
+                    margin={0}
+                    style={{ fontSize: fluidUnit(26, 14) }}
+                  >
+                    Start for Free
+                  </Typography>
+                </Button>
+              </Link>
             </div>
           </div>
         </Grid>
@@ -463,6 +466,7 @@ const SecurityTrustSection: React.FC = () => {
   return (
     <GrayShapeBackgroundGridSection
       imageSrc="/image1044.png"
+      buttonHref="/security-and-protection"
       imageWidth={690}
       imageHeight={649}
       eyebrow="SECURITY & TRUST"
@@ -809,16 +813,18 @@ export default function Home() {
                       friction. Whether you're supporting family, traveling, or
                       building your business, we make it feel effortless.
                     </Typography>
-                    <Button
-                      style={{
-                        marginTop: fluidUnit(24),
-                        padding: `${fluidUnit(16, 10)} ${fluidUnit(16, 10)}`,
-                      }}
-                      variant="secondary"
-                      size="large"
-                      textStyle={{ fontSize: fluidUnit(20, 12) }}
-                      label="Learn more"
-                    />
+                    <Link href={"/borderless-transfers"}>
+                      <Button
+                        style={{
+                          marginTop: fluidUnit(24),
+                          padding: `${fluidUnit(16, 10)} ${fluidUnit(16, 10)}`,
+                        }}
+                        variant="secondary"
+                        size="large"
+                        textStyle={{ fontSize: fluidUnit(20, 12) }}
+                        label="Learn more"
+                      />
+                    </Link>
                   </div>
                 </Grid>
               </Stack>
@@ -829,7 +835,7 @@ export default function Home() {
           <section style={{ padding: "24px" }}>
             <Container size="2xl">
               <Grid minColWidth={220} gap="xl" style={{ alignItems: "start" }}>
-                <div>
+                <Link href={"/send-and-receive"}>
                   <Image
                     src="/Image 104.png"
                     alt="Fast transfers"
@@ -852,8 +858,8 @@ export default function Home() {
                     Hold and convert money across currencies with real-time FX
                     rates and no hidden fees.
                   </Typography>
-                </div>
-                <div>
+                </Link>
+                <Link href={"/borderless-transfers"}>
                   <Image
                     src="/Image 123.png"
                     alt="Multi-currency wallet"
@@ -876,8 +882,8 @@ export default function Home() {
                     Send money instantly to friends and family in other
                     countries—no middlemen, no delays.
                   </Typography>
-                </div>
-                <div>
+                </Link>
+                <Link href={"/manage-your-wallet"}>
                   <Image
                     src="/Image 124.png"
                     alt="Social by design"
@@ -900,7 +906,7 @@ export default function Home() {
                     Pay for utilities, phone service, or subscriptions across
                     borders using one simple interface.
                   </Typography>
-                </div>
+                </Link>
               </Grid>
             </Container>
           </section>
@@ -966,16 +972,18 @@ export default function Home() {
                       confidence knowing VaultPay is accepted anywhere Visa and
                       Mastercard are. One card, borderless access.{" "}
                     </Typography>
-                    <Button
-                      style={{
-                        marginTop: fluidUnit(16),
-                        padding: `${fluidUnit(16, 8)} ${fluidUnit(16, 8)}`,
-                      }}
-                      variant="secondary"
-                      size="large"
-                      textStyle={{ fontSize: fluidUnit(20, 12) }}
-                      label="Learn more"
-                    />
+                    <Link href={"/borderless-transfers"}>
+                      <Button
+                        style={{
+                          marginTop: fluidUnit(16),
+                          padding: `${fluidUnit(16, 8)} ${fluidUnit(16, 8)}`,
+                        }}
+                        variant="secondary"
+                        size="large"
+                        textStyle={{ fontSize: fluidUnit(20, 12) }}
+                        label="Learn more"
+                      />
+                    </Link>
                   </div>
                 </Grid>
               </Stack>

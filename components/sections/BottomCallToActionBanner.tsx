@@ -5,6 +5,7 @@ import Typography from "../Typography/Typography";
 import Image from "next/image";
 import Button from "../Button/Button";
 import { fluidUnit } from "@/styles/fluid-unit";
+import Link from "next/link";
 
 interface BottomCallToActionBannerProps {
   dark?: boolean;
@@ -79,25 +80,27 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
               >
                 Start your vault
               </Typography>
-              <Button
-                variant="colored"
-                size="large"
-                style={{
-                  padding: `${fluidUnit(16)} ${fluidUnit(24)}`,
-                }}
-                backgroundColor={vars.color.neonMint}
-              >
-                <Typography
-                  as="span"
+              <Link href={"/signup"}>
+                <Button
+                  variant="colored"
+                  size="large"
                   style={{
-                    margin: 0,
-                    fontWeight: 400,
-                    fontSize: fluidUnit(26),
+                    padding: `${fluidUnit(16)} ${fluidUnit(24)}`,
                   }}
+                  backgroundColor={vars.color.neonMint}
                 >
-                  Download The App
-                </Typography>
-              </Button>
+                  <Typography
+                    as="span"
+                    style={{
+                      margin: 0,
+                      fontWeight: 400,
+                      fontSize: fluidUnit(26),
+                    }}
+                  >
+                    Download The App
+                  </Typography>
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
