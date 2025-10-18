@@ -241,7 +241,10 @@ export const TestimonialsSection: React.FC = () => {
     <Container
       size="full"
       style={{
-        padding: vars.space.xl,
+        paddingRight: fluidUnit(24),
+        paddingLeft: fluidUnit(24),
+        paddingTop: vars.space.xl,
+        paddingBottom: vars.space.xl,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -336,18 +339,24 @@ export const TestimonialsSection: React.FC = () => {
 const HeroSection: React.FC = () => {
   return (
     <section>
-      <Container size="full">
+      <Container
+        size="full"
+        style={{
+          paddingRight: fluidUnit(24),
+          paddingLeft: fluidUnit(24),
+        }}
+      >
         <Grid
           minColWidth={300}
           gap="lg"
           style={{
+            padding: 0,
             alignItems: "stretch",
             gridTemplateColumns: "2fr 1fr",
             gap: vars.space.lg,
-            padding: vars.space.lg,
+            paddingTop: vars.space.lg,
             gridAutoFlow: "dense",
             maxWidth: "calc(100* var(--vw))",
-            paddingBottom: 0,
           }}
         >
           <div>
@@ -768,6 +777,7 @@ export default function Home() {
                   <div
                     style={{
                       padding: vars.space.xl,
+                      paddingLeft: 0,
                       minWidth: fluidUnit(569),
                     }}
                   >
@@ -834,78 +844,104 @@ export default function Home() {
           {/* Feature Grid: image on top, title and subtitle */}
           <section style={{ padding: "24px" }}>
             <Container size="2xl">
-              <Grid minColWidth={220} gap="xl" style={{ alignItems: "start" }}>
+              <Grid
+                minColWidth={220}
+                gap="xl"
+                style={{
+                  alignItems: "start",
+                  columnGap: 0,
+                  paddingLeft: "20px",
+                }}
+              >
                 <Link href={"/send-and-receive"}>
-                  <Image
-                    src="/Image 104.png"
-                    alt="Fast transfers"
-                    width={476}
-                    unoptimized={true}
-                    height={386}
-                  />
-                  <Typography
-                    as="h4"
-                    font="Instrument Sans"
-                    weight={400}
-                    style={{ marginTop: vars.space.lg, fontSize: 30 }}
-                  >
-                    Multi-Currency Wallet
-                  </Typography>
-                  <Typography
-                    as="p"
-                    style={{ maxWidth: "75%", fontSize: "20px" }}
-                  >
-                    Hold and convert money across currencies with real-time FX
-                    rates and no hidden fees.
-                  </Typography>
+                  <div style={{ marginLeft: "-20px" }}>
+                    <Image
+                      src="/Image 104.png"
+                      alt="Fast transfers"
+                      width={476}
+                      unoptimized={true}
+                      height={386}
+                    />
+                    <Typography
+                      as="h4"
+                      font="Instrument Sans"
+                      weight={400}
+                      style={{
+                        marginTop: vars.space.lg,
+                        fontSize: 30,
+                        paddingRight: "20px",
+                      }}
+                    >
+                      Multi-Currency Wallet
+                    </Typography>
+                    <Typography
+                      as="p"
+                      style={{ maxWidth: "75%", fontSize: "20px" }}
+                    >
+                      Hold and convert money across currencies with real-time FX
+                      rates and no hidden fees.
+                    </Typography>
+                  </div>
                 </Link>
                 <Link href={"/borderless-transfers"}>
-                  <Image
-                    src="/Image 123.png"
-                    alt="Multi-currency wallet"
-                    width={476}
-                    unoptimized={true}
-                    height={386}
-                  />
-                  <Typography
-                    as="h4"
-                    font="Instrument Sans"
-                    weight={400}
-                    style={{ marginTop: vars.space.lg, fontSize: 30 }}
-                  >
-                    Cross-Border Transfers{" "}
-                  </Typography>
-                  <Typography
-                    as="p"
-                    style={{ maxWidth: "75%", fontSize: "20px" }}
-                  >
-                    Send money instantly to friends and family in other
-                    countries—no middlemen, no delays.
-                  </Typography>
+                  <div style={{ marginLeft: "-20px" }}>
+                    <Image
+                      src="/Image 123.png"
+                      alt="Multi-currency wallet"
+                      width={476}
+                      unoptimized={true}
+                      height={386}
+                    />
+                    <Typography
+                      as="h4"
+                      font="Instrument Sans"
+                      weight={400}
+                      style={{
+                        marginTop: vars.space.lg,
+                        fontSize: 30,
+                        paddingRight: "20px",
+                      }}
+                    >
+                      Cross-Border Transfers{" "}
+                    </Typography>
+                    <Typography
+                      as="p"
+                      style={{ maxWidth: "75%", fontSize: "20px" }}
+                    >
+                      Send money instantly to friends and family in other
+                      countries—no middlemen, no delays.
+                    </Typography>
+                  </div>
                 </Link>
                 <Link href={"/manage-your-wallet"}>
-                  <Image
-                    src="/Image 124.png"
-                    alt="Social by design"
-                    width={476}
-                    height={386}
-                    unoptimized={true}
-                  />
-                  <Typography
-                    as="h4"
-                    font="Instrument Sans"
-                    weight={400}
-                    style={{ marginTop: vars.space.lg, fontSize: "30px" }}
-                  >
-                    Global Bill Pay
-                  </Typography>
-                  <Typography
-                    as="p"
-                    style={{ maxWidth: "75%", fontSize: "20px" }}
-                  >
-                    Pay for utilities, phone service, or subscriptions across
-                    borders using one simple interface.
-                  </Typography>
+                  <div style={{ marginLeft: "-20px" }}>
+                    <Image
+                      src="/Image 124.png"
+                      alt="Social by design"
+                      width={476}
+                      height={386}
+                      unoptimized={true}
+                    />
+                    <Typography
+                      as="h4"
+                      font="Instrument Sans"
+                      weight={400}
+                      style={{
+                        marginTop: vars.space.lg,
+                        fontSize: "30px",
+                        paddingRight: "20px",
+                      }}
+                    >
+                      Global Bill Pay
+                    </Typography>
+                    <Typography
+                      as="p"
+                      style={{ maxWidth: "75%", fontSize: "20px" }}
+                    >
+                      Pay for utilities, phone service, or subscriptions across
+                      borders using one simple interface.
+                    </Typography>
+                  </div>
                 </Link>
               </Grid>
             </Container>
@@ -920,7 +956,7 @@ export default function Home() {
             }}
           >
             <Container
-              size="2xl"
+              size="xl"
               style={{ paddingRight: "48px", paddingLeft: "48px" }}
             >
               <Stack gap="sm">

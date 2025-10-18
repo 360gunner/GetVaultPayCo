@@ -18,8 +18,8 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
       <Container
         size="full"
         style={{
-          paddingRight: fluidUnit(16),
-          paddingLeft: fluidUnit(16),
+          paddingRight: fluidUnit(24),
+          paddingLeft: fluidUnit(24),
         }}
       >
         {/* Image with overlay content */}
