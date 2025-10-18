@@ -11,6 +11,7 @@ import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
 import Button from "@/components/Button/Button";
 import Grid from "@/components/Layout/Grid";
 import { fluidUnit } from "@/styles/fluid-unit";
+import Link from "next/link";
 type GridItemProps = {
   imageSrc: string;
   title: string;
@@ -92,7 +93,7 @@ const FindTheCardForYou = () => {
           >
             {props.description}
           </Typography>
-          <div>
+          <Link href={"/signup"}>
             <Button
               label={props.buttonLabel}
               variant="secondary"
@@ -107,7 +108,7 @@ const FindTheCardForYou = () => {
                 padding: `${fluidUnit(18, 14)} ${fluidUnit(22, 18)}`,
               }}
             />
-          </div>
+          </Link>
         </div>
       </div>
     );
@@ -175,6 +176,7 @@ export default function PayInStorePage() {
         description={`Vault Pay Prepaid Card goes where you go, and brings your balance along. Pay and  cashback from ATM or some of your favorite stores — right to your Physical account.`}
         textNote={"View terms¹"}
         buttonLabel="Get Started"
+        buttonHref="/signup"
         buttonVariant="secondary"
         imageSrc="/image 103_2.png"
         containerSize="2xl"

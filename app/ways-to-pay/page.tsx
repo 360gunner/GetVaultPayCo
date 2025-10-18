@@ -112,6 +112,7 @@ export default function WaysToPayPage() {
         buttonVariant="secondary"
         imageSrc="/Group 1009.png"
         imageAlt="Vault Pay card"
+        buttonHref="/cards"
         containerSize="xl"
         titleFontSize={60}
         gridTemplateColumns="1.3fr 1fr"

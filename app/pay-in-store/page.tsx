@@ -18,6 +18,7 @@ export default function PayInStorePage() {
         title={"Simple, safe in-store payment."}
         description={`Tap, swipe, or scan to pay at millions of stores worldwide—from your neighborhood café to international retailers. With support for contactless payments and QR codes, VaultPay makes in-person purchases fast, secure, and effortless. Accepted anywhere Visa® and Mastercard® are, VaultPay turns your phone or card into a borderless wallet.`}
         buttonLabel="Get Started"
+        buttonHref="/signup"
         buttonVariant="secondary"
         imageSrc="/image 102_2.png"
         containerSize="2xl"
@@ -99,6 +100,7 @@ export default function PayInStorePage() {
         description="If you’re approved for a Vault Pay Prepaid Card, you can add money with Prepaid card or  from a verified bank account right into Vault."
         buttonLabel="Learn more"
         buttonVariant="secondary"
+        buttonHref="/cards"
         imageSrc="/Group 1009.png"
         imageAlt="Vault Pay card"
         containerSize="xl"

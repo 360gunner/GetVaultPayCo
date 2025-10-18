@@ -49,6 +49,7 @@ export default function BorderlessTransfersPage() {
         description="Whether you’re buying a couch or paying movers you found online, Vault Pay Purchase Protection offers coverage for eligible payments without extra costs for you. So go ahead and buy. Vault Pay has your back."
         buttonLabel="Get Started"
         buttonVariant="secondary"
+        buttonHref="/signup"
         imageSrc="/image 102.png"
         imageAlt="Send and receive"
         containerSize="2xl"

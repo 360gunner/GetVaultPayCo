@@ -19,6 +19,7 @@ export default function PayOnlinePage() {
         description={`Use VaultPay to pay on websites, in mobile apps, and across streaming, travel, and e-commerce platforms with just a click. With built-in security and instant authorization, your purchases stay protected while your checkout stays seamless. Wherever Visa® and Mastercard® are accepted online, VaultPay is too.`}
         buttonLabel="Get Started"
         buttonVariant="secondary"
+        buttonHref="/signup"
         imageSrc="/image 1022.png"
         containerSize="2xl"
         imageAlt="Send and receive"
@@ -98,6 +99,7 @@ export default function PayOnlinePage() {
         title="Get the most with the Vault Pay Card"
         description="If you’re approved for a Vault Pay Prepaid Card, you can add money with Prepaid card or  from a verified bank account right into Vault."
         buttonLabel="Learn more"
+        buttonHref="/cards"
         buttonVariant="secondary"
         imageSrc="/Group 1009.png"
         imageAlt="Vault Pay card"
