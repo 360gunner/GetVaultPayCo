@@ -59,7 +59,7 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
               }}
             >
               <Image
-                src="/vault_logo_icon_white.png"
+                src="/vault_logo_icon_white.svg"
                 alt="VaultPay"
                 width={69}
                 height={69}

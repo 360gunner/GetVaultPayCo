@@ -80,21 +80,21 @@ export default function SocialPage() {
         gap="xl"
         items={[
           {
-            src: "/Group 1021.png",
+            src: "/Group 1021.svg",
             alt: "Send money home",
             title: "Send money home",
             description:
               "Support family abroad with just a tap — fast, secure, and borderless.",
           },
           {
-            src: "/Group 1022.png",
+            src: "/Group 1022.svg",
             alt: "Tip your friends",
             title: "Tip your friends",
             description:
               "Celebrate moments big and small — from lunch to life events.",
           },
           {
-            src: "/Group 1023.png",
+            src: "/Group 1023.svg",
             alt: "Share your purchases",
             title: "Share your purchases",
             description:
@@ -107,7 +107,7 @@ export default function SocialPage() {
         containerSize="lg"
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
-          src: "/Group 1026.png",
+          src: "/Group 1026.svg",
           alt: "Vault Pay card",
           width: 569,
           height: 458,

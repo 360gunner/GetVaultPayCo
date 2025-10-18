@@ -434,7 +434,7 @@ const HeroSection: React.FC = () => {
               aria-label="Get it on Google Play"
             >
               <Image
-                src="/google_play_badge.png"
+                src="/google_play_badge.svg"
                 alt="Get it on Google Play"
                 width={160}
                 height={48}
@@ -447,7 +447,7 @@ const HeroSection: React.FC = () => {
               aria-label="Download on the App Store"
             >
               <Image
-                src="/app_store_badge.png"
+                src="/app_store_badge.svg"
                 alt="Download on the App Store"
                 width={160}
                 height={48}
