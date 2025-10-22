@@ -52,8 +52,8 @@ const BenefitsSection: React.FC = () => {
       <Container
         size="xl"
         style={{
-          paddingLeft: "64px",
-          paddingRight: "64px",
+          paddingLeft: "48px",
+          paddingRight: "48px",
           overflowX: "hidden",
         }}
       >
@@ -842,25 +842,26 @@ export default function Home() {
           </section>
 
           {/* Feature Grid: image on top, title and subtitle */}
+          {/* Feature Grid: image on top, title and subtitle */}
           <section style={{ padding: "24px" }}>
             <Container size="2xl">
-              <Grid
-                minColWidth={220}
-                gap="xl"
+              <div
                 style={{
-                  alignItems: "start",
-                  columnGap: 0,
-                  paddingLeft: "20px",
+                  display: "flex",
+                  gap: "-48px",
+                  alignItems: "flex-start",
+                  paddingLeft: "5%",
                 }}
               >
-                <Link href={"/send-and-receive"}>
-                  <div style={{ marginLeft: "-20px" }}>
+                <Link href={"/send-and-receive"} style={{ flex: 1 }}>
+                  <div style={{ marginLeft: "-15%" }}>
                     <Image
                       src="/Image 104.png"
                       alt="Fast transfers"
                       width={476}
-                      unoptimized={true}
                       height={386}
+                      unoptimized={true}
+                      style={{ width: "100%", height: "auto" }}
                     />
                     <Typography
                       as="h4"
@@ -868,29 +869,31 @@ export default function Home() {
                       weight={400}
                       style={{
                         marginTop: vars.space.lg,
-                        fontSize: 30,
-                        paddingRight: "20px",
+                        fontSize: fluidUnit(30, 18),
+                        width: "100%",
+                        paddingRight: "10%",
                       }}
                     >
                       Multi-Currency Wallet
                     </Typography>
                     <Typography
                       as="p"
-                      style={{ maxWidth: "75%", fontSize: "20px" }}
+                      style={{ maxWidth: "75%", fontSize: fluidUnit(20, 12) }}
                     >
                       Hold and convert money across currencies with real-time FX
                       rates and no hidden fees.
                     </Typography>
                   </div>
                 </Link>
-                <Link href={"/borderless-transfers"}>
-                  <div style={{ marginLeft: "-20px" }}>
+                <Link href={"/borderless-transfers"} style={{ flex: 1 }}>
+                  <div style={{ marginLeft: "-15%" }}>
                     <Image
                       src="/Image 123.png"
                       alt="Multi-currency wallet"
                       width={476}
-                      unoptimized={true}
                       height={386}
+                      unoptimized={true}
+                      style={{ width: "100%", height: "auto" }}
                     />
                     <Typography
                       as="h4"
@@ -898,29 +901,30 @@ export default function Home() {
                       weight={400}
                       style={{
                         marginTop: vars.space.lg,
-                        fontSize: 30,
-                        paddingRight: "20px",
+                        fontSize: fluidUnit(30, 18),
+                        paddingRight: "10%",
                       }}
                     >
                       Cross-Border Transfers{" "}
                     </Typography>
                     <Typography
                       as="p"
-                      style={{ maxWidth: "75%", fontSize: "20px" }}
+                      style={{ maxWidth: "75%", fontSize: fluidUnit(20, 12) }}
                     >
                       Send money instantly to friends and family in other
                       countries—no middlemen, no delays.
                     </Typography>
                   </div>
                 </Link>
-                <Link href={"/manage-your-wallet"}>
-                  <div style={{ marginLeft: "-20px" }}>
+                <Link href={"/manage-your-wallet"} style={{ flex: 1 }}>
+                  <div style={{ marginLeft: "-15%" }}>
                     <Image
                       src="/Image 124.png"
                       alt="Social by design"
                       width={476}
                       height={386}
                       unoptimized={true}
+                      style={{ width: "100%", height: "auto" }}
                     />
                     <Typography
                       as="h4"
@@ -928,22 +932,22 @@ export default function Home() {
                       weight={400}
                       style={{
                         marginTop: vars.space.lg,
-                        fontSize: "30px",
-                        paddingRight: "20px",
+                        fontSize: fluidUnit(30, 18),
+                        paddingRight: "10%",
                       }}
                     >
                       Global Bill Pay
                     </Typography>
                     <Typography
                       as="p"
-                      style={{ maxWidth: "75%", fontSize: "20px" }}
+                      style={{ maxWidth: "75%", fontSize: fluidUnit(20, 12) }}
                     >
                       Pay for utilities, phone service, or subscriptions across
                       borders using one simple interface.
                     </Typography>
                   </div>
                 </Link>
-              </Grid>
+              </div>
             </Container>
           </section>
 
