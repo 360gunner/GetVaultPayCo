@@ -11,6 +11,7 @@ import WaysToUseGridSection from "@/components/sections/WaysToUseGridSection";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 import Image from "next/image";
 import { fluidUnit } from "@/styles/fluid-unit";
+import FeatureFlexSection from "@/components/sections/FeatureFlexSection";
 
 export default function SendAndReceivePage() {
   return (
@@ -39,7 +40,7 @@ export default function SendAndReceivePage() {
         minColWidth={360}
       />
 
-      <FeatureGridSection
+      <FeatureFlexSection
         containerSize="full"
         columnGap={0}
         sectionPadding={vars.space.md}
