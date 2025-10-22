@@ -92,6 +92,10 @@ const FeatureFlexSection: React.FC<FeatureFlexSectionProps> = ({
                       style={{
                         marginTop: vars.space.lg,
                         fontSize: fluidUnit(30, 14),
+                        color: dark
+                          ? vars.color.vaultWhite
+                          : vars.color.vaultBlack,
+
                         width: "100%",
                         paddingRight: "15%",
                       }}
@@ -100,7 +104,14 @@ const FeatureFlexSection: React.FC<FeatureFlexSectionProps> = ({
                     </Typography>
                     <Typography
                       as="p"
-                      style={{ maxWidth: "75%", fontSize: fluidUnit(20, 8) }}
+                      style={{
+                        maxWidth: "75%",
+                        fontSize: fluidUnit(20, 8),
+
+                        color: dark
+                          ? vars.color.vaultWhite
+                          : vars.color.vaultBlack,
+                      }}
                     >
                       {description}
                     </Typography>

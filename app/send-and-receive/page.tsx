@@ -12,6 +12,7 @@ import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBa
 import Image from "next/image";
 import { fluidUnit } from "@/styles/fluid-unit";
 import FeatureFlexSection from "@/components/sections/FeatureFlexSection";
+import WaysToUseFlexSection from "@/components/sections/WaysToUseFlexSection";
 
 export default function SendAndReceivePage() {
   return (
@@ -190,7 +191,7 @@ export default function SendAndReceivePage() {
         }
         buttonLabel="Learn more"
       />
-      <WaysToUseGridSection
+      <WaysToUseFlexSection
         title={<>Ways to use Vault Pay</>}
         titleStyle={{
           marginBottom: "1em",

@@ -12,6 +12,7 @@ import { vars } from "@/styles/theme.css";
 import Footer from "@/components/Footer/Footer";
 import { fluidUnit } from "@/styles/fluid-unit";
 import Link from "next/link";
+import WaysToUseFlexSection from "@/components/sections/WaysToUseFlexSection";
 
 export const metadata = {
   title: "Help Center | VaultPay",
@@ -216,7 +217,7 @@ export default function HelpCenterPage() {
             Featured Articles
           </Typography>
         </Container>
-        <WaysToUseGridSection
+        <WaysToUseFlexSection
           title={""}
           columnGap={0}
           items={featuredItems}

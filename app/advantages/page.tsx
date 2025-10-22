@@ -15,6 +15,7 @@ import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
 import WaysToUseGridSection from "@/components/sections/WaysToUseGridSection";
 import { TestimonialsSection } from "../page";
 import { fluidUnit } from "@/styles/fluid-unit";
+import WaysToUseFlexSection from "@/components/sections/WaysToUseFlexSection";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
@@ -64,7 +65,7 @@ export default function BusinessInStorePage() {
         minColWidth={360}
       />
 
-      <WaysToUseGridSection
+      <WaysToUseFlexSection
         dark
         title={"Join a growing community of global merchants"}
         containerSize="2xl"
