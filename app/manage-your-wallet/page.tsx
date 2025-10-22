@@ -10,6 +10,7 @@ import CardGridWithCentralImageSection from "@/components/sections/CardGridWithC
 import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackgroundGridSection";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 import { fluidUnit } from "@/styles/fluid-unit";
+import FeatureFlexSection from "@/components/sections/FeatureFlexSection";
 
 export default function ManageYourWalletPage() {
   return (
@@ -67,7 +68,7 @@ export default function ManageYourWalletPage() {
           Start Your Vault Pay Wallet
         </Typography>
       </Container>
-      <FeatureGridSection
+      <FeatureFlexSection
         sectionStyle={{
           marginTop: vars.space["4xl"],
           marginBottom: vars.space["4xl"],

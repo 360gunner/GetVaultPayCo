@@ -14,6 +14,7 @@ import BigImageBanner from "@/components/sections/BigImageBanner";
 import BigImageOverlaySection from "@/components/sections/BigImageOverlaySection";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
 import { fluidUnit } from "@/styles/fluid-unit";
+import FeatureFlexSection from "@/components/sections/FeatureFlexSection";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
@@ -77,7 +78,7 @@ export default function SocialPage() {
           Making your finances friendly
         </Typography>
       </Container>
-      <FeatureGridSection
+      <FeatureFlexSection
         containerSize="full"
         sectionPadding={fluidUnit(24)}
         columnGap={0}

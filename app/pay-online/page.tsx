@@ -9,6 +9,7 @@ import Typography from "@/components/Typography/Typography";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
 import { fluidUnit } from "@/styles/fluid-unit";
+import FeatureFlexSection from "@/components/sections/FeatureFlexSection";
 
 export default function PayOnlinePage() {
   return (
@@ -70,7 +71,7 @@ export default function PayOnlinePage() {
           Use Vault Pay online with ease.{" "}
         </Typography>
       </Container>
-      <FeatureGridSection
+      <FeatureFlexSection
         containerSize="2xl"
         sectionPadding={fluidUnit(24)}
         columnGap={0}

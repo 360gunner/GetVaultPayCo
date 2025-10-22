@@ -9,6 +9,7 @@ import Typography from "@/components/Typography/Typography";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 import Accordion, { AccordionItem } from "@/components/Accordion/Accordion";
 import { fluidUnit } from "@/styles/fluid-unit";
+import FeatureFlexSection from "@/components/sections/FeatureFlexSection";
 
 export default function PayInStorePage() {
   return (
@@ -67,7 +68,7 @@ export default function PayInStorePage() {
           Leave your cash in the bank{" "}
         </Typography>
       </Container>
-      <FeatureGridSection
+      <FeatureFlexSection
         containerSize="2xl"
         sectionPadding={fluidUnit(24)}
         columnGap={0}

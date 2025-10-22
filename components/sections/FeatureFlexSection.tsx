@@ -112,10 +112,13 @@ const FeatureFlexSection: React.FC<FeatureFlexSectionProps> = ({
                             borderWidth: "1px",
                             borderStyle: "solid",
                             boxShadow: "none",
+                            padding: `${fluidUnit(20, 8)}`,
+
                             backgroundColor: dark
                               ? vars.color.vaultWhite
                               : undefined,
                           }}
+                          textStyle={{ fontSize: `${fluidUnit(20, 10)}` }}
                           variant="secondary"
                           label={buttonLabel}
                         />
