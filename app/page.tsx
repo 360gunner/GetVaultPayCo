@@ -46,24 +46,35 @@ const BenefitsSection: React.FC = () => {
       style={{
         padding: "24px 0",
         marginTop: vars.space["4xl"],
+        maxHeight: "100vh",
         marginBottom: vars.space["4xl"],
       }}
     >
       <Container
         size="xl"
         style={{
+          maxHeight: "100vh",
           paddingLeft: "48px",
           paddingRight: "48px",
-          overflowX: "hidden",
+          // overflowX: "hidden",
         }}
       >
-        <Grid minColWidth={360} style={{ alignItems: "center", columnGap: 60 }}>
+        <Grid
+          minColWidth={360}
+          style={{
+            alignItems: "center",
+            columnGap: fluidUnit(40),
+            gridTemplateColumns: "1fr 1fr",
+            maxHeight: "100vh",
+          }}
+        >
           {/* Left: Title + rows */}
           <div
             style={{
               height: "100%",
               flex: 1,
               display: "flex",
+              maxHeight: "100vh",
               flexDirection: "column",
               justifyContent: "space-between",
             }}
@@ -72,7 +83,7 @@ const BenefitsSection: React.FC = () => {
               as="h1"
               font="Space Grotesk"
               weight={400}
-              style={{ fontSize: 80 }}
+              style={{ fontSize: fluidUnit(80), marginBottom: fluidUnit(90) }}
             >
               How it Works{" "}
             </Typography>
@@ -90,15 +101,15 @@ const BenefitsSection: React.FC = () => {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    rowGap: 10,
+                    rowGap: fluidUnit(10),
                     // maxWidth: "75%",
                   }}
                 >
                   <div
                     style={{
-                      width: 118,
-                      height: 118,
-                      borderRadius: 20,
+                      width: fluidUnit(118),
+                      height: fluidUnit(118),
+                      borderRadius: fluidUnit(20),
                       background: "#000",
                       display: "flex",
                       alignItems: "center",
@@ -107,7 +118,13 @@ const BenefitsSection: React.FC = () => {
                     }}
                   >
                     {iconSrc ? (
-                      <Image src={iconSrc} alt={title} width={72} height={72} />
+                      <Image
+                        src={iconSrc}
+                        alt={title}
+                        width={72}
+                        height={72}
+                        style={{ width: fluidUnit(72), height: fluidUnit(72) }}
+                      />
                     ) : (
                       <svg
                         width="72"
@@ -115,6 +132,7 @@ const BenefitsSection: React.FC = () => {
                         viewBox="0 0 48 48"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
+                        style={{ width: fluidUnit(72), height: fluidUnit(72) }}
                       >
                         <path
                           d="M20.285 6.709a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10.5 14.5l8.293-8.293a1 1 0 011.492.502z"
@@ -127,15 +145,19 @@ const BenefitsSection: React.FC = () => {
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      marginLeft: "36px",
-                      gap: 12,
+                      marginLeft: fluidUnit(60),
+                      gap: fluidUnit(12),
                       padding: "8px 0 ",
                     }}
                   >
                     <Typography
                       font="Instrument Sans"
                       as="h5"
-                      style={{ margin: 0, fontWeight: 400, fontSize: 40 }}
+                      style={{
+                        margin: 0,
+                        fontWeight: 400,
+                        fontSize: fluidUnit(40),
+                      }}
                     >
                       {title}
                     </Typography>
@@ -146,7 +168,8 @@ const BenefitsSection: React.FC = () => {
                       style={{
                         margin: 0,
                         lineHeight: "91%",
-                        fontSize: "26px",
+                        fontSize: fluidUnit(26),
+                        maxWidth: "20ch",
                         letterSpacing: "-0.58px",
                       }}
                     >
@@ -158,45 +181,48 @@ const BenefitsSection: React.FC = () => {
             </div>
           </div>
           {/* Right: Image with decorative shape */}
-          <div>
+          <div style={{ position: "relative", maxHeight: "100vh" }}>
+            {/* Decorative shape (behind), bottom-right */}
+            <div
+              aria-hidden
+              style={{
+                position: "absolute",
+                right: "0",
+                bottom: "0%",
+                width: fluidUnit(463),
+                height: fluidUnit(238),
+                transform: `translate(${fluidUnit(90, 40)}, -60%)`,
+                zIndex: 0,
+                pointerEvents: "none",
+              }}
+            >
+              <Image
+                src="/decorative_vector_shape_1.png"
+                alt="decorative shape"
+                width={463}
+                height={238}
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
             <div
               style={{
                 position: "relative",
                 width: "100%",
-                minWidth: "458px",
-
+                maxHeight: "100vh",
+                aspectRatio: "458 / 653",
                 // height: "min(60vw, 653px)",
               }}
             >
-              {/* Decorative shape (behind), bottom-right */}
-              <div
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  right: "0",
-                  bottom: "15%",
-                  width: 463,
-                  height: 238,
-                  // transform: "translate(25%, -60%)",
-                  zIndex: 0,
-                  pointerEvents: "none",
-                }}
-              >
-                <Image
-                  src="/decorative_vector_shape_1.png"
-                  alt="decorative shape"
-                  width={463}
-                  height={238}
-                />
-              </div>
-
               {/* Image box (on top) */}
               <div
                 style={{
                   position: "relative",
                   alignSelf: "center",
+                  maxHeight: "100vh",
+                  marginLeft: "auto",
+                  marginRight: "0",
                   textAlign: "center",
-                  width: "85%",
+                  // width: "100%",
                   borderRadius: 12,
                   overflow: "hidden",
                   zIndex: 1,
