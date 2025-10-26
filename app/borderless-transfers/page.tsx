@@ -16,28 +16,52 @@ import { fluidUnit } from "@/styles/fluid-unit";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
-    header: "Main headline statement goals here.",
+    header: "How long do cross-border transfers take with VaultPay?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Most cross-border transfers with VaultPay arrive within seconds to minutes. However, transfer times may vary depending on the destination country, receiving bank, and local banking hours. In some cases, transfers can take up to 1-3 business days. You'll receive real-time notifications tracking your transfer every step of the way.",
     defaultOpen: true,
   },
   {
     id: "faq-2",
-    header: "Main headline statement goals here.",
+    header: "What countries can I send money to?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "VaultPay supports transfers to over 180 countries worldwide. You can send money to family, friends, or businesses across North America, Europe, Asia, Africa, South America, and Oceania. Check our country directory in the app to see if your destination is supported and view available currencies.",
   },
   {
     id: "faq-3",
-    header: "Main headline statement goals here.",
+    header: "Are there any hidden fees for international transfers?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "No hidden fees ever. VaultPay believes in transparent pricing. You'll always see the exact exchange rate and any applicable transfer fees upfront before confirming your transaction. Our fees are typically much lower than traditional banks, and many transfers between VaultPay users are completely free.",
   },
   {
     id: "faq-4",
-    header: "How do I contact support?",
+    header: "What currencies does VaultPay support?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "VaultPay supports over 50 major currencies including USD, EUR, GBP, CAD, AUD, JPY, CNY, INR, and many more. You can hold multiple currencies in your VaultPay wallet simultaneously and switch between them instantly. We offer competitive exchange rates with real-time currency conversion.",
+  },
+  {
+    id: "faq-5",
+    header: "How secure are cross-border transfers?",
+    content:
+      "VaultPay uses bank-level encryption and multi-factor authentication to protect every transfer. All cross-border transactions are monitored by our AI-powered fraud detection system and comply with international financial regulations including AML (Anti-Money Laundering) and KYC (Know Your Customer) requirements. Your money is protected by VaultPay Purchase Protection and FDIC insurance where applicable.",
+  },
+  {
+    id: "faq-6",
+    header: "Do I need to convert currency before sending money abroad?",
+    content:
+      "No, you don't need to convert currency manually. VaultPay automatically handles currency conversion at competitive exchange rates when you send money internationally. You can send in your local currency, and the recipient will receive funds in their local currency. The exact exchange rate and fees are shown before you confirm the transfer.",
+  },
+  {
+    id: "faq-7",
+    header: "Are there any limits on international transfers?",
+    content:
+      "Transfer limits vary based on your account verification level and destination country. Standard accounts can typically send up to $10,000 per transaction and $50,000 per month. Verified business accounts have higher limits. You can view your specific limits in the app settings or contact support to request a limit increase.",
+  },
+  {
+    id: "faq-8",
+    header: "What information do I need to send money internationally?",
+    content:
+      "To send money abroad, you'll need the recipient's full name, email address or phone number (if they have VaultPay), or their bank account details including IBAN/SWIFT code for bank transfers. Some countries may require additional information like recipient address or purpose of transfer for compliance reasons.",
   },
 ];
 export default function BorderlessTransfersPage() {
@@ -47,9 +71,9 @@ export default function BorderlessTransfersPage() {
       <SplitHero
         eyebrow="BORDERLESS"
         title="A global wallet for your money"
-        description="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute."
+        description="Use VaultPay app for transferring money with just a few taps, and your money will be received in less than a minute."
         buttonLabel="Get Started"
-        textNote="*Transfer speed depends on your bank and could take up to 30 minutes. Transfers are reviewed which may result in delays or funds being frozen or removed from your Vault Pay account."
+        textNote="*Transfer speed depends on your bank and could take up to 30 minutes. Transfers are reviewed which may result in delays or funds being frozen or removed from your VaultPay account."
         buttonVariant="secondary"
         imageSrc="/Group 1010.png"
         imageAlt="Send and receive"
@@ -87,7 +111,7 @@ export default function BorderlessTransfersPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/image 955.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
@@ -101,7 +125,7 @@ export default function BorderlessTransfersPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/image 1033.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
@@ -109,7 +133,7 @@ export default function BorderlessTransfersPage() {
           <Image
             unoptimized
             src="/Group 97.png"
-            alt="Vault Pay card"
+            alt="VaultPay card"
             width={281}
             height={69}
             style={{
@@ -147,7 +171,18 @@ export default function BorderlessTransfersPage() {
             fontSize: 64,
           }}
         >
-          FAQs
+          Cross-Border Transfer FAQs
+        </Typography>
+        <Typography
+          as="p"
+          style={{
+            fontSize: fluidUnit(18),
+            color: vars.color.muted,
+            marginTop: fluidUnit(16),
+            maxWidth: 800,
+          }}
+        >
+          Everything you need to know about sending money internationally with VaultPay
         </Typography>
         <div style={{ marginTop: vars.space.lg }}>
           <Accordion items={faqItems} />

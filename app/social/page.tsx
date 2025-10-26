@@ -114,7 +114,7 @@ export default function SocialPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/Group 1026.svg",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
@@ -131,7 +131,7 @@ export default function SocialPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/Group 1028.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
@@ -147,7 +147,7 @@ export default function SocialPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/image 104_3.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}

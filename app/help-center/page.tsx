@@ -25,17 +25,17 @@ const cardItems: Array<{ label: string; href?: string; description?: string }> =
     { label: "Signing Up & Signing In", href: "/signup" },
     { label: "Bank Transfers & Direct Deposit", href: "/signup" },
     { label: "Banks, Cards & Payments", href: "/signup" },
-    { label: "About Vault Pay", href: "/signup" },
+    { label: "About VaultPay", href: "/signup" },
     { label: "Account Setting & Security", href: "/signup" },
 
     { label: "Payments & Requests 2", href: "/signup" },
     { label: "Signing Up & Signing In 2", href: "/signup" },
     { label: "Bank Transfers & Direct Deposit 2", href: "/signup" },
     { label: "Banks, Cards & Payments 2", href: "/signup" },
-    { label: "About Vault Pay 2", href: "/signup" },
+    { label: "About VaultPay 2", href: "/signup" },
     { label: "Account Setting & Security 2", href: "/signup" },
     { label: "Banks, Cards & Payments 3", href: "/signup" },
-    { label: "About Vault Pay 3", href: "/signup" },
+    { label: "About VaultPay 3", href: "/signup" },
     { label: "Account Setting & Security 3", href: "/signup" },
   ];
 
@@ -120,28 +120,34 @@ const featuredItems: WaysToUseItem[] = [
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
-    header: "Main headline statement goals here.",
+    header: "How do I create a VaultPay account?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Creating a VaultPay account is quick and free. Download the VaultPay app or visit our website, click 'Sign Up', and provide your email, phone number, and basic information. Verify your email and phone, set up a secure password with two-factor authentication, and you're ready to start sending and receiving money. The entire process takes less than 5 minutes.",
     defaultOpen: true,
   },
   {
     id: "faq-2",
-    header: "Main headline statement goals here.",
+    header: "How do I add money to my VaultPay account?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "You can add money to your VaultPay account through several methods: link your bank account for instant or standard transfers, use a debit or credit card for immediate funding, receive payments from other VaultPay users, or set up direct deposit from your employer. All methods are secure and most are fee-free.",
   },
   {
     id: "faq-3",
-    header: "Main headline statement goals here.",
+    header: "Are there any fees for using VaultPay?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "VaultPay is free for most personal transactions. Sending money to friends and family is free when funded by your VaultPay balance or linked bank account. Small fees apply for instant transfers, credit card funding, and currency conversion. Business accounts have transparent transaction fees with no monthly charges. Check our fee schedule for complete details.",
   },
   {
     id: "faq-4",
     header: "How do I contact support?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "You can reach VaultPay support 24/7 through multiple channels: email us at support@getvaultpay.co, use the in-app chat feature for instant assistance, call our support hotline, or visit our comprehensive Help Center for articles and guides. For urgent security issues, use the 'Report a Problem' feature in your app for immediate priority assistance.",
+  },
+  {
+    id: "faq-5",
+    header: "Can I use VaultPay internationally?",
+    content:
+      "Yes! VaultPay works in over 200 countries and supports multiple currencies. You can send and receive international payments, use your VaultPay Card abroad wherever Visa® and Mastercard® are accepted, and convert currencies at competitive rates. Cross-border transfers are typically completed within minutes.",
   },
 ];
 

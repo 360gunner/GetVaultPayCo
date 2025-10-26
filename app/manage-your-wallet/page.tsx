@@ -19,8 +19,8 @@ export default function ManageYourWalletPage() {
       <SplitHero
         eyebrow="MANAGE & TOP-UP"
         title="Move your money faster"
-        description="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute."
-        textNote="*Transfer speed depends on your bank and could take up to 30 minutes. Transfers are reviewed which may result in delays or funds being frozen or removed from your Vault Pay account."
+        description="Use VaultPay app for transferring money with just a few taps, and your money will be received in less than a minute."
+        textNote="*Transfer speed depends on your bank and could take up to 30 minutes. Transfers are reviewed which may result in delays or funds being frozen or removed from your VaultPay account."
         buttonLabel="Get Started"
         buttonVariant="secondary"
         imageSrc="/Group 998.png"
@@ -65,7 +65,7 @@ export default function ManageYourWalletPage() {
             letterSpacing: "-0.58px",
           }}
         >
-          Start Your Vault Pay Wallet
+          Start Your VaultPay Wallet
         </Typography>
       </Container>
       <FeatureFlexSection
@@ -84,7 +84,7 @@ export default function ManageYourWalletPage() {
             alt: "Fast transfers",
             title: "Add a bank account",
             description:
-              "Link an existing bank account to your Vault Pay account.",
+              "Link an existing bank account to your VaultPay account.",
           },
           {
             src: "/Group 1001.png",
@@ -98,7 +98,7 @@ export default function ManageYourWalletPage() {
             alt: "Social by design",
             title: "Use & Transfer funds",
             description:
-              "You’re good to go. Move money from Vault Pay to your bank account anytime.",
+              "You’re good to go. Move money from VaultPay to your bank account anytime.",
           },
         ]}
       />
@@ -118,7 +118,7 @@ export default function ManageYourWalletPage() {
             floatingTopRightImage: (
               <Image
                 src="/visa_mastercard.png"
-                alt="Vault Pay card"
+                alt="VaultPay card"
                 width={124}
                 unoptimized
                 height={47}
@@ -139,7 +139,7 @@ export default function ManageYourWalletPage() {
         ]}
         image={{
           src: "/image 1055.png",
-          alt: "Vault Pay app preview",
+          alt: "VaultPay app preview",
           height: 781,
           aspectRatio: 56 / 78,
           width: 560,
@@ -173,13 +173,13 @@ export default function ManageYourWalletPage() {
         imageHeight={649 / 1.3}
       />
       <SplitHero
-        title="Get the most with the Vault Pay Card"
-        description="If you’re approved for a Vault Pay Prepaid Card, you can add money with Prepaid card or  from a verified bank account right into Vault."
+        title="Get the most with the VaultPay Card"
+        description="If you’re approved for a VaultPay Prepaid Card, you can add money with Prepaid card or  from a verified bank account right into Vault."
         buttonLabel="Learn more"
         buttonVariant="secondary"
         imageSrc="/Group 1009.png"
         buttonHref="/cards"
-        imageAlt="Vault Pay card"
+        imageAlt="VaultPay card"
         containerSize="xl"
         titleFontSize={60}
         gridTemplateColumns="1.1fr 1fr"

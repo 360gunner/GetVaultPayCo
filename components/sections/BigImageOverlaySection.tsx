@@ -167,10 +167,9 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
                     style={{
                       background: "#fff",
                       color: vars.color.vaultBlack,
-                      border: "none",
+                      border: `2px solid ${vars.color.vaultBlack}`,
                       borderRadius: vars.radius.pill,
                       padding: `${fluidUnit(20, 10)} ${fluidUnit(24, 10)}`,
-                      boxShadow: "none",
                       verticalAlign: "center",
                       textAlign: "center",
                     }}

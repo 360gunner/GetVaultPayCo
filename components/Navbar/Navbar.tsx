@@ -61,14 +61,14 @@ const BgShape: React.FC = () => (
   </div>
 );
 
-export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
+export const Navbar: React.FC<NavbarProps> = ({ className, noBg, darkGhost: darkGhostProp, ...rest }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkGhost, setDarkGhost] = useState(rest.darkGhost || false);
+  const [darkGhost, setDarkGhost] = useState(darkGhostProp || false);
   const toggleDarkGhostOnMenuToggle = () => {
     if (menuOpen) {
       setDarkGhost(false);
     } else {
-      setDarkGhost(rest.darkGhost || false);
+      setDarkGhost(darkGhostProp || false);
     }
   };
   // Lock the page scroll when the mega menu is open
@@ -113,11 +113,11 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
       <div className={s.content}>
         <Container
           size="full"
-          style={{ paddingRight: vars.space.xl, paddingLeft: vars.space.lg }}
+          style={{ paddingRight: 0, paddingLeft: 0 }}
         >
           <div className={s.inner}>
             <div className={s.left}>
-              <Link href="/" style={{ display: "inline-block" }}>
+              <Link href="/" style={{ display: "inline-block", marginLeft: 0 }}>
                 <Image
                   unoptimized
                   src={logoSrc}
@@ -125,49 +125,23 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
                   width={203 / 1.05}
                   height={40 / 1.05}
                   priority
+                  className="no-fade"
                 />
               </Link>
             </div>
             <div className={s.right} style={{ gap: fluidUnit(20, 12) }}>
               <Link
-                href="/signup"
+                href="/signup-choice"
                 style={{ textDecoration: "none" }}
                 className={hideOnSmallScreen}
               >
                 <Button
                   variant={
-                    darkGhost ? "ghost" : menuOpen ? "ghost" : "secondary"
+                    darkGhost ? "ghost" : menuOpen ? "ghost" : "primary"
                   }
                   size="large"
                   label="Signup"
-                  textStyle={{ fontSize: fluidUnit(20, 20 * 0.8) }}
-                  style={{
-                    padding: `${fluidUnit(18, 18 * 0.8)} ${fluidUnit(
-                      21,
-                      21 * 0.8
-                    )}`,
-                    boxShadow: !menuOpen ? "none" : undefined,
-                    ...(darkGhost
-                      ? {
-                          color: "#fff",
-                          border: "1px solid #fff",
-                          backgroundColor: "transparent",
-                        }
-                      : menuOpen
-                      ? {}
-                      : { backgroundColor: vars.color.vaultWhite }),
-                  }}
-                />
-              </Link>
-              <Link
-                href="/signin"
-                style={{ textDecoration: "none" }}
-                className={hideOnSmallScreen}
-              >
-                <Button
-                  variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "primary"}
-                  size="large"
-                  label="Login"
+                  noShadow={true}
                   textStyle={{ fontSize: fluidUnit(20, 20 * 0.8) }}
                   style={{
                     padding: `${fluidUnit(18, 18 * 0.8)} ${fluidUnit(
@@ -181,6 +155,36 @@ export const Navbar: React.FC<NavbarProps> = ({ className, noBg, ...rest }) => {
                           backgroundColor: "transparent",
                         }
                       : {}),
+                  }}
+                />
+              </Link>
+              <Link
+                href="/signin"
+                style={{ textDecoration: "none" }}
+                className={hideOnSmallScreen}
+              >
+                <Button
+                  variant={darkGhost ? "ghost" : menuOpen ? "ghost" : "primary"}
+                  size="large"
+                  label="Login"
+                  noShadow={true}
+                  textStyle={{ fontSize: fluidUnit(20, 20 * 0.8) }}
+                  style={{
+                    padding: `${fluidUnit(18, 18 * 0.8)} ${fluidUnit(
+                      21,
+                      21 * 0.8
+                    )}`,
+                    ...(darkGhost
+                      ? {
+                          color: "#fff",
+                          border: "1px solid #fff",
+                          backgroundColor: "transparent",
+                        }
+                      : {
+                          backgroundColor: vars.color.vaultBlack,
+                          color: vars.color.vaultWhite,
+                          border: "2px solid " + vars.color.vaultBlack,
+                        }),
                   }}
                 />
               </Link>

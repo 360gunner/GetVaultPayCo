@@ -49,6 +49,7 @@ export const asStyles = styleVariants({
   },
   p: {
     fontSize: "14px",
+    lineHeight: "1.6",
     marginBottom: "1em",
     color: vars.color.muted,
   },

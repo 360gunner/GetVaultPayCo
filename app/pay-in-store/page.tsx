@@ -41,7 +41,7 @@ export default function PayInStorePage() {
         underDescription={
           <Image
             src="/visa_mastercard.png"
-            alt="Vault Pay card"
+            alt="VaultPay card"
             width={124}
             unoptimized
             height={47}
@@ -99,13 +99,13 @@ export default function PayInStorePage() {
         ]}
       />
       <SplitHero
-        title="Get the most with the Vault Pay Card"
-        description="If you’re approved for a Vault Pay Prepaid Card, you can add money with Prepaid card or  from a verified bank account right into Vault."
+        title="Get the most with the VaultPay Card"
+        description="If you’re approved for a VaultPay Prepaid Card, you can add money with Prepaid card or  from a verified bank account right into Vault."
         buttonLabel="Learn more"
         buttonVariant="secondary"
         buttonHref="/cards"
         imageSrc="/Group 1009.png"
-        imageAlt="Vault Pay card"
+        imageAlt="VaultPay card"
         containerSize="xl"
         titleFontSize={60}
         gridTemplateColumns="1.3fr 1fr"
@@ -117,7 +117,7 @@ export default function PayInStorePage() {
         underDescription={
           <Image
             src="/visa_mastercard.png"
-            alt="Vault Pay card"
+            alt="VaultPay card"
             width={124}
             unoptimized
             height={47}

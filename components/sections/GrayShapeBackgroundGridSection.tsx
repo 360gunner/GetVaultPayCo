@@ -147,8 +147,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
                   size="medium"
                   style={{
                     backgroundColor: "#fff",
-                    border: "1px solid black",
-                    boxShadow: "none",
+                    border: "2px solid black",
                     minWidth: fluidUnit(100),
                     padding: `${fluidUnit(16, 8)} ${fluidUnit(24, 10)}`,
                   }}

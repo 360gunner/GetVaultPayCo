@@ -37,7 +37,7 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
                     src="/logo_horizontal_white.svg"
                     width={203 * 1.3}
                     height={41 * 1.3}
-                    alt="Vault Pay"
+                    alt="VaultPay"
                   />
                 </Link>
               </div>
@@ -49,9 +49,8 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
                   fontSize: 16,
                 }}
               >
-                Vault Pay is a financial service provided by Vault Pay LLC, with
-                its principal office located at 2400 Hanover Street, Palo Alto,
-                CA 94304, United States of America.
+                VaultPay™ is a fintech company provided by VaultPay Global Inc, with
+                its principal office located at 15442 VENTURA BLVD., STE 201-1952, SHERMAN OAKS, CALIFORNIA 91403, United States of America.
               </Typography>
               <Typography
                 as="p"
@@ -62,27 +61,17 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
                   lineHeight: "12px",
                 }}
               >
-                Copyright © 2024 Vault Pay. All rights reserved. ATSC (ISO:
-                900001) is authorised by the Financial Conduct Authority under
-                the Electronic Money Regulations 2023 for the issuing of
-                electronic money and payment instruments. Vault Pay is a
-                registered trademark of ATSC. Advanced Technology Systems
-                Committee & registered with the Financial Conduct Authority as a
-                cryptoasset firm under the Money Laundering, and PCI Compliance
-                Financing and Transfer of Funds (Information on the Payer)
-                Regulations 2023. <br /> <br /> All trademarks and brand names
+                Copyright © 2025 VaultPay™. All rights reserved. VaultPay™ operates under licenses through our partners and maintains PCI compliance standards for secure payment processing. VaultPay™ is a registered trademark of VaultPay Global Inc. <br /> <br /> All trademarks and brand names
                 belong to their respective owners. Use of these trademarks and
                 brand names do not represent endorsement by or association with
                 this card program. All rights reserved. Standard data rates from
                 your wireless service provider may apply. Ability to use money
-                sent to you for Vault Pay payments to other users or authorized
-                merchants subject to Vault Pay verifying your required
-                identifying information. The Vault Pay Mastercard® is issued by
-                The Bancorp Bank pursuant to license by Mastercard International
-                Incorporated. <br /> <br />
-                The Bancorp Bank; Member FDIC. Card may be used everywhere
-                Mastercard is accepted in the U.S. Mastercard is a registered
-                trademark, and the circles design is a trademark of Mastercard
+                sent to you for VaultPay™ payments to other users or authorized
+                merchants subject to VaultPay™ verifying your required
+                identifying information. The VaultPay™ physical card is issued by
+                Venmob LLC in the MIPS BIN network. <br /> <br />
+                Card may be used everywhere Visa® and Mastercard® are accepted. Visa® and Mastercard® are registered
+                trademarks, and the circles design is a trademark of Visa Inc. and Mastercard
                 International Incorporated. All trademarks and brand names
                 belong to their respective owners. Use of these trademarks and
                 brand names do not represent endorsement by or association with
@@ -101,19 +90,19 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
                   >
                     Send & Receive
                   </AppLink>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="/fees-pricing" style={{ color: vars.color.vaultWhite }}>
                     Fees & Pricing
                   </AppLink>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="/features" style={{ color: vars.color.vaultWhite }}>
                     Features
                   </AppLink>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="/partners" style={{ color: vars.color.vaultWhite }}>
                     Partners
                   </AppLink>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="/developers" style={{ color: vars.color.vaultWhite }}>
                     Developers
                   </AppLink>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="/jobs" style={{ color: vars.color.vaultWhite }}>
                     Jobs
                   </AppLink>
                   <AppLink
@@ -127,17 +116,14 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
               <div>
                 <h4 className={s.sectionTitle}>Stay in Touch</h4>
                 <div className={s.linksRow}>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="https://facebook.com/vaultpayglobal" style={{ color: vars.color.vaultWhite }}>
                     Facebook
                   </AppLink>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="https://instagram.com/getvaultpay" style={{ color: vars.color.vaultWhite }}>
                     Instagram
                   </AppLink>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="https://www.linkedin.com/company/vaultpayglobal" style={{ color: vars.color.vaultWhite }}>
                     LinkedIn
-                  </AppLink>
-                  <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
-                    X
                   </AppLink>
                 </div>
               </div>
@@ -146,10 +132,10 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
             {/* Right column: other links */}
             <div>
               <div className={s.list}>
-                <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                <AppLink href="/about" style={{ color: vars.color.vaultWhite }}>
                   About
                 </AppLink>
-                <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                <AppLink href="/contact" style={{ color: vars.color.vaultWhite }}>
                   Contact
                 </AppLink>
                 <AppLink
@@ -162,10 +148,10 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
                 <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
                   Terms & Conditions
                 </AppLink>
-                <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                <AppLink href="/sitemap" style={{ color: vars.color.vaultWhite }}>
                   Site Map
                 </AppLink>
-                <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                <AppLink href="/accessibility" style={{ color: vars.color.vaultWhite }}>
                   Accessibility
                 </AppLink>
               </div>

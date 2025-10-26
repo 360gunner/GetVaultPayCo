@@ -2,14 +2,37 @@ import { keyframes, style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "@/styles/theme.css";
 import { fluidUnit } from "@/styles/fluid-unit";
 
-const fadeIn = keyframes({
-  from: { opacity: 0 },
-  to: { opacity: 1 },
+const slideDown = keyframes({
+  from: { 
+    opacity: 0,
+    transform: 'translateY(-100%)',
+  },
+  to: { 
+    opacity: 1,
+    transform: 'translateY(0)',
+  },
 });
 
-const fadeOut = keyframes({
-  from: { opacity: 1 },
-  to: { opacity: 0 },
+const slideUp = keyframes({
+  from: { 
+    opacity: 1,
+    transform: 'translateY(0)',
+  },
+  to: { 
+    opacity: 0,
+    transform: 'translateY(-100%)',
+  },
+});
+
+const fadeInContent = keyframes({
+  from: { 
+    opacity: 0,
+    transform: 'translateY(20px)',
+  },
+  to: { 
+    opacity: 1,
+    transform: 'translateY(0)',
+  },
 });
 
 export const overlay = style({
@@ -24,12 +47,12 @@ export const overlay = style({
   paddingRight: 0,
   background: vars.gradients.vpGradient,
   backdropFilter: "blur(6px)",
-  overflow: "hidden",
-  willChange: "opacity",
+  overflow: "auto",
+  willChange: "opacity, transform",
   selectors: {
-    '&[data-state="open"]': { animation: `${fadeIn} 260ms ease-out both` },
+    '&[data-state="open"]': { animation: `${slideDown} 400ms cubic-bezier(0.16, 1, 0.3, 1) both` },
     '&[data-state="closed"]': {
-      animation: `${fadeOut} 200ms ease-in both`,
+      animation: `${slideUp} 300ms cubic-bezier(0.16, 1, 0.3, 1) both`,
       pointerEvents: "none",
     },
   },
@@ -78,13 +101,9 @@ export const content = style({
   padding: `${vars.space.lg}`,
   paddingTop: 0,
   paddingBottom: 0,
-  flex: 1,
-  minHeight: 0,
-  maxHeight: "100%",
-  // Allow scrolling but hide scrollbars
-  overflow: "auto",
-  msOverflowStyle: "none", // IE and Edge
-  scrollbarWidth: "none", // Firefox
+  overflow: "visible",
+  opacity: 0,
+  animation: `${fadeInContent} 500ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both`,
   "@media": {
     "screen and (max-width: 1024px)": {
       gridTemplateColumns: "1fr",
@@ -99,7 +118,6 @@ globalStyle(`${content}::-webkit-scrollbar`, {
 
 export const cardsGrid = style({
   display: "grid",
-  maxHeight: "100%",
   // make max width of cards 300 px in gridTemplateColumns
   gridTemplateColumns: "repeat(2, minmax(0,300px))",
   // set horizontal and vertical gap
@@ -127,6 +145,11 @@ export const actionCard = style({
   minHeight: 96,
   aspectRatio: "300 / 154",
   overflow: "hidden",
+  transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease",
+  ":hover": {
+    transform: "translateY(-4px) scale(1.02)",
+    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.2)",
+  },
 });
 
 export const actionBg = style({
@@ -146,6 +169,12 @@ export const actionLabel = style({
   fontWeight: 400,
   fontSize: 18,
   maxWidth: "90%",
+  transition: "color 0.3s ease",
+  selectors: {
+    [`${actionCard}:hover &`]: {
+      color: vars.color.neonMint,
+    },
+  },
 });
 
 export const actionIconTopRight = style({
@@ -160,11 +189,16 @@ export const actionIconTopRight = style({
   alignItems: "center",
   justifyContent: "center",
   fontSize: 20,
+  transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+  selectors: {
+    [`${actionCard}:hover &`]: {
+      transform: "rotate(12deg) scale(1.1)",
+    },
+  },
 });
 
 export const navCols = style({
   display: "grid",
-  maxHeight: "100%",
   gridTemplateColumns: "repeat(2, minmax(0,1fr))",
   rowGap: 8,
   columnGap: 16,
@@ -194,6 +228,11 @@ export const navItem = style({
   paddingRight: vars.space["4xl"],
   borderBottom: "none",
   cursor: "pointer",
+  transition: "transform 0.2s ease, padding-left 0.2s ease",
+  ":hover": {
+    transform: "translateX(4px)",
+    paddingLeft: "8px",
+  },
 });
 
 export const navItemText = style({
@@ -206,40 +245,40 @@ export const navItemArrow = style({
   color: vars.color.vaultBlack,
   fontSize: 20,
   marginBottom: 0,
+  transition: "transform 0.2s ease",
+  selectors: {
+    [`${navItem}:hover &`]: {
+      transform: "translateX(4px)",
+    },
+  },
 });
 
 export const bottomBanner = style({
   position: "relative",
   width: "100%",
-  minHeight: "150px",
-  aspectRatio: "1360/200",
-  borderRadius: 16,
+  borderRadius: fluidUnit(16),
   overflow: "hidden",
+  opacity: 0,
+  animation: `${fadeInContent} 500ms cubic-bezier(0.16, 1, 0.3, 1) 300ms both`,
 });
 
 export const bannerOverlay = style({
   position: "absolute",
   inset: 0,
   display: "flex",
-  // Push content to the bottom of the image (cross-axis in a row)
-  alignItems: "flex-end",
-  // Keep content starting from the left; inner row will handle spacing
-  justifyContent: "flex-start",
-  gap: 12,
-  color: vars.color.vaultWhite,
-  textAlign: "left",
-  padding: 16,
+  alignItems: "center",
+  justifyContent: "center",
+  padding: fluidUnit(24),
 });
 
 export const bannerContent = style({
-  zIndex: 9000,
+  zIndex: 1,
   display: "flex",
-  alignItems: "center",
   flexDirection: "column",
-  justifyContent: "space-between",
-  width: "100%",
-  // padding: " 0 16px",
-  gap: 12,
+  alignItems: "center",
+  gap: fluidUnit(12),
+  textAlign: "center",
+  color: "#fff",
 });
 
 export const bannerTitle = style({

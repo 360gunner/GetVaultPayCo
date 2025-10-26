@@ -50,14 +50,14 @@ export default function PrivacyPolicyPage() {
       >
         <PrivacyPageH1>Privacy Policy</PrivacyPageH1>
         <Container>
-          <PrivacyText>Privacy Policy for Vault Pay</PrivacyText>
+          <PrivacyText>Privacy Policy for VaultPay</PrivacyText>
           <PrivacyText>Effective Date: 02/10/2024</PrivacyText>
           <PrivacyTitle title="1. Introduction" />
           {/* 1. Introduction */}
           <PrivacyText>
-            This Privacy Policy explains how Vault Pay LLC ("we", "our", or
+            This Privacy Policy explains how VaultPay LLC ("we", "our", or
             "us") collects, uses, and shares information about you when you use
-            our mobile application Vault Pay (the "App") available on the Google
+            our mobile application VaultPay (the "App") available on the Google
             Play Store and through our website. By using the App, you agree to
             the collection and use of your information in accordance with this
             policy.
@@ -65,21 +65,21 @@ export default function PrivacyPolicyPage() {
           {/* 2. Privacy Policy Availability */}
           <PrivacyTitle title="2. Privacy Policy Availability" />
           <PrivacyText>
-            This Privacy Policy is available on our Vault Pay Google Play Store
+            This Privacy Policy is available on our VaultPay Google Play Store
             listing page and within the App itself under the [Settings/Info]
             section.
           </PrivacyText>
           {/* 3. Entity Reference */}
           <PrivacyTitle title="3. Entity Reference" />
           <PrivacyText>
-            This policy applies to Vault Pay LLC, as listed on the Google Play
-            Store under the developer Ali Younas for the app Vault Pay.
+            This policy applies to VaultPay LLC, as listed on the Google Play
+            Store under the developer Ali Younas for the app VaultPay.
           </PrivacyText>
           {/* 4. Data Collection */}
           <PrivacyTitle title="4. Information We Collect" />
           <PrivacyText>
             We collect the following types of personal and sensitive data when
-            you use the Vault Pay app: <br />
+            you use the VaultPay app: <br />
             1. App Info and Performance Crash logs, Diagnostics, and Other app
             performance data: We collect information about how the app performs
             on your device to improve the user experience. This may include
@@ -115,21 +115,21 @@ export default function PrivacyPolicyPage() {
             contacting us through the methods listed below. <br />
             9. Contact Information If you have any questions or concerns about
             submit an inquiry regarding your personal information, please
-            contact us at: Email: law@Vault Pay.com <br /> Mail: Vault Pay LLC,
+            contact us at: Email: law@getvaultpay.co <br /> Mail: VaultPay LLC,
             3790 EL CAMINO REAL PALO ALTO CA 94306
           </PrivacyText>
           <PrivacyTitle title="General Provisions"></PrivacyTitle>
           <PrivacyText>
             1. According to the Joint Controller Agreement No. 20180919 from
-            April 19, 2023, your personal data controller is the Vault Pay
-            network. Contact details for Vault Pay are available on the Vault
+            April 19, 2023, your personal data controller is the VaultPay
+            network. Contact details for VaultPay are available on the Vault
             Pay website. Contact details for the data protection officer
-            authorized by Vault Pay: law@vaultpay.com. <br /> 2.Personal data
-            collected by Vault Pay is processed in accordance with applicable
+            authorized by VaultPay: law@getvaultpay.co. <br /> 2.Personal data
+            collected by VaultPay is processed in accordance with applicable
             legal protections for personal data. All employees, agents, and
-            contractors of Vault Pay who know the secret of personal data must
+            contractors of VaultPay who know the secret of personal data must
             keep it secure even after termination of employment or contractual
-            relationships. <br /> 3. Vault Pay, in accordance with applicable
+            relationships. <br /> 3. VaultPay, in accordance with applicable
             legal requirements, shall ensure the confidentiality of personal
             data and the implementation of appropriate technical and
             organizational measures to protect personal data from unauthorized
@@ -138,13 +138,13 @@ export default function PrivacyPolicyPage() {
             the basic rules for the collection, storage, processing, and
             retention of your personal data, other information relating to you,
             the scope, purpose, sources, recipients, and other important aspects
-            of your personal data when you use Vault Pay as a payment service
+            of your personal data when you use VaultPay as a payment service
             provider. <br /> 5. By accessing and/or using the information on
             this website and/or our services, you acknowledge and confirm that
             you have read, understood, and agree to this Privacy Policy. Also,
             after you register with the system and start using our services,
             this Privacy Policy becomes a Supplement to the General Payment
-            Services Agreement. <br /> 6. Vault Pay reserves the right, at its
+            Services Agreement. <br /> 6. VaultPay reserves the right, at its
             sole discretion, to modify this Privacy Policy at any time by
             publishing an updated version of the Privacy Policy on the website
             and, if the changes are substantial, notifying registered users by
@@ -153,17 +153,17 @@ export default function PrivacyPolicyPage() {
             user of the services is a legal entity, this Privacy Policy applies
             to natural persons whose data is transmitted to us by the legal
             entity. The user shall inform the data subjects (managers,
-            recipients, agents, etc.) of the transfer of their data to Vault Pay
+            recipients, agents, etc.) of the transfer of their data to VaultPay
             in accordance with applicable legal requirements.
           </PrivacyText>
           <PrivacyTitle title="Data Processing Purposes. Data Providers, Deadlines, Recipients" />{" "}
           <PrivacyText>
-            1.The main purpose for which Vault Pay collects your personal data
+            1.The main purpose for which VaultPay collects your personal data
             is to provide payment services to clients who send and receive
-            payments. As a payment service provider, Vault Pay is bound by law
+            payments. As a payment service provider, VaultPay is bound by law
             to establish and verify your identity prior to entering into
             financial services transactions with you. At the time of providing
-            services, Vault Pay may also request further information, as well as
+            services, VaultPay may also request further information, as well as
             assess and store this information for the retention period set out
             by legislation. Taking this into account, you must provide correct
             and complete information. <br /> 2. PURPOSE: Client identification,
@@ -200,7 +200,7 @@ export default function PrivacyPolicyPage() {
             personal data must be retained for 8 (eight) years according to
             applicable laws on the prevention of money laundering and terrorist
             financing. This data is retained for another 2 (two) years based on
-            the legal interests of Vault Pay according to the ordinary
+            the legal interests of VaultPay according to the ordinary
             limitation period of the lawsuit. <br />
             16. 9.5. Data providers and sources: the data subject directly,
             credit and other financial institutions and their branches, state
@@ -217,13 +217,13 @@ export default function PrivacyPolicyPage() {
             supervisory authorities, credit, financial, payment and/or
             electronic money institutions, pre-trial investigation institutions,
             state tax agencies, payment service representatives or partners of
-            Vault Pay (if the transaction is carried out using their services),
+            VaultPay (if the transaction is carried out using their services),
             recipients of transaction funds receiving the information in payment
             statements, the recipient’s payment service providers and
             correspondents, participants, and/or parties related to national,
             European, African, and international payment systems, debt
             collection and recovery agencies, and other entities having a
-            legitimate interest, under an agreement with Vault Pay or on other
+            legitimate interest, under an agreement with VaultPay or on other
             lawful bases.
             <br />
             10. PURPOSE: Debt management.
@@ -246,7 +246,7 @@ export default function PrivacyPolicyPage() {
             institutions, lawyers, bailiffs, courts, tax agencies, and debt
             recovery agencies.
             <br />
-            10.6. If debt is overdue for 30+ days, Vault Pay can share identity,
+            10.6. If debt is overdue for 30+ days, VaultPay can share identity,
             contact, and credit history with debt databases and collection
             companies. Access your credit history through credit bureaus.
             <br />
@@ -265,7 +265,7 @@ export default function PrivacyPolicyPage() {
             <br />
             11.5. Data recipients: supervisory authorities, debtor file
             processors, courts, tax agencies, debt recovery agencies, and others
-            under agreement with Vault Pay.
+            under agreement with VaultPay.
             <br />
             PURPOSE: Credit rating assessment, credit risk management, and
             automated decision making.
@@ -273,7 +273,7 @@ export default function PrivacyPolicyPage() {
             12.1. The personal data for this purpose is processed to assess the
             creditworthiness of clients, to manage the credit risk, and to meet
             the requirements related to operational risk management and capital
-            adequacy, so that Vault Pay can offer to provide funding.
+            adequacy, so that VaultPay can offer to provide funding.
             <br />
             12.2. The following personal data may be processed for this purpose:
             name, surname, address, date of birth, email address, telephone
@@ -292,40 +292,40 @@ export default function PrivacyPolicyPage() {
             files.
             <br />
             12.6. In order to conclude or offer to enter into a funding
-            agreement with you and to provide you with services, Vault Pay will,
+            agreement with you and to provide you with services, VaultPay will,
             in certain cases, apply decision-making based on the automated
             processing of your personal data. In this case, the system checks
             your creditworthiness with a set algorithm and assesses whether the
             service can be provided. If the automated decision is negative, it
-            may be changed by the client providing more data. Vault Pay takes
+            may be changed by the client providing more data. VaultPay takes
             all the necessary measures to protect your rights, freedoms, and
             legitimate interests. You have the right to demand human
             intervention, express your opinion, and challenge an automated
             decision. You have the right to oppose an automated decision by
-            contacting Vault Pay directly.
+            contacting VaultPay directly.
             <br />
-            PURPOSE: Protection of interests of Vault Pay and the client (video
-            surveillance on the premises of Vault Pay).
+            PURPOSE: Protection of interests of VaultPay and the client (video
+            surveillance on the premises of VaultPay).
             <br />
             13.1. Personal data for this purpose is processed in order to ensure
-            the security of Vault Pay and/or the client, to protect the life and
+            the security of VaultPay and/or the client, to protect the life and
             health of the client and/or their representative, and other rights
-            of Vault Pay and the client (video surveillance and recording in the
-            premises of Vault Pay) in pursuit of the legitimate interest to
-            protect clients, employees, and visitors of Vault Pay and their
-            property, as well as the property of Vault Pay.
+            of VaultPay and the client (video surveillance and recording in the
+            premises of VaultPay) in pursuit of the legitimate interest to
+            protect clients, employees, and visitors of VaultPay and their
+            property, as well as the property of VaultPay.
             <br />
             13.2. For this purpose, the following personal data may be
-            processed: video recordings on the premises managed by Vault Pay.
+            processed: video recordings on the premises managed by VaultPay.
             <br />
-            13.3. Before entering the premises of Vault Pay where video
+            13.3. Before entering the premises of VaultPay where video
             surveillance is conducted, you are informed about the surveillance
             by special markings.
             <br />
             13.4. Data retention period: 1 (one) year.
             <br />
             13.5. Data providers: the data subject directly who visits the
-            premises of Vault Pay where video surveillance is conducted and is
+            premises of VaultPay where video surveillance is conducted and is
             captured by the surveillance camera.
             <br />
             13.6. Data recipients: courts, pre-trial investigation institutions,
@@ -334,10 +334,10 @@ export default function PrivacyPolicyPage() {
             1.PURPOSE: Informing the client about services.
             <br />
             14.1. Personal data for this purpose is processed in order to inform
-            the client about the services provided by Vault Pay, their prices,
+            the client about the services provided by VaultPay, their prices,
             specifics, changes in the terms of the agreements concluded with the
             client, and for sending system and other messages relating to the
-            provided Vault Pay services.
+            provided VaultPay services.
             <br />
             14.2. The following personal data may be processed for this purpose:
             email address, phone number.
@@ -358,14 +358,14 @@ export default function PrivacyPolicyPage() {
             1.PURPOSE: Direct marketing.
             <br />
             15.1. For this purpose, personal data is processed in order to
-            provide clients with offers on the services provided by Vault Pay
+            provide clients with offers on the services provided by VaultPay
             and find out the clients' opinions on the above-mentioned services.
             <br />
             15.2. The following personal data may be processed for this purpose:
             name, surname, email address, and phone number.
             <br />
-            15.3. For this purpose, Vault Pay sends newsletters and direct
-            marketing messages after obtaining the client's consent. Vault Pay
+            15.3. For this purpose, VaultPay sends newsletters and direct
+            marketing messages after obtaining the client's consent. VaultPay
             may use a newsletter service provider while ensuring that said
             provider complies with the personal data protection requirements set
             out in the Joint Controller Agreement. The client may revoke their
@@ -396,7 +396,7 @@ export default function PrivacyPolicyPage() {
             analysis is based on the legitimate interest to analyse, improve,
             and develop the conducted activity. You have the right to disagree
             and object to your personal data processing for such purpose at any
-            time and in any form by informing Vault Pay thereof. However, Vault
+            time and in any form by informing VaultPay thereof. However, Vault
             Pay may continue to process the data for statistical purposes if it
             proves that the data is processed for compelling legitimate reasons
             beyond the interests, rights, and freedoms of the data subject or
@@ -405,7 +405,7 @@ export default function PrivacyPolicyPage() {
             2.PURPOSE: Service improvement. The data collected for all of the
             above purposes can be used to improve technical and organisational
             tools, IT infrastructure, adapt services to the devices used,
-            develop new Vault Pay services, enhance satisfaction with existing
+            develop new VaultPay services, enhance satisfaction with existing
             services, as well as test and improve technical tools and IT
             infrastructure.
             <br />
@@ -414,18 +414,18 @@ export default function PrivacyPolicyPage() {
             prevent unauthorised access and use, i.e. to ensure privacy and
             information security.
             <br />
-            4.For the processing of personal data, Vault Pay may engage data
+            4.For the processing of personal data, VaultPay may engage data
             processors and/or, at its own discretion, hire other persons to
-            perform certain ancillary functions on behalf of Vault Pay (e.g.
+            perform certain ancillary functions on behalf of VaultPay (e.g.
             data centres, hosting, cloud hosting, system administration, system
             development, software development, provision, support services such
             as improvement and development; services of customer service
             centres; marketing, communication, consulting, temporary staffing,
-            or similar services). In such cases, Vault Pay shall take the
+            or similar services). In such cases, VaultPay shall take the
             necessary measures to ensure that such data processors process
-            personal data in accordance with Vault Pay's instructions and
+            personal data in accordance with VaultPay's instructions and
             applicable laws, and shall require compliance with the appropriate
-            personal data security measures. Vault Pay shall also ensure that
+            personal data security measures. VaultPay shall also ensure that
             such persons are bound by confidentiality obligations and cannot use
             such information for any purpose other than the performance of their
             functions.
@@ -435,8 +435,8 @@ export default function PrivacyPolicyPage() {
             legitimate purposes or legal requirements.
             <br />
             6.The data referred to above will be provided and received through a
-            software tool used by Vault Pay or its authorised agent, also by
-            other means and third persons with whom Vault Pay has entered into
+            software tool used by VaultPay or its authorised agent, also by
+            other means and third persons with whom VaultPay has entered into
             personal data processing agreements in accordance with laws and
             regulations.
           </PrivacyText>
@@ -460,18 +460,18 @@ export default function PrivacyPolicyPage() {
             place in all of these cases as indicated in the Joint Controller
             Agreement.
             <br />
-            Profiling 1.Profiling carried out by Vault Pay involves the
+            Profiling 1.Profiling carried out by VaultPay involves the
             processing of personal data by automated means for the purposes of
             legislation relating to risk management and continuous and periodic
             monitoring of transactions in order to prevent fraud; such ongoing
-            profiling is based on the legal obligations of Vault Pay.
+            profiling is based on the legal obligations of VaultPay.
             <br />
             2.For the purpose of direct marketing and statistical analysis,
             profiling may be carried out using Matomo, Google, Facebook, and
             other analytics tools.
             <br />
             Processing the personal data of minors 1.A minor under 14 (fourteen)
-            years of age, seeking to use the payment services of Vault Pay,
+            years of age, seeking to use the payment services of VaultPay,
             shall provide written consent from their representative (parent or
             legal guardian) with regard to their personal data processing.
             <br />
@@ -479,35 +479,35 @@ export default function PrivacyPolicyPage() {
           <PrivacyText>
             Cookie policy
             <br />
-            1. Vault Pay may use cookies on this website. Cookies are small
+            1. VaultPay may use cookies on this website. Cookies are small
             files sent to a person's Internet browser and stored on their
             device. Cookies are transferred to a personal computer upon first
             visiting the website.
             <br />
-            2.Usually, Vault Pay uses only the necessary cookies on the person's
+            2.Usually, VaultPay uses only the necessary cookies on the person's
             device for identification, enhancement of the website functionality
             and use, and facilitating a person's access to the website and the
-            information it contains. Vault Pay may use other cookies upon
+            information it contains. VaultPay may use other cookies upon
             receiving the client's consent. You will find a brief description of
             different types of cookies here: - Strictly necessary cookies. These
             cookies are essential for the website to function and cannot be
-            turned off in the Vault Pay system. They are usually set in response
+            turned off in the VaultPay system. They are usually set in response
             to actions taken by you, like setting your privacy preferences,
             logging in, or filling in forms.
             <br />
             - Performance cookies. These cookies allow the website to count
-            visits and traffic sources so that Vault Pay can measure and improve
-            the performance of the website. They help Vault Pay to know which
+            visits and traffic sources so that VaultPay can measure and improve
+            the performance of the website. They help VaultPay to know which
             pages are the most and least popular and see how visitors move
             around the site.
             <br />
             - Functional cookies. These cookies enable the website to provide
             enhanced functionality and personalization. They may be set by Vault
             Pay or by third-party providers whose services have been added to
-            the pages of Vault Pay. If you do not allow these cookies, some or
+            the pages of VaultPay. If you do not allow these cookies, some or
             all of these services may not function properly.
             <br />
-            - Targeting cookies. These cookies may be set through Vault Pay's
+            - Targeting cookies. These cookies may be set through VaultPay's
             site by its advertising partners. They may be used by those
             companies to build a profile of your interests and show you relevant
             ads on other sites. They do not store directly personal information,
@@ -522,7 +522,7 @@ export default function PrivacyPolicyPage() {
           <PrivacyText>
             1.You can set your browser to refuse cookies or to alert you when
             cookies are being sent. However, if you do not accept cookies, you
-            may not be able to use some features of the Vault Pay service.
+            may not be able to use some features of the VaultPay service.
             <br /> 2.Your browser may also allow you to delete cookies. If you
             want to delete cookies, you will need to do this separately for each
             browser and device you use.

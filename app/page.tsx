@@ -247,18 +247,18 @@ const BenefitsSection: React.FC = () => {
 export const TestimonialsSection: React.FC = () => {
   const testimonials = [
     {
-      text: `“VaultPay makes it so easy to split bills with my friends while traveling.”`,
-      name: "AMINA, LAGOS",
+      text: `"VaultPay makes it so easy to split bills with my friends while traveling."`,
+      name: "YASMINE, PARIS",
       avatar: "/image 97.png",
     },
     {
-      text: `“Finally, a wallet I actually want to use.”`,
-      name: "EYEBROW HERE",
+      text: `"Finally, a wallet I actually want to use."`,
+      name: "THOMAS, LOS ANGELES",
       avatar: "/image 98.png",
     },
     {
-      text: `“I can pay my family’s phone bill in another country without the fees.”`,
-      name: "EYEBROW HERE",
+      text: `"I can pay my family's phone bill in another country without the fees."`,
+      name: "NATHALIE, NEW YORK",
       avatar: "/image 99.png",
     },
   ];
@@ -311,7 +311,11 @@ export const TestimonialsSection: React.FC = () => {
                 >
                   <Typography
                     as="h4"
-                    style={{ fontWeight: 400, fontSize: fluidUnit(36) }}
+                    style={{ 
+                      fontWeight: 400, 
+                      fontSize: fluidUnit(24),
+                      lineHeight: 1.4,
+                    }}
                   >
                     {text}
                   </Typography>
@@ -326,8 +330,8 @@ export const TestimonialsSection: React.FC = () => {
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <div
                         style={{
-                          width: fluidUnit(112),
-                          height: fluidUnit(112),
+                          width: fluidUnit(80),
+                          height: fluidUnit(80),
                           borderRadius: "50%",
                           overflow: "hidden",
                           position: "relative",
@@ -345,8 +349,8 @@ export const TestimonialsSection: React.FC = () => {
                       as="p"
                       style={{
                         fontWeight: 400,
-                        fontSize: fluidUnit(20),
-                        marginTop: "1rem",
+                        fontSize: fluidUnit(16),
+                        marginTop: fluidUnit(8),
                       }}
                     >
                       {name}
@@ -440,7 +444,7 @@ const HeroSection: React.FC = () => {
           style={{
             position: "relative",
             width: "100%",
-            aspectRatio: "1360/906",
+            aspectRatio: "1360/500",
             marginTop: 16,
             borderRadius: 16,
             maxHeight: "100vh",
@@ -466,7 +470,7 @@ const HeroSection: React.FC = () => {
             }}
           >
             <a
-              href="https://play.google.com/"
+              href="https://play.google.com/store/apps/details?id=com.venmob.app&hl=fr"
               target="_blank"
               rel="noreferrer"
               aria-label="Get it on Google Play"
