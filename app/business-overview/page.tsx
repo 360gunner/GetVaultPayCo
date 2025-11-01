@@ -63,7 +63,7 @@ export default function BusinessOverviewPage() {
         title="Take your business to the next level with VaultPay"
         text="Use VaultPay app for transferring money with just a few taps, and your money will be received in less than a minute."
         buttonLabel="Start your Business Account"
-        buttonHref="/signup"
+        buttonHref="/signup-business"
         aspectRatio="1360 / 784"
         fullBleed={false}
       />
@@ -121,7 +121,7 @@ export default function BusinessOverviewPage() {
         imageAlt="VaultPay card"
         containerSize="xl"
         titleFontSize={60}
-        buttonHref="/signup"
+        buttonHref="/signup-business"
         gridTemplateColumns="1.3fr 1fr"
         containerStyle={{
           padding: `${vars.space.xl} ${vars.space["4xl"]}`,

@@ -19,13 +19,13 @@ export default function PartnersPage() {
         buttonLabel="Become a Partner"
         buttonVariant="secondary"
         buttonHref="/signup"
-        imageSrc="/image 91.png"
+        imageSrc="/retail-store-partner.jpg"
         imageAlt="VaultPay Partners"
         containerSize="2xl"
         gridTemplateColumns="1fr 1fr"
         containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}
-        imageWidth={503}
-        imageHeight={545}
+        imageWidth={850}
+        imageHeight={650}
         minColWidth={360}
       />
 
@@ -60,8 +60,8 @@ export default function PartnersPage() {
               {
                 icon: "🏦",
                 title: "Financial Institutions",
-                description: "Partner with VaultPay to offer digital payment solutions to your customers. White-label options available for banks and credit unions looking to modernize their services.",
-                benefits: ["White-label solutions", "Compliance support", "Custom integrations"],
+                description: "Join the MIPS network for instant settlement worldwide in local currency. Partner with VaultPay to offer cutting-edge digital payment solutions to your customers. White-label options available for banks and credit unions looking to modernize their services with global payment infrastructure.",
+                benefits: ["MIPS network access", "Instant global settlement", "Local currency support", "White-label solutions"],
               },
               {
                 icon: "🤝",

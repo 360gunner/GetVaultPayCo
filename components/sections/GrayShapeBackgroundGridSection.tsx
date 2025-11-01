@@ -43,6 +43,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
         aspectRatio: "1400/865",
         maxHeight: "calc(120 * var(--vh))",
         maxWidth: "calc(100 * var(--vw))",
+        overflow: "visible",
       }}
     >
       <div style={{ position: "absolute", left: 0, top: 0, zIndex: -1 }}>
@@ -76,6 +77,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
           alignItems: "center",
           height: `calc(90 * var(--vw) * 865 / 1400 * 0.85)`,
           maxHeight: "95 * var(--vh)",
+          overflow: "visible",
         }}
       >
         <Grid
@@ -90,6 +92,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             maxHeight: "95 * var(--vh)",
             gap: fluidUnit(24),
             gridTemplateColumns: gridTemplateColumns || "1fr 1fr",
+            overflow: "visible",
           }}
         >
           {/* Left column */}
@@ -164,7 +167,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             </div>
           </div>
           {/* Right column */}
-          <div>
+          <div style={{ transform: 'translateX(149px)' }}>
             <div
               style={{
                 position: "relative",

@@ -44,7 +44,7 @@ export default function BusinessOnlinePage() {
     <div style={{ backgroundColor: vars.color.vaultNavie }}>
       <Navbar />
       <SplitHero
-        buttonHref="/signup"
+        buttonHref="/signup-business"
         eyebrow="ONLINE & IN-APP"
         title="Seamless sales anywhere your customers shop"
         dark

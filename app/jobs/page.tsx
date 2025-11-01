@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import SplitHero from "@/components/sections/SplitHero";
@@ -6,6 +9,8 @@ import Container from "@/components/Layout/Container";
 import Typography from "@/components/Typography/Typography";
 import { fluidUnit } from "@/styles/fluid-unit";
 import Button from "@/components/Button/Button";
+import JobApplicationModal from "@/components/JobApplicationModal";
+import JobDetailsModal from "@/components/JobDetailsModal";
 
 const jobOpenings = [
   {
@@ -53,6 +58,21 @@ const jobOpenings = [
 ];
 
 export default function JobsPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedJob, setSelectedJob] = useState("");
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [selectedJobDetails, setSelectedJobDetails] = useState<typeof jobOpenings[0] | null>(null);
+
+  const handleApplyClick = (jobTitle: string) => {
+    setSelectedJob(jobTitle);
+    setIsModalOpen(true);
+  };
+
+  const handleJobTitleClick = (job: typeof jobOpenings[0]) => {
+    setSelectedJobDetails(job);
+    setIsDetailsModalOpen(true);
+  };
+
   return (
     <>
       <Navbar />
@@ -63,7 +83,7 @@ export default function JobsPage() {
         buttonLabel="View Open Positions"
         buttonVariant="secondary"
         buttonHref="#openings"
-        imageSrc="/image 91.png"
+        imageSrc="/team-hero.svg"
         imageAlt="VaultPay Careers"
         containerSize="2xl"
         gridTemplateColumns="1fr 1fr"
@@ -210,7 +230,12 @@ export default function JobsPage() {
                       fontWeight: 700,
                       marginBottom: fluidUnit(8),
                       color: vars.color.vaultBlack,
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                      textDecorationColor: vars.color.neonMint,
+                      textDecorationThickness: "2px",
                     }}
+                    onClick={() => handleJobTitleClick(job)}
                   >
                     {job.title}
                   </Typography>
@@ -267,6 +292,7 @@ export default function JobsPage() {
                   size="medium"
                   label="Apply Now"
                   style={{ minWidth: 140 }}
+                  onClick={() => handleApplyClick(job.title)}
                 />
               </div>
             ))}
@@ -309,10 +335,24 @@ export default function JobsPage() {
                 backgroundColor: vars.color.vaultBlack,
                 color: vars.color.vaultWhite,
               }}
+              onClick={() => handleApplyClick("General Application")}
             />
           </div>
         </Container>
       </section>
+
+      <JobDetailsModal
+        isOpen={isDetailsModalOpen}
+        onClose={() => setIsDetailsModalOpen(false)}
+        job={selectedJobDetails}
+        onApplyClick={() => handleApplyClick(selectedJobDetails?.title || "")}
+      />
+
+      <JobApplicationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        jobTitle={selectedJob}
+      />
 
       <Footer />
     </>

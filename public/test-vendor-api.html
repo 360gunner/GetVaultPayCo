@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Vendor API</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 50px auto; padding: 20px; }
+        button { background: #0070f3; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin: 5px; }
+        button:hover { background: #0051cc; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow: auto; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Test Vendor API</h1>
+    
+    <button onclick="testAPI()">Test Vendor Creation</button>
+    <button onclick="clearLog()">Clear Log</button>
+    
+    <div id="log"></div>
+
+    <script>
+        function log(message, type = 'info') {
+            const div = document.getElementById('log');
+            const p = document.createElement('p');
+            p.className = type;
+            p.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            div.appendChild(p);
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+
+        async function testAPI() {
+            clearLog();
+            log('Testing vendor creation API...', 'info');
+            
+            const testData = {
+                email: 'test' + Date.now() + '@example.com',
+                username: 'test' + Date.now(),
+                first_name: 'Test',
+                last_name: 'Business',
+                store_name: 'Test Store ' + Date.now(),
+                phone: '+1234567890',
+                address: {
+                    street_1: '123 Test St',
+                    city: 'New York',
+                    zip: '10001',
+                    state: 'NY',
+                    country: 'US'
+                }
+            };
+
+            log('Sending request with data:', 'info');
+            const pre = document.createElement('pre');
+            pre.textContent = JSON.stringify(testData, null, 2);
+            document.getElementById('log').appendChild(pre);
+
+            try {
+                log('Calling POST /api/create-dokan-vendor...', 'info');
+                
+                const response = await fetch('/api/create-dokan-vendor', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testData)
+                });
+
+                log(`Response Status: ${response.status} ${response.statusText}`, 
+                    response.ok ? 'success' : 'error');
+                log(`Content-Type: ${response.headers.get('content-type')}`, 'info');
+
+                const contentType = response.headers.get('content-type');
+                
+                if (!contentType || !contentType.includes('application/json')) {
+                    log('ERROR: Response is not JSON!', 'error');
+                    const text = await response.text();
+                    log('Response body (first 1000 chars):', 'error');
+                    const errorPre = document.createElement('pre');
+                    errorPre.textContent = text.substring(0, 1000);
+                    errorPre.style.color = 'red';
+                    document.getElementById('log').appendChild(errorPre);
+                    return;
+                }
+
+                const data = await response.json();
+                log('Response received:', data.success ? 'success' : 'error');
+                const responsePre = document.createElement('pre');
+                responsePre.textContent = JSON.stringify(data, null, 2);
+                responsePre.style.color = data.success ? 'green' : 'red';
+                document.getElementById('log').appendChild(responsePre);
+
+                if (data.success) {
+                    log('✓ Vendor created successfully!', 'success');
+                    if (data.vendor_id) {
+                        log(`Vendor ID: ${data.vendor_id}`, 'success');
+                    }
+                } else {
+                    log(`✗ Failed: ${data.message}`, 'error');
+                }
+
+            } catch (error) {
+                log(`✗ Exception: ${error.message}`, 'error');
+                console.error('Full error:', error);
+            }
+        }
+
+        // Auto-run on load
+        window.onload = () => {
+            log('Page loaded. Click "Test Vendor Creation" to start.', 'info');
+        };
+    </script>
+</body>
+</html>

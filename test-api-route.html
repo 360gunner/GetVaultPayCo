@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dokan API Route</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            background: #0070f3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0051cc;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Test Dokan Vendor Creation API</h1>
+    
+    <div>
+        <button onclick="testHealthCheck()">1. Test Health Check (GET)</button>
+        <button onclick="testVendorCreation()">2. Test Vendor Creation (POST)</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+    
+    <h2>Results:</h2>
+    <div id="results"></div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+
+        function clearResults() {
+            resultsDiv.innerHTML = '';
+        }
+
+        function log(message, type = 'info') {
+            const p = document.createElement('p');
+            p.className = type;
+            p.textContent = message;
+            resultsDiv.appendChild(p);
+        }
+
+        function logJson(data) {
+            const pre = document.createElement('pre');
+            pre.textContent = JSON.stringify(data, null, 2);
+            resultsDiv.appendChild(pre);
+        }
+
+        async function testHealthCheck() {
+            log('Testing GET /api/create-dokan-vendor...');
+            
+            try {
+                const response = await fetch('/api/create-dokan-vendor', {
+                    method: 'GET'
+                });
+
+                log(`Status: ${response.status} ${response.statusText}`);
+                log(`Content-Type: ${response.headers.get('content-type')}`);
+
+                const data = await response.json();
+                log('Response:', 'success');
+                logJson(data);
+
+                if (data.status === 'ok') {
+                    log('✓ API route is accessible!', 'success');
+                } else {
+                    log('⚠ Unexpected response', 'error');
+                }
+            } catch (error) {
+                log(`✗ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testVendorCreation() {
+            log('Testing POST /api/create-dokan-vendor...');
+            
+            const testData = {
+                email: 'testvendor' + Date.now() + '@example.com',
+                username: 'testvendor' + Date.now(),
+                first_name: 'Test',
+                last_name: 'Vendor',
+                store_name: 'Test Store ' + Date.now(),
+                phone: '+1234567890',
+                address: {
+                    street_1: '123 Test Street',
+                    city: 'New York',
+                    zip: '10001',
+                    state: 'NY',
+                    country: 'US'
+                }
+            };
+
+            log('Sending test data:');
+            logJson(testData);
+
+            try {
+                const response = await fetch('/api/create-dokan-vendor', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+
+                log(`Status: ${response.status} ${response.statusText}`);
+                log(`Content-Type: ${response.headers.get('content-type')}`);
+
+                if (!response.headers.get('content-type')?.includes('application/json')) {
+                    const text = await response.text();
+                    log('⚠ Response is not JSON! Got HTML instead:', 'error');
+                    log('First 500 chars of response:', 'error');
+                    const pre = document.createElement('pre');
+                    pre.textContent = text.substring(0, 500);
+                    resultsDiv.appendChild(pre);
+                    return;
+                }
+
+                const data = await response.json();
+                log('Response:');
+                logJson(data);
+
+                if (data.success) {
+                    log('✓ Vendor creation successful!', 'success');
+                    log(`Vendor ID: ${data.vendor_id}`, 'success');
+                } else {
+                    log(`⚠ Vendor creation failed: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                log(`✗ Error: ${error.message}`, 'error');
+                console.error('Full error:', error);
+            }
+        }
+
+        // Auto-run health check on load
+        window.onload = () => {
+            log('Page loaded. Ready to test!');
+            log('Make sure dev server is running on http://localhost:3000');
+            log('---');
+        };
+    </script>
+</body>
+</html>

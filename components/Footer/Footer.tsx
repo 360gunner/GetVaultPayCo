@@ -138,6 +138,9 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
                 <AppLink href="/contact" style={{ color: vars.color.vaultWhite }}>
                   Contact
                 </AppLink>
+                <AppLink href="/investor-relations" style={{ color: vars.color.vaultWhite }}>
+                  Investor Relations
+                </AppLink>
                 <AppLink
                   href="/privacy"
                   style={{ color: vars.color.vaultWhite }}

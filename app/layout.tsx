@@ -30,11 +30,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "VaultPay" }],
 
-  // ✅ Use only favicon.ico (universal)
+  // ✅ Use vaultpay-icon.png as favicon
   icons: {
-    icon: [{ url: "/favicon.ico?v=5", type: "image/x-icon" }],
-    apple: "/favicon.ico?v=5",
-    shortcut: "/favicon.ico?v=5",
+    icon: [
+      { url: "/vaultpay-icon.png", sizes: "32x32", type: "image/png" },
+      { url: "/vaultpay-icon.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/vaultpay-icon.png",
+    shortcut: "/vaultpay-icon.png",
   },
 
   metadataBase: new URL("https://getvaultpay.co"),
@@ -85,9 +88,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* ✅ Cache-busting favicon so browsers always fetch the latest */}
-        <link rel="icon" href="/favicon.ico?v=5" type="image/x-icon" />
-        <link rel="shortcut icon" href="/favicon.ico?v=5" type="image/x-icon" />
+        {/* ✅ Favicon links */}
+        <link rel="icon" href="/vaultpay-icon.png" type="image/png" sizes="32x32" />
+        <link rel="shortcut icon" href="/vaultpay-icon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/vaultpay-icon.png" />
       </head>
       <body
         className={`${spaceGrotesk.variable} ${instrumentSans.variable} antialiased ${themeClass}`}
