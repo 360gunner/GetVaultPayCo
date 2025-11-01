@@ -14,7 +14,7 @@ export default function BoutiquePage() {
             textAlign: 'center'
           }}>
             <Typography
-              variant="h1"
+              as="h1"
               style={{
                 color: vars.color.neonMint,
                 marginBottom: fluidUnit(20),
@@ -24,7 +24,7 @@ export default function BoutiquePage() {
               🏪 Digital Boutique Dashboard
             </Typography>
             <Typography
-              variant="h3"
+              as="h3"
               style={{
                 color: vars.color.vaultWhite,
                 marginBottom: fluidUnit(40),

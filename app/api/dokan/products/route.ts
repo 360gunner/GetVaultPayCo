@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = "force-static";
+export const revalidate = 0;
+
 export async function GET(request: NextRequest) {
   try {
     const dokanApiUrl = process.env.DOKAN_API_URL || 'https://vaultpay.shop/wp-json/dokan/v1';

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = "force-static";
+export const revalidate = 0;
+
 // Type definitions for EIN verification
 interface EINVerificationRequest {
   ein: string;
