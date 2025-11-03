@@ -46,19 +46,17 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
         overflow: "visible",
       }}
     >
-      <div style={{ position: "absolute", left: 0, top: 0, zIndex: -1 }}>
+      <div style={{ position: "absolute", left: 0, top: 0, zIndex: -1, width: "100%", height: "100%" }}>
         <Image
           unoptimized
-          src="/bg_shape_cropped.svg"
+          src="/vector.png"
           alt="Background Shape"
           width={1400}
           height={865}
           style={{
-            maxWidth: `calc(95  * var(--vw))`,
-
-            aspectRatio: "1400/865",
-            width: `calc(99 * var(--vw))`,
-            maxHeight: "calc(120* var(--vh))",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
           }}
         />
       </div>
@@ -167,7 +165,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             </div>
           </div>
           {/* Right column */}
-          <div style={{ transform: 'translateX(149px)' }}>
+          <div style={{ transform: 'translateX(100px)' }}>
             <div
               style={{
                 position: "relative",

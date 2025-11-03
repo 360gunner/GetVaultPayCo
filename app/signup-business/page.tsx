@@ -1978,7 +1978,7 @@ export default function BusinessSignupPage() {
                         </Typography>
                         <div style={{ fontSize: fluidUnit(14), lineHeight: 1.8, color: vars.color.vaultBlack }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: fluidUnit(8) }}>
-                            <span>In-person payments (QR/POS):</span>
+                            <span>Live Vaulting Included:</span>
                             <strong>2.5% + $0.00</strong>
                           </div>
                           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: fluidUnit(8) }}>

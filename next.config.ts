@@ -29,8 +29,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  // ✅ Enable static HTML export for cPanel
-  output: 'export',
+  // ✅ Build as deployable React app (not static HTML)
 
   // ✅ Ensure all routes have trailing slashes (important for cPanel HTML files)
   trailingSlash: true,
@@ -38,7 +37,7 @@ const nextConfig: NextConfig = {
   // ✅ Ignore ESLint warnings during build
   eslint: { ignoreDuringBuilds: true },
 
-  // ✅ Add headers only for static exports
+  // ✅ Add security headers
   async headers() {
     return [
       {
