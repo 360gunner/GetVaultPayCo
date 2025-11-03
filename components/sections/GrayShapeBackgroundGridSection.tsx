@@ -46,10 +46,10 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
         overflow: "visible",
       }}
     >
-      <div style={{ position: "absolute", left: 0, top: 0, zIndex: -1, width: "100%", height: "100%" }}>
+      <div style={{ position: "absolute", left: 0, top: 0, zIndex: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
         <Image
           unoptimized
-          src="/vector.png"
+          src="/security_bg_shape.png"
           alt="Background Shape"
           width={1400}
           height={865}
@@ -64,6 +64,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
       <Container
         size="2xl"
         style={{
+          position: "relative",
           zIndex: 1,
           padding: `${vars.space.xxl} ${vars.space["xxl"]}`,
           paddingTop: `min(calc(90 * var(--vw) * 865 / 1400 * 0.12), calc(100 * var(--vh) * 0.12))`,
