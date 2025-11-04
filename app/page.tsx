@@ -444,7 +444,7 @@ const HeroSection: React.FC = () => {
           style={{
             position: "relative",
             width: "100%",
-            aspectRatio: "1360/500",
+            aspectRatio: "1360/650",
             marginTop: 16,
             borderRadius: 16,
             maxHeight: "100vh",
