@@ -49,7 +49,8 @@ export const overlay = style({
   paddingRight: 0,
   background: vars.gradients.vpGradient,
   backdropFilter: "blur(6px)",
-  overflow: "hidden",
+  overflowY: "auto",
+  overflowX: "hidden",
   willChange: "transform, opacity",
   selectors: {
     '&[data-state="open"]': { 
@@ -124,10 +125,10 @@ globalStyle(`${content}::-webkit-scrollbar`, {
 
 export const cardsGrid = style({
   display: "grid",
-  // make max width of cards smaller to fit
-  gridTemplateColumns: "repeat(2, minmax(0, 240px))",
+  // make max width of cards bigger
+  gridTemplateColumns: "repeat(2, minmax(0, 320px))",
   columnGap: -20,
-  rowGap: 4,
+  rowGap: 8,
   justifyContent: "center",
 });
 
@@ -137,7 +138,7 @@ export const actionCard = style({
   color: vars.color.vaultWhite,
   cursor: "pointer",
   padding: vars.space.lg,
-  minHeight: 70,
+  minHeight: 100,
   aspectRatio: "300 / 154",
   overflow: "hidden",
   transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease",
@@ -162,7 +163,7 @@ export const actionLabel = style({
   bottom: 0,
   paddingBottom: 0,
   fontWeight: 400,
-  fontSize: 18,
+  fontSize: 22,
   maxWidth: "90%",
   transition: "color 0.3s ease",
   selectors: {
@@ -174,11 +175,11 @@ export const actionLabel = style({
 
 export const actionIconTopRight = style({
   position: "absolute",
-  right: 12,
-  top: 12,
-  width: 20,
-  height: 20,
-  borderRadius: 10,
+  right: 14,
+  top: 14,
+  width: 28,
+  height: 28,
+  borderRadius: 14,
   background: "transparent",
   display: "flex",
   alignItems: "center",
@@ -238,7 +239,7 @@ export const navItemText = style({
 
 export const navItemArrow = style({
   color: vars.color.vaultBlack,
-  fontSize: 20,
+  fontSize: 26,
   marginBottom: 0,
   transition: "transform 0.2s ease",
   selectors: {
@@ -261,8 +262,7 @@ export const bottomBannerWrapper = style({
 export const bottomBanner = style({
   position: "relative",
   width: "100%",
-  aspectRatio: "1360 / 200",
-  borderRadius: 16,
+  borderRadius: 0,
   overflow: "hidden",
   opacity: 0,
   animation: `${contentFadeIn} 400ms ease-out 300ms forwards`,
