@@ -1,5 +1,3 @@
-"use client";
-
 import { vars } from "@/styles/theme.css";
 import Container from "../Layout/Container";
 import Stack from "../Layout/Stack";
@@ -8,7 +6,6 @@ import Image from "next/image";
 import Button from "../Button/Button";
 import { fluidUnit } from "@/styles/fluid-unit";
 import Link from "next/link";
-import FadeIn from "@/components/FadeIn";
 
 interface BottomCallToActionBannerProps {
   dark?: boolean;
@@ -17,7 +14,6 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
   props: BottomCallToActionBannerProps
 ) => {
   return (
-    <FadeIn variant="scale">
     <section style={{ padding: "64px 0" }}>
       <Container
         size="full"
@@ -110,7 +106,6 @@ const BottomCallToActionBanner: React.FC<BottomCallToActionBannerProps> = (
         </div>
       </Container>
     </section>
-    </FadeIn>
   );
 };
 export default BottomCallToActionBanner;

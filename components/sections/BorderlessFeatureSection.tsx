@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Container from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
@@ -10,7 +8,6 @@ import Image from "next/image";
 import { vars } from "@/styles/theme.css";
 import { fluidUnit } from "@/styles/fluid-unit";
 import Link from "next/link";
-import FadeIn from "@/components/FadeIn";
 
 export interface BorderlessFeatureSectionProps {
   heading?: React.ReactNode; // allows exact markup like "Borderless <br /> payments for all"
@@ -54,7 +51,6 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
   imageStyle = {},
 }) => {
   return (
-    <FadeIn variant="up">
     <section style={{ padding: "24px 0" }}>
       <Container size="xl">
         <Stack gap="sm" style={{ padding: vars.space.xxl }}>
@@ -75,7 +71,6 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
             gap="xl"
             style={{ alignItems: "center", gridTemplateColumns: "1.5fr 1fr" }}
           >
-            <FadeIn variant="scale" delay={100}>
             <div
               style={{
                 width: "100%",
@@ -91,7 +86,6 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
                 style={imageStyle}
               />
             </div>
-            </FadeIn>
             <div
               style={{
                 paddingTop: vars.space.xl,
@@ -138,7 +132,6 @@ const BorderlessFeatureSection: React.FC<BorderlessFeatureSectionProps> = ({
         </Stack>
       </Container>
     </section>
-    </FadeIn>
   );
 };
 

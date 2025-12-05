@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Container, { ContainerSize } from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
@@ -7,7 +5,6 @@ import Typography from "@/components/Typography/Typography";
 import Image from "next/image";
 import { vars } from "@/styles/theme.css";
 import { fluidUnit } from "@/styles/fluid-unit";
-import FadeIn from "@/components/FadeIn";
 
 export type WaysToUseItem = {
   src: string;
@@ -47,7 +44,6 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
   titleStyle = {},
 }) => {
   return (
-    <FadeIn variant="up">
     <section style={{ padding: sectionPadding, ...sectionStyle }}>
       <Container size={containerSize}>
         <Typography
@@ -72,8 +68,8 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
             columnGap,
           }}
         >
-          {items.map(({ src, alt, label, width = 240, height = 180 }, index) => (
-            <FadeIn key={label} variant="up" delay={index * 80}>
+          {items.map(({ src, alt, label, width = 240, height = 180 }) => (
+            <div key={label}>
               <Image
                 unoptimized
                 src={src}
@@ -93,12 +89,11 @@ const WaysToUseGridSection: React.FC<WaysToUseGridSectionProps> = ({
               >
                 {label}
               </Typography>
-            </FadeIn>
+            </div>
           ))}
         </Grid>
       </Container>
     </section>
-    </FadeIn>
   );
 };
 

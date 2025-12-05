@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Container, { ContainerSize } from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
@@ -8,7 +6,6 @@ import Image from "next/image";
 import { vars } from "@/styles/theme.css";
 import { fluidUnit } from "@/styles/fluid-unit";
 import FeatureFlexSection from "./FeatureFlexSection";
-import FadeIn from "@/components/FadeIn";
 
 export type WaysToUseItem = {
   src: string;
@@ -53,7 +50,6 @@ const WaysToUseFlexSection: React.FC<WaysToUseFlexSectionProps> = ({
   }
   console.log(rows);
   return (
-    <FadeIn variant="up">
     <section style={{ padding: sectionPadding, ...sectionStyle }}>
       <Container size={containerSize}>
         <Typography
@@ -87,7 +83,6 @@ const WaysToUseFlexSection: React.FC<WaysToUseFlexSectionProps> = ({
         ))}
       </Container>
     </section>
-    </FadeIn>
   );
 };
 

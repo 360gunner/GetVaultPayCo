@@ -4,7 +4,6 @@ import * as s from "./Accordion.css";
 import Typography from "../Typography/Typography";
 import { vars } from "@/styles/theme.css";
 import { fluidUnit } from "@/styles/fluid-unit";
-import FadeIn from "@/components/FadeIn";
 
 export interface AccordionItem {
   id: string;
@@ -47,11 +46,11 @@ export const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div className={[s.root, className].filter(Boolean).join(" ")} {...rest}>
-      {items.map((item, index) => {
+      {items.map((item) => {
         const isOpen = openIds.has(item.id);
         return (
-          <FadeIn key={item.id} variant="up" delay={index * 80}>
           <div
+            key={item.id}
             className={s.item}
             style={{
               borderTop: dark
@@ -145,7 +144,6 @@ export const Accordion: React.FC<AccordionProps> = ({
               )}
             </button>
           </div>
-          </FadeIn>
         );
       })}
     </div>

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Container, { ContainerSize } from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
@@ -7,7 +5,6 @@ import Typography from "@/components/Typography/Typography";
 import { vars } from "@/styles/theme.css";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
-import FadeIn from "@/components/FadeIn";
 
 export interface FeatureItem {
   src: string;
@@ -44,7 +41,6 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
   gap = "xl",
 }) => {
   return (
-    <FadeIn variant="up">
     <section style={{ padding: sectionPadding, ...sectionStyle }}>
       <Container size={containerSize}>
         <Grid
@@ -66,8 +62,8 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
               height = 386,
               buttonLabel,
               buttonHref,
-            }, index) => (
-              <FadeIn key={title} variant="up" delay={index * 100}>
+            }) => (
+              <div key={title}>
                 <Image
                   src={src}
                   alt={alt}
@@ -112,13 +108,12 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
                     label={buttonLabel}
                   />
                 )}
-              </FadeIn>
+              </div>
             )
           )}
         </Grid>
       </Container>
     </section>
-    </FadeIn>
   );
 };
 

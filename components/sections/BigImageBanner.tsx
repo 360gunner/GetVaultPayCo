@@ -1,9 +1,6 @@
-"use client";
-
 import React from "react";
 import Container from "@/components/Layout/Container";
 import Image from "next/image";
-import FadeIn from "@/components/FadeIn";
 
 export interface BigImageBannerImageSpec {
   src: string;
@@ -76,7 +73,6 @@ const BigImageBanner: React.FC<BigImageBannerProps> = ({
   );
 
   return (
-    <FadeIn variant="default">
     <section style={{ padding: sectionPadding }}>
       {fullBleed ? (
         content
@@ -84,7 +80,6 @@ const BigImageBanner: React.FC<BigImageBannerProps> = ({
         <Container size={containerSize}>{content}</Container>
       )}
     </section>
-    </FadeIn>
   );
 };
 

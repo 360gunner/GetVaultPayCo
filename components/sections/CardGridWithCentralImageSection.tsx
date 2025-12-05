@@ -1,12 +1,9 @@
-"use client";
-
 import { vars } from "@/styles/theme.css";
 import Image from "next/image";
 import Typography from "@/components/Typography/Typography";
 import Container, { ContainerProps } from "@/components/Layout/Container";
 import Stack from "@/components/Layout/Stack";
 import { fluidUnit } from "@/styles/fluid-unit";
-import FadeIn from "@/components/FadeIn";
 type SSSItem = {
   title: string;
   text: string;
@@ -157,7 +154,6 @@ const CardGridWithCentralImageSection: React.FC<
 
   const gridGap = fluidUnit(60);
   return (
-    <FadeIn variant="up">
     <section
       style={{
         padding: "24px 0",
@@ -196,21 +192,19 @@ const CardGridWithCentralImageSection: React.FC<
                 gap: gridGap,
               }}
             >
-              {leftItems.map((it, index) => (
-                <FadeIn key={it.title} variant="up" delay={index * 150}>
+              {leftItems.map((it) => (
                 <Card
+                  key={it.title}
                   title={it.title}
                   text={it.text}
                   iconSrc={it.iconSrc}
                   index={it.index}
                   floatingTopRightImage={it.floatingTopRightImage}
                 />
-                </FadeIn>
               ))}
             </div>
 
             {/* Middle column: tall image */}
-            <FadeIn variant="scale" delay={100}>
             <div
               style={{
                 aspectRatio:
@@ -236,7 +230,6 @@ const CardGridWithCentralImageSection: React.FC<
                 height={781}
               />
             </div>
-            </FadeIn>
 
             {/* Right column: two cards */}
             <div
@@ -248,23 +241,21 @@ const CardGridWithCentralImageSection: React.FC<
                 gap: gridGap,
               }}
             >
-              {rightItems.map((it, index) => (
-                <FadeIn key={it.title} variant="up" delay={index * 150}>
+              {rightItems.map((it) => (
                 <Card
+                  key={it.title}
                   title={it.title}
                   text={it.text}
                   iconSrc={it.iconSrc}
                   index={it.index}
                   floatingTopRightImage={it.floatingTopRightImage}
                 />
-                </FadeIn>
               ))}
             </div>
           </div>
         </Stack>
       </Container>
     </section>
-    </FadeIn>
   );
 };
 export default CardGridWithCentralImageSection;

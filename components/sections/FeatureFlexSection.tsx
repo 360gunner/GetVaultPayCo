@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Container, { ContainerSize } from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
@@ -9,7 +7,6 @@ import Image from "next/image";
 import Button from "@/components/Button/Button";
 import Link from "next/link";
 import { fluidUnit } from "@/styles/fluid-unit";
-import FadeIn from "@/components/FadeIn";
 
 export interface FeatureItem {
   src: string;
@@ -49,7 +46,7 @@ const FeatureFlexSection: React.FC<FeatureFlexSectionProps> = ({
   gap = "xl",
 }) => {
   return (
-    <FadeIn variant="up">
+    <>
       <section style={{ padding: sectionPadding, ...sectionStyle }}>
         <Container
           size={containerSize}
@@ -77,8 +74,7 @@ const FeatureFlexSection: React.FC<FeatureFlexSectionProps> = ({
                 buttonLabel,
                 buttonHref,
                 href = "#",
-              }, index) => (
-                <FadeIn key={title} variant="up" delay={index * 100}>
+              }) => (
                 <Link href={href} style={{ flex: 1 }}>
                   <div style={{ marginLeft: `-${negativeMarginPercentage}%` }}>
                     <Image
@@ -141,13 +137,12 @@ const FeatureFlexSection: React.FC<FeatureFlexSectionProps> = ({
                     )}
                   </div>
                 </Link>
-                </FadeIn>
               )
             )}
           </div>
         </Container>
       </section>
-    </FadeIn>
+    </>
   );
 };
 

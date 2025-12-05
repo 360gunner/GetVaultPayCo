@@ -1,5 +1,3 @@
-"use client";
-
 import Container, { ContainerSize } from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
 import Stack from "@/components/Layout/Stack";
@@ -10,7 +8,6 @@ import Image from "next/image";
 import React from "react";
 import { fluidUnit } from "@/styles/fluid-unit";
 import Link from "next/link";
-import FadeIn from "@/components/FadeIn";
 
 export interface SplitHeroProps {
   eyebrow?: string;
@@ -60,7 +57,6 @@ const SplitHero: React.FC<SplitHeroProps> = ({
   titleFontSize = 80,
 }) => {
   return (
-    <FadeIn variant="up">
     <Container
       size={containerSize}
       style={{
@@ -164,7 +160,6 @@ const SplitHero: React.FC<SplitHeroProps> = ({
         </Stack>
 
         {/* Right column: image */}
-        <FadeIn variant="scale" delay={200}>
         <div
           style={{
             display: "flex",
@@ -188,10 +183,8 @@ const SplitHero: React.FC<SplitHeroProps> = ({
           />
           {underImage}
         </div>
-        </FadeIn>
       </Grid>
     </Container>
-    </FadeIn>
   );
 };
 

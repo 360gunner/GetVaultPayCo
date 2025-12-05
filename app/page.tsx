@@ -1,5 +1,3 @@
-"use client";
-
 import Typography from "@/components/Typography/Typography";
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icon/Icon";
@@ -20,7 +18,6 @@ import GrayShapeBackgroundGridSection from "@/components/sections/GrayShapeBackg
 import { fluidUnit } from "@/styles/fluid-unit";
 import BottomCallToActionBanner from "@/components/sections/BottomCallToActionBanner";
 import Link from "next/link";
-import FadeIn from "@/components/FadeIn";
 
 const BenefitsSection: React.FC = () => {
   const items: Array<{
@@ -98,9 +95,9 @@ const BenefitsSection: React.FC = () => {
                 justifyContent: "space-between",
               }}
             >
-              {items.map(({ title, text, iconSrc }, index) => (
-                <FadeIn key={title} variant="up" delay={index * 150}>
+              {items.map(({ title, text, iconSrc }) => (
                 <div
+                  key={title}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -180,12 +177,10 @@ const BenefitsSection: React.FC = () => {
                     </Typography>
                   </div>
                 </div>
-                </FadeIn>
               ))}
             </div>
           </div>
           {/* Right: Image with decorative shape */}
-          <FadeIn variant="scale" delay={200}>
           <div style={{ position: "relative", maxHeight: "100vh" }}>
             {/* Decorative shape (behind), bottom-right */}
             <div
@@ -243,7 +238,6 @@ const BenefitsSection: React.FC = () => {
               </div>
             </div>
           </div>
-          </FadeIn>
         </Grid>
       </Container>
     </section>
@@ -301,9 +295,9 @@ export const TestimonialsSection: React.FC = () => {
               gap="lg"
               style={{ alignItems: "stretch", gap: 0 }}
             >
-              {testimonials.map(({ text, name, avatar }, index) => (
-                <FadeIn key={name} variant="up" delay={index * 150}>
+              {testimonials.map(({ text, name, avatar }) => (
                 <div
+                  key={name}
                   style={{
                     borderRadius: 16,
                     padding: fluidUnit(18),
@@ -359,7 +353,6 @@ export const TestimonialsSection: React.FC = () => {
                     </Typography>
                   </div>
                 </div>
-                </FadeIn>
               ))}
             </Grid>
           </Stack>
@@ -443,7 +436,6 @@ const HeroSection: React.FC = () => {
         </Grid>
 
         {/* Full-width rounded image (responsive height) */}
-        <FadeIn variant="scale">
         <div
           style={{
             position: "relative",
@@ -501,7 +493,6 @@ const HeroSection: React.FC = () => {
             </a>
           </div>
         </div>
-        </FadeIn>
       </Container>
     </section>
   );
@@ -715,20 +706,18 @@ const SimpleSecureSocial: React.FC = () => {
                 gap: gridGap,
               }}
             >
-              {leftItems.map((it, index) => (
-                <FadeIn key={it.title} variant="up" delay={index * 150}>
+              {leftItems.map((it) => (
                 <Card
+                  key={it.title}
                   title={it.title}
                   text={it.text}
                   iconSrc={it.iconSrc}
                   index={it.index}
                 />
-                </FadeIn>
               ))}
             </div>
 
             {/* Middle column: tall image */}
-            <FadeIn variant="scale" delay={100}>
             <div
               style={{
                 aspectRatio: "56/78",
@@ -750,7 +739,6 @@ const SimpleSecureSocial: React.FC = () => {
                 height={781}
               />
             </div>
-            </FadeIn>
 
             {/* Right column: two cards */}
             <div
@@ -762,15 +750,14 @@ const SimpleSecureSocial: React.FC = () => {
                 gap: gridGap,
               }}
             >
-              {rightItems.map((it, index) => (
-                <FadeIn key={it.title} variant="up" delay={index * 150}>
+              {rightItems.map((it) => (
                 <Card
+                  key={it.title}
                   title={it.title}
                   text={it.text}
                   iconSrc={it.iconSrc}
                   index={it.index}
                 />
-                </FadeIn>
               ))}
             </div>
           </div>
@@ -813,7 +800,6 @@ export default function Home() {
                     gridTemplateColumns: "1fr auto",
                   }}
                 >
-                  <FadeIn variant="scale">
                   <div
                     style={{
                       padding: vars.space.xl,
@@ -839,7 +825,6 @@ export default function Home() {
                       />
                     </div>
                   </div>
-                  </FadeIn>
                   <div
                     style={{
                       paddingTop: vars.space.xl,
@@ -894,7 +879,6 @@ export default function Home() {
                   paddingLeft: "5%",
                 }}
               >
-                <FadeIn variant="up" delay={0}>
                 <Link href={"/send-and-receive"} style={{ flex: 1 }}>
                   <div style={{ marginLeft: "-15%" }}>
                     <Image
@@ -927,8 +911,6 @@ export default function Home() {
                     </Typography>
                   </div>
                 </Link>
-                </FadeIn>
-                <FadeIn variant="up" delay={100}>
                 <Link href={"/borderless-transfers"} style={{ flex: 1 }}>
                   <div style={{ marginLeft: "-15%" }}>
                     <Image
@@ -960,8 +942,6 @@ export default function Home() {
                     </Typography>
                   </div>
                 </Link>
-                </FadeIn>
-                <FadeIn variant="up" delay={200}>
                 <Link href={"/manage-your-wallet"} style={{ flex: 1 }}>
                   <div style={{ marginLeft: "-15%" }}>
                     <Image
@@ -993,7 +973,6 @@ export default function Home() {
                     </Typography>
                   </div>
                 </Link>
-                </FadeIn>
               </div>
             </Container>
           </section>
@@ -1027,7 +1006,6 @@ export default function Home() {
                     gridTemplateColumns: "1fr 1fr",
                   }}
                 >
-                  <FadeIn variant="scale">
                   <div
                     style={{
                       minWidth: fluidUnit(569),
@@ -1044,7 +1022,6 @@ export default function Home() {
                       style={{ objectFit: "cover" }}
                     />
                   </div>
-                  </FadeIn>
                   <div style={{ maxWidth: "80%" }}>
                     <Typography
                       as="h2"
