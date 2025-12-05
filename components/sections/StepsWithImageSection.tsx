@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Container from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
@@ -5,6 +7,7 @@ import Typography from "@/components/Typography/Typography";
 import { vars } from "@/styles/theme.css";
 import Image from "next/image";
 import { fluidUnit } from "@/styles/fluid-unit";
+import FadeIn from "@/components/FadeIn";
 
 export type StepItem = {
   title: string;
@@ -44,6 +47,7 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
   sectionStyle = {},
 }) => {
   return (
+    <FadeIn variant="up">
     <section
       style={{
         padding: "24px 0",
@@ -90,9 +94,9 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                 justifyContent: "space-between",
               }}
             >
-              {items.map(({ title, text, iconSrc, underDescriptionImage }) => (
+              {items.map(({ title, text, iconSrc, underDescriptionImage }, index) => (
+                <FadeIn key={title} variant="up" delay={index * 150}>
                 <div
-                  key={title}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -162,10 +166,12 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
                     {underDescriptionImage}
                   </div>
                 </div>
+                </FadeIn>
               ))}
             </div>
           </div>
           {/* Right: Image with decorative shape */}
+          <FadeIn variant="scale" delay={200}>
           <div>
             <div
               style={{
@@ -217,9 +223,11 @@ const StepsWithImageSection: React.FC<StepsWithImageSectionProps> = ({
               </div>
             </div>
           </div>
+          </FadeIn>
         </Grid>
       </Container>
     </section>
+    </FadeIn>
   );
 };
 

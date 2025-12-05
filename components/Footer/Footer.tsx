@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import * as s from "./Footer.css";
 import Container from "@/components/Layout/Container";
@@ -6,6 +8,7 @@ import { AppLink } from "@/components/Link/AppLink";
 import Typography from "../Typography/Typography";
 import { vars } from "@/styles/theme.css";
 import Link from "next/link";
+import FadeIn from "@/components/FadeIn";
 
 export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
   dark?: boolean;
@@ -13,6 +16,7 @@ export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
 
 const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
   return (
+    <FadeIn variant="up">
     <footer
       className={[s.root, className].filter(Boolean).join(" ")}
       style={{
@@ -174,6 +178,7 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
         </div>
       </Container>
     </footer>
+    </FadeIn>
   );
 };
 

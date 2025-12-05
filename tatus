@@ -1,0 +1,20 @@
+[1mdiff --git a/app/layout.tsx b/app/layout.tsx[m
+[1mindex c04d5dd..5e10544 100644[m
+[1m--- a/app/layout.tsx[m
+[1m+++ b/app/layout.tsx[m
+[36m@@ -4,7 +4,6 @@[m [mimport { themeClass } from "@/styles/theme.css";[m
+ import type { Viewport } from "next";[m
+ [m
+ import "./globals.css";[m
+[31m-import ViewportUnitsUpdater from "@/components/ViewportUnitsUpdater";[m
+ [m
+ const spaceGrotesk = Space_Grotesk({[m
+   variable: "--font-space-grotesk",[m
+[36m@@ -44,7 +43,6 @@[m [mexport default function RootLayout({[m
+       <body[m
+         className={`${spaceGrotesk.variable} ${instrumentSans.variable} antialiased ${themeClass}`}[m
+       >[m
+[31m-        <ViewportUnitsUpdater />[m
+         {children}[m
+       </body>[m
+     </html>[m

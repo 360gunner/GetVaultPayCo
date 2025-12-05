@@ -2,11 +2,12 @@ import { vars } from "@/styles/theme.css";
 import { style, styleVariants } from "@vanilla-extract/css";
 
 export const root = style({
-  marginLeft: "auto",
-  marginRight: "auto",
+  marginLeft: "3%",
+  marginRight: "3%",
   paddingLeft: vars.space.lg,
   paddingRight: vars.space.lg,
-  width: "100%",
+  width: "94%",
+  maxWidth: "94%",
 });
 
 export const size = styleVariants({
@@ -15,5 +16,5 @@ export const size = styleVariants({
   lg: { maxWidth: 1024 },
   xl: { maxWidth: 1280 },
   "2xl": { maxWidth: 1920 },
-  full: { maxWidth: "100%" },
+  full: { maxWidth: "94%" },
 });

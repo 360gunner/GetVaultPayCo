@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Container from "@/components/Layout/Container";
 import Image from "next/image";
@@ -8,6 +10,7 @@ import { vars } from "@/styles/theme.css";
 import Link from "next/link";
 import { ContainerSize } from "@/components/Layout/Container";
 import { fluidUnit } from "@/styles/fluid-unit";
+import FadeIn from "@/components/FadeIn";
 
 export interface BigImageOverlayImageSpec {
   src: string;
@@ -199,6 +202,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
   );
 
   return (
+    <FadeIn variant="default">
     <section style={{ padding: sectionPadding }}>
       {fullBleed ? (
         banner
@@ -211,6 +215,7 @@ const BigImageOverlaySection: React.FC<BigImageOverlaySectionProps> = ({
         </Container>
       )}
     </section>
+    </FadeIn>
   );
 };
 

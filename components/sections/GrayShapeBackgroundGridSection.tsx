@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Container from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
@@ -8,6 +10,7 @@ import Image from "next/image";
 import { vars } from "@/styles/theme.css";
 import { fluidUnit } from "@/styles/fluid-unit";
 import Link from "next/link";
+import FadeIn from "@/components/FadeIn";
 
 export interface SecurityTrustProps {
   eyebrow?: string;
@@ -35,6 +38,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
   gridTemplateColumns,
 }) => {
   return (
+    <FadeIn variant="up">
     <section
       style={{
         margin: `${vars.space.xl} 0`,
@@ -165,6 +169,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             </div>
           </div>
           {/* Right column */}
+          <FadeIn variant="scale" delay={200}>
           <div>
             <div
               style={{
@@ -184,9 +189,11 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
               />
             </div>
           </div>
+          </FadeIn>
         </Grid>
       </Container>
     </section>
+    </FadeIn>
   );
 };
 

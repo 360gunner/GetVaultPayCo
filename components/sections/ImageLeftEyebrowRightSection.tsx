@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Container from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
@@ -6,6 +8,7 @@ import Image from "next/image";
 import { vars } from "@/styles/theme.css";
 import Button from "../Button/Button";
 import { fluidUnit } from "@/styles/fluid-unit";
+import FadeIn from "@/components/FadeIn";
 
 export interface ImageSpec {
   src: string;
@@ -54,6 +57,7 @@ const ImageLeftEyebrowRightSection: React.FC<
   const { src, alt, width = 560, height = 420, priority, style } = image;
 
   const ImageBlock = (
+    <FadeIn variant="scale" delay={100}>
     <div
       style={{
         position: "relative",
@@ -70,6 +74,7 @@ const ImageLeftEyebrowRightSection: React.FC<
       />
       {underImage}
     </div>
+    </FadeIn>
   );
 
   const ContentBlock = (
@@ -147,6 +152,7 @@ const ImageLeftEyebrowRightSection: React.FC<
   );
 
   return (
+    <FadeIn variant="up">
     <section
       style={{
         padding: sectionPadding,
@@ -178,6 +184,7 @@ const ImageLeftEyebrowRightSection: React.FC<
         </Grid>
       </Container>
     </section>
+    </FadeIn>
   );
 };
 
