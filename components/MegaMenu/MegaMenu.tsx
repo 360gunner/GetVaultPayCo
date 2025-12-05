@@ -66,7 +66,7 @@ const nav = [
   },
   {
     title: "Social",
-    items: ["How it Works ", "Share with a Friend "],
+    items: ["How it Works ", "Share with a Friend ", "Social Commerce"],
   },
 ];
 
@@ -88,6 +88,7 @@ const navRouteMap: Record<string, string> = {
   "In Stores ": "/pay-online",
   "How it Works ": "/social",
   "Share with a Friend ": "/social",
+  "Social Commerce": "/social-commerce",
 };
 
 const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {

@@ -163,7 +163,7 @@ export const actionLabel = style({
   bottom: 0,
   paddingBottom: 0,
   fontWeight: 400,
-  fontSize: 22,
+  fontSize: 24,
   maxWidth: "90%",
   transition: "color 0.3s ease",
   selectors: {

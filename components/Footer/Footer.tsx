@@ -148,7 +148,7 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
                 >
                   Privacy Policy
                 </AppLink>
-                <AppLink href="#" style={{ color: vars.color.vaultWhite }}>
+                <AppLink href="/terms" style={{ color: vars.color.vaultWhite }}>
                   Terms & Conditions
                 </AppLink>
                 <AppLink href="/sitemap" style={{ color: vars.color.vaultWhite }}>

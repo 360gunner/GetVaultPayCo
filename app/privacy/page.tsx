@@ -55,7 +55,7 @@ export default function PrivacyPolicyPage() {
           <PrivacyTitle title="1. Introduction" />
           {/* 1. Introduction */}
           <PrivacyText>
-            This Privacy Policy explains how VaultPay LLC ("we", "our", or
+            This Privacy Policy explains how VaultPay Global Inc ("we", "our", or
             "us") collects, uses, and shares information about you when you use
             our mobile application VaultPay (the "App") available on the Google
             Play Store and through our website. By using the App, you agree to
@@ -72,7 +72,7 @@ export default function PrivacyPolicyPage() {
           {/* 3. Entity Reference */}
           <PrivacyTitle title="3. Entity Reference" />
           <PrivacyText>
-            This policy applies to VaultPay LLC, as listed on the Google Play
+            This policy applies to VaultPay Global Inc, as listed on the Google Play
             Store under the developer Ali Younas for the app VaultPay.
           </PrivacyText>
           {/* 4. Data Collection */}
@@ -115,8 +115,8 @@ export default function PrivacyPolicyPage() {
             contacting us through the methods listed below. <br />
             9. Contact Information If you have any questions or concerns about
             submit an inquiry regarding your personal information, please
-            contact us at: Email: law@getvaultpay.co <br /> Mail: VaultPay LLC,
-            3790 EL CAMINO REAL PALO ALTO CA 94306
+            contact us at: Email: law@getvaultpay.co <br /> Mail: VaultPay Global Inc,
+            15442 Ventura Blvd., Ste 201-1952, Sherman Oaks, CA 91403
           </PrivacyText>
           <PrivacyTitle title="General Provisions"></PrivacyTitle>
           <PrivacyText>
