@@ -20,9 +20,11 @@ node_modules/
 /out/
 **/out/
 
-# production
+# production builds
 /build
 /dist
+"latest builds"/
+latest\ builds/
 *.tsbuildinfo
 next-env.d.ts
 
@@ -60,3 +62,28 @@ today/
 # large binary files
 *.node
 *.pack
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+logs/
+*.log
+
+# Cache
+.cache/
+*.cache
+
+# Temporary files
+tmp/
+temp/
+*.tmp

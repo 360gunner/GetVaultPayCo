@@ -29,6 +29,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // ✅ Build output directory
+  distDir: "latest builds",
+
   // ✅ Build as deployable React app (not static HTML)
 
   // ✅ Ensure all routes have trailing slashes (important for cPanel HTML files)
