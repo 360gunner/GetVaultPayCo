@@ -4,7 +4,6 @@ import { themeClass } from "@/styles/theme.css";
 import type { Viewport } from "next";
 
 import "./globals.css";
-import ViewportUnitsUpdater from "@/components/ViewportUnitsUpdater";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -44,7 +43,6 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${instrumentSans.variable} antialiased ${themeClass}`}
       >
-        <ViewportUnitsUpdater />
         {children}
       </body>
     </html>
