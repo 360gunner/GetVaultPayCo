@@ -43,21 +43,20 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
         aspectRatio: "1400/865",
         maxHeight: "calc(120 * var(--vh))",
         maxWidth: "calc(100 * var(--vw))",
+        overflow: "visible",
       }}
     >
-      <div style={{ position: "absolute", left: 0, top: 0, zIndex: -1 }}>
+      <div style={{ position: "absolute", left: 0, top: 0, zIndex: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
         <Image
           unoptimized
-          src="/bg_shape_cropped.svg"
+          src="/security_bg_shape.png"
           alt="Background Shape"
           width={1400}
           height={865}
           style={{
-            maxWidth: `calc(95  * var(--vw))`,
-
-            aspectRatio: "1400/865",
-            width: `calc(99 * var(--vw))`,
-            maxHeight: "calc(120* var(--vh))",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
           }}
         />
       </div>
@@ -65,6 +64,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
       <Container
         size="2xl"
         style={{
+          position: "relative",
           zIndex: 1,
           padding: `${vars.space.xxl} ${vars.space["xxl"]}`,
           paddingTop: `min(calc(90 * var(--vw) * 865 / 1400 * 0.12), calc(100 * var(--vh) * 0.12))`,
@@ -76,6 +76,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
           alignItems: "center",
           height: `calc(90 * var(--vw) * 865 / 1400 * 0.85)`,
           maxHeight: "95 * var(--vh)",
+          overflow: "visible",
         }}
       >
         <Grid
@@ -90,6 +91,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             maxHeight: "95 * var(--vh)",
             gap: fluidUnit(24),
             gridTemplateColumns: gridTemplateColumns || "1fr 1fr",
+            overflow: "visible",
           }}
         >
           {/* Left column */}
@@ -147,8 +149,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
                   size="medium"
                   style={{
                     backgroundColor: "#fff",
-                    border: "1px solid black",
-                    boxShadow: "none",
+                    border: "2px solid black",
                     minWidth: fluidUnit(100),
                     padding: `${fluidUnit(16, 8)} ${fluidUnit(24, 10)}`,
                   }}
@@ -165,7 +166,7 @@ const GrayShapeBackgroundGridSection: React.FC<SecurityTrustProps> = ({
             </div>
           </div>
           {/* Right column */}
-          <div>
+          <div style={{ transform: 'translateX(100px)' }}>
             <div
               style={{
                 position: "relative",

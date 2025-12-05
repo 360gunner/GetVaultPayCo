@@ -18,6 +18,7 @@ export interface FeatureItem {
   buttonLabel?: string;
   href?: string;
   buttonHref?: string;
+  brandLogo?: string;
 }
 
 export interface FeatureFlexSectionProps {
@@ -74,17 +75,45 @@ const FeatureFlexSection: React.FC<FeatureFlexSectionProps> = ({
                 buttonLabel,
                 buttonHref,
                 href = "#",
-              }) => (
-                <Link href={href} style={{ flex: 1 }}>
+                brandLogo,
+              }, index) => (
+                <Link key={index} href={href} style={{ flex: 1 }}>
                   <div style={{ marginLeft: `-${negativeMarginPercentage}%` }}>
-                    <Image
-                      src={src}
-                      alt={alt}
-                      width={width}
-                      height={height}
-                      unoptimized={true}
-                      style={{ width: "100%", height: "auto" }}
-                    />
+                    <div style={{ position: "relative", width: "100%" }}>
+                      <Image
+                        src={src}
+                        alt={alt}
+                        width={width}
+                        height={height}
+                        unoptimized={true}
+                        style={{ width: "100%", height: "auto" }}
+                      />
+                      {brandLogo && (
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            maxWidth: "60%",
+                            maxHeight: "60%",
+                          }}
+                        >
+                          <Image
+                            src={brandLogo}
+                            alt={`${title} logo`}
+                            width={200}
+                            height={100}
+                            unoptimized={true}
+                            style={{ 
+                              width: "100%", 
+                              height: "auto",
+                              objectFit: "contain",
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
                     <Typography
                       as="h4"
                       font="Instrument Sans"
@@ -122,7 +151,6 @@ const FeatureFlexSection: React.FC<FeatureFlexSectionProps> = ({
                             borderColor: vars.color.vaultBlack,
                             borderWidth: "1px",
                             borderStyle: "solid",
-                            boxShadow: "none",
                             padding: `${fluidUnit(20, 8)}`,
 
                             backgroundColor: dark

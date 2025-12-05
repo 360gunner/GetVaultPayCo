@@ -103,8 +103,7 @@ const FindTheCardForYou = () => {
                 backgroundColor: "white",
                 marginTop: vars.space.md,
                 minWidth: "5rem",
-                boxShadow: "none",
-                border: "1px solid black",
+                border: "2px solid black",
                 padding: `${fluidUnit(18, 14)} ${fluidUnit(22, 18)}`,
               }}
             />
@@ -174,7 +173,7 @@ export default function PayInStorePage() {
       <SplitHero
         eyebrow="VAULT PAY CARDS"
         title={"Access even without your phone."}
-        description={`Vault Pay Prepaid Card goes where you go, and brings your balance along. Pay and  cashback from ATM or some of your favorite stores — right to your Physical account.`}
+        description={`VaultPay Prepaid Card goes where you go, and brings your balance along. Pay and  cashback from ATM or some of your favorite stores — right to your Physical account.`}
         textNote={"View terms¹"}
         buttonLabel="Get Started"
         buttonHref="/signup"
@@ -198,7 +197,7 @@ export default function PayInStorePage() {
         underDescription={
           <Image
             src="/visa_mastercard.png"
-            alt="Vault Pay card"
+            alt="VaultPay card"
             width={124}
             unoptimized
             height={47}
@@ -240,7 +239,7 @@ export default function PayInStorePage() {
             alt: "Add money easily",
             title: "Add money easily",
             description:
-              "Need to build up your balance? Tap “Add Money” to transfer cash into your Vault Pay account from our ATM's.",
+              "Need to build up your balance? Tap “Add Money” to transfer cash into your VaultPay account from our ATM's.",
           },
           {
             src: "/Group 1038.png",
@@ -254,7 +253,7 @@ export default function PayInStorePage() {
             alt: "ATM access",
             title: "ATM access",
             description:
-              "Get no-cost cash withdrawals from Vault Pay® ATMs.² (Other ATMs charge fees.)",
+              "Get no-cost cash withdrawals from VaultPay® ATMs.² (Other ATMs charge fees.)",
           },
         ]}
       />

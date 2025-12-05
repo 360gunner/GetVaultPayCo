@@ -21,7 +21,7 @@ export default function SendAndReceivePage() {
       <SplitHero
         eyebrow="SEND & RECEIVE"
         title={"Your powerful personal payments wallet."}
-        description="Opt for the ease of Vault Pay payment services. Sending money and making online payments has never been simpler, quicker, or more secure. No need to share your bank account or credit card codes during transactions. Just use your email address or scan the QR code – that's all it takes for seamless transfers and online purchases."
+        description="Opt for the ease of VaultPay payment services. Sending money and making online payments has never been simpler, quicker, or more secure. No need to share your bank account or credit card codes during transactions. Just use your email address or scan the QR code – that's all it takes for seamless transfers and online purchases."
         buttonLabel="Learn more"
         buttonVariant="secondary"
         imageSrc="/Group 979.png"
@@ -75,10 +75,10 @@ export default function SendAndReceivePage() {
           },
           {
             src: "/Mask group104.png",
-            alt: "Pay with Vault Pay card",
-            title: "Pay with Vault Pay card",
+            alt: "Pay with VaultPay card",
+            title: "Pay with VaultPay card",
             description:
-              "Pay with your Vault Pay card at any merchant accepting Mastercard, Visa, or UnionPay.",
+              "Pay with your VaultPay card at any merchant accepting Mastercard, Visa, or UnionPay.",
           },
         ]}
       />
@@ -103,7 +103,7 @@ export default function SendAndReceivePage() {
             underDescriptionImage: (
               <Image
                 src="/visa_mastercard.png"
-                alt="Vault Pay card"
+                alt="VaultPay card"
                 width={124}
                 unoptimized
                 height={47}
@@ -139,7 +139,7 @@ export default function SendAndReceivePage() {
               }}
             >
               Enjoy minimal fees when sending or receiving money using your
-              Vault Pay account or linked bank account.
+              VaultPay account or linked bank account.
               <br />
             </Typography>
 
@@ -192,7 +192,7 @@ export default function SendAndReceivePage() {
         buttonLabel="Learn more"
       />
       <WaysToUseFlexSection
-        title={<>Ways to use Vault Pay</>}
+        title={<>Ways to use VaultPay</>}
         titleStyle={{
           marginBottom: "1em",
         }}

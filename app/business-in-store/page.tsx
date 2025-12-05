@@ -44,7 +44,7 @@ export default function BusinessInStorePage() {
     <div style={{ backgroundColor: vars.color.vaultNavie }}>
       <Navbar />
       <SplitHero
-        buttonHref="/signup"
+        buttonHref="/signup-business"
         eyebrow="IN-STORE"
         title="Take your shop to the next level."
         dark
@@ -67,7 +67,7 @@ export default function BusinessInStorePage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/image 95_9.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
@@ -85,7 +85,7 @@ export default function BusinessInStorePage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/Group 1034.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
@@ -102,7 +102,7 @@ export default function BusinessInStorePage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/image 125_9.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}

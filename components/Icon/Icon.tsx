@@ -78,6 +78,7 @@ export const BaseIcon: React.FC<Omit<IconProps, "variant">> = ({
             alt={alt || ""}
             width={24}
             height={24}
+            className="no-fade"
             style={{ width: "100%", height: "100%" }}
           />
         ) : isSvg(src) ? (
@@ -86,6 +87,7 @@ export const BaseIcon: React.FC<Omit<IconProps, "variant">> = ({
           <img
             src={src}
             alt={alt || ""}
+            className="no-fade"
             style={{ width: "100%", height: "100%" }}
           />
         ) : null

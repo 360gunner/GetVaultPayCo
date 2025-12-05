@@ -16,28 +16,34 @@ import { fluidUnit } from "@/styles/fluid-unit";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
-    header: "Main headline statement goals here.",
+    header: "What purchases are covered by VaultPay Purchase Protection?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "VaultPay Purchase Protection covers eligible physical goods purchased through VaultPay when the seller doesn't deliver, the item arrives damaged or broken, or the item doesn't match the seller's description. Coverage applies to purchases made with your VaultPay balance, VaultPay Card, or linked payment method. Digital goods, services, and in-person cash pickups are not eligible.",
     defaultOpen: true,
   },
   {
     id: "faq-2",
-    header: "Main headline statement goals here.",
+    header: "How long do I have to file a Purchase Protection claim?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "You have 180 days from the date of purchase to file a Purchase Protection claim. We recommend filing as soon as you realize there's an issue with your order. The sooner you report a problem, the faster we can help resolve it and process your reimbursement.",
   },
   {
     id: "faq-3",
-    header: "Main headline statement goals here.",
+    header: "Is my personal and financial information secure with VaultPay?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Yes. VaultPay uses bank-level encryption and security protocols to protect your data. We're PCI compliant and use multi-factor authentication, tokenization, and real-time fraud monitoring. Your payment information is never shared with merchants—only a secure token is transmitted. We also never sell your personal data to third parties.",
   },
   {
     id: "faq-4",
-    header: "How do I contact support?",
+    header: "What should I do if I notice unauthorized activity on my account?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Immediately freeze your account through the VaultPay app or website, then contact our support team at support@getvaultpay.co. Change your password and enable two-factor authentication if you haven't already. VaultPay monitors transactions 24/7 for suspicious activity, and you're protected from unauthorized charges when reported promptly.",
+  },
+  {
+    id: "faq-5",
+    header: "How does VaultPay protect me from fraud?",
+    content:
+      "VaultPay employs advanced fraud detection systems that monitor every transaction in real-time. We use machine learning algorithms to detect unusual patterns, require verification for high-risk transactions, and offer instant notifications for all account activity. Plus, you're covered by our Purchase Protection policy for eligible transactions.",
   },
 ];
 export default function BorderlessTransfersPage() {
@@ -47,7 +53,7 @@ export default function BorderlessTransfersPage() {
       <SplitHero
         eyebrow="SECURITY & PROTECTION"
         title="Shop with confidence everywhere."
-        description="Whether you’re buying a couch or paying movers you found online, Vault Pay Purchase Protection offers coverage for eligible payments without extra costs for you. So go ahead and buy. Vault Pay has your back."
+        description="Whether you’re buying a couch or paying movers you found online, VaultPay Purchase Protection offers coverage for eligible payments without extra costs for you. So go ahead and buy. VaultPay has your back."
         buttonLabel="Get Started"
         buttonVariant="secondary"
         buttonHref="/signup"
@@ -67,12 +73,12 @@ export default function BorderlessTransfersPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/image 95_1.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
         title="Get what you paid for"
-        text={`If what you bought isn't delivered, arrives broken, or is just plain wrong, let us know. Vault Pay Purchase Protection can help make it right. We'll reimburse you for qualifying purchases plus original shipping costs.`}
+        text={`If what you bought isn't delivered, arrives broken, or is just plain wrong, let us know. VaultPay Purchase Protection can help make it right. We'll reimburse you for qualifying purchases plus original shipping costs.`}
       />
       <ImageLeftEyebrowRightSection
         variant="rtl"
@@ -80,12 +86,12 @@ export default function BorderlessTransfersPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/Group 972.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
         title="In-app purchase protection"
-        text={`Before you send your payment, tap the toggle in the app to tell Vault Pay that you're paying for a good or service. Purchase Protection can be applied for eligible items, and the seller pays a small transaction fee.`}
+        text={`Before you send your payment, tap the toggle in the app to tell VaultPay that you're paying for a good or service. Purchase Protection can be applied for eligible items, and the seller pays a small transaction fee.`}
       />
 
       <ImageLeftEyebrowRightSection
@@ -94,12 +100,12 @@ export default function BorderlessTransfersPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/image 104_1.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
         title="Don't worry. Shop happy."
-        text={`When you shop in stores with your Vault Pay Debit Card, pay a Vault business profile, or use your Vault Pay account when making an in-app purchase or scanning a QR-code at checkout, your eligible purchases can be covered by Purchase Protection — no toggle needed. All so you can shop and pay with confidence.`}
+        text={`When you shop in stores with your VaultPay Debit Card, pay a Vault business profile, or use your VaultPay account when making an in-app purchase or scanning a QR-code at checkout, your eligible purchases can be covered by Purchase Protection — no toggle needed. All so you can shop and pay with confidence.`}
       />
       <Container
         size="2xl"

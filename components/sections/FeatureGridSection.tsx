@@ -101,7 +101,6 @@ const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
                       borderColor: vars.color.vaultBlack,
                       borderWidth: "1px",
                       borderStyle: "solid",
-                      boxShadow: "none",
                       backgroundColor: dark ? vars.color.vaultWhite : undefined,
                     }}
                     variant="secondary"

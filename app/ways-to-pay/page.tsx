@@ -49,13 +49,13 @@ export default function WaysToPayPage() {
       <BigImageOverlaySection
         image={{
           src: "/Group 1015.png",
-          alt: "Vault Pay Ways To Pay Hero Image",
+          alt: "VaultPay Ways To Pay Hero Image",
         }}
         containerSize="2xl"
         sectionPadding={`${vars.space.xl}${fluidUnit(24)} `}
         eyebrow="WAYS TO PAY"
-        title="Use Vault Pay for every way you pay."
-        text="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute."
+        title="Use VaultPay for every way you pay."
+        text="Use VaultPay app for transferring money with just a few taps, and your money will be received in less than a minute."
         buttonLabel="Get Started"
         buttonHref="/signup"
         aspectRatio="1360 / 784"
@@ -104,7 +104,7 @@ export default function WaysToPayPage() {
           {
             src: "/Group 1016.png",
             alt: "Social by design",
-            title: "Vault Pay Cards",
+            title: "VaultPay Cards",
             buttonLabel: "Learn more",
             description:
               "Get physical and virtual cards backed by Visa® and Mastercard® for everyday use.",
@@ -112,12 +112,12 @@ export default function WaysToPayPage() {
         ]}
       />
       <SplitHero
-        title="Get the most with the Vault Pay Card"
-        description="If you’re approved for a Vault Pay Prepaid Card, you can add money with Prepaid card or  from a verified bank account right into Vault."
+        title="Get the most with the VaultPay Card"
+        description="If you’re approved for a VaultPay Prepaid Card, you can add money with Prepaid card or  from a verified bank account right into Vault."
         buttonLabel="Learn more"
         buttonVariant="secondary"
         imageSrc="/Group 1009.png"
-        imageAlt="Vault Pay card"
+        imageAlt="VaultPay card"
         buttonHref="/cards"
         containerSize="xl"
         titleFontSize={60}
@@ -130,7 +130,7 @@ export default function WaysToPayPage() {
         underDescription={
           <Image
             src="/visa_mastercard.png"
-            alt="Vault Pay card"
+            alt="VaultPay card"
             width={124}
             unoptimized
             height={47}

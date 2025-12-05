@@ -3,7 +3,14 @@ import { vars } from "../../styles/theme.css";
 
 export const root = style({
   position: "relative",
-  width: "100%",
+  width: "100vw",
+  maxWidth: "100vw",
+  left: "50%",
+  right: "50%",
+  marginLeft: "-50vw",
+  marginRight: "-50vw",
+  paddingLeft: "2%",
+  paddingRight: "5%",
   zIndex: 999,
   minHeight: 96,
 });
@@ -18,7 +25,7 @@ export const inner = style({
 export const left = style({
   display: "flex",
   alignItems: "center",
-  paddingLeft: vars.space.xl,
+  paddingLeft: 0,
   gap: 12,
 });
 
@@ -31,7 +38,10 @@ export const right = style({
 
 export const bgShape = style({
   position: "absolute",
-  inset: 0,
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
   height: "100%",
   width: "100%",
   pointerEvents: "none",
@@ -43,5 +53,5 @@ export const bgShape = style({
 export const content = style({
   position: "relative",
   // Ensure navbar buttons/content sit above the mega menu overlay
-  zIndex: 1000,
+  zIndex: 9999,
 });

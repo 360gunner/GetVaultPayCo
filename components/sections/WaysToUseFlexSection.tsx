@@ -13,6 +13,7 @@ export type WaysToUseItem = {
   label: string;
   width?: number;
   height?: number;
+  brandLogo?: string; // URL to brand logo to overlay on tile
 };
 
 export interface WaysToUseFlexSectionProps {
@@ -76,6 +77,7 @@ const WaysToUseFlexSection: React.FC<WaysToUseFlexSectionProps> = ({
                   src: i.src,
                   title: i.label,
                   description: "",
+                  brandLogo: i.brandLogo,
                 }))}
               ></FeatureFlexSection>
             }

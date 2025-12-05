@@ -37,11 +37,6 @@ const contentFadeIn = keyframes({
   },
 });
 
-const contentFadeOut = keyframes({
-  from: { opacity: 1 },
-  to: { opacity: 0 },
-});
-
 export const overlay = style({
   position: "fixed",
   inset: 0,
@@ -145,6 +140,11 @@ export const actionCard = style({
   minHeight: 70,
   aspectRatio: "300 / 154",
   overflow: "hidden",
+  transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease",
+  ":hover": {
+    transform: "translateY(-4px) scale(1.02)",
+    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.2)",
+  },
 });
 
 export const actionBg = style({
@@ -164,6 +164,12 @@ export const actionLabel = style({
   fontWeight: 400,
   fontSize: 18,
   maxWidth: "90%",
+  transition: "color 0.3s ease",
+  selectors: {
+    [`${actionCard}:hover &`]: {
+      color: vars.color.neonMint,
+    },
+  },
 });
 
 export const actionIconTopRight = style({
@@ -178,6 +184,12 @@ export const actionIconTopRight = style({
   alignItems: "center",
   justifyContent: "center",
   fontSize: 20,
+  transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+  selectors: {
+    [`${actionCard}:hover &`]: {
+      transform: "rotate(12deg) scale(1.1)",
+    },
+  },
 });
 
 export const navCols = style({
@@ -211,6 +223,11 @@ export const navItem = style({
   paddingRight: vars.space["4xl"],
   borderBottom: "none",
   cursor: "pointer",
+  transition: "transform 0.2s ease, padding-left 0.2s ease",
+  ":hover": {
+    transform: "translateX(4px)",
+    paddingLeft: "8px",
+  },
 });
 
 export const navItemText = style({
@@ -223,6 +240,12 @@ export const navItemArrow = style({
   color: vars.color.vaultBlack,
   fontSize: 20,
   marginBottom: 0,
+  transition: "transform 0.2s ease",
+  selectors: {
+    [`${navItem}:hover &`]: {
+      transform: "translateX(4px)",
+    },
+  },
 });
 
 export const bottomBannerWrapper = style({
@@ -241,31 +264,27 @@ export const bottomBanner = style({
   aspectRatio: "1360 / 200",
   borderRadius: 16,
   overflow: "hidden",
+  opacity: 0,
+  animation: `${contentFadeIn} 400ms ease-out 300ms forwards`,
 });
 
 export const bannerOverlay = style({
   position: "absolute",
   inset: 0,
   display: "flex",
-  // Push content to the bottom of the image (cross-axis in a row)
-  alignItems: "flex-end",
-  // Keep content starting from the left; inner row will handle spacing
-  justifyContent: "flex-start",
-  gap: 12,
-  color: vars.color.vaultWhite,
-  textAlign: "left",
-  padding: 16,
+  alignItems: "center",
+  justifyContent: "center",
+  padding: fluidUnit(24),
 });
 
 export const bannerContent = style({
-  zIndex: 9000,
+  zIndex: 1,
   display: "flex",
-  alignItems: "center",
   flexDirection: "column",
-  justifyContent: "space-between",
-  width: "100%",
-  // padding: " 0 16px",
-  gap: 12,
+  alignItems: "center",
+  gap: fluidUnit(12),
+  textAlign: "center",
+  color: "#fff",
 });
 
 export const bannerTitle = style({

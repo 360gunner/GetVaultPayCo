@@ -18,28 +18,34 @@ import { fluidUnit } from "@/styles/fluid-unit";
 const faqItems: AccordionItem[] = [
   {
     id: "faq-1",
-    header: "Main headline statement goals here.",
+    header: "How do I set up a VaultPay business account?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Setting up a VaultPay business account is quick and free. Simply sign up on our website, provide your business information (legal name, EIN/Tax ID, address), verify your identity, and connect your bank account. Once approved (typically within 24-48 hours), you can start accepting payments immediately. No setup fees or monthly charges.",
     defaultOpen: true,
   },
   {
     id: "faq-2",
-    header: "Main headline statement goals here.",
+    header: "What are the transaction fees for business accounts?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "VaultPay charges a competitive 1.5% + $0.30 per transaction for domestic payments and 2.5% + $0.30 for international transactions. There are no monthly fees, setup costs, or hidden charges. High-volume merchants may qualify for custom pricing with reduced rates. Refunds and chargebacks have no additional fees when you follow our seller protection guidelines.",
   },
   {
     id: "faq-3",
-    header: "Main headline statement goals here.",
+    header: "How quickly will I receive payments from customers?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Funds from VaultPay transactions are typically available in your business bank account within 1-2 business days. For verified merchants with established transaction history, we offer instant settlement options where funds are available immediately. You can track all incoming payments in real-time through your merchant dashboard and set up automatic transfers to your bank account.",
   },
   {
     id: "faq-4",
-    header: "How do I contact support?",
+    header: "Can I integrate VaultPay with my existing systems?",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Yes! VaultPay offers seamless integration with popular e-commerce platforms like Shopify, WooCommerce, Magento, and more. We also provide a comprehensive REST API and SDKs for custom integrations. For in-store payments, VaultPay works with most modern POS systems. Our developer documentation and support team make integration straightforward, typically taking just a few hours to complete.",
+  },
+  {
+    id: "faq-5",
+    header: "What kind of support do business accounts receive?",
+    content:
+      "Business accounts receive priority support through multiple channels: dedicated account managers for high-volume merchants, 24/7 email and chat support, phone support during business hours, and access to our comprehensive knowledge base and API documentation. We also offer onboarding assistance, integration support, and regular business reviews to help optimize your payment processing.",
   },
 ];
 export default function BusinessOverviewPage() {
@@ -49,15 +55,15 @@ export default function BusinessOverviewPage() {
       <BigImageOverlaySection
         image={{
           src: "/image 101_5.png",
-          alt: "Vault Pay Ways To Pay Hero Image",
+          alt: "VaultPay Ways To Pay Hero Image",
         }}
         containerSize="2xl"
         sectionPadding={`${vars.space.xl} ${fluidUnit(24)}`}
         eyebrow="BUSINESS"
-        title="Take your business to the next level with Vault Pay"
-        text="Use Vault Pay app for transferring money with just a few taps, and your money will be received in less than a minute."
+        title="Take your business to the next level with VaultPay"
+        text="Use VaultPay app for transferring money with just a few taps, and your money will be received in less than a minute."
         buttonLabel="Start your Business Account"
-        buttonHref="/signup"
+        buttonHref="/signup-business"
         aspectRatio="1360 / 784"
         fullBleed={false}
       />
@@ -110,12 +116,12 @@ export default function BusinessOverviewPage() {
       <SplitHero
         dark
         title="Connect with millions of savvy customers instantly"
-        description="Accept Vault Pay at checkout in your app or mobile site, and tap into our social community of over 2million users. The Vault community is a social, tech-savvy bunch. They love to shop on their phones, and 89% of them want to pay with Vault Pay because they trust the brand and think it’s easy to use. *It makes sense to accept Vault Pay"
+        description="Accept VaultPay at checkout in your app or mobile site, and tap into our social community of over 2million users. The Vault community is a social, tech-savvy bunch. They love to shop on their phones, and 89% of them want to pay with VaultPay because they trust the brand and think it’s easy to use. *It makes sense to accept VaultPay"
         imageSrc="/Group 1029.png"
-        imageAlt="Vault Pay card"
+        imageAlt="VaultPay card"
         containerSize="xl"
         titleFontSize={60}
-        buttonHref="/signup"
+        buttonHref="/signup-business"
         gridTemplateColumns="1.3fr 1fr"
         containerStyle={{
           padding: `${vars.space.xl} ${vars.space["4xl"]}`,
@@ -151,7 +157,7 @@ export default function BusinessOverviewPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/Group 1030.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
@@ -169,13 +175,13 @@ export default function BusinessOverviewPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/Group 1033.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
         title="Simple, transparent pricing"
         text={
-          "Accept Vault Pay at checkout for no setup or monthly fees. And only pay when you get paid: we charge a low 1.5% + per  transaction.* Learn more about merchant fees here.*Fees are subject to change."
+          "Accept VaultPay at checkout for no setup or monthly fees. And only pay when you get paid: we charge a low 1.5% + per  transaction.* Learn more about merchant fees here.*Fees are subject to change."
         }
       />
 
@@ -186,7 +192,7 @@ export default function BusinessOverviewPage() {
         dark
         image={{
           src: "/Group 1032.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
@@ -204,12 +210,12 @@ export default function BusinessOverviewPage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/image 127.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
         buttonLabel="Learn more"
-        title="Get more with Vault Pay"
+        title="Get more with VaultPay"
         buttonHref="/advantages"
         text={
           "Beyond payments, VaultPay empowers your business with global reach, multi-currency flexibility, and trusted partnerships with Visa® and Mastercard®. Enjoy lower costs, faster transactions, and advanced security built for modern commerce. With VaultPay, you don’t just keep up—you get ahead."

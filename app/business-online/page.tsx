@@ -44,7 +44,7 @@ export default function BusinessOnlinePage() {
     <div style={{ backgroundColor: vars.color.vaultNavie }}>
       <Navbar />
       <SplitHero
-        buttonHref="/signup"
+        buttonHref="/signup-business"
         eyebrow="ONLINE & IN-APP"
         title="Seamless sales anywhere your customers shop"
         dark
@@ -67,7 +67,7 @@ export default function BusinessOnlinePage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/Group 1031.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
@@ -85,7 +85,7 @@ export default function BusinessOnlinePage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/image 103_7.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}
@@ -102,7 +102,7 @@ export default function BusinessOnlinePage() {
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
           src: "/image 125.png",
-          alt: "Vault Pay card",
+          alt: "VaultPay card",
           width: 569,
           height: 458,
         }}

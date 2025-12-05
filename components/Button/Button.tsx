@@ -14,6 +14,7 @@ export interface ButtonProps {
   label?: string;
   onClick?: () => void;
   children?: React.ReactNode;
+  noShadow?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -26,6 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   style,
   textStyle,
+  noShadow,
   ...props
 }) => {
   const sizeClass =
@@ -43,7 +45,11 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       type="button"
       className={[s.button, sizeClass, modeClass, paddingEqualClass].join(" ")}
-      style={{ backgroundColor, ...style }}
+      style={{ 
+        backgroundColor, 
+        ...(noShadow ? { boxShadow: 'none' } : {}),
+        ...style 
+      }}
       {...props}
     >
       {label ? (

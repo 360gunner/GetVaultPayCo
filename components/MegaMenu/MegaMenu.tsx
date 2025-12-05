@@ -187,20 +187,32 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
           <Image
             unoptimized
             src="/image 96.png"
-            alt="Start your vault"
-            fill
-            style={{ objectFit: "cover", objectPosition: "10% 25%" }}
+            alt="VaultPay devices"
+            width={1200}
+            height={560}
+            className="no-fade"
+            style={{ width: "100%", height: "auto" }}
           />
           <div className={s.bannerOverlay}>
             <div className={s.bannerContent}>
+              <Image
+                src="/vault_logo_icon_white.svg"
+                alt="VaultPay"
+                width={69}
+                height={69}
+                className="no-fade"
+                style={{
+                  width: fluidUnit(69),
+                  height: fluidUnit(69),
+                }}
+              />
               <Typography
                 as="h1"
                 font="Space Grotesk"
                 style={{
                   color: "#fff",
                   fontWeight: 400,
-                  marginBottom: fluidUnit(8),
-                  fontSize: fluidUnit(76, 38),
+                  fontSize: fluidUnit(96),
                 }}
               >
                 Start your vault
@@ -210,7 +222,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
                   variant="colored"
                   size="large"
                   style={{
-                    padding: `${fluidUnit(14, 12)} ${fluidUnit(20, 12)}`,
+                    padding: `${fluidUnit(16)} ${fluidUnit(24)}`,
                   }}
                   backgroundColor={vars.color.neonMint}
                 >
@@ -219,7 +231,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
                     style={{
                       margin: 0,
                       fontWeight: 400,
-                      fontSize: fluidUnit(22, 12),
+                      fontSize: fluidUnit(26),
                     }}
                   >
                     Download The App
