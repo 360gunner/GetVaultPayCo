@@ -148,7 +148,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
                 as="h4"
                 font="Space Grotesk"
                 weight={400}
-                style={{ fontSize: fluidUnit(30, 22) }}
+                style={{ fontSize: fluidUnit(36, 26) }}
                 className={s.navTitle}
               >
                 {group.title}
@@ -163,7 +163,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
                   <Typography
                     as="span"
                     className={s.navItemText}
-                    style={{ fontSize: fluidUnit(20, 16) }}
+                    style={{ fontSize: fluidUnit(26, 20) }}
                   >
                     {it}
                   </Typography>
@@ -182,7 +182,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ open, onClose }) => {
       </div>
 
       {/* Bottom banner */}
-      <div style={{ padding: 16, paddingTop: 8 }}>
+      <div style={{ padding: 0 }}>
         <div className={s.bottomBanner}>
           <Image
             unoptimized
