@@ -90,8 +90,8 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
                   >
                     Send & Receive
                   </AppLink>
-                  <AppLink href="/fees-pricing" style={{ color: vars.color.vaultWhite }}>
-                    Fees & Pricing
+                  <AppLink href="/fees" style={{ color: vars.color.vaultWhite }}>
+                    Pricing
                   </AppLink>
                   <AppLink href="/features" style={{ color: vars.color.vaultWhite }}>
                     Features
@@ -147,6 +147,9 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
                   className={s.muted}
                 >
                   Privacy Policy
+                </AppLink>
+                <AppLink href="/cookies" style={{ color: vars.color.vaultWhite }}>
+                  Cookies
                 </AppLink>
                 <AppLink href="/terms" style={{ color: vars.color.vaultWhite }}>
                   Terms & Conditions

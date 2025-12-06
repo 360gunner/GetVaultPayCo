@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500" fill="none">
+  <defs>
+    <linearGradient id="mintGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06FF89"/>
+      <stop offset="50%" style="stop-color:#4DFF91"/>
+      <stop offset="100%" style="stop-color:#B8FF9F"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="300" cy="250" r="220" fill="#07232F" opacity="0.05"/>
+  
+  <!-- Main Card -->
+  <g filter="url(#shadow)">
+    <rect x="120" y="80" width="360" height="240" rx="24" fill="white"/>
+    <rect x="120" y="80" width="360" height="70" rx="24" fill="#07232F"/>
+    <rect x="120" y="126" width="360" height="24" fill="#07232F"/>
+    
+    <!-- Header Text -->
+    <text x="150" y="125" fill="white" font-family="system-ui" font-size="20" font-weight="700">Fee Schedule</text>
+    <text x="420" y="125" fill="#06FF89" font-family="system-ui" font-size="16" font-weight="600">No Hidden Fees</text>
+    
+    <!-- Table Rows -->
+    <line x1="140" y1="200" x2="460" y2="200" stroke="#E5E7EB" stroke-width="1"/>
+    <line x1="140" y1="250" x2="460" y2="250" stroke="#E5E7EB" stroke-width="1"/>
+    
+    <!-- Row 1 -->
+    <text x="150" y="185" fill="#333" font-family="system-ui" font-size="14">SEPA Instant</text>
+    <text x="400" y="185" fill="#16a34a" font-family="system-ui" font-size="16" font-weight="700">FREE</text>
+    
+    <!-- Row 2 -->
+    <text x="150" y="235" fill="#333" font-family="system-ui" font-size="14">ACH Transfer</text>
+    <text x="400" y="235" fill="#333" font-family="system-ui" font-size="16" font-weight="700">$5.00</text>
+    
+    <!-- Row 3 -->
+    <text x="150" y="285" fill="#333" font-family="system-ui" font-size="14">SWIFT Transfer</text>
+    <text x="400" y="285" fill="#333" font-family="system-ui" font-size="16" font-weight="700">$30.00</text>
+  </g>
+  
+  <!-- Floating Card 1 - Virtual Card -->
+  <g filter="url(#shadow)" transform="translate(40, 320)">
+    <rect width="160" height="100" rx="12" fill="url(#mintGradient)"/>
+    <text x="20" y="35" fill="#07232F" font-family="system-ui" font-size="12" font-weight="600">Virtual Card</text>
+    <text x="20" y="65" fill="#07232F" font-family="system-ui" font-size="28" font-weight="700">$5</text>
+    <text x="20" y="85" fill="#07232F" font-family="system-ui" font-size="11" opacity="0.8">Visa/Mastercard</text>
+  </g>
+  
+  <!-- Floating Card 2 - Crypto -->
+  <g filter="url(#shadow)" transform="translate(400, 340)">
+    <rect width="150" height="90" rx="12" fill="white"/>
+    <text x="16" y="32" fill="#333" font-family="system-ui" font-size="12" font-weight="600">Crypto Payout</text>
+    <text x="16" y="60" fill="#07232F" font-family="system-ui" font-size="24" font-weight="700">$1.00</text>
+    <text x="16" y="78" fill="#666" font-family="system-ui" font-size="11">Fixed fee</text>
+  </g>
+  
+  <!-- Floating Card 3 - Monthly -->
+  <g filter="url(#shadow)" transform="translate(220, 360)">
+    <rect width="170" height="110" rx="16" fill="#07232F"/>
+    <text x="20" y="35" fill="#9CA9B9" font-family="system-ui" font-size="12" font-weight="500">Monthly Fee</text>
+    <text x="20" y="70" fill="#06FF89" font-family="system-ui" font-size="36" font-weight="700">$0</text>
+    <text x="20" y="95" fill="white" font-family="system-ui" font-size="12">No monthly fees</text>
+  </g>
+  
+  <!-- Checkmark Icons -->
+  <g transform="translate(500, 100)">
+    <circle cx="30" cy="30" r="24" fill="#06FF89"/>
+    <path d="M22 30 L28 36 L40 24" stroke="#07232F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  
+  <!-- Dollar signs floating -->
+  <text x="80" y="120" fill="#06FF89" font-family="system-ui" font-size="24" opacity="0.6">$</text>
+  <text x="520" y="280" fill="#06FF89" font-family="system-ui" font-size="32" opacity="0.5">$</text>
+  <text x="60" y="280" fill="#B8FF9F" font-family="system-ui" font-size="20" opacity="0.4">$</text>
+</svg>

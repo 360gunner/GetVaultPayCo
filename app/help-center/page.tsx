@@ -2,9 +2,6 @@ import Navbar from "@/components/Navbar/Navbar";
 import Container from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
 import Typography from "@/components/Typography/Typography";
-import WaysToUseGridSection, {
-  type WaysToUseItem,
-} from "@/components/sections/WaysToUseGridSection";
 import Accordion, {
   type AccordionItem,
 } from "@/components/Accordion/Accordion";
@@ -12,108 +9,128 @@ import { vars } from "@/styles/theme.css";
 import Footer from "@/components/Footer/Footer";
 import { fluidUnit } from "@/styles/fluid-unit";
 import Link from "next/link";
-import WaysToUseFlexSection from "@/components/sections/WaysToUseFlexSection";
+import Image from "next/image";
 
 export const metadata = {
   title: "Help Center | VaultPay",
   description: "Find answers, featured articles, and FAQs about VaultPay.",
 };
 
-const cardItems: Array<{ label: string; href?: string; description?: string }> =
-  [
-    { label: "Payments & Requests", href: "/signup" },
-    { label: "Signing Up & Signing In", href: "/signup" },
-    { label: "Bank Transfers & Direct Deposit", href: "/signup" },
-    { label: "Banks, Cards & Payments", href: "/signup" },
-    { label: "About VaultPay", href: "/signup" },
-    { label: "Account Setting & Security", href: "/signup" },
+// Help categories with icons
+const helpCategories = [
+  {
+    label: "Getting Started",
+    description: "Create your account and set up your profile",
+    icon: "/help-icons/account.svg",
+    href: "/help-center",
+  },
+  {
+    label: "Send & Receive Money",
+    description: "Learn how to send and request payments",
+    icon: "/help-icons/payments.svg",
+    href: "/help-center",
+  },
+  {
+    label: "Bank Transfers",
+    description: "ACH, SEPA, SWIFT and direct deposits",
+    icon: "/help-icons/bank.svg",
+    href: "/help-center",
+  },
+  {
+    label: "Cards & Wallets",
+    description: "Physical and virtual card management",
+    icon: "/help-icons/cards.svg",
+    href: "/help-center",
+  },
+  {
+    label: "Security & Privacy",
+    description: "Protect your account and data",
+    icon: "/help-icons/security.svg",
+    href: "/help-center",
+  },
+  {
+    label: "International Transfers",
+    description: "Send money abroad and currency exchange",
+    icon: "/help-icons/international.svg",
+    href: "/help-center",
+  },
+  {
+    label: "Crypto Payments",
+    description: "Buy, sell, and transfer cryptocurrency",
+    icon: "/help-icons/crypto.svg",
+    href: "/help-center",
+  },
+  {
+    label: "Business Accounts",
+    description: "Tools and features for businesses",
+    icon: "/help-icons/business.svg",
+    href: "/help-center",
+  },
+  {
+    label: "Fees & Limits",
+    description: "Understand our pricing and transaction limits",
+    icon: "/help-icons/transfers.svg",
+    href: "/fees",
+  },
+];
 
-    { label: "Payments & Requests 2", href: "/signup" },
-    { label: "Signing Up & Signing In 2", href: "/signup" },
-    { label: "Bank Transfers & Direct Deposit 2", href: "/signup" },
-    { label: "Banks, Cards & Payments 2", href: "/signup" },
-    { label: "About VaultPay 2", href: "/signup" },
-    { label: "Account Setting & Security 2", href: "/signup" },
-    { label: "Banks, Cards & Payments 3", href: "/signup" },
-    { label: "About VaultPay 3", href: "/signup" },
-    { label: "Account Setting & Security 3", href: "/signup" },
-  ];
-
-const featuredItems: WaysToUseItem[] = [
+// Featured articles with real content
+const featuredArticles = [
   {
-    src: "/MaskGroup101.png",
-    alt: "Pay Bills",
-    label: "Pay bills",
-    width: 359,
+    title: "How to Verify Your Identity",
+    description: "Complete KYC verification to unlock all VaultPay features and higher limits.",
+    category: "Getting Started",
+    readTime: "3 min read",
+    href: "/help-center",
   },
   {
-    src: "/MaskGroup102.png",
-    alt: "Food Delivery",
-    label: "Food delivery",
-    width: 359,
+    title: "Setting Up Two-Factor Authentication",
+    description: "Add an extra layer of security to your VaultPay account with 2FA.",
+    category: "Security",
+    readTime: "2 min read",
+    href: "/help-center",
   },
   {
-    src: "/MaskGroup103.png",
-    alt: "Tips & Gifts Friends",
-    label: "Tips & gifts friends",
-    width: 359,
+    title: "How to Add Money to Your Account",
+    description: "Learn the different ways to fund your VaultPay balance.",
+    category: "Payments",
+    readTime: "4 min read",
+    href: "/help-center",
   },
   {
-    src: "/MaskGroup104.png",
-    alt: "Send to Family",
-    label: "Send to Family",
-    width: 359,
+    title: "Sending Your First Payment",
+    description: "Step-by-step guide to sending money to friends and family.",
+    category: "Payments",
+    readTime: "3 min read",
+    href: "/help-center",
   },
   {
-    src: "/MaskGroup105.png",
-    width: 359,
-
-    alt: "In-store purchases",
-    label: "In-store purchases",
+    title: "Understanding Transfer Fees",
+    description: "A complete breakdown of fees for different transfer types.",
+    category: "Fees",
+    readTime: "5 min read",
+    href: "/fees",
   },
   {
-    src: "/MaskGroup105.png",
-    width: 359,
-
-    alt: "Online purchases",
-    label: "Online purchases",
+    title: "Ordering Your Physical Card",
+    description: "Get your VaultPay Visa card delivered to your doorstep.",
+    category: "Cards",
+    readTime: "2 min read",
+    href: "/help-center",
   },
   {
-    src: "/MaskGroup105.png",
-    alt: "Ride Hailing",
-    width: 359,
-
-    label: "Ride Hailing",
+    title: "International Transfers Guide",
+    description: "Everything you need to know about sending money abroad.",
+    category: "International",
+    readTime: "6 min read",
+    href: "/help-center",
   },
   {
-    src: "/MaskGroup105.png",
-    alt: "Secure Accounts",
-    label: "Secure Accounts",
-    width: 359,
-  },
-  {
-    src: "/MaskGroup105.png",
-    alt: "Bank transfers",
-    label: "Bank transfers",
-    width: 359,
-  },
-  {
-    src: "/MaskGroup105.png",
-    alt: "Physical cards",
-    label: "Physical cards",
-    width: 359,
-  },
-  {
-    src: "/MaskGroup105.png",
-    alt: "Global Balance",
-    label: "Global Balance",
-    width: 359,
-  },
-  {
-    src: "/MaskGroup105.png",
-    alt: "Convert currencies",
-    label: "Convert currencies",
-    width: 359,
+    title: "Linking Your Bank Account",
+    description: "Connect your bank for seamless transfers and withdrawals.",
+    category: "Bank",
+    readTime: "3 min read",
+    href: "/help-center",
   },
 ];
 
@@ -157,53 +174,110 @@ export default function HelpCenterPage() {
       <Navbar />
 
       {/* Hero */}
-      <section style={{ padding: "48px 0" }}>
+      <section
+        style={{
+          padding: `${fluidUnit(80)} 0 ${fluidUnit(48)} 0`,
+          background: vars.color.vaultNavie,
+        }}
+      >
         <Container size="lg">
           <Typography
             as="h1"
             font="Space Grotesk"
-            weight={400}
+            weight={700}
             align="center"
-            style={{ fontSize: 64 }}
+            style={{ fontSize: fluidUnit(64), color: vars.color.vaultWhite }}
           >
             Help Center
+          </Typography>
+          <Typography
+            as="p"
+            align="center"
+            style={{
+              fontSize: fluidUnit(18),
+              color: vars.color.slateGray,
+              marginTop: fluidUnit(16),
+              maxWidth: 600,
+              margin: `${fluidUnit(16)} auto 0`,
+            }}
+          >
+            Find answers to your questions, browse helpful articles, and get the support you need.
           </Typography>
         </Container>
       </section>
 
-      {/* Categories grid: 3 columns, rounded, bordered, wide buttons/cards */}
-      <section style={{ padding: "8px 0 48px" }}>
+      {/* Help Categories */}
+      <section style={{ padding: `${fluidUnit(64)} 0` }}>
         <Container size="lg">
+          <Typography
+            as="h2"
+            font="Space Grotesk"
+            weight={600}
+            align="center"
+            style={{
+              fontSize: fluidUnit(36),
+              marginBottom: fluidUnit(48),
+              color: vars.color.vaultBlack,
+            }}
+          >
+            Browse by Topic
+          </Typography>
           <Grid
             columns={3}
             gap="lg"
-            style={{ alignItems: "stretch", gap: fluidUnit(32) }}
+            style={{ alignItems: "stretch", gap: fluidUnit(24) }}
           >
-            {cardItems.map((item) => (
+            {helpCategories.map((category) => (
               <Link
-                key={item.label}
-                href={item.href || "/signup"}
+                key={category.label}
+                href={category.href}
                 style={{
                   display: "flex",
+                  flexDirection: "column",
                   alignItems: "center",
-                  justifyContent: "center",
+                  textAlign: "center",
                   gap: fluidUnit(16),
-                  padding: "18px 20px",
-                  border: "1px solid #000",
-                  borderRadius: 999,
+                  padding: fluidUnit(32),
+                  border: `1px solid ${vars.color.cloudSilver}`,
+                  borderRadius: fluidUnit(16),
                   textDecoration: "none",
                   color: "inherit",
-                  width: "100%",
+                  background: vars.color.vaultWhite,
+                  transition: "all 0.2s ease",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                 }}
               >
-                <Typography
-                  as="h6"
-                  font="Instrument Sans"
-                  weight={400}
-                  style={{ margin: 0, fontSize: fluidUnit(16, 8) }}
-                >
-                  {item.label}
-                </Typography>
+                <Image
+                  src={category.icon}
+                  alt={category.label}
+                  width={56}
+                  height={56}
+                  unoptimized
+                />
+                <div>
+                  <Typography
+                    as="h3"
+                    font="Instrument Sans"
+                    weight={600}
+                    style={{
+                      margin: 0,
+                      fontSize: fluidUnit(18),
+                      color: vars.color.vaultBlack,
+                    }}
+                  >
+                    {category.label}
+                  </Typography>
+                  <Typography
+                    as="p"
+                    style={{
+                      margin: `${fluidUnit(8)} 0 0`,
+                      fontSize: fluidUnit(14),
+                      color: vars.color.muted,
+                    }}
+                  >
+                    {category.description}
+                  </Typography>
+                </div>
               </Link>
             ))}
           </Grid>
@@ -211,54 +285,203 @@ export default function HelpCenterPage() {
       </section>
 
       {/* Featured Articles */}
-      <section style={{ padding: "32px 0" }}>
+      <section
+        style={{
+          padding: `${fluidUnit(64)} 0`,
+          background: vars.color.cloudSilver,
+        }}
+      >
         <Container size="xl">
           <Typography
-            as="h1"
+            as="h2"
             font="Space Grotesk"
-            weight={400}
+            weight={600}
             align="center"
-            style={{ fontSize: 48 }}
+            style={{
+              fontSize: fluidUnit(36),
+              marginBottom: fluidUnit(48),
+              color: vars.color.vaultBlack,
+            }}
           >
             Featured Articles
           </Typography>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+              gap: fluidUnit(24),
+            }}
+          >
+            {featuredArticles.map((article, index) => (
+              <Link
+                key={index}
+                href={article.href}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: fluidUnit(28),
+                  background: vars.color.vaultWhite,
+                  borderRadius: fluidUnit(16),
+                  textDecoration: "none",
+                  color: "inherit",
+                  transition: "all 0.2s ease",
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: fluidUnit(12),
+                    fontWeight: 600,
+                    color: vars.color.neonMint,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    background: vars.color.vaultNavie,
+                    padding: `${fluidUnit(4)} ${fluidUnit(10)}`,
+                    borderRadius: fluidUnit(4),
+                    alignSelf: "flex-start",
+                    marginBottom: fluidUnit(16),
+                  }}
+                >
+                  {article.category}
+                </span>
+                <Typography
+                  as="h3"
+                  style={{
+                    fontSize: fluidUnit(18),
+                    fontWeight: 600,
+                    color: vars.color.vaultBlack,
+                    margin: 0,
+                    marginBottom: fluidUnit(8),
+                  }}
+                >
+                  {article.title}
+                </Typography>
+                <Typography
+                  as="p"
+                  style={{
+                    fontSize: fluidUnit(14),
+                    color: vars.color.muted,
+                    margin: 0,
+                    flex: 1,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {article.description}
+                </Typography>
+                <span
+                  style={{
+                    fontSize: fluidUnit(12),
+                    color: vars.color.slateGray,
+                    marginTop: fluidUnit(16),
+                  }}
+                >
+                  {article.readTime}
+                </span>
+              </Link>
+            ))}
+          </div>
         </Container>
-        <WaysToUseFlexSection
-          title={""}
-          columnGap={0}
-          items={featuredItems}
-          sectionStyle={{
-            paddingLeft: fluidUnit(12),
-            paddingRight: fluidUnit(12),
-          }}
-          containerSize="2xl"
-          sectionPadding="8px 0 24px"
-          minColWidth={240}
-          gap="xl"
-          columns={4}
-        />
       </section>
 
       {/* FAQs */}
-      <section style={{ padding: `40px 0 80px` }}>
+      <section style={{ padding: `${fluidUnit(80)} 0` }}>
         <Container
-          size="2xl"
+          size="lg"
           style={{ paddingLeft: fluidUnit(24), paddingRight: fluidUnit(24) }}
         >
           <Typography
-            as="h1"
+            as="h2"
             font="Space Grotesk"
-            weight={400}
-            align="left"
-            style={{ fontSize: 64 }}
+            weight={600}
+            align="center"
+            style={{
+              fontSize: fluidUnit(36),
+              marginBottom: fluidUnit(48),
+              color: vars.color.vaultBlack,
+            }}
           >
-            FAQs
+            Frequently Asked Questions
           </Typography>
-          <div style={{ marginTop: vars.space.lg }}>
+          <div style={{ maxWidth: 800, margin: "0 auto" }}>
             <Accordion items={faqItems} />
           </div>
         </Container>
       </section>
+
+      {/* Contact Support */}
+      <section
+        style={{
+          padding: `${fluidUnit(64)} 0`,
+          background: vars.color.vaultNavie,
+        }}
+      >
+        <Container size="lg">
+          <div style={{ textAlign: "center" }}>
+            <Typography
+              as="h2"
+              style={{
+                fontSize: fluidUnit(32),
+                fontWeight: 700,
+                color: vars.color.vaultWhite,
+                marginBottom: fluidUnit(16),
+              }}
+            >
+              Still need help?
+            </Typography>
+            <Typography
+              as="p"
+              style={{
+                fontSize: fluidUnit(16),
+                color: vars.color.slateGray,
+                marginBottom: fluidUnit(32),
+                maxWidth: 500,
+                margin: `0 auto ${fluidUnit(32)}`,
+              }}
+            >
+              Our support team is available 24/7 to assist you with any questions or issues.
+            </Typography>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: fluidUnit(16),
+                flexWrap: "wrap",
+              }}
+            >
+              <Link
+                href="/contact"
+                style={{
+                  padding: `${fluidUnit(16)} ${fluidUnit(32)}`,
+                  background: vars.color.neonMint,
+                  borderRadius: fluidUnit(8),
+                  textDecoration: "none",
+                  color: vars.color.vaultBlack,
+                  fontWeight: 600,
+                  fontSize: fluidUnit(16),
+                }}
+              >
+                Contact Support
+              </Link>
+              <Link
+                href="mailto:support@getvaultpay.co"
+                style={{
+                  padding: `${fluidUnit(16)} ${fluidUnit(32)}`,
+                  background: "transparent",
+                  border: `2px solid ${vars.color.vaultWhite}`,
+                  borderRadius: fluidUnit(8),
+                  textDecoration: "none",
+                  color: vars.color.vaultWhite,
+                  fontWeight: 600,
+                  fontSize: fluidUnit(16),
+                }}
+              >
+                Email Us
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <Footer />
     </>
   );
