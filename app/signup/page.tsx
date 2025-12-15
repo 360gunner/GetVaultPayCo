@@ -7,6 +7,8 @@ import { fluidUnit } from "@/styles/fluid-unit";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Script from "next/script";
+import { register, checkUsername, checkEmail, getCountries, getStates, getCities, Country, State, City } from "@/lib/vaultpay-api";
+import { useAuth } from "@/lib/auth-context";
 
 interface SignupData {
   email: string;
@@ -17,9 +19,13 @@ interface SignupData {
   lastName: string;
   username: string;
   dateOfBirth: string;
+  gender: string;
   country: string;
+  state: string;
+  city: string;
   homeAddress: string;
   postalCode: string;
+  phoneNumber: string;
   acceptTos: boolean;
   acceptMarketing: boolean;
 }
@@ -27,10 +33,11 @@ interface SignupData {
 export default function SignUpPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 9;
+  const totalSteps = 10;
   const [showSuccess, setShowSuccess] = useState(false);
   const [redirectCountdown, setRedirectCountdown] = useState(5);
   
+  const { login } = useAuth();
   const [formData, setFormData] = useState<SignupData>({
     email: "",
     otp: "",
@@ -40,9 +47,13 @@ export default function SignUpPage() {
     lastName: "",
     username: "",
     dateOfBirth: "",
+    gender: "Male",
     country: "",
+    state: "",
+    city: "",
     homeAddress: "",
     postalCode: "",
+    phoneNumber: "",
     acceptTos: false,
     acceptMarketing: false,
   });
@@ -56,13 +67,26 @@ export default function SignUpPage() {
     minLength: false,
   });
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // OTP Management
-  const mockOtp = "123456";
+  const [sentOtp, setSentOtp] = useState("");
   const [otpTimer, setOtpTimer] = useState(60);
   const [canResendOtp, setCanResendOtp] = useState(false);
   const [otpAttempts, setOtpAttempts] = useState(0);
   const maxOtpAttempts = 3;
+
+  // Location data
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [states, setStates] = useState<State[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
+  const [selectedCountryId, setSelectedCountryId] = useState<number | null>(null);
+  const [selectedStateId, setSelectedStateId] = useState<number | null>(null);
+
+  // Load countries on mount
+  useEffect(() => {
+    loadCountries();
+  }, []);
 
   // Reset OTP timer when entering step 2
   useEffect(() => {
@@ -71,6 +95,20 @@ export default function SignUpPage() {
       setCanResendOtp(false);
     }
   }, [currentStep]);
+
+  // Load states when country changes
+  useEffect(() => {
+    if (selectedCountryId) {
+      loadStates(selectedCountryId);
+    }
+  }, [selectedCountryId]);
+
+  // Load cities when state changes
+  useEffect(() => {
+    if (selectedStateId) {
+      loadCities(selectedStateId);
+    }
+  }, [selectedStateId]);
 
   // OTP Timer
   useEffect(() => {
@@ -122,6 +160,56 @@ export default function SignUpPage() {
     };
   }, []);
 
+  const loadCountries = async () => {
+    try {
+      const response = await getCountries();
+      if (response.status && response.data) {
+        setCountries(response.data);
+      }
+    } catch (error) {
+      console.error('Error loading countries:', error);
+    }
+  };
+
+  const loadStates = async (countryId: number) => {
+    try {
+      const response = await getStates(countryId);
+      if (response.status && response.data) {
+        setStates(response.data);
+      }
+    } catch (error) {
+      console.error('Error loading states:', error);
+    }
+  };
+
+  const loadCities = async (stateId: number) => {
+    try {
+      const response = await getCities(stateId);
+      if (response.status && response.data) {
+        setCities(response.data);
+      }
+    } catch (error) {
+      console.error('Error loading cities:', error);
+    }
+  };
+
+  const sendOtp = async () => {
+    try {
+      const response = await fetch('/api/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      const data = await response.json();
+      if (data.status && data.otp) {
+        setSentOtp(data.otp);
+        console.log('OTP sent:', data.otp);
+      }
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+    }
+  };
+
   const handleResendOtp = () => {
     if (otpAttempts >= maxOtpAttempts) {
       setErrors({ otp: "Maximum attempts reached. Try again tomorrow." });
@@ -130,7 +218,7 @@ export default function SignUpPage() {
     setOtpAttempts(otpAttempts + 1);
     setOtpTimer(60);
     setCanResendOtp(false);
-    console.log("OTP resent to:", formData.email);
+    sendOtp();
   };
 
   const validatePassword = (password: string) => {
@@ -145,22 +233,33 @@ export default function SignUpPage() {
     return Object.values(strength).every(Boolean);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     setErrors({});
+    setIsLoading(true);
     
-    switch (currentStep) {
-      case 1:
-        if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-          setErrors({ email: "Valid email required" });
-          return;
-        }
-        break;
-      case 2:
-        if (formData.otp !== mockOtp) {
-          setErrors({ otp: "Invalid OTP. Try: 123456" });
-          return;
-        }
-        break;
+    try {
+      switch (currentStep) {
+        case 1:
+          if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            setErrors({ email: "Valid email required" });
+            setIsLoading(false);
+            return;
+          }
+          const emailCheck = await checkEmail(formData.email);
+          if (!emailCheck.is_available) {
+            setErrors({ email: "Email already registered" });
+            setIsLoading(false);
+            return;
+          }
+          await sendOtp();
+          break;
+        case 2:
+          if (!formData.otp || formData.otp !== sentOtp) {
+            setErrors({ otp: "Invalid OTP code" });
+            setIsLoading(false);
+            return;
+          }
+          break;
       case 3:
         if (!validatePassword(formData.password) || formData.password !== formData.passwordConfirm) {
           setErrors({ password: "Check password requirements" });
@@ -176,6 +275,13 @@ export default function SignUpPage() {
       case 5:
         if (!formData.username || formData.username.length < 3) {
           setErrors({ username: "Username must be 3+ characters" });
+          setIsLoading(false);
+          return;
+        }
+        const usernameCheck = await checkUsername(formData.username);
+        if (!usernameCheck.is_available) {
+          setErrors({ username: "Username already taken" });
+          setIsLoading(false);
           return;
         }
         break;
@@ -183,38 +289,84 @@ export default function SignUpPage() {
         const age = new Date().getFullYear() - new Date(formData.dateOfBirth).getFullYear();
         if (age < 18) {
           setErrors({ dateOfBirth: "Must be 18+" });
+          setIsLoading(false);
           return;
         }
         break;
       case 7:
-        if (!formData.country) {
-          setErrors({ country: "Select country" });
+        if (!formData.gender) {
+          setErrors({ gender: "Select gender" });
+          setIsLoading(false);
           return;
         }
         break;
       case 8:
-        if (!formData.homeAddress || !formData.postalCode) {
-          setErrors({ address: "Address required" });
+        if (!formData.country || !formData.state) {
+          setErrors({ location: "Select country and state" });
+          setIsLoading(false);
           return;
         }
         break;
       case 9:
+        if (!formData.homeAddress || !formData.postalCode) {
+          setErrors({ address: "Address required" });
+          setIsLoading(false);
+          return;
+        }
+        break;
+      case 10:
         if (!formData.acceptTos) {
           setErrors({ tos: "You must accept the terms of service" });
+          setIsLoading(false);
           return;
         }
         if (!captchaToken) {
           setErrors({ captcha: "Please complete the security verification" });
+          setIsLoading(false);
           return;
         }
-        console.log("Signup:", formData, "Captcha token:", captchaToken);
-        // Save country to localStorage for KYC page
-        localStorage.setItem("signupCountry", formData.country);
-        setShowSuccess(true);
+        
+        const birthDate = new Date(formData.dateOfBirth);
+        const registerData = {
+          email: formData.email,
+          password: formData.password,
+          gender: formData.gender,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          user_name: formData.username,
+          account_type: 1,
+          country_id: selectedCountryId!,
+          state_id: selectedStateId!,
+          city_id: cities.length > 0 && formData.city ? parseInt(formData.city) : undefined,
+          day: birthDate.getDate(),
+          month: birthDate.getMonth() + 1,
+          year: birthDate.getFullYear(),
+          phone_number: formData.phoneNumber || undefined,
+          address: formData.homeAddress,
+          postal_code: formData.postalCode,
+        };
+
+        const response = await register(registerData);
+        
+        if (response.status && response.data) {
+          login(response.data);
+          const selectedCountry = countries.find(c => c.id === selectedCountryId);
+          localStorage.setItem("signupCountry", selectedCountry?.symbol || "");
+          setShowSuccess(true);
+        } else {
+          setErrors({ submit: response.message || "Registration failed" });
+        }
+        setIsLoading(false);
         return;
     }
     
     setCurrentStep(currentStep + 1);
+    } catch (error) {
+      console.error('Error in handleNext:', error);
+      setErrors({ general: 'An error occurred. Please try again.' });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const renderInput = (label: string, placeholder: string, field: keyof SignupData, type = "text") => (
@@ -276,7 +428,7 @@ export default function SignUpPage() {
               </Typography>
             )}
             <Typography as="p" style={{ fontSize: fluidUnit(12), color: '#999', marginTop: fluidUnit(8) }}>
-              Attempts: {otpAttempts}/{maxOtpAttempts} • Mock OTP: 123456
+              Attempts: {otpAttempts}/{maxOtpAttempts} {sentOtp && `• Dev OTP: ${sentOtp}`}
             </Typography>
           </div>
         </>
@@ -303,7 +455,14 @@ export default function SignUpPage() {
           {renderInput("Last Name", "Enter last name", "lastName")}
         </>
       )},
-      { title: "Choose a username", content: renderInput("Username", "unique_username", "username") },
+      { title: "Choose a username", content: (
+        <>
+          {renderInput("Username", "unique_username", "username")}
+          <Typography as="p" style={{ fontSize: fluidUnit(12), color: '#666', marginTop: fluidUnit(-16) }}>
+            3+ characters, alphanumeric and underscore only
+          </Typography>
+        </>
+      )},
       { title: "When were you born?", content: (
         <>
           {renderInput("Date of Birth", "DD/MM/YYYY", "dateOfBirth", "date")}
@@ -312,12 +471,12 @@ export default function SignUpPage() {
           </Typography>
         </>
       )},
-      { title: "Where are you located?", content: (
+      { title: "What's your gender?", content: (
         <div>
-          <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Country</label>
+          <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Gender</label>
           <select
-            value={formData.country}
-            onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+            value={formData.gender}
+            onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
             style={{
               width: "100%",
               padding: fluidUnit(16),
@@ -327,18 +486,95 @@ export default function SignUpPage() {
               backgroundColor: 'rgba(255,255,255,0.9)',
             }}
           >
-            <option value="">Select country</option>
-            <option value="US">United States</option>
-            <option value="UK">United Kingdom</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
           </select>
         </div>
       )},
-      { title: "Enter your home address", content: (
+      { title: "Where are you located?", content: (
+        <>
+          <div style={{ marginBottom: fluidUnit(16) }}>
+            <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Country</label>
+            <select
+              value={formData.country}
+              onChange={(e) => {
+                const countryId = parseInt(e.target.value);
+                setFormData({ ...formData, country: e.target.value, state: "", city: "" });
+                setSelectedCountryId(countryId);
+                setStates([]);
+                setCities([]);
+              }}
+              style={{
+                width: "100%",
+                padding: fluidUnit(16),
+                borderRadius: fluidUnit(12),
+                border: `2px solid ${vars.color.vaultBlack}`,
+                fontSize: fluidUnit(16),
+                backgroundColor: 'rgba(255,255,255,0.9)',
+              }}
+            >
+              <option value="">Select country</option>
+              {countries.map(country => (
+                <option key={country.id} value={country.id}>{country.name}</option>
+              ))}
+            </select>
+          </div>
+          <div style={{ marginBottom: fluidUnit(16) }}>
+            <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>State/Province</label>
+            <select
+              value={formData.state}
+              onChange={(e) => {
+                const stateId = parseInt(e.target.value);
+                setFormData({ ...formData, state: e.target.value, city: "" });
+                setSelectedStateId(stateId);
+                setCities([]);
+              }}
+              disabled={!selectedCountryId || states.length === 0}
+              style={{
+                width: "100%",
+                padding: fluidUnit(16),
+                borderRadius: fluidUnit(12),
+                border: `2px solid ${vars.color.vaultBlack}`,
+                fontSize: fluidUnit(16),
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                opacity: !selectedCountryId || states.length === 0 ? 0.5 : 1,
+              }}
+            >
+              <option value="">Select state</option>
+              {states.map(state => (
+                <option key={state.id} value={state.id}>{state.name}</option>
+              ))}
+            </select>
+          </div>
+          {cities.length > 0 && (
+            <div>
+              <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>City (Optional)</label>
+              <select
+                value={formData.city}
+                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                style={{
+                  width: "100%",
+                  padding: fluidUnit(16),
+                  borderRadius: fluidUnit(12),
+                  border: `2px solid ${vars.color.vaultBlack}`,
+                  fontSize: fluidUnit(16),
+                  backgroundColor: 'rgba(255,255,255,0.9)',
+                }}
+              >
+                <option value="">Select city</option>
+                {cities.map(city => (
+                  <option key={city.id} value={city.id}>{city.name}</option>
+                ))}
+              </select>
+            </div>
+          )}
+        </>
+      )},
+      { title: "Enter your contact details", content: (
         <>
           {renderInput("Home Address", "Full address", "homeAddress")}
           {renderInput("Postal Code", "ZIP/Postal", "postalCode")}
+          {renderInput("Phone Number (Optional)", "+1234567890", "phoneNumber", "tel")}
         </>
       )},
       { title: "Almost done!", content: (
@@ -506,6 +742,7 @@ export default function SignUpPage() {
 
           <button
             onClick={handleNext}
+            disabled={isLoading}
             style={{
               width: "100%",
               padding: fluidUnit(18),
@@ -515,11 +752,12 @@ export default function SignUpPage() {
               borderRadius: fluidUnit(50),
               fontSize: fluidUnit(18),
               fontWeight: 600,
-              cursor: 'pointer',
+              cursor: isLoading ? 'not-allowed' : 'pointer',
               marginTop: fluidUnit(32),
+              opacity: isLoading ? 0.6 : 1,
             }}
           >
-            {currentStep === totalSteps ? 'Create Account' : 'Continue'}
+            {isLoading ? 'Processing...' : (currentStep === totalSteps ? 'Create Account' : 'Continue')}
           </button>
           
           <div style={{ textAlign: 'center', marginTop: fluidUnit(24) }}>

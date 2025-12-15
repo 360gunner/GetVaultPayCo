@@ -2,7 +2,7 @@
 import Navbar from "@/components/Navbar/Navbar";
 import Link from "next/link";
 import { vars } from "@/styles/theme.css";
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@/components/Typography/Typography";
 import Button from "@/components/Button/Button";
 import TextInput from "@/components/Form/TextInput";
@@ -10,8 +10,51 @@ import Container from "@/components/Layout/Container";
 import Grid from "@/components/Layout/Grid";
 import Image from "next/image";
 import { fluidUnit } from "@/styles/fluid-unit";
+import { login as apiLogin } from "@/lib/vaultpay-api";
+import { useAuth } from "@/lib/auth-context";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
+  const router = useRouter();
+  const { login } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
+
+    try {
+      if (!email || !password) {
+        setError("Please enter both email and password");
+        setIsLoading(false);
+        return;
+      }
+
+      const response = await apiLogin({ email, password });
+
+      if (response.status && response.data) {
+        login(response.data);
+        
+        if (response.data.is_kyc_verified === "0" || response.data.is_kyc_verified === "3") {
+          router.push("/kyc-verification");
+        } else {
+          router.push("/");
+        }
+      } else {
+        setError(response.message || "Invalid email or password");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div style={{
       background: vars.color.vaultNavie,
@@ -81,15 +124,29 @@ export default function SignInPage() {
               </Typography>
 
               <form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
                 style={{ display: "grid", gap: fluidUnit(12) }}
               >
+                {error && (
+                  <div style={{
+                    padding: fluidUnit(12),
+                    background: "rgba(198, 40, 40, 0.1)",
+                    border: "1px solid #c62828",
+                    borderRadius: fluidUnit(8),
+                    color: "#c62828",
+                    fontSize: fluidUnit(14),
+                  }}>
+                    {error}
+                  </div>
+                )}
                 <TextInput
                   label="Email"
                   type="email"
                   placeholder="Example@email.com"
                   required
                   labelColor={vars.color.neonMint}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <TextInput
                   label="Password"
@@ -98,6 +155,8 @@ export default function SignInPage() {
                   minLength={8}
                   required
                   labelColor={vars.color.neonMint}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <Typography
                   as="p"
@@ -124,9 +183,9 @@ export default function SignInPage() {
                   </Link>
                 </Typography>
 
-                <Button
-                  variant="colored"
-                  size="large"
+                <button
+                  type="submit"
+                  disabled={isLoading}
                   style={{
                     width: "100%",
                     background: vars.color.neonMint,
@@ -135,16 +194,14 @@ export default function SignInPage() {
                     color: vars.color.vaultBlack,
                     fontWeight: 600,
                     border: "none",
+                    cursor: isLoading ? "not-allowed" : "pointer",
+                    opacity: isLoading ? 0.6 : 1,
+                    fontSize: fluidUnit(20),
+                    fontFamily: "Instrument Sans, system-ui, sans-serif",
                   }}
                 >
-                  <Typography
-                    as="span"
-                    font="Instrument Sans"
-                    style={{ fontSize: fluidUnit(20) }}
-                  >
-                    Sign In
-                  </Typography>
-                </Button>
+                  {isLoading ? "Signing In..." : "Sign In"}
+                </button>
               </form>
 
               <div

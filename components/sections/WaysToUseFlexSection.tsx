@@ -66,22 +66,19 @@ const WaysToUseFlexSection: React.FC<WaysToUseFlexSectionProps> = ({
         >
           {title}
         </Typography>
-        {rows.map((r) => (
-          <>
-            {
-              <FeatureFlexSection
-                sectionPadding={0}
-                dark={dark}
-                items={r.map((i) => ({
-                  alt: i.alt,
-                  src: i.src,
-                  title: i.label,
-                  description: "",
-                  brandLogo: i.brandLogo,
-                }))}
-              ></FeatureFlexSection>
-            }
-          </>
+        {rows.map((r, index) => (
+          <FeatureFlexSection
+            key={index}
+            sectionPadding={0}
+            dark={dark}
+            items={r.map((i) => ({
+              alt: i.alt,
+              src: i.src,
+              title: i.label,
+              description: "",
+              brandLogo: i.brandLogo,
+            }))}
+          />
         ))}
       </Container>
     </section>

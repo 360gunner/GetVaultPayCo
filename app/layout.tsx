@@ -4,6 +4,7 @@ import { Space_Grotesk, Instrument_Sans } from "next/font/google";
 import { themeClass } from "@/styles/theme.css";
 import ViewportUnitsUpdater from "@/components/ViewportUnitsUpdater";
 import { ImageAnimationWrapper } from "@/components/ImageAnimationWrapper";
+import { AuthProvider } from "@/lib/auth-context";
 
 import "./globals.css";
 
@@ -96,9 +97,11 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${instrumentSans.variable} antialiased ${themeClass}`}
       >
-        <ViewportUnitsUpdater />
-        <ImageAnimationWrapper />
-        {children}
+        <AuthProvider>
+          <ViewportUnitsUpdater />
+          <ImageAnimationWrapper />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

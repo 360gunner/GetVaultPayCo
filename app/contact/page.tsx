@@ -67,8 +67,8 @@ export default function ContactPage() {
         buttonLabel="Get Support"
         buttonVariant="secondary"
         buttonHref="#contact-form"
-        imageSrc="/image 95_1.png"
-        imageAlt="Contact VaultPay"
+        imageSrc="/contact-hero.svg"
+        imageAlt="Contact VaultPay Support"
         containerSize="2xl"
         gridTemplateColumns="1fr 1fr"
         containerStyle={{ padding: `${vars.space.xl} ${vars.space["4xl"]}` }}

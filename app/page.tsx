@@ -495,6 +495,19 @@ const HeroSection: React.FC = () => {
                 height={48}
               />
             </a>
+            <a
+              href="https://appgallery.huawei.com/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Explore it on AppGallery"
+            >
+              <Image
+                src="/huawei_appgallery_badge.svg"
+                alt="Explore it on Huawei AppGallery"
+                width={160}
+                height={48}
+              />
+            </a>
           </div>
         </div>
       </Container>

@@ -70,7 +70,7 @@ export default function AboutPage() {
         containerSize="lg"
         sectionPadding={`${vars.space.xl} ${vars.space["4xl"]}`}
         image={{
-          src: "/image 91.png",
+          src: "/image 1022.png",
           alt: "VaultPay Mission",
           width: 503,
           height: 545,

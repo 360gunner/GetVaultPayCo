@@ -5,26 +5,287 @@ import { vars } from "@/styles/theme.css";
 import Typography from "@/components/Typography/Typography";
 import { fluidUnit } from "@/styles/fluid-unit";
 import Image from "next/image";
+import { submitKYC, getKYCStatus } from "@/lib/vaultpay-api";
+import { useAuth } from "@/lib/auth-context";
+import { useRouter } from "next/navigation";
 
 export default function KYCVerificationPage() {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [linkSent, setLinkSent] = useState(false);
+  const router = useRouter();
+  const { user, isAuthenticated } = useAuth();
+  const [currentStep, setCurrentStep] = useState(1);
   const [selectedCountry, setSelectedCountry] = useState("");
   const isUSA = selectedCountry === "US";
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  // Get country from localStorage (saved during signup)
+  const [kycData, setKycData] = useState({
+    idType: "passport",
+    addressDocType: "utility_bill",
+    identificationNumber: "",
+    idDocument: null as File | null,
+    addressDocument: null as File | null,
+    selfieImage: null as File | null,
+  });
+
   useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/signin");
+      return;
+    }
     const country = localStorage.getItem("signupCountry") || "";
     setSelectedCountry(country);
-  }, []);
+    checkExistingKYC();
+  }, [isAuthenticated, router]);
 
-  const handleSendLink = () => {
-    if (phoneNumber) {
-      console.log("Sending verification link to:", phoneNumber);
-      setLinkSent(true);
-      setTimeout(() => setLinkSent(false), 3000);
+  const checkExistingKYC = async () => {
+    if (!user) return;
+    try {
+      const response = await getKYCStatus(user.user_id, user.login_code);
+      if (response.status && response.data.is_kyc_verified === 2) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Error checking KYC status:", error);
     }
   };
+
+  const handleFileChange = (field: 'idDocument' | 'addressDocument' | 'selfieImage', file: File | null) => {
+    setKycData({ ...kycData, [field]: file });
+    setError("");
+  };
+
+  const handleSubmitKYC = async () => {
+    if (!user) {
+      setError("User not authenticated");
+      return;
+    }
+
+    if (!kycData.identificationNumber || !kycData.idDocument || !kycData.addressDocument || !kycData.selfieImage) {
+      setError("Please complete all required fields and upload all documents");
+      return;
+    }
+
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const response = await submitKYC({
+        userId: user.user_id,
+        loginCode: user.login_code,
+        id_type: kycData.idType,
+        address_doc_type: kycData.addressDocType,
+        Identification_number: kycData.identificationNumber,
+        identification_document: kycData.idDocument,
+        address_document: kycData.addressDocument,
+        face_verification_image: kycData.selfieImage,
+      });
+
+      if (response.status) {
+        setSuccess(true);
+        setTimeout(() => {
+          router.push("/");
+        }, 3000);
+      } else {
+        setError(response.message || "KYC submission failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("KYC submission error:", err);
+      setError("An error occurred during submission. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <div style={{ maxWidth: 600, margin: "0 auto" }}>
+            <Typography as="h2" style={{ fontSize: fluidUnit(32), fontWeight: 700, marginBottom: fluidUnit(24), color: vars.color.vaultBlack }}>
+              Step 1: Identification Number
+            </Typography>
+            <div style={{ marginBottom: fluidUnit(24) }}>
+              <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>ID Type</label>
+              <select
+                value={kycData.idType}
+                onChange={(e) => setKycData({ ...kycData, idType: e.target.value })}
+                style={{
+                  width: "100%",
+                  padding: fluidUnit(16),
+                  borderRadius: fluidUnit(12),
+                  border: `2px solid ${vars.color.vaultBlack}`,
+                  fontSize: fluidUnit(16),
+                  backgroundColor: vars.color.vaultWhite,
+                }}
+              >
+                <option value="passport">Passport</option>
+                <option value="drivers_license">Driver's License</option>
+                <option value="national_id">National ID</option>
+              </select>
+            </div>
+            <div style={{ marginBottom: fluidUnit(24) }}>
+              <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Identification Number</label>
+              <input
+                type="text"
+                value={kycData.identificationNumber}
+                onChange={(e) => setKycData({ ...kycData, identificationNumber: e.target.value })}
+                placeholder="Enter your ID number"
+                style={{
+                  width: "100%",
+                  padding: fluidUnit(16),
+                  borderRadius: fluidUnit(12),
+                  border: `2px solid ${vars.color.vaultBlack}`,
+                  fontSize: fluidUnit(16),
+                  backgroundColor: vars.color.vaultWhite,
+                }}
+              />
+            </div>
+          </div>
+        );
+      case 2:
+        return (
+          <div style={{ maxWidth: 600, margin: "0 auto" }}>
+            <Typography as="h2" style={{ fontSize: fluidUnit(32), fontWeight: 700, marginBottom: fluidUnit(24), color: vars.color.vaultBlack }}>
+              Step 2: Upload ID Document
+            </Typography>
+            <div style={{
+              padding: fluidUnit(32),
+              border: `3px dashed ${vars.color.vaultBlack}`,
+              borderRadius: fluidUnit(16),
+              textAlign: "center",
+              background: vars.color.vaultWhite,
+            }}>
+              <Typography as="p" style={{ fontSize: fluidUnit(16), marginBottom: fluidUnit(16) }}>
+                Upload a clear photo of your {kycData.idType.replace('_', ' ')}
+              </Typography>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleFileChange('idDocument', e.target.files?.[0] || null)}
+                style={{ marginBottom: fluidUnit(16) }}
+              />
+              {kycData.idDocument && (
+                <Typography as="p" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint, fontWeight: 600 }}>
+                  ✓ {kycData.idDocument.name}
+                </Typography>
+              )}
+            </div>
+          </div>
+        );
+      case 3:
+        return (
+          <div style={{ maxWidth: 600, margin: "0 auto" }}>
+            <Typography as="h2" style={{ fontSize: fluidUnit(32), fontWeight: 700, marginBottom: fluidUnit(24), color: vars.color.vaultBlack }}>
+              Step 3: Upload Address Proof
+            </Typography>
+            <div style={{ marginBottom: fluidUnit(24) }}>
+              <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Document Type</label>
+              <select
+                value={kycData.addressDocType}
+                onChange={(e) => setKycData({ ...kycData, addressDocType: e.target.value })}
+                style={{
+                  width: "100%",
+                  padding: fluidUnit(16),
+                  borderRadius: fluidUnit(12),
+                  border: `2px solid ${vars.color.vaultBlack}`,
+                  fontSize: fluidUnit(16),
+                  backgroundColor: vars.color.vaultWhite,
+                }}
+              >
+                <option value="utility_bill">Utility Bill</option>
+                <option value="bank_statement">Bank Statement</option>
+                <option value="lease_agreement">Lease Agreement</option>
+              </select>
+            </div>
+            <div style={{
+              padding: fluidUnit(32),
+              border: `3px dashed ${vars.color.vaultBlack}`,
+              borderRadius: fluidUnit(16),
+              textAlign: "center",
+              background: vars.color.vaultWhite,
+            }}>
+              <Typography as="p" style={{ fontSize: fluidUnit(16), marginBottom: fluidUnit(16) }}>
+                Upload your address proof document
+              </Typography>
+              <input
+                type="file"
+                accept="image/*,application/pdf"
+                onChange={(e) => handleFileChange('addressDocument', e.target.files?.[0] || null)}
+                style={{ marginBottom: fluidUnit(16) }}
+              />
+              {kycData.addressDocument && (
+                <Typography as="p" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint, fontWeight: 600 }}>
+                  ✓ {kycData.addressDocument.name}
+                </Typography>
+              )}
+            </div>
+          </div>
+        );
+      case 4:
+        return (
+          <div style={{ maxWidth: 600, margin: "0 auto" }}>
+            <Typography as="h2" style={{ fontSize: fluidUnit(32), fontWeight: 700, marginBottom: fluidUnit(24), color: vars.color.vaultBlack }}>
+              Step 4: Take a Selfie
+            </Typography>
+            <div style={{
+              padding: fluidUnit(32),
+              border: `3px dashed ${vars.color.vaultBlack}`,
+              borderRadius: fluidUnit(16),
+              textAlign: "center",
+              background: vars.color.vaultWhite,
+            }}>
+              <Typography as="p" style={{ fontSize: fluidUnit(16), marginBottom: fluidUnit(16) }}>
+                Take a clear selfie for identity verification
+              </Typography>
+              <input
+                type="file"
+                accept="image/*"
+                capture="user"
+                onChange={(e) => handleFileChange('selfieImage', e.target.files?.[0] || null)}
+                style={{ marginBottom: fluidUnit(16) }}
+              />
+              {kycData.selfieImage && (
+                <Typography as="p" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint, fontWeight: 600 }}>
+                  ✓ {kycData.selfieImage.name}
+                </Typography>
+              )}
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  if (success) {
+    return (
+      <div style={{ background: vars.color.vpGreen, minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ textAlign: "center", maxWidth: 600, padding: fluidUnit(32) }}>
+          <div style={{
+            width: fluidUnit(120),
+            height: fluidUnit(120),
+            background: vars.color.vaultWhite,
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto",
+            marginBottom: fluidUnit(32),
+            border: `4px solid ${vars.color.vaultBlack}`,
+          }}>
+            <span style={{ fontSize: fluidUnit(60), color: vars.color.neonMint }}>✓</span>
+          </div>
+          <Typography as="h1" style={{ fontSize: fluidUnit(48), fontWeight: 700, marginBottom: fluidUnit(16), color: vars.color.vaultBlack }}>
+            KYC Submitted!
+          </Typography>
+          <Typography as="p" style={{ fontSize: fluidUnit(20), color: vars.color.vaultBlack }}>
+            Your documents are being reviewed. You'll be notified once verification is complete.
+          </Typography>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ 
@@ -208,7 +469,7 @@ export default function KYCVerificationPage() {
             </div>
           </div>
 
-          {/* Right Side - QR Code & Phone Input */}
+          {/* Right Side - KYC Form */}
           <div>
             <Typography as="h1" style={{ 
               fontSize: fluidUnit(48), 
@@ -226,8 +487,27 @@ export default function KYCVerificationPage() {
               color: "#333",
               lineHeight: 1.6
             }}>
-              Please scan the QR code to verify your identity using your phone, or enter your phone number to receive the link.
+              Complete the KYC verification process to unlock all features of your VaultPay account.
             </Typography>
+            
+            {/* Progress Indicator */}
+            <div style={{ marginBottom: fluidUnit(32) }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: fluidUnit(8) }}>
+                {[1, 2, 3, 4].map(step => (
+                  <div key={step} style={{
+                    flex: 1,
+                    height: 4,
+                    background: currentStep >= step ? vars.color.vaultBlack : 'rgba(0,0,0,0.2)',
+                    marginRight: step < 4 ? fluidUnit(8) : 0,
+                    borderRadius: 2,
+                    transition: 'background 0.3s',
+                  }} />
+                ))}
+              </div>
+              <Typography as="p" style={{ fontSize: fluidUnit(14), color: '#666' }}>
+                Step {currentStep} of 4
+              </Typography>
+            </div>
 
             {/* Plaid Message for USA */}
             {isUSA && (
@@ -293,149 +573,90 @@ export default function KYCVerificationPage() {
               </div>
             )}
 
-            {/* QR Code Section */}
+            {/* KYC Form Content */}
             <div style={{
               background: vars.color.vaultWhite,
               border: `3px solid ${vars.color.vaultBlack}`,
               borderRadius: fluidUnit(24),
               padding: fluidUnit(32),
-              marginBottom: fluidUnit(32),
-              textAlign: "center",
+              marginBottom: fluidUnit(24),
             }}>
-              <Typography as="h3" style={{ 
-                fontSize: fluidUnit(20), 
-                fontWeight: 700, 
-                marginBottom: fluidUnit(24),
-                color: vars.color.vaultBlack 
-              }}>
-                Scan QR Code
-              </Typography>
-              
-              {/* Mock QR Code */}
+              {renderStepContent()}
+            </div>
+
+            {/* Error Message */}
+            {error && (
               <div style={{
-                width: fluidUnit(200),
-                height: fluidUnit(200),
-                background: vars.color.vaultBlack,
-                margin: "0 auto",
-                marginBottom: fluidUnit(16),
+                padding: fluidUnit(16),
+                background: "rgba(198, 40, 40, 0.1)",
+                border: "2px solid #c62828",
                 borderRadius: fluidUnit(12),
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                position: "relative",
-                overflow: "hidden",
-              }}>
-                {/* QR Code Pattern (simplified) */}
-                <div style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(8, 1fr)",
-                  gap: 2,
-                  width: "80%",
-                  height: "80%",
-                }}>
-                  {Array.from({ length: 64 }).map((_, i) => (
-                    <div 
-                      key={i} 
-                      style={{
-                        background: Math.random() > 0.5 ? vars.color.vaultWhite : vars.color.vaultBlack,
-                        borderRadius: 2,
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-              
-              <Typography as="p" style={{ 
-                fontSize: fluidUnit(14), 
-                color: "#666" 
-              }}>
-                Use your phone camera to scan
-              </Typography>
-            </div>
-
-            {/* Divider */}
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              gap: fluidUnit(16),
-              marginBottom: fluidUnit(32),
-            }}>
-              <div style={{ flex: 1, height: 2, background: "rgba(0,0,0,0.2)" }} />
-              <Typography as="span" style={{ fontSize: fluidUnit(14), fontWeight: 600, color: "#666" }}>
-                OR
-              </Typography>
-              <div style={{ flex: 1, height: 2, background: "rgba(0,0,0,0.2)" }} />
-            </div>
-
-            {/* Phone Number Input */}
-            <div style={{
-              background: vars.color.vaultWhite,
-              border: `3px solid ${vars.color.vaultBlack}`,
-              borderRadius: fluidUnit(24),
-              padding: fluidUnit(32),
-            }}>
-              <Typography as="h3" style={{ 
-                fontSize: fluidUnit(20), 
-                fontWeight: 700, 
-                marginBottom: fluidUnit(16),
-                color: vars.color.vaultBlack 
-              }}>
-                Send Link to Phone
-              </Typography>
-              
-              <Typography as="p" style={{ 
-                fontSize: fluidUnit(14), 
                 marginBottom: fluidUnit(24),
-                color: "#666" 
               }}>
-                We'll send you a verification link via SMS
-              </Typography>
-
-              <div style={{ marginBottom: fluidUnit(16) }}>
-                <label style={{ 
-                  display: "block", 
-                  fontSize: fluidUnit(14), 
-                  fontWeight: 600, 
-                  marginBottom: fluidUnit(8),
-                  color: vars.color.vaultBlack
-                }}>
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  placeholder="+1 (555) 000-0000"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  style={{
-                    width: "100%",
-                    padding: fluidUnit(16),
-                    borderRadius: fluidUnit(12),
-                    border: `2px solid ${vars.color.vaultBlack}`,
-                    fontSize: fluidUnit(16),
-                    backgroundColor: vars.color.cloudSilver,
-                  }}
-                />
+                <Typography as="p" style={{ color: "#c62828", fontSize: fluidUnit(14) }}>
+                  {error}
+                </Typography>
               </div>
+            )}
 
-              <button
-                onClick={handleSendLink}
-                disabled={!phoneNumber || linkSent}
-                style={{
-                  width: "100%",
-                  padding: fluidUnit(16),
-                  background: linkSent ? vars.color.neonMint : vars.color.vaultBlack,
-                  color: vars.color.vaultWhite,
-                  border: 'none',
-                  borderRadius: fluidUnit(50),
-                  fontSize: fluidUnit(16),
-                  fontWeight: 600,
-                  cursor: phoneNumber && !linkSent ? 'pointer' : 'not-allowed',
-                  opacity: phoneNumber && !linkSent ? 1 : 0.6,
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                {linkSent ? '✓ Link Sent!' : 'Send Verification Link'}
-              </button>
+            {/* Navigation Buttons */}
+            <div style={{ display: 'flex', gap: fluidUnit(16) }}>
+              {currentStep > 1 && (
+                <button
+                  onClick={() => setCurrentStep(currentStep - 1)}
+                  style={{
+                    flex: 1,
+                    padding: fluidUnit(16),
+                    background: vars.color.vaultWhite,
+                    color: vars.color.vaultBlack,
+                    border: `2px solid ${vars.color.vaultBlack}`,
+                    borderRadius: fluidUnit(50),
+                    fontSize: fluidUnit(16),
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
+                >
+                  Back
+                </button>
+              )}
+              
+              {currentStep < 4 ? (
+                <button
+                  onClick={() => setCurrentStep(currentStep + 1)}
+                  style={{
+                    flex: 1,
+                    padding: fluidUnit(16),
+                    background: vars.color.vaultBlack,
+                    color: vars.color.vaultWhite,
+                    border: 'none',
+                    borderRadius: fluidUnit(50),
+                    fontSize: fluidUnit(16),
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
+                >
+                  Next
+                </button>
+              ) : (
+                <button
+                  onClick={handleSubmitKYC}
+                  disabled={isLoading}
+                  style={{
+                    flex: 1,
+                    padding: fluidUnit(16),
+                    background: vars.color.neonMint,
+                    color: vars.color.vaultBlack,
+                    border: 'none',
+                    borderRadius: fluidUnit(50),
+                    fontSize: fluidUnit(16),
+                    fontWeight: 600,
+                    cursor: isLoading ? 'not-allowed' : 'pointer',
+                    opacity: isLoading ? 0.6 : 1,
+                  }}
+                >
+                  {isLoading ? 'Submitting...' : 'Submit KYC'}
+                </button>
+              )}
             </div>
 
             {/* Help Text */}
