@@ -18,12 +18,11 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https: blob: https://api.qrserver.com",
       "font-src 'self' data: https://r2cdn.perplexity.ai",
-      "connect-src 'self' https://vitals.vercel-insights.com https://challenges.cloudflare.com https://cloudflareinsights.com https://vaultpay.shop https://usinguse.online",
+      "connect-src 'self' https://vitals.vercel-insights.com https://challenges.cloudflare.com https://cloudflareinsights.com https://vaultpay.shop https://usinguse.online http://98.83.36.86",
       "frame-src 'self' https://challenges.cloudflare.com",
       "frame-ancestors 'self'",
       "base-uri 'self'",
-      "form-action 'self'",
-      "upgrade-insecure-requests"
+      "form-action 'self'"
     ].join('; ')
   }
 ];
