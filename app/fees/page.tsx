@@ -201,6 +201,18 @@ const feeTableData = [
     category: "crypto",
   },
   {
+    service: "Crypto Top Up",
+    price: "1.5%",
+    details: "Fee on all cryptocurrency top-ups",
+    category: "crypto",
+  },
+  {
+    service: "FX Conversion",
+    price: "0.5%",
+    details: "Foreign exchange conversion fee",
+    category: "transfers",
+  },
+  {
     service: "Monthly Account Fee",
     price: "$0.00",
     details: "No monthly fees ever",
