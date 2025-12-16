@@ -3,8 +3,8 @@
  * Handles all API calls to the VaultPay backend
  */
 
-const BASE_URL = 'https://usinguse.online/api';
-const API_KEY = 'mobix-7p342tybn653wnkh248532';
+// Gateway handles API key injection and rate limiting
+const BASE_URL = 'http://98.83.36.86';
 
 export interface RegisterRequest {
   email: string;
@@ -144,13 +144,16 @@ export async function register(data: RegisterRequest): Promise<AuthResponse> {
  * Login user
  */
 export async function login(data: LoginRequest): Promise<AuthResponse> {
-  const formData = new FormData();
-  formData.append('email', data.email);
-  formData.append('password', data.password);
+  const params = new URLSearchParams();
+  params.append('email', data.email);
+  params.append('password', data.password);
 
   const response = await fetch(`${BASE_URL}/api/v2/Auth/login`, {
     method: 'POST',
-    body: formData,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: params,
   });
 
   return response.json();
