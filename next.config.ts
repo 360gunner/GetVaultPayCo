@@ -9,22 +9,7 @@ const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'X-XSS-Protection', value: '1; mode=block' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=()' },
-  {
-    key: 'Content-Security-Policy',
-    value: [
-      "default-src 'self'",
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://challenges.cloudflare.com https://static.cloudflareinsights.com",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: https: blob: https://api.qrserver.com",
-      "font-src 'self' data: https://r2cdn.perplexity.ai",
-      "connect-src 'self' https://vitals.vercel-insights.com https://challenges.cloudflare.com https://cloudflareinsights.com https://vaultpay.shop https://usinguse.online http://98.83.36.86",
-      "frame-src 'self' https://challenges.cloudflare.com",
-      "frame-ancestors 'self'",
-      "base-uri 'self'",
-      "form-action 'self'"
-    ].join('; ')
-  }
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=()' }
 ];
 
 const nextConfig: NextConfig = {

@@ -42,7 +42,7 @@ export default function SignInPage() {
         if (response.data.is_kyc_verified === "0" || response.data.is_kyc_verified === "3") {
           router.push("/kyc-verification");
         } else {
-          router.push("/");
+          router.push("/dashboard");
         }
       } else {
         setError(response.message || "Invalid email or password");
