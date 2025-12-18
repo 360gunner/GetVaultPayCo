@@ -483,7 +483,7 @@ const HeroSection: React.FC = () => {
               />
             </a>
             <a
-              href="https://www.apple.com/app-store/"
+              href="https://apps.apple.com/us/app/vaultpay-borderless-payments/id6755896628"
               target="_blank"
               rel="noreferrer"
               aria-label="Download on the App Store"
