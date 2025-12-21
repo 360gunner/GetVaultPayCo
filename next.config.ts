@@ -47,6 +47,16 @@ const nextConfig: NextConfig = {
         hostname: 'api.qrserver.com',
         pathname: '/v1/create-qr-code/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'usinguse.online',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '98.83.36.86',
+        pathname: '/**',
+      },
     ],
   },
 };

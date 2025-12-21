@@ -26,6 +26,8 @@ interface SignupData {
   homeAddress: string;
   postalCode: string;
   phoneNumber: string;
+  ssn: string;
+  referralCode: string;
   acceptTos: boolean;
   acceptMarketing: boolean;
 }
@@ -54,9 +56,14 @@ export default function SignUpPage() {
     homeAddress: "",
     postalCode: "",
     phoneNumber: "",
+    ssn: "",
+    referralCode: "",
     acceptTos: false,
     acceptMarketing: false,
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isUSSelected, setIsUSSelected] = useState(false);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [passwordStrength, setPasswordStrength] = useState({
@@ -306,6 +313,12 @@ export default function SignUpPage() {
           setIsLoading(false);
           return;
         }
+        // Validate SSN for US users
+        if (isUSSelected && (!formData.ssn || formData.ssn.replace(/\D/g, '').length !== 9)) {
+          setErrors({ ssn: "Valid 9-digit SSN required for US residents" });
+          setIsLoading(false);
+          return;
+        }
         break;
       case 9:
         if (!formData.homeAddress || !formData.postalCode) {
@@ -435,7 +448,51 @@ export default function SignUpPage() {
       )},
       { title: "Create a password", content: (
         <>
-          {renderInput("Password", "Enter password", "password", "password")}
+          <div style={{ marginBottom: fluidUnit(24) }}>
+            <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Password</label>
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter password"
+                value={formData.password}
+                onChange={(e) => {
+                  setFormData({ ...formData, password: e.target.value });
+                  validatePassword(e.target.value);
+                }}
+                style={{
+                  width: "100%",
+                  padding: fluidUnit(16),
+                  paddingRight: fluidUnit(48),
+                  borderRadius: fluidUnit(12),
+                  border: `2px solid ${vars.color.vaultBlack}`,
+                  fontSize: fluidUnit(16),
+                  backgroundColor: 'rgba(255,255,255,0.9)',
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: 12,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 4,
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
+                  {showPassword ? (
+                    <><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></>
+                  ) : (
+                    <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></>
+                  )}
+                </svg>
+              </button>
+            </div>
+          </div>
           <div style={{ padding: fluidUnit(12), background: 'rgba(255,255,255,0.5)', borderRadius: fluidUnit(8), marginBottom: fluidUnit(16) }}>
             {['8+ chars', 'Uppercase', 'Lowercase', 'Number', 'Special char'].map((req, i) => {
               const checks = [passwordStrength.minLength, passwordStrength.hasUpper, passwordStrength.hasLower, passwordStrength.hasNumber, passwordStrength.hasSpecial];
@@ -446,7 +503,48 @@ export default function SignUpPage() {
               );
             })}
           </div>
-          {renderInput("Confirm Password", "Re-enter", "passwordConfirm", "password")}
+          <div style={{ marginBottom: fluidUnit(24) }}>
+            <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Confirm Password</label>
+            <div style={{ position: "relative" }}>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Re-enter password"
+                value={formData.passwordConfirm}
+                onChange={(e) => setFormData({ ...formData, passwordConfirm: e.target.value })}
+                style={{
+                  width: "100%",
+                  padding: fluidUnit(16),
+                  paddingRight: fluidUnit(48),
+                  borderRadius: fluidUnit(12),
+                  border: `2px solid ${vars.color.vaultBlack}`,
+                  fontSize: fluidUnit(16),
+                  backgroundColor: 'rgba(255,255,255,0.9)',
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={{
+                  position: "absolute",
+                  right: 12,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 4,
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
+                  {showConfirmPassword ? (
+                    <><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></>
+                  ) : (
+                    <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></>
+                  )}
+                </svg>
+              </button>
+            </div>
+          </div>
         </>
       )},
       { title: "What's your name?", content: (
@@ -499,8 +597,10 @@ export default function SignUpPage() {
               value={formData.country}
               onChange={(e) => {
                 const countryId = parseInt(e.target.value);
-                setFormData({ ...formData, country: e.target.value, state: "", city: "" });
+                const selectedCountry = countries.find(c => c.id === countryId);
+                setFormData({ ...formData, country: e.target.value, state: "", city: "", ssn: "" });
                 setSelectedCountryId(countryId);
+                setIsUSSelected(selectedCountry?.symbol === 'US' || selectedCountry?.name?.toLowerCase().includes('united states') || false);
                 setStates([]);
                 setCities([]);
               }}
@@ -547,7 +647,7 @@ export default function SignUpPage() {
             </select>
           </div>
           {cities.length > 0 && (
-            <div>
+            <div style={{ marginBottom: fluidUnit(16) }}>
               <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>City (Optional)</label>
               <select
                 value={formData.city}
@@ -568,6 +668,38 @@ export default function SignUpPage() {
               </select>
             </div>
           )}
+          {isUSSelected && (
+            <div style={{ marginTop: fluidUnit(16) }}>
+              <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Social Security Number (SSN)</label>
+              <input
+                type="text"
+                placeholder="XXX-XX-XXXX"
+                value={formData.ssn}
+                onChange={(e) => {
+                  const digits = e.target.value.replace(/\D/g, '');
+                  let formatted = digits;
+                  if (digits.length >= 5) {
+                    formatted = `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5, 9)}`;
+                  } else if (digits.length >= 3) {
+                    formatted = `${digits.slice(0, 3)}-${digits.slice(3)}`;
+                  }
+                  setFormData({ ...formData, ssn: formatted });
+                }}
+                maxLength={11}
+                style={{
+                  width: "100%",
+                  padding: fluidUnit(16),
+                  borderRadius: fluidUnit(12),
+                  border: `2px solid ${vars.color.vaultBlack}`,
+                  fontSize: fluidUnit(16),
+                  backgroundColor: 'rgba(255,255,255,0.9)',
+                }}
+              />
+              <Typography as="p" style={{ fontSize: fluidUnit(12), color: '#666', marginTop: fluidUnit(8) }}>
+                Required for US residents for identity verification
+              </Typography>
+            </div>
+          )}
         </>
       )},
       { title: "Enter your contact details", content: (
@@ -579,6 +711,25 @@ export default function SignUpPage() {
       )},
       { title: "Almost done!", content: (
         <>
+          {/* Referral Code */}
+          <div style={{ marginBottom: fluidUnit(24) }}>
+            <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Referral Code (Optional)</label>
+            <input
+              type="text"
+              placeholder="Enter referral code if you have one"
+              value={formData.referralCode}
+              onChange={(e) => setFormData({ ...formData, referralCode: e.target.value.toUpperCase() })}
+              style={{
+                width: "100%",
+                padding: fluidUnit(16),
+                borderRadius: fluidUnit(12),
+                border: `2px solid ${vars.color.vaultBlack}`,
+                fontSize: fluidUnit(16),
+                backgroundColor: 'rgba(255,255,255,0.9)',
+              }}
+            />
+          </div>
+          
           <label style={{ display: 'flex', gap: fluidUnit(12), padding: fluidUnit(16), background: 'rgba(255,255,255,0.5)', borderRadius: fluidUnit(12), marginBottom: fluidUnit(16), cursor: 'pointer', border: errors.tos ? '2px solid #c62828' : 'none' }}>
             <input type="checkbox" checked={formData.acceptTos} onChange={(e) => setFormData({ ...formData, acceptTos: e.target.checked })} />
             <span style={{ fontSize: fluidUnit(14) }}>I accept Terms & Privacy Policy</span>
