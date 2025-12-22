@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
+import { USDCLogo, USDTLogo, PYUSDLogo } from "@/components/CryptoLogos";
 import { getAccountBalance, getDashboardTransactionsExtended, getDashboardTransactionsByCurrency, createCurrencyWallet, getUserCards, getCardTransactions, freezeCard, unfreezeCard, getCardPin, fundCard, withdrawFromCard, generatePaymentQRCode, generateProfileQRCode, getUserQRCodes, p2pTransfer, lookupP2PRecipient, getLiveRates, convertCurrency, getBinanceMinimumWithdrawal, binancePayout, usdWithdrawal, euroWithdrawalNew, swiftWithdrawal, getUserBankAccounts, linkBankAccount, deleteBankAccount, getLinkedBankAccounts, createPlaidLinkToken, unlinkPlaidAccount, getReferralStats, getReferralLevels, getSupportTickets, createSupportTicket, replyToTicket, closeTicket, getTicketCategories, getTicketDetails, checkUsernameAvailability, updateUsername, changePassword, getNotifications, markNotificationAsRead, markAllNotificationsAsRead, lookupUserForDepositRequest, createDepositRequest, getSentDepositRequests, getReceivedDepositRequests, manageDepositRequest, respondToDepositRequest, findUserByIdentifier, generateCryptoAddress, redeemGiftCard, getPhysicalCard, freezePhysicalCard, getPhysicalCardPin, getCardStatus, activateCard, getMapleradCardDetails, getMapleradCardTransactions, uploadProfilePicture, uploadCoverPhoto, getSocialStats, getFollowers, getFollowing, getFollowRequestsCount, getFollowRequests, acceptFollowRequest, rejectFollowRequest, setProfilePrivacy, DashboardTransaction, BalanceResponse, Card, CardTransaction, CardSpendingSummary, CardLimits, PaymentQRCode, ProfileQRCode, LinkedBankAccount, ReferralStats, ReferralLevel, SupportTicket, NotificationItem, DepositRequest, CryptoCoin, PhysicalCard, CardStatusResponse, TicketCategory, TicketCounts, TicketReply } from "@/lib/vaultpay-api";
 
 type DashboardTab = "dashboard" | "feed" | "payments" | "accounts" | "cards" | "friends" | "rewards" | "qrcodes" | "helpdesk" | "profile" | "settings";
@@ -200,6 +201,8 @@ export default function DashboardPage() {
   const [binanceMinLoading, setBinanceMinLoading] = useState(false);
   const [bankTransferForm, setBankTransferForm] = useState({ bankName: '', accountNumber: '', routingNumber: '', accountHolder: '', amount: '', accountType: 'checking', recipientCountry: '', recipientCity: '', recipientAddress: '', recipientZipCode: '', purpose: '' });
   const [bankTransferLoading, setBankTransferLoading] = useState(false);
+  const [bankTransferRecipientType, setBankTransferRecipientType] = useState<'select' | 'myself' | 'someone_else'>('select');
+  const [selectedLinkedAccount, setSelectedLinkedAccount] = useState<string>('');
   const [sepaTransferForm, setSepaTransferForm] = useState({ iban: '', bicSwift: '', beneficiaryName: '', reference: '', amount: '' });
   const [sepaTransferLoading, setSepaTransferLoading] = useState(false);
   const [swiftTransferForm, setSwiftTransferForm] = useState({ recipientCountry: '', swiftCode: '', accountNumber: '', beneficiaryName: '', beneficiaryAddress: '', recipientCity: '', recipientZipCode: '', transferPurpose: '', amount: '' });
@@ -501,10 +504,12 @@ export default function DashboardPage() {
         getUserBankAccounts(user.user_id, user.login_code, 'USD'),
         getUserBankAccounts(user.user_id, user.login_code, 'EUR')
       ]);
-      const allAccounts = [
-        ...(usdRes.status && usdRes.data ? usdRes.data : []),
-        ...(eurRes.status && eurRes.data ? eurRes.data : [])
-      ];
+      const usdAccounts = (usdRes.status && usdRes.data ? usdRes.data : []).map(acc => ({ ...acc, currency: acc.currency || 'USD' }));
+      const eurAccounts = (eurRes.status && eurRes.data ? eurRes.data : []).map(acc => ({ ...acc, currency: acc.currency || 'EUR' }));
+      const allAccounts = [...usdAccounts, ...eurAccounts];
+      console.log('Loaded bank accounts:', allAccounts);
+      console.log('EUR accounts:', eurAccounts);
+      allAccounts.forEach((acc, i) => console.log(`Account ${i}:`, JSON.stringify(acc, null, 2)));
       setLinkedBankAccounts(allAccounts);
     } catch (error) { console.error("Error loading bank accounts:", error); }
     finally { setBankAccountsLoading(false); }
@@ -1975,7 +1980,7 @@ export default function DashboardPage() {
   const renderPhysicalCardDisplay = () => (
     <div>
       {/* Physical Card - Using card image like the app */}
-      <div style={{ position: "relative", marginBottom: 24, borderRadius: 16, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.4)", aspectRatio: "1.586" }}>
+      <div style={{ position: "relative", marginBottom: 24, borderRadius: 16, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.4)", aspectRatio: "1.586", maxWidth: 420, margin: "0 auto 24px" }}>
         {/* Card Background Image */}
         <img 
           src="https://pub-e001eb4506b145aa938b5d3badbff6a5.r2.dev/attachments/hguuzpvgcw9qv8qj1c2lc" 
@@ -1984,11 +1989,11 @@ export default function DashboardPage() {
         />
         
         {/* Card Overlay Content */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, padding: 24, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
           {/* Header with Eye Toggle */}
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <button onClick={() => setShowCardNumber(!showCardNumber)} style={{ padding: 8, borderRadius: 20, background: "rgba(0,0,0,0.3)", border: "none", cursor: "pointer", backdropFilter: "blur(4px)" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">{showCardNumber ? <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></> : <><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></>}</svg>
+            <button onClick={() => setShowCardNumber(!showCardNumber)} style={{ padding: 6, borderRadius: 16, background: "rgba(0,0,0,0.3)", border: "none", cursor: "pointer", backdropFilter: "blur(4px)" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">{showCardNumber ? <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></> : <><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></>}</svg>
             </button>
           </div>
           
@@ -1996,30 +2001,30 @@ export default function DashboardPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
             {/* Left - Card Number & Name */}
             <div>
-              <div onClick={() => showCardNumber && physicalCard?.accountNo && copyToClipboard(physicalCard.accountNo, 'cardNumber')} style={{ cursor: showCardNumber ? "pointer" : "default", marginBottom: 8 }}>
-                <span style={{ color: "#fff", fontSize: 18, fontWeight: 600, letterSpacing: 2, fontFamily: "'SF Mono', 'Roboto Mono', monospace", textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>
+              <div onClick={() => showCardNumber && physicalCard?.accountNo && copyToClipboard(physicalCard.accountNo, 'cardNumber')} style={{ cursor: showCardNumber ? "pointer" : "default", marginBottom: 6 }}>
+                <span style={{ color: "#fff", fontSize: 15, fontWeight: 600, letterSpacing: 1.5, fontFamily: "'SF Mono', 'Roboto Mono', monospace", textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>
                   {showCardNumber 
                     ? (physicalCard?.accountNo?.replace(/(\d{4})(?=\d)/g, '$1 ') || '•••• •••• •••• ••••') 
                     : `${physicalCard?.accountNo?.slice(0, 4) || '••••'} •••• •••• ${physicalCard?.accountNo?.slice(-4) || '••••'}`
                   }
                 </span>
               </div>
-              <div style={{ color: "#fff", fontSize: 14, fontWeight: 600, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>
+              <div style={{ color: "#fff", fontSize: 12, fontWeight: 600, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>
                 {user?.first_name?.toUpperCase()} {user?.last_name?.toUpperCase()}
               </div>
             </div>
             
             {/* Right - EXP & CVV */}
-            <div style={{ display: "flex", gap: 20 }}>
+            <div style={{ display: "flex", gap: 16 }}>
               <div>
-                <div style={{ color: "rgba(255,255,255,0.7)", fontSize: 9, marginBottom: 2, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>EXP</div>
-                <div style={{ color: "#fff", fontSize: 13, fontFamily: "monospace", textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>
+                <div style={{ color: "rgba(255,255,255,0.7)", fontSize: 8, marginBottom: 2, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>EXP</div>
+                <div style={{ color: "#fff", fontSize: 11, fontFamily: "monospace", textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>
                   {showCardNumber ? (physicalCard?.expiryDt || '••/••') : '••/••'}
                 </div>
               </div>
               <div>
-                <div style={{ color: "rgba(255,255,255,0.7)", fontSize: 9, marginBottom: 2, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>CVV</div>
-                <div style={{ color: "#fff", fontSize: 13, fontFamily: "monospace", textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>
+                <div style={{ color: "rgba(255,255,255,0.7)", fontSize: 8, marginBottom: 2, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>CVV</div>
+                <div style={{ color: "#fff", fontSize: 11, fontFamily: "monospace", textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}>
                   {showCardNumber ? (physicalCard?.cvv || '•••') : '•••'}
                 </div>
               </div>
@@ -2030,7 +2035,7 @@ export default function DashboardPage() {
         {/* Frozen Overlay */}
         {physicalCardFrozen && (
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ color: "#fff", fontSize: 18, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2 }}>Card Frozen</span>
+            <span style={{ color: "#fff", fontSize: 16, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2 }}>Card Frozen</span>
           </div>
         )}
       </div>
@@ -2332,7 +2337,7 @@ export default function DashboardPage() {
                   )}
 
                   {/* Card Brand Logo - Bottom Right */}
-                  <div style={{ position: "absolute", bottom: 60, right: -20, zIndex: 1, opacity: 0.9 }}>
+                  <div style={{ position: "absolute", bottom: 60, right: 10, zIndex: 1, opacity: 0.9 }}>
                     <img 
                       src={cardIsVisa 
                         ? "https://pub-e001eb4506b145aa938b5d3badbff6a5.r2.dev/attachments/p7dc18pbi8tb8d6dn2rgg"
@@ -3043,26 +3048,59 @@ export default function DashboardPage() {
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {linkedBankAccounts.map((account, index) => (
-            <div key={account.id || `bank-${index}`} style={{ background: "#141414", borderRadius: 12, border: "1px solid #1f1f1f", padding: 20, display: "flex", alignItems: "center", gap: 16 }}>
-              <div style={{ width: 56, height: 56, borderRadius: 12, background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <h4 style={{ color: "#fff", fontSize: 16, fontWeight: 600, margin: 0 }}>{account.bank_name || account.institution_name}</h4>
-                  <span style={{ background: "rgba(6,255,137,0.1)", color: "#06FF89", fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 4, textTransform: "uppercase" }}>Active</span>
+          {linkedBankAccounts.map((account, index) => {
+            // Extract last 4 digits from any available field
+            const getLast4Digits = () => {
+              const fields = [
+                account.account_mask,
+                account.accountMask,
+                account.iban,
+                account.IBAN,
+                account.account_number,
+                account.accountNumber,
+                account.routing_number,
+                account.routingNumber,
+                account.bic_swift,
+                account.bicSwift,
+                account.swift_code,
+                account.swiftCode,
+                account.id,
+                account.bankId
+              ];
+              
+              for (const field of fields) {
+                if (field && typeof field === 'string' && field.length >= 4) {
+                  return field.slice(-4);
+                }
+              }
+              
+              // If no field found, generate from account index
+              return String(1000 + index).slice(-4);
+            };
+            
+            return (
+              <div key={account.id || `bank-${index}`} style={{ background: "#141414", borderRadius: 12, border: "1px solid #1f1f1f", padding: 20, display: "flex", alignItems: "center", gap: 16 }}>
+                <div style={{ width: 56, height: 56, borderRadius: 12, background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
                 </div>
-                <p style={{ color: "#888", fontSize: 13, margin: "4px 0 0" }}>{account.account_type || 'Checking'} •••• {account.account_number?.slice(-4) || account.iban?.slice(-4) || '****'}</p>
-                <div style={{ display: "flex", gap: 16, marginTop: 8 }}>
-                  <span style={{ color: "#666", fontSize: 12 }}>{account.currency || 'USD'}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <h4 style={{ color: "#fff", fontSize: 16, fontWeight: 600, margin: 0 }}>{account.bank_name || account.institution_name || account.bankName}</h4>
+                    <span style={{ background: "rgba(6,255,137,0.1)", color: "#06FF89", fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 4, textTransform: "uppercase" }}>Active</span>
+                  </div>
+                  <p style={{ color: "#888", fontSize: 13, margin: "4px 0 0" }}>
+                    {account.currency === 'EUR' || account.iban ? 'IBAN' : (account.account_type || account.accountType || 'Checking')} •••• {getLast4Digits()}
+                  </p>
+                  <div style={{ display: "flex", gap: 16, marginTop: 8 }}>
+                    <span style={{ color: "#666", fontSize: 12 }}>{account.currency || 'USD'}</span>
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button onClick={() => handleUnlinkBank(account.id || account.bankId)} style={{ background: "transparent", color: "#ff4444", border: "1px solid rgba(255,68,68,0.3)", padding: "8px 16px", borderRadius: 6, fontSize: 13, cursor: "pointer" }}>Unlink</button>
                 </div>
               </div>
-              <div style={{ display: "flex", gap: 8 }}>
-                <button onClick={() => handleUnlinkBank(account.id || account.bankId)} style={{ background: "transparent", color: "#ff4444", border: "1px solid rgba(255,68,68,0.3)", padding: "8px 16px", borderRadius: 6, fontSize: 13, cursor: "pointer" }}>Unlink</button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
 
           <div style={{ background: "#0f0f0f", borderRadius: 12, border: "1px dashed #333", padding: 24, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }} onClick={() => setShowBankLinkModal(true)}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -4391,7 +4429,7 @@ export default function DashboardPage() {
                 {recipientLoading ? (
                   <><svg width="18" height="18" viewBox="0 0 24 24" style={{ animation: "spin 1s linear infinite" }}><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" fill="none" strokeDasharray="31.4" strokeDashoffset="10" strokeLinecap="round"/></svg> Looking up...</>
                 ) : (
-                  <><span>✈</span> Send Payment</>
+                  <><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg> Send Payment</>
                 )}
               </button>
             </div>
@@ -4593,7 +4631,7 @@ export default function DashboardPage() {
               ) : transferType === "bank" ? (
                 <>
                   <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-                    <button onClick={() => setTransferType("select")} style={{ background: "transparent", border: "none", cursor: "pointer", padding: 4 }}>
+                    <button onClick={() => { setTransferType("select"); setBankTransferRecipientType('select'); }} style={{ background: "transparent", border: "none", cursor: "pointer", padding: 4 }}>
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
                     </button>
                     <div style={{ width: 40, height: 40, borderRadius: 10, background: "linear-gradient(135deg, #3b82f6, #1d4ed8)", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -4604,6 +4642,94 @@ export default function DashboardPage() {
                       <p style={{ color: "#666", fontSize: 12, margin: 0 }}>Transfer to local bank accounts</p>
                     </div>
                   </div>
+                  
+                  {bankTransferRecipientType === 'select' ? (
+                    <>
+                      <p style={{ color: "#888", fontSize: 13, margin: "0 0 16px 0" }}>Who are you sending money to?</p>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                        <button onClick={() => setBankTransferRecipientType('myself')} style={{ display: "flex", alignItems: "center", gap: 16, padding: 20, background: "#0a0a0a", border: "1px solid #1f1f1f", borderRadius: 12, cursor: "pointer", textAlign: "left", transition: "all 0.2s" }}>
+                          <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(6,255,137,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#06FF89" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                          </div>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ color: "#fff", fontSize: 15, fontWeight: 600, marginBottom: 4 }}>Send for Myself</div>
+                            <div style={{ color: "#666", fontSize: 12 }}>Transfer to your own linked bank accounts</div>
+                          </div>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                        <button onClick={() => setBankTransferRecipientType('someone_else')} style={{ display: "flex", alignItems: "center", gap: 16, padding: 20, background: "#0a0a0a", border: "1px solid #1f1f1f", borderRadius: 12, cursor: "pointer", textAlign: "left", transition: "all 0.2s" }}>
+                          <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(59,130,246,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                          </div>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ color: "#fff", fontSize: 15, fontWeight: 600, marginBottom: 4 }}>Send for Someone Else</div>
+                            <div style={{ color: "#666", fontSize: 12 }}>Transfer to any bank account</div>
+                          </div>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                      </div>
+                    </>
+                  ) : bankTransferRecipientType === 'myself' ? (
+                    <>
+                      <button onClick={() => setBankTransferRecipientType('select')} style={{ background: "transparent", border: "none", color: "#888", cursor: "pointer", padding: "8px 0", marginBottom: 16, display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        Back
+                      </button>
+                      <h4 style={{ color: "#fff", fontSize: 15, fontWeight: 600, margin: "0 0 16px 0" }}>Select Your Linked Account</h4>
+                      {linkedBankAccounts.filter(acc => acc.currency === 'USD').length === 0 ? (
+                        <div style={{ background: "#0a0a0a", borderRadius: 12, border: "1px solid #333", padding: 24, textAlign: "center" }}>
+                          <p style={{ color: "#888", fontSize: 14, margin: "0 0 16px 0" }}>No USD bank accounts linked</p>
+                          <button onClick={() => { setActiveTab('accounts'); setBankTransferRecipientType('select'); }} style={{ background: "#06FF89", color: "#000", border: "none", padding: "10px 20px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Link Bank Account</button>
+                        </div>
+                      ) : (
+                        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
+                          {linkedBankAccounts.filter(acc => acc.currency === 'USD').map((account, index) => (
+                            <button key={account.id || index} onClick={() => setSelectedLinkedAccount(account.id || String(index))} style={{ display: "flex", alignItems: "center", gap: 16, padding: 16, background: selectedLinkedAccount === (account.id || String(index)) ? "rgba(6,255,137,0.1)" : "#0a0a0a", border: selectedLinkedAccount === (account.id || String(index)) ? "1px solid #06FF89" : "1px solid #1f1f1f", borderRadius: 12, cursor: "pointer", textAlign: "left", transition: "all 0.2s" }}>
+                              <div style={{ width: 40, height: 40, borderRadius: 10, background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06FF89" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+                              </div>
+                              <div style={{ flex: 1 }}>
+                                <div style={{ color: "#fff", fontSize: 14, fontWeight: 600, marginBottom: 2 }}>{account.bank_name || account.institution_name || account.bankName}</div>
+                                <div style={{ color: "#888", fontSize: 12 }}>{account.account_type || account.accountType || 'Checking'} •••• {(() => {
+                                  const fields = [account.account_mask, account.accountMask, account.iban, account.IBAN, account.account_number, account.accountNumber, account.id];
+                                  for (const field of fields) {
+                                    if (field && typeof field === 'string' && field.length >= 4) return field.slice(-4);
+                                  }
+                                  return String(1000 + index).slice(-4);
+                                })()}</div>
+                              </div>
+                              {selectedLinkedAccount === (account.id || String(index)) && (
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06FF89" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                      {selectedLinkedAccount && linkedBankAccounts.filter(acc => acc.currency === 'USD').length > 0 && (
+                        <>
+                          <div style={{ marginBottom: 24 }}>
+                            <label style={{ color: "#888", fontSize: 12, display: "block", marginBottom: 6 }}>Amount</label>
+                            <div style={{ display: "flex", alignItems: "center", background: "#0a0a0a", borderRadius: 8, border: "1px solid #333", padding: "12px 16px" }}>
+                              <span style={{ color: "#06FF89", fontSize: 16, marginRight: 8 }}>$</span>
+                              <input type="number" value={bankTransferForm.amount} onChange={(e) => setBankTransferForm({...bankTransferForm, amount: e.target.value})} placeholder="0.00" style={{ flex: 1, background: "transparent", border: "none", color: "#fff", fontSize: 16, outline: "none" }} />
+                            </div>
+                          </div>
+                          <div style={{ marginBottom: 24 }}>
+                            <label style={{ color: "#888", fontSize: 12, display: "block", marginBottom: 6 }}>Purpose / Notes (Optional)</label>
+                            <textarea value={bankTransferForm.purpose} onChange={(e) => setBankTransferForm({...bankTransferForm, purpose: e.target.value})} placeholder="What's this transfer for?" style={{ width: "100%", background: "#0a0a0a", borderRadius: 8, border: "1px solid #333", padding: "12px 16px", color: "#fff", fontSize: 14, outline: "none", boxSizing: "border-box", minHeight: 80, resize: "vertical" }} />
+                          </div>
+                          <button onClick={handleBankTransfer} disabled={bankTransferLoading} style={{ width: "100%", background: "linear-gradient(90deg, #06FF89 0%, #B8FF9F 100%)", color: "#000", border: "none", padding: "14px 24px", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
+                            {bankTransferLoading ? "Processing..." : "Transfer Money"}
+                          </button>
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <button onClick={() => setBankTransferRecipientType('select')} style={{ background: "transparent", border: "none", color: "#888", cursor: "pointer", padding: "8px 0", marginBottom: 16, display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        Back
+                      </button>
                   <div style={{ marginBottom: 16 }}>
                     <label style={{ color: "#888", fontSize: 12, display: "block", marginBottom: 6 }}>Bank Name</label>
                     <input type="text" value={bankTransferForm.bankName} onChange={(e) => setBankTransferForm({...bankTransferForm, bankName: e.target.value})} placeholder="Enter bank name" style={{ width: "100%", background: "#0a0a0a", borderRadius: 8, border: "1px solid #333", padding: "12px 16px", color: "#fff", fontSize: 14, outline: "none", boxSizing: "border-box" }} />
@@ -4659,6 +4785,8 @@ export default function DashboardPage() {
                     <span style={{ color: "#fff" }}>$2.50</span>
                   </div>
                   <button onClick={handleBankTransfer} disabled={bankTransferLoading} style={{ width: "100%", background: bankTransferLoading ? "#333" : "linear-gradient(90deg, #06FF89 0%, #B8FF9F 100%)", color: bankTransferLoading ? "#666" : "#000", border: "none", padding: "14px 24px", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: bankTransferLoading ? "not-allowed" : "pointer" }}>{bankTransferLoading ? "Processing..." : "Submit Transfer"}</button>
+                    </>
+                  )}
                 </>
               ) : transferType === "sepa" ? (
                 <>
@@ -5007,6 +5135,11 @@ export default function DashboardPage() {
       case "cards": return { title: "Cards", subtitle: "Manage your payment cards and view spending" };
       case "qrcodes": return { title: "QR Codes", subtitle: "Generate and manage QR codes for payments and sharing" };
       case "payments": return { title: "Payments", subtitle: "Send, receive, and manage your transactions" };
+      case "accounts": return { title: "Accounts", subtitle: "Manage your wallets and bank accounts" };
+      case "rewards": return { title: "Rewards", subtitle: "Track your referrals and earn rewards" };
+      case "helpdesk": return { title: "Help & Support", subtitle: "Get help and contact support" };
+      case "profile": return { title: "Profile", subtitle: "Manage your personal information" };
+      case "settings": return { title: "Settings", subtitle: "Configure your account preferences" };
       default: return { title: "Dashboard", subtitle: "Welcome back! Here is your financial overview." };
     }
   };
@@ -5036,8 +5169,7 @@ export default function DashboardPage() {
       <aside style={{ width: 220, background: "#0f0f0f", borderRight: "1px solid #1a1a1a", display: "flex", flexDirection: "column", position: "fixed", top: 0, left: 0, bottom: 0, zIndex: 100 }}>
         <div style={{ padding: "20px 16px", borderBottom: "1px solid #1a1a1a" }}>
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
-            <Image unoptimized src="/vault_logo_icon_white.svg" alt="VP" width={28} height={28} className="no-fade" />
-            <span style={{ color: "#fff", fontSize: 18, fontWeight: 600 }}>vaultpay</span>
+            <img src="/vaultpay-logo.png" alt="VaultPay" style={{ height: 28, width: "auto" }} className="no-fade" />
           </Link>
         </div>
         <div style={{ padding: 16, borderBottom: "1px solid #1a1a1a", display: "flex", alignItems: "center", gap: 10 }}>
@@ -5493,12 +5625,12 @@ export default function DashboardPage() {
                           <p style={{ color: "#888", fontSize: 13, margin: "0 0 16px" }}>Select a stablecoin to generate a deposit address. Only USDC, USDT, and PYUSD are supported.</p>
                           <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
                             {[
-                              { code: 'USDC' as CryptoCoin, name: "USD Coin", desc: "Circle's stablecoin", color: "#2775CA" },
-                              { code: 'USDT' as CryptoCoin, name: "Tether", desc: "Most popular stablecoin", color: "#26A17B" },
-                              { code: 'PYUSD' as CryptoCoin, name: "PayPal USD", desc: "PayPal's stablecoin", color: "#0070BA" },
+                              { code: 'USDC' as CryptoCoin, name: "USD Coin", desc: "Circle's stablecoin", color: "#2775CA", logo: <USDCLogo size={40} /> },
+                              { code: 'USDT' as CryptoCoin, name: "Tether", desc: "Most popular stablecoin", color: "#26A17B", logo: <USDTLogo size={40} /> },
+                              { code: 'PYUSD' as CryptoCoin, name: "PayPal USD", desc: "PayPal's stablecoin", color: "#0070BA", logo: <PYUSDLogo size={40} /> },
                             ].map((coin) => (
                               <button key={coin.code} onClick={() => setSelectedCryptoCoin(coin.code)} style={{ display: "flex", alignItems: "center", gap: 12, padding: 16, background: selectedCryptoCoin === coin.code ? "rgba(6,255,137,0.1)" : "#0a0a0a", borderRadius: 8, border: selectedCryptoCoin === coin.code ? "1px solid #06FF89" : "1px solid #1f1f1f", cursor: "pointer", textAlign: "left" }}>
-                                <div style={{ width: 40, height: 40, borderRadius: "50%", background: `${coin.color}20`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, color: coin.color, fontWeight: 700 }}>{coin.code.charAt(0)}</div>
+                                <div style={{ width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>{coin.logo}</div>
                                 <div style={{ flex: 1 }}>
                                   <p style={{ color: "#fff", fontSize: 14, fontWeight: 500, margin: 0 }}>{coin.code}</p>
                                   <p style={{ color: "#666", fontSize: 12, margin: 0 }}>{coin.desc}</p>
