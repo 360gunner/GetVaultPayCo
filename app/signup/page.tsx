@@ -1,87 +1,129 @@
 "use client";
-import { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar/Navbar";
+import { useState, useEffect, useRef } from "react";
 import { vars } from "@/styles/theme.css";
 import Typography from "@/components/Typography/Typography";
+import TextInput from "@/components/Form/TextInput";
+import Navbar from "@/components/Navbar/Navbar";
+import Container from "@/components/Layout/Container";
+import Grid from "@/components/Layout/Grid";
 import { fluidUnit } from "@/styles/fluid-unit";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Script from "next/script";
-import { register, checkUsername, checkEmail, getCountries, getStates, getCities, Country, State, City } from "@/lib/vaultpay-api";
+import Link from "next/link";
+import { 
+  register, 
+  checkUsername, 
+  checkEmail, 
+  getCountries, 
+  getStates, 
+  getCities, 
+  sendEmailVerificationOTP,
+  confirmEmailVerificationOTP,
+  Country, 
+  State, 
+  City 
+} from "@/lib/vaultpay-api";
 import { useAuth } from "@/lib/auth-context";
 
+// Step order matching mobile app exactly
+type SignupStep = 'name' | 'birthdate' | 'location' | 'address' | 'username' | 'email' | 'otp' | 'gender' | 'password' | 'referral' | 'terms';
+
 interface SignupData {
-  email: string;
-  otp: string;
-  password: string;
-  passwordConfirm: string;
   firstName: string;
   lastName: string;
-  username: string;
   dateOfBirth: string;
-  gender: string;
-  country: string;
-  state: string;
-  city: string;
-  homeAddress: string;
-  postalCode: string;
-  phoneNumber: string;
-  ssn: string;
+  username: string;
+  email: string;
+  otp: string;
+  gender: 'male' | 'female' | '';
+  password: string;
+  passwordConfirm: string;
   referralCode: string;
   acceptTos: boolean;
   acceptMarketing: boolean;
+  ssn: string;
+  homeAddress: string;
+  postalCode: string;
 }
+
+// Step titles matching mobile app
+const stepTitles: Record<SignupStep, string> = {
+  name: "What's your name?",
+  birthdate: "When were you born?",
+  location: "Where are you located?",
+  address: "What's your address?",
+  username: "Choose a username",
+  email: "What's your email?",
+  otp: "Verify your email",
+  gender: "What's your gender?",
+  password: "Create a password",
+  referral: "Have a referral code?",
+  terms: "Almost done!"
+};
+
+// Step subtitles
+const stepSubtitles: Record<SignupStep, string> = {
+  name: "Enter your legal name as it appears on your ID",
+  birthdate: "You must be at least 18 years old to use VaultPay",
+  location: "Select your country and state of residence",
+  address: "Your residential address for verification",
+  username: "This will be your unique identifier on VaultPay",
+  email: "We'll send a verification code to this email",
+  otp: "Enter the 6-digit code we sent to your email",
+  gender: "Select your gender for your profile",
+  password: "Create a strong password with at least 8 characters",
+  referral: "If you have a referral code, enter it here",
+  terms: "Review and accept our terms to complete signup"
+};
 
 export default function SignUpPage() {
   const router = useRouter();
-  const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 10;
+  const { login } = useAuth();
+  
+  // Step management - matching mobile app flow exactly
+  const steps: SignupStep[] = ['name', 'birthdate', 'location', 'address', 'username', 'email', 'otp', 'gender', 'password', 'referral', 'terms'];
+  const [currentStep, setCurrentStep] = useState<SignupStep>('name');
+  
   const [showSuccess, setShowSuccess] = useState(false);
   const [redirectCountdown, setRedirectCountdown] = useState(5);
   
-  const { login } = useAuth();
   const [formData, setFormData] = useState<SignupData>({
-    email: "",
-    otp: "",
-    password: "",
-    passwordConfirm: "",
     firstName: "",
     lastName: "",
-    username: "",
     dateOfBirth: "",
-    gender: "Male",
-    country: "",
-    state: "",
-    city: "",
-    homeAddress: "",
-    postalCode: "",
-    phoneNumber: "",
-    ssn: "",
+    username: "",
+    email: "",
+    otp: "",
+    gender: "",
+    password: "",
+    passwordConfirm: "",
     referralCode: "",
     acceptTos: false,
     acceptMarketing: false,
+    ssn: "",
+    homeAddress: "",
+    postalCode: "",
   });
+  
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isUSSelected, setIsUSSelected] = useState(false);
-
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [passwordStrength, setPasswordStrength] = useState({
-    hasUpper: false,
-    hasLower: false,
-    hasNumber: false,
-    hasSpecial: false,
-    minLength: false,
-  });
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Username/Email availability
+  const [usernameAvailable, setUsernameAvailable] = useState<boolean | null>(null);
+  const [emailAvailable, setEmailAvailable] = useState<boolean | null>(null);
+  const [checkingUsername, setCheckingUsername] = useState(false);
+  const [checkingEmail, setCheckingEmail] = useState(false);
+  const usernameTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const emailTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   // OTP Management
-  const [sentOtp, setSentOtp] = useState("");
-  const [otpTimer, setOtpTimer] = useState(60);
-  const [canResendOtp, setCanResendOtp] = useState(false);
-  const [otpAttempts, setOtpAttempts] = useState(0);
-  const maxOtpAttempts = 3;
+  const [otpSent, setOtpSent] = useState(false);
+  const [countdown, setCountdown] = useState(0);
+  const [canResendOtp, setCanResendOtp] = useState(true);
+  const [otpLoading, setOtpLoading] = useState(false);
 
   // Location data
   const [countries, setCountries] = useState<Country[]>([]);
@@ -89,19 +131,29 @@ export default function SignUpPage() {
   const [cities, setCities] = useState<City[]>([]);
   const [selectedCountryId, setSelectedCountryId] = useState<number | null>(null);
   const [selectedStateId, setSelectedStateId] = useState<number | null>(null);
+  const [selectedCityId, setSelectedCityId] = useState<number | null>(null);
 
   // Load countries on mount
   useEffect(() => {
     loadCountries();
   }, []);
 
-  // Reset OTP timer when entering step 2
+  // OTP countdown timer
   useEffect(() => {
-    if (currentStep === 2) {
-      setOtpTimer(60);
-      setCanResendOtp(false);
+    let interval: NodeJS.Timeout;
+    if (countdown > 0) {
+      interval = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            setCanResendOtp(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
     }
-  }, [currentStep]);
+    return () => clearInterval(interval);
+  }, [countdown]);
 
   // Load states when country changes
   useEffect(() => {
@@ -117,16 +169,6 @@ export default function SignUpPage() {
     }
   }, [selectedStateId]);
 
-  // OTP Timer
-  useEffect(() => {
-    if (currentStep === 2 && otpTimer > 0) {
-      const timer = setTimeout(() => setOtpTimer(otpTimer - 1), 1000);
-      return () => clearTimeout(timer);
-    } else if (otpTimer === 0) {
-      setCanResendOtp(true);
-    }
-  }, [currentStep, otpTimer]);
-
   // Success screen countdown
   useEffect(() => {
     if (showSuccess && redirectCountdown > 0) {
@@ -136,36 +178,6 @@ export default function SignUpPage() {
       router.push("/kyc-verification");
     }
   }, [showSuccess, redirectCountdown, router]);
-
-  // Setup Cloudflare Turnstile callback globally
-  useEffect(() => {
-    // Define callback function globally for implicit rendering
-    (window as any).onTurnstileSuccess = (token: string) => {
-      console.log("Captcha verified successfully:", token);
-      setCaptchaToken(token);
-      setErrors((prev) => {
-        const { captcha, ...rest } = prev;
-        return rest;
-      });
-    };
-
-    (window as any).onTurnstileError = (error: string) => {
-      console.error('Turnstile error:', error);
-      setErrors({ captcha: 'Verification failed. Please try again.' });
-    };
-
-    (window as any).onTurnstileExpired = () => {
-      console.warn('Turnstile token expired');
-      setCaptchaToken(null);
-      setErrors({ captcha: 'Verification expired. Please verify again.' });
-    };
-
-    return () => {
-      delete (window as any).onTurnstileSuccess;
-      delete (window as any).onTurnstileError;
-      delete (window as any).onTurnstileExpired;
-    };
-  }, []);
 
   const loadCountries = async () => {
     try {
@@ -200,180 +212,272 @@ export default function SignUpPage() {
     }
   };
 
-  const sendOtp = async () => {
-    try {
-      const response = await fetch('/api/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: formData.email }),
-      });
-      const data = await response.json();
-      if (data.status && data.otp) {
-        setSentOtp(data.otp);
-        console.log('OTP sent:', data.otp);
-      }
-    } catch (error) {
-      console.error('Error sending OTP:', error);
+  // Check username availability with debounce
+  const checkUsernameAvailability = (username: string) => {
+    if (usernameTimeoutRef.current) {
+      clearTimeout(usernameTimeoutRef.current);
     }
-  };
-
-  const handleResendOtp = () => {
-    if (otpAttempts >= maxOtpAttempts) {
-      setErrors({ otp: "Maximum attempts reached. Try again tomorrow." });
+    
+    if (username.length < 3) {
+      setUsernameAvailable(null);
       return;
     }
-    setOtpAttempts(otpAttempts + 1);
-    setOtpTimer(60);
-    setCanResendOtp(false);
-    sendOtp();
+    
+    setCheckingUsername(true);
+    setUsernameAvailable(null);
+    
+    usernameTimeoutRef.current = setTimeout(async () => {
+      try {
+        const result = await checkUsername(username);
+        setUsernameAvailable(result.is_available);
+      } catch (error) {
+        console.error('Error checking username:', error);
+        setUsernameAvailable(null);
+      } finally {
+        setCheckingUsername(false);
+      }
+    }, 400);
   };
 
-  const validatePassword = (password: string) => {
-    const strength = {
-      hasUpper: /[A-Z]/.test(password),
-      hasLower: /[a-z]/.test(password),
-      hasNumber: /[0-9]/.test(password),
-      hasSpecial: /[!@#$%^&*(),.?":{}|<>]/.test(password),
-      minLength: password.length >= 8,
-    };
-    setPasswordStrength(strength);
-    return Object.values(strength).every(Boolean);
+  // Check email availability with debounce
+  const checkEmailAvailability = (email: string) => {
+    if (emailTimeoutRef.current) {
+      clearTimeout(emailTimeoutRef.current);
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailAvailable(null);
+      return;
+    }
+    
+    setCheckingEmail(true);
+    setEmailAvailable(null);
+    
+    emailTimeoutRef.current = setTimeout(async () => {
+      try {
+        const result = await checkEmail(email);
+        setEmailAvailable(result.is_available);
+      } catch (error) {
+        console.error('Error checking email:', error);
+        setEmailAvailable(null);
+      } finally {
+        setCheckingEmail(false);
+      }
+    }, 400);
   };
 
+  // Send OTP
+  const sendOtp = async (email: string) => {
+    try {
+      setOtpLoading(true);
+      const response = await sendEmailVerificationOTP(email);
+      
+      if (response.status) {
+        setOtpSent(true);
+        setCountdown(60);
+        setCanResendOtp(false);
+      } else {
+        setErrors({ otp: response.message || 'Failed to send OTP' });
+      }
+    } catch (error: any) {
+      console.error('Error sending OTP:', error);
+      setErrors({ otp: 'Failed to send verification code. Please try again.' });
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
+  // Verify OTP
+  const verifyOtp = async (email: string, otp: string): Promise<boolean> => {
+    try {
+      setOtpLoading(true);
+      const response = await confirmEmailVerificationOTP(email, otp);
+      return response.status;
+    } catch (error: any) {
+      setErrors({ otp: 'Failed to verify code. Please try again.' });
+      return false;
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
+  // Resend OTP
+  const resendOtp = async () => {
+    if (!canResendOtp) return;
+    await sendOtp(formData.email);
+  };
+
+  // Calculate age from birth date
+  const calculateAge = (birthDate: string): number => {
+    const today = new Date();
+    const parts = birthDate.split('/');
+    if (parts.length !== 3) return 0;
+    
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+    
+    const birth = new Date(year, month, day);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    
+    return age;
+  };
+
+  // Format SSN as XXX-XX-XXXX
+  const formatSSN = (text: string): string => {
+    const digits = text.replace(/\D/g, '');
+    if (digits.length >= 5) {
+      return `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5, 9)}`;
+    } else if (digits.length >= 3) {
+      return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    }
+    return digits;
+  };
+
+  // Get step progress
+  const getStepProgress = (): number => {
+    return (steps.indexOf(currentStep) + 1) / steps.length;
+  };
+
+  // Handle back navigation
+  const handleBack = () => {
+    const currentIndex = steps.indexOf(currentStep);
+    if (currentIndex > 0) {
+      setCurrentStep(steps[currentIndex - 1]);
+      setErrors({});
+    } else {
+      router.back();
+    }
+  };
+
+  // Handle next/continue
   const handleNext = async () => {
     setErrors({});
     setIsLoading(true);
-    
+
     try {
       switch (currentStep) {
-        case 1:
-          if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            setErrors({ email: "Valid email required" });
-            setIsLoading(false);
+        case 'name':
+          if (!formData.firstName.trim() || !formData.lastName.trim()) {
+            setErrors({ name: 'Please enter your first and last name.' });
             return;
           }
-          const emailCheck = await checkEmail(formData.email);
-          if (!emailCheck.is_available) {
-            setErrors({ email: "Email already registered" });
-            setIsLoading(false);
-            return;
-          }
-          await sendOtp();
+          setCurrentStep('birthdate');
           break;
-        case 2:
-          if (!formData.otp || formData.otp !== sentOtp) {
-            setErrors({ otp: "Invalid OTP code" });
-            setIsLoading(false);
-            return;
-          }
-          break;
-      case 3:
-        if (!validatePassword(formData.password) || formData.password !== formData.passwordConfirm) {
-          setErrors({ password: "Check password requirements" });
-          return;
-        }
-        break;
-      case 4:
-        if (!formData.firstName || !formData.lastName) {
-          setErrors({ name: "Both names required" });
-          return;
-        }
-        break;
-      case 5:
-        if (!formData.username || formData.username.length < 3) {
-          setErrors({ username: "Username must be 3+ characters" });
-          setIsLoading(false);
-          return;
-        }
-        const usernameCheck = await checkUsername(formData.username);
-        if (!usernameCheck.is_available) {
-          setErrors({ username: "Username already taken" });
-          setIsLoading(false);
-          return;
-        }
-        break;
-      case 6:
-        const age = new Date().getFullYear() - new Date(formData.dateOfBirth).getFullYear();
-        if (age < 18) {
-          setErrors({ dateOfBirth: "Must be 18+" });
-          setIsLoading(false);
-          return;
-        }
-        break;
-      case 7:
-        if (!formData.gender) {
-          setErrors({ gender: "Select gender" });
-          setIsLoading(false);
-          return;
-        }
-        break;
-      case 8:
-        if (!formData.country || !formData.state) {
-          setErrors({ location: "Select country and state" });
-          setIsLoading(false);
-          return;
-        }
-        // Validate SSN for US users
-        if (isUSSelected && (!formData.ssn || formData.ssn.replace(/\D/g, '').length !== 9)) {
-          setErrors({ ssn: "Valid 9-digit SSN required for US residents" });
-          setIsLoading(false);
-          return;
-        }
-        break;
-      case 9:
-        if (!formData.homeAddress || !formData.postalCode) {
-          setErrors({ address: "Address required" });
-          setIsLoading(false);
-          return;
-        }
-        break;
-      case 10:
-        if (!formData.acceptTos) {
-          setErrors({ tos: "You must accept the terms of service" });
-          setIsLoading(false);
-          return;
-        }
-        if (!captchaToken) {
-          setErrors({ captcha: "Please complete the security verification" });
-          setIsLoading(false);
-          return;
-        }
-        
-        const birthDate = new Date(formData.dateOfBirth);
-        const registerData = {
-          email: formData.email,
-          password: formData.password,
-          gender: formData.gender,
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          user_name: formData.username,
-          account_type: 1,
-          country_id: selectedCountryId!,
-          state_id: selectedStateId!,
-          city_id: cities.length > 0 && formData.city ? parseInt(formData.city) : undefined,
-          day: birthDate.getDate(),
-          month: birthDate.getMonth() + 1,
-          year: birthDate.getFullYear(),
-          phone_number: formData.phoneNumber || undefined,
-          address: formData.homeAddress,
-          postal_code: formData.postalCode,
-        };
 
-        const response = await register(registerData);
-        
-        if (response.status && response.data) {
-          login(response.data);
-          const selectedCountry = countries.find(c => c.id === selectedCountryId);
-          localStorage.setItem("signupCountry", selectedCountry?.symbol || "");
-          setShowSuccess(true);
-        } else {
-          setErrors({ submit: response.message || "Registration failed" });
-        }
-        setIsLoading(false);
-        return;
-    }
-    
-    setCurrentStep(currentStep + 1);
+        case 'birthdate':
+          if (!formData.dateOfBirth || formData.dateOfBirth.length !== 10) {
+            setErrors({ birthdate: 'Please enter a valid date of birth (DD/MM/YYYY).' });
+            return;
+          }
+          const age = calculateAge(formData.dateOfBirth);
+          if (age < 18) {
+            setErrors({ birthdate: 'You must be at least 18 years old to open an account.' });
+            return;
+          }
+          setCurrentStep('location');
+          break;
+
+        case 'location':
+          if (!selectedCountryId || !selectedStateId) {
+            setErrors({ location: 'Please select your country and state.' });
+            return;
+          }
+          if (isUSSelected && (!formData.ssn || formData.ssn.replace(/\D/g, '').length !== 9)) {
+            setErrors({ ssn: 'Please enter a valid 9-digit SSN.' });
+            return;
+          }
+          setCurrentStep('address');
+          break;
+
+        case 'address':
+          if (!formData.homeAddress.trim()) {
+            setErrors({ address: 'Please enter your home address.' });
+            return;
+          }
+          if (!formData.postalCode.trim()) {
+            setErrors({ postalCode: 'Please enter your postal code.' });
+            return;
+          }
+          setCurrentStep('username');
+          break;
+
+        case 'username':
+          if (!formData.username || formData.username.length < 3) {
+            setErrors({ username: 'Username must be at least 3 characters.' });
+            return;
+          }
+          if (!usernameAvailable) {
+            setErrors({ username: 'Please choose an available username.' });
+            return;
+          }
+          setCurrentStep('email');
+          break;
+
+        case 'email':
+          if (!formData.email) {
+            setErrors({ email: 'Please enter your email address.' });
+            return;
+          }
+          if (!emailAvailable) {
+            setErrors({ email: 'Please enter a valid and available email.' });
+            return;
+          }
+          await sendOtp(formData.email);
+          setCurrentStep('otp');
+          break;
+
+        case 'otp':
+          if (!formData.otp || formData.otp.length !== 6) {
+            setErrors({ otp: 'Please enter the 6-digit verification code.' });
+            return;
+          }
+          const isValid = await verifyOtp(formData.email, formData.otp);
+          if (isValid) {
+            setCurrentStep('gender');
+          } else {
+            setErrors({ otp: 'Invalid or expired verification code. Please try again.' });
+          }
+          break;
+
+        case 'gender':
+          if (!formData.gender) {
+            setErrors({ gender: 'Please select your gender.' });
+            return;
+          }
+          setCurrentStep('password');
+          break;
+
+        case 'password':
+          if (formData.password.length < 8) {
+            setErrors({ password: 'Password must be at least 8 characters long.' });
+            return;
+          }
+          if (formData.password !== formData.passwordConfirm) {
+            setErrors({ password: 'Passwords do not match.' });
+            return;
+          }
+          setCurrentStep('referral');
+          break;
+
+        case 'referral':
+          setCurrentStep('terms');
+          break;
+
+        case 'terms':
+          if (!formData.acceptTos) {
+            setErrors({ terms: 'You must accept the terms and conditions.' });
+            return;
+          }
+          await handleRegistration();
+          break;
+      }
     } catch (error) {
       console.error('Error in handleNext:', error);
       setErrors({ general: 'An error occurred. Please try again.' });
@@ -382,92 +486,417 @@ export default function SignUpPage() {
     }
   };
 
-  const renderInput = (label: string, placeholder: string, field: keyof SignupData, type = "text") => (
-    <div style={{ marginBottom: fluidUnit(24) }}>
-      <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>
-        {label}
-      </label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={formData[field] as string}
-        onChange={(e) => {
-          const value = field === 'username' ? e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '') : e.target.value;
-          setFormData({ ...formData, [field]: type === 'date' ? e.target.value : value });
-          if (field === 'password') validatePassword(e.target.value);
-        }}
-        style={{
-          width: "100%",
-          padding: fluidUnit(16),
-          borderRadius: fluidUnit(12),
-          border: `2px solid ${vars.color.vaultBlack}`,
-          fontSize: fluidUnit(16),
-          backgroundColor: 'rgba(255,255,255,0.9)',
-        }}
-      />
-    </div>
-  );
+  // Handle registration submission
+  const handleRegistration = async () => {
+    const parts = formData.dateOfBirth.split('/');
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10);
+    const year = parseInt(parts[2], 10);
 
-  const renderStep = () => {
-    const steps = [
-      { title: "What's your email?", content: renderInput("Email Address", "Enter your email", "email", "email") },
-      { title: "Verify your email", content: (
-        <>
-          <Typography as="p" style={{ fontSize: fluidUnit(14), marginBottom: fluidUnit(24), color: '#666' }}>
-            Code sent to {formData.email}
-          </Typography>
-          {renderInput("6-digit code", "Enter code", "otp", "text")}
-          <div style={{ textAlign: 'center', marginTop: fluidUnit(16) }}>
-            {canResendOtp ? (
-              <button 
-                onClick={handleResendOtp}
-                disabled={otpAttempts >= maxOtpAttempts}
-                style={{ 
-                  background: 'transparent', 
-                  border: 'none', 
-                  color: vars.color.vaultBlack, 
-                  textDecoration: 'underline', 
-                  cursor: otpAttempts >= maxOtpAttempts ? 'not-allowed' : 'pointer',
-                  fontSize: fluidUnit(14),
-                  fontWeight: 600,
-                  opacity: otpAttempts >= maxOtpAttempts ? 0.5 : 1
+    const registerData = {
+      email: formData.email,
+      password: formData.password,
+      gender: formData.gender,
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      user_name: formData.username,
+      account_type: 0, // Personal account
+      country_id: selectedCountryId!,
+      state_id: selectedStateId!,
+      city_id: selectedCityId || undefined,
+      day,
+      month,
+      year,
+      address: formData.homeAddress,
+      postal_code: formData.postalCode,
+      ssn: isUSSelected ? formData.ssn.replace(/\D/g, '') : undefined,
+      referral_code: formData.referralCode || undefined,
+    };
+
+    const response = await register(registerData);
+    
+    if (response.status && response.data) {
+      login(response.data);
+      setShowSuccess(true);
+    } else {
+      setErrors({ submit: response.message || 'Registration failed' });
+    }
+  };
+
+  // Input styles matching website
+  const inputStyle: React.CSSProperties = {
+    padding: `${fluidUnit(12)} ${fluidUnit(14)}`,
+    borderRadius: fluidUnit(12),
+    border: "1px solid #e5e7eb",
+    outline: "none",
+    fontSize: fluidUnit(16),
+    fontFamily: "Instrument Sans, system-ui, sans-serif",
+    background: "#fff",
+    width: "100%",
+    boxSizing: "border-box",
+  };
+
+  const selectStyle: React.CSSProperties = {
+    ...inputStyle,
+    cursor: "pointer",
+    appearance: "none",
+    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right 12px center",
+    paddingRight: fluidUnit(36),
+  };
+
+  // Render step content
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 'name':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
+            <TextInput
+              label="First Name"
+              type="text"
+              placeholder="Enter your first name"
+              value={formData.firstName}
+              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+              labelColor={vars.color.neonMint}
+            />
+            <TextInput
+              label="Last Name"
+              type="text"
+              placeholder="Enter your last name"
+              value={formData.lastName}
+              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+              labelColor={vars.color.neonMint}
+            />
+          </div>
+        );
+
+      case 'birthdate':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
+            <TextInput
+              label="Date of Birth"
+              type="text"
+              placeholder="DD/MM/YYYY"
+              value={formData.dateOfBirth}
+              onChange={(e) => {
+                let formatted = e.target.value.replace(/\D/g, '');
+                if (formatted.length >= 2) {
+                  formatted = formatted.substring(0, 2) + '/' + formatted.substring(2);
+                }
+                if (formatted.length >= 5) {
+                  formatted = formatted.substring(0, 5) + '/' + formatted.substring(5, 9);
+                }
+                setFormData({ ...formData, dateOfBirth: formatted });
+              }}
+              maxLength={10}
+              labelColor={vars.color.neonMint}
+            />
+          </div>
+        );
+
+      case 'location':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
+            <label style={{ display: "grid", gap: fluidUnit(8) }}>
+              <Typography as="span" font="Instrument Sans" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint }}>
+                Country
+              </Typography>
+              <select
+                value={selectedCountryId || ''}
+                onChange={(e) => {
+                  const countryId = parseInt(e.target.value);
+                  const selectedCountry = countries.find(c => c.id === countryId);
+                  setSelectedCountryId(countryId);
+                  setSelectedStateId(null);
+                  setSelectedCityId(null);
+                  setStates([]);
+                  setCities([]);
+                  setIsUSSelected(selectedCountry?.symbol === 'US' || selectedCountry?.name?.toLowerCase().includes('united states') || false);
                 }}
+                style={selectStyle}
               >
-                Resend Code
-              </button>
-            ) : (
-              <Typography as="p" style={{ fontSize: fluidUnit(14), color: '#666' }}>
-                Resend code in {otpTimer}s
+                <option value="">Select country</option>
+                {countries.map(country => (
+                  <option key={country.id} value={country.id}>{country.name}</option>
+                ))}
+              </select>
+            </label>
+
+            {selectedCountryId && (
+              <label style={{ display: "grid", gap: fluidUnit(8) }}>
+                <Typography as="span" font="Instrument Sans" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint }}>
+                  State/Province
+                </Typography>
+                <select
+                  value={selectedStateId || ''}
+                  onChange={(e) => {
+                    const stateId = parseInt(e.target.value);
+                    setSelectedStateId(stateId);
+                    setSelectedCityId(null);
+                    setCities([]);
+                  }}
+                  disabled={states.length === 0}
+                  style={{ ...selectStyle, opacity: states.length === 0 ? 0.5 : 1 }}
+                >
+                  <option value="">{states.length === 0 ? 'Loading states...' : 'Select state'}</option>
+                  {states.map(state => (
+                    <option key={state.id} value={state.id}>{state.name}</option>
+                  ))}
+                </select>
+              </label>
+            )}
+
+            {cities.length > 0 && (
+              <label style={{ display: "grid", gap: fluidUnit(8) }}>
+                <Typography as="span" font="Instrument Sans" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint }}>
+                  City (Optional)
+                </Typography>
+                <select
+                  value={selectedCityId || ''}
+                  onChange={(e) => setSelectedCityId(parseInt(e.target.value) || null)}
+                  style={selectStyle}
+                >
+                  <option value="">Select city</option>
+                  {cities.map(city => (
+                    <option key={city.id} value={city.id}>{city.name}</option>
+                  ))}
+                </select>
+              </label>
+            )}
+
+            {isUSSelected && (
+              <TextInput
+                label="Social Security Number (SSN)"
+                type="text"
+                placeholder="XXX-XX-XXXX"
+                value={formData.ssn}
+                onChange={(e) => setFormData({ ...formData, ssn: formatSSN(e.target.value) })}
+                maxLength={11}
+                labelColor={vars.color.neonMint}
+              />
+            )}
+          </div>
+        );
+
+      case 'address':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
+            <TextInput
+              label="Home Address"
+              type="text"
+              placeholder="Enter your full address"
+              value={formData.homeAddress}
+              onChange={(e) => setFormData({ ...formData, homeAddress: e.target.value })}
+              labelColor={vars.color.neonMint}
+            />
+            <TextInput
+              label="Postal Code"
+              type="text"
+              placeholder="Enter postal/ZIP code"
+              value={formData.postalCode}
+              onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
+              maxLength={10}
+              labelColor={vars.color.neonMint}
+            />
+          </div>
+        );
+
+      case 'username':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
+            <div style={{ position: "relative" }}>
+              <TextInput
+                label="Username"
+                type="text"
+                placeholder="Choose a unique username"
+                value={formData.username}
+                onChange={(e) => {
+                  const value = e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '');
+                  setFormData({ ...formData, username: value });
+                  checkUsernameAvailability(value);
+                }}
+                labelColor={vars.color.neonMint}
+                style={{ paddingRight: fluidUnit(40) }}
+              />
+              {formData.username.length >= 3 && (
+                <span style={{
+                  position: 'absolute',
+                  right: fluidUnit(12),
+                  bottom: fluidUnit(12),
+                  fontSize: fluidUnit(18),
+                }}>
+                  {checkingUsername ? '⏳' : usernameAvailable === true ? '✓' : usernameAvailable === false ? '✗' : ''}
+                </span>
+              )}
+            </div>
+            {usernameAvailable === false && (
+              <Typography as="p" font="Instrument Sans" style={{ fontSize: fluidUnit(13), color: '#ef4444', marginTop: fluidUnit(-8), marginBottom: 0 }}>
+                Username not available
               </Typography>
             )}
-            <Typography as="p" style={{ fontSize: fluidUnit(12), color: '#999', marginTop: fluidUnit(8) }}>
-              Attempts: {otpAttempts}/{maxOtpAttempts} {sentOtp && `• Dev OTP: ${sentOtp}`}
-            </Typography>
+            {usernameAvailable === true && (
+              <Typography as="p" font="Instrument Sans" style={{ fontSize: fluidUnit(13), color: vars.color.neonMint, marginTop: fluidUnit(-8), marginBottom: 0 }}>
+                Username available!
+              </Typography>
+            )}
           </div>
-        </>
-      )},
-      { title: "Create a password", content: (
-        <>
-          <div style={{ marginBottom: fluidUnit(24) }}>
-            <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Password</label>
+        );
+
+      case 'email':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
             <div style={{ position: "relative" }}>
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter password"
-                value={formData.password}
+              <TextInput
+                label="Email Address"
+                type="email"
+                placeholder="Enter your email"
+                value={formData.email}
                 onChange={(e) => {
-                  setFormData({ ...formData, password: e.target.value });
-                  validatePassword(e.target.value);
+                  setFormData({ ...formData, email: e.target.value });
+                  checkEmailAvailability(e.target.value);
                 }}
+                labelColor={vars.color.neonMint}
+                style={{ paddingRight: fluidUnit(40) }}
+              />
+              {formData.email.includes('@') && (
+                <span style={{
+                  position: 'absolute',
+                  right: fluidUnit(12),
+                  bottom: fluidUnit(12),
+                  fontSize: fluidUnit(18),
+                }}>
+                  {checkingEmail ? '⏳' : emailAvailable === true ? '✓' : emailAvailable === false ? '✗' : ''}
+                </span>
+              )}
+            </div>
+            {emailAvailable === false && (
+              <Typography as="p" font="Instrument Sans" style={{ fontSize: fluidUnit(13), color: '#ef4444', marginTop: fluidUnit(-8), marginBottom: 0 }}>
+                Email already registered
+              </Typography>
+            )}
+            {emailAvailable === true && (
+              <Typography as="p" font="Instrument Sans" style={{ fontSize: fluidUnit(13), color: vars.color.neonMint, marginTop: fluidUnit(-8), marginBottom: 0 }}>
+                Email available!
+              </Typography>
+            )}
+          </div>
+        );
+
+      case 'otp':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
+            <div style={{
+              padding: fluidUnit(16),
+              background: "rgba(6, 255, 137, 0.1)",
+              border: "1px solid " + vars.color.neonMint,
+              borderRadius: fluidUnit(8),
+            }}>
+              <Typography as="p" font="Instrument Sans" style={{ margin: 0, fontSize: fluidUnit(14), color: vars.color.neonMint, textAlign: "center" }}>
+                A verification code has been sent to {formData.email}
+              </Typography>
+            </div>
+            <TextInput
+              label="Verification Code"
+              type="text"
+              placeholder="000000"
+              value={formData.otp}
+              onChange={(e) => {
+                const numericText = e.target.value.replace(/[^0-9]/g, '').slice(0, 6);
+                setFormData({ ...formData, otp: numericText });
+              }}
+              maxLength={6}
+              labelColor={vars.color.neonMint}
+              style={{ textAlign: 'center', fontSize: fluidUnit(24), letterSpacing: fluidUnit(8) }}
+            />
+            
+            {countdown > 0 ? (
+              <Typography as="p" font="Instrument Sans" style={{ fontSize: fluidUnit(14), color: vars.color.cloudSilver, textAlign: 'center', margin: 0 }}>
+                Resend code in {countdown}s
+              </Typography>
+            ) : (
+              <button
+                type="button"
+                onClick={resendOtp}
+                disabled={!canResendOtp || otpLoading}
                 style={{
-                  width: "100%",
-                  padding: fluidUnit(16),
-                  paddingRight: fluidUnit(48),
-                  borderRadius: fluidUnit(12),
-                  border: `2px solid ${vars.color.vaultBlack}`,
-                  fontSize: fluidUnit(16),
-                  backgroundColor: 'rgba(255,255,255,0.9)',
+                  background: 'transparent',
+                  border: 'none',
+                  color: vars.color.neonMint,
+                  textDecoration: 'underline',
+                  cursor: canResendOtp && !otpLoading ? 'pointer' : 'not-allowed',
+                  fontSize: fluidUnit(14),
+                  opacity: canResendOtp && !otpLoading ? 1 : 0.5,
+                  fontFamily: "Instrument Sans, system-ui, sans-serif",
                 }}
+              >
+                Resend verification code
+              </button>
+            )}
+          </div>
+        );
+
+      case 'gender':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
+            <Typography as="span" font="Instrument Sans" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint }}>
+              Gender
+            </Typography>
+            <div style={{ display: 'flex', gap: fluidUnit(12) }}>
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, gender: 'male' })}
+                style={{
+                  flex: 1,
+                  padding: `${fluidUnit(14)} ${fluidUnit(24)}`,
+                  borderRadius: fluidUnit(12),
+                  border: `2px solid ${formData.gender === 'male' ? vars.color.neonMint : '#e5e7eb'}`,
+                  backgroundColor: formData.gender === 'male' ? vars.color.neonMint : '#fff',
+                  color: formData.gender === 'male' ? vars.color.vaultBlack : '#333',
+                  fontSize: fluidUnit(16),
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  fontFamily: "Instrument Sans, system-ui, sans-serif",
+                }}
+              >
+                Male
+              </button>
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, gender: 'female' })}
+                style={{
+                  flex: 1,
+                  padding: `${fluidUnit(14)} ${fluidUnit(24)}`,
+                  borderRadius: fluidUnit(12),
+                  border: `2px solid ${formData.gender === 'female' ? vars.color.neonMint : '#e5e7eb'}`,
+                  backgroundColor: formData.gender === 'female' ? vars.color.neonMint : '#fff',
+                  color: formData.gender === 'female' ? vars.color.vaultBlack : '#333',
+                  fontSize: fluidUnit(16),
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  fontFamily: "Instrument Sans, system-ui, sans-serif",
+                }}
+              >
+                Female
+              </button>
+            </div>
+          </div>
+        );
+
+      case 'password':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
+            <div style={{ position: "relative" }}>
+              <TextInput
+                label="Password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="At least 8 characters"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                labelColor={vars.color.neonMint}
+                minLength={8}
               />
               <button
                 type="button"
@@ -475,51 +904,35 @@ export default function SignUpPage() {
                 style={{
                   position: "absolute",
                   right: 12,
-                  top: "50%",
-                  transform: "translateY(-50%)",
+                  bottom: 12,
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
                   padding: 4,
                 }}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
-                  {showPassword ? (
-                    <><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></>
-                  ) : (
-                    <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></>
-                  )}
-                </svg>
+                {showPassword ? (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                  </svg>
+                ) : (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                )}
               </button>
             </div>
-          </div>
-          <div style={{ padding: fluidUnit(12), background: 'rgba(255,255,255,0.5)', borderRadius: fluidUnit(8), marginBottom: fluidUnit(16) }}>
-            {['8+ chars', 'Uppercase', 'Lowercase', 'Number', 'Special char'].map((req, i) => {
-              const checks = [passwordStrength.minLength, passwordStrength.hasUpper, passwordStrength.hasLower, passwordStrength.hasNumber, passwordStrength.hasSpecial];
-              return (
-                <div key={i} style={{ display: 'flex', gap: fluidUnit(8), fontSize: fluidUnit(12) }}>
-                  <span>{checks[i] ? '✓' : '○'}</span> {req}
-                </div>
-              );
-            })}
-          </div>
-          <div style={{ marginBottom: fluidUnit(24) }}>
-            <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Confirm Password</label>
+            
             <div style={{ position: "relative" }}>
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                placeholder="Re-enter password"
+              <TextInput
+                label="Confirm Password"
+                type={showConfirmPassword ? 'text' : 'password'}
+                placeholder="Re-enter your password"
                 value={formData.passwordConfirm}
                 onChange={(e) => setFormData({ ...formData, passwordConfirm: e.target.value })}
-                style={{
-                  width: "100%",
-                  padding: fluidUnit(16),
-                  paddingRight: fluidUnit(48),
-                  borderRadius: fluidUnit(12),
-                  border: `2px solid ${vars.color.vaultBlack}`,
-                  fontSize: fluidUnit(16),
-                  backgroundColor: 'rgba(255,255,255,0.9)',
-                }}
+                labelColor={vars.color.neonMint}
               />
               <button
                 type="button"
@@ -527,398 +940,259 @@ export default function SignUpPage() {
                 style={{
                   position: "absolute",
                   right: 12,
-                  top: "50%",
-                  transform: "translateY(-50%)",
+                  bottom: 12,
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
                   padding: 4,
                 }}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
-                  {showConfirmPassword ? (
-                    <><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></>
-                  ) : (
-                    <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></>
-                  )}
-                </svg>
+                {showConfirmPassword ? (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                  </svg>
+                ) : (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                )}
               </button>
             </div>
           </div>
-        </>
-      )},
-      { title: "What's your name?", content: (
-        <>
-          {renderInput("First Name", "Enter first name", "firstName")}
-          {renderInput("Last Name", "Enter last name", "lastName")}
-        </>
-      )},
-      { title: "Choose a username", content: (
-        <>
-          {renderInput("Username", "unique_username", "username")}
-          <Typography as="p" style={{ fontSize: fluidUnit(12), color: '#666', marginTop: fluidUnit(-16) }}>
-            3+ characters, alphanumeric and underscore only
-          </Typography>
-        </>
-      )},
-      { title: "When were you born?", content: (
-        <>
-          {renderInput("Date of Birth", "DD/MM/YYYY", "dateOfBirth", "date")}
-          <Typography as="p" style={{ fontSize: fluidUnit(12), color: '#666' }}>
-            Must be 18+ years old
-          </Typography>
-        </>
-      )},
-      { title: "What's your gender?", content: (
-        <div>
-          <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Gender</label>
-          <select
-            value={formData.gender}
-            onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-            style={{
-              width: "100%",
-              padding: fluidUnit(16),
-              borderRadius: fluidUnit(12),
-              border: `2px solid ${vars.color.vaultBlack}`,
-              fontSize: fluidUnit(16),
-              backgroundColor: 'rgba(255,255,255,0.9)',
-            }}
-          >
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-        </div>
-      )},
-      { title: "Where are you located?", content: (
-        <>
-          <div style={{ marginBottom: fluidUnit(16) }}>
-            <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Country</label>
-            <select
-              value={formData.country}
-              onChange={(e) => {
-                const countryId = parseInt(e.target.value);
-                const selectedCountry = countries.find(c => c.id === countryId);
-                setFormData({ ...formData, country: e.target.value, state: "", city: "", ssn: "" });
-                setSelectedCountryId(countryId);
-                setIsUSSelected(selectedCountry?.symbol === 'US' || selectedCountry?.name?.toLowerCase().includes('united states') || false);
-                setStates([]);
-                setCities([]);
-              }}
-              style={{
-                width: "100%",
-                padding: fluidUnit(16),
-                borderRadius: fluidUnit(12),
-                border: `2px solid ${vars.color.vaultBlack}`,
-                fontSize: fluidUnit(16),
-                backgroundColor: 'rgba(255,255,255,0.9)',
-              }}
-            >
-              <option value="">Select country</option>
-              {countries.map(country => (
-                <option key={country.id} value={country.id}>{country.name}</option>
-              ))}
-            </select>
-          </div>
-          <div style={{ marginBottom: fluidUnit(16) }}>
-            <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>State/Province</label>
-            <select
-              value={formData.state}
-              onChange={(e) => {
-                const stateId = parseInt(e.target.value);
-                setFormData({ ...formData, state: e.target.value, city: "" });
-                setSelectedStateId(stateId);
-                setCities([]);
-              }}
-              disabled={!selectedCountryId || states.length === 0}
-              style={{
-                width: "100%",
-                padding: fluidUnit(16),
-                borderRadius: fluidUnit(12),
-                border: `2px solid ${vars.color.vaultBlack}`,
-                fontSize: fluidUnit(16),
-                backgroundColor: 'rgba(255,255,255,0.9)',
-                opacity: !selectedCountryId || states.length === 0 ? 0.5 : 1,
-              }}
-            >
-              <option value="">Select state</option>
-              {states.map(state => (
-                <option key={state.id} value={state.id}>{state.name}</option>
-              ))}
-            </select>
-          </div>
-          {cities.length > 0 && (
-            <div style={{ marginBottom: fluidUnit(16) }}>
-              <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>City (Optional)</label>
-              <select
-                value={formData.city}
-                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                style={{
-                  width: "100%",
-                  padding: fluidUnit(16),
-                  borderRadius: fluidUnit(12),
-                  border: `2px solid ${vars.color.vaultBlack}`,
-                  fontSize: fluidUnit(16),
-                  backgroundColor: 'rgba(255,255,255,0.9)',
-                }}
-              >
-                <option value="">Select city</option>
-                {cities.map(city => (
-                  <option key={city.id} value={city.id}>{city.name}</option>
-                ))}
-              </select>
-            </div>
-          )}
-          {isUSSelected && (
-            <div style={{ marginTop: fluidUnit(16) }}>
-              <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Social Security Number (SSN)</label>
-              <input
-                type="text"
-                placeholder="XXX-XX-XXXX"
-                value={formData.ssn}
-                onChange={(e) => {
-                  const digits = e.target.value.replace(/\D/g, '');
-                  let formatted = digits;
-                  if (digits.length >= 5) {
-                    formatted = `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5, 9)}`;
-                  } else if (digits.length >= 3) {
-                    formatted = `${digits.slice(0, 3)}-${digits.slice(3)}`;
-                  }
-                  setFormData({ ...formData, ssn: formatted });
-                }}
-                maxLength={11}
-                style={{
-                  width: "100%",
-                  padding: fluidUnit(16),
-                  borderRadius: fluidUnit(12),
-                  border: `2px solid ${vars.color.vaultBlack}`,
-                  fontSize: fluidUnit(16),
-                  backgroundColor: 'rgba(255,255,255,0.9)',
-                }}
-              />
-              <Typography as="p" style={{ fontSize: fluidUnit(12), color: '#666', marginTop: fluidUnit(8) }}>
-                Required for US residents for identity verification
-              </Typography>
-            </div>
-          )}
-        </>
-      )},
-      { title: "Enter your contact details", content: (
-        <>
-          {renderInput("Home Address", "Full address", "homeAddress")}
-          {renderInput("Postal Code", "ZIP/Postal", "postalCode")}
-          {renderInput("Phone Number (Optional)", "+1234567890", "phoneNumber", "tel")}
-        </>
-      )},
-      { title: "Almost done!", content: (
-        <>
-          {/* Referral Code */}
-          <div style={{ marginBottom: fluidUnit(24) }}>
-            <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Referral Code (Optional)</label>
-            <input
+        );
+
+      case 'referral':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
+            <TextInput
+              label="Referral Code (Optional)"
               type="text"
-              placeholder="Enter referral code if you have one"
+              placeholder="Enter referral code"
               value={formData.referralCode}
               onChange={(e) => setFormData({ ...formData, referralCode: e.target.value.toUpperCase() })}
-              style={{
-                width: "100%",
-                padding: fluidUnit(16),
-                borderRadius: fluidUnit(12),
-                border: `2px solid ${vars.color.vaultBlack}`,
-                fontSize: fluidUnit(16),
-                backgroundColor: 'rgba(255,255,255,0.9)',
-              }}
+              maxLength={8}
+              labelColor={vars.color.neonMint}
             />
-          </div>
-          
-          <label style={{ display: 'flex', gap: fluidUnit(12), padding: fluidUnit(16), background: 'rgba(255,255,255,0.5)', borderRadius: fluidUnit(12), marginBottom: fluidUnit(16), cursor: 'pointer', border: errors.tos ? '2px solid #c62828' : 'none' }}>
-            <input type="checkbox" checked={formData.acceptTos} onChange={(e) => setFormData({ ...formData, acceptTos: e.target.checked })} />
-            <span style={{ fontSize: fluidUnit(14) }}>I accept Terms & Privacy Policy</span>
-          </label>
-          <label style={{ display: 'flex', gap: fluidUnit(12), padding: fluidUnit(16), background: 'rgba(255,255,255,0.5)', borderRadius: fluidUnit(12), marginBottom: fluidUnit(24), cursor: 'pointer' }}>
-            <input type="checkbox" checked={formData.acceptMarketing} onChange={(e) => setFormData({ ...formData, acceptMarketing: e.target.checked })} />
-            <span style={{ fontSize: fluidUnit(14) }}>Send marketing emails (Optional)</span>
-          </label>
-          
-          {/* Cloudflare Turnstile Captcha */}
-          <div style={{
-            padding: fluidUnit(16),
-            background: 'rgba(255,255,255,0.7)',
-            borderRadius: fluidUnit(12),
-            border: errors.captcha ? '2px solid #c62828' : '2px solid rgba(0,0,0,0.1)',
-            marginBottom: fluidUnit(16),
-          }}>
-            <Typography as="p" style={{ fontSize: fluidUnit(14), fontWeight: 600, marginBottom: fluidUnit(12), color: vars.color.vaultBlack }}>
-              Security Verification
-            </Typography>
-            {/* Implicit rendering with cf-turnstile class */}
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: fluidUnit(8) }}>
-              <div 
-                className="cf-turnstile"
-                data-sitekey="0x4AAAAAAB8pu5AbnI8uAM9O"
-                data-callback="onTurnstileSuccess"
-                data-error-callback="onTurnstileError"
-                data-expired-callback="onTurnstileExpired"
-                data-theme="light"
-                data-size="normal"
-              />
-            </div>
-            {errors.captcha && (
-              <Typography as="p" style={{ color: '#c62828', fontSize: fluidUnit(12), marginTop: fluidUnit(8) }}>
-                {errors.captcha}
-              </Typography>
-            )}
-            <Typography as="p" style={{ fontSize: fluidUnit(11), color: '#666', marginTop: fluidUnit(8), textAlign: 'center' }}>
-              Protected by Cloudflare Turnstile
+            <Typography as="p" font="Instrument Sans" style={{ fontSize: fluidUnit(13), color: vars.color.cloudSilver, margin: 0 }}>
+              Get bonus rewards when you sign up with a valid referral code
             </Typography>
           </div>
-        </>
-      )},
-    ];
+        );
 
-    return (
-      <>
-        <Typography as="h2" style={{ fontSize: fluidUnit(32), fontWeight: 700, marginBottom: fluidUnit(32) }}>
-          {steps[currentStep - 1].title}
-        </Typography>
-        {steps[currentStep - 1].content}
-        {Object.values(errors)[0] && (
-          <Typography as="p" style={{ color: '#c62828', fontSize: fluidUnit(12) }}>
-            {Object.values(errors)[0]}
-          </Typography>
-        )}
-      </>
-    );
+      case 'terms':
+        return (
+          <div style={{ display: "grid", gap: fluidUnit(16) }}>
+            <label style={{ display: 'flex', alignItems: 'flex-start', gap: fluidUnit(12), cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={formData.acceptTos}
+                onChange={(e) => setFormData({ ...formData, acceptTos: e.target.checked })}
+                style={{ width: 20, height: 20, marginTop: 2, cursor: 'pointer', accentColor: vars.color.neonMint }}
+              />
+              <Typography as="span" font="Instrument Sans" style={{ fontSize: fluidUnit(14), color: '#E6E6E6', lineHeight: 1.5 }}>
+                I accept the{' '}
+                <Link href="/terms" target="_blank" style={{ color: vars.color.neonMint, textDecoration: 'underline' }}>Terms and Conditions</Link>
+                {' '}and{' '}
+                <Link href="/privacy" target="_blank" style={{ color: vars.color.neonMint, textDecoration: 'underline' }}>Privacy Policy</Link>
+              </Typography>
+            </label>
+            
+            <label style={{ display: 'flex', alignItems: 'flex-start', gap: fluidUnit(12), cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={formData.acceptMarketing}
+                onChange={(e) => setFormData({ ...formData, acceptMarketing: e.target.checked })}
+                style={{ width: 20, height: 20, marginTop: 2, cursor: 'pointer', accentColor: vars.color.neonMint }}
+              />
+              <Typography as="span" font="Instrument Sans" style={{ fontSize: fluidUnit(14), color: '#E6E6E6', lineHeight: 1.5 }}>
+                I want to receive marketing communications and updates (optional)
+              </Typography>
+            </label>
+          </div>
+        );
+
+      default:
+        return null;
+    }
   };
 
-  // Success Screen
+  // Success screen
   if (showSuccess) {
     return (
-      <>
-        <Script
-          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-          async
-          defer
-          strategy="afterInteractive"
-        />
-        <div style={{ 
-          background: vars.color.vpGreen, 
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: fluidUnit(20),
-        }}>
-        <div style={{ textAlign: 'center', maxWidth: 600 }}>
-          {/* Animated Checkmark */}
-          <div style={{
-            width: fluidUnit(120),
-            height: fluidUnit(120),
-            background: vars.color.vaultWhite,
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto',
-            marginBottom: fluidUnit(32),
-            border: `4px solid ${vars.color.vaultBlack}`,
-            animation: 'scaleIn 0.5s ease-out',
-          }}>
-            <span style={{ fontSize: fluidUnit(60), color: vars.color.neonMint }}>✓</span>
-          </div>
+      <div style={{ background: vars.color.vaultNavie, width: "100vw", position: "relative", left: "50%", right: "50%", marginLeft: "-50vw", marginRight: "-50vw" }}>
+        <Navbar darkGhost />
+        <main style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: fluidUnit(24) }}>
+          <div style={{ textAlign: 'center', maxWidth: 500 }}>
+            <div style={{
+              width: fluidUnit(100),
+              height: fluidUnit(100),
+              background: vars.color.neonMint,
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto',
+              marginBottom: fluidUnit(32),
+            }}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke={vars.color.vaultBlack} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
 
-          <Typography as="h1" style={{ fontSize: fluidUnit(48), fontWeight: 700, marginBottom: fluidUnit(16), color: vars.color.vaultBlack }}>
-            Congratulations!
-          </Typography>
-          
-          <Typography as="p" style={{ fontSize: fluidUnit(20), marginBottom: fluidUnit(32), color: vars.color.vaultBlack, lineHeight: 1.6 }}>
-            Your account has been created successfully!
-          </Typography>
+            <Typography as="h1" font="Instrument Sans" style={{ fontSize: fluidUnit(40), fontWeight: 400, marginBottom: fluidUnit(16), color: vars.color.neonMint }}>
+              Congratulations!
+            </Typography>
+            
+            <Typography as="p" font="Instrument Sans" style={{ fontSize: fluidUnit(18), marginBottom: fluidUnit(32), color: '#E6E6E6', lineHeight: 1.6 }}>
+              Your account has been created successfully!
+            </Typography>
 
-          <div style={{
-            padding: fluidUnit(24),
-            background: 'rgba(255,255,255,0.6)',
-            borderRadius: fluidUnit(16),
-            border: `2px solid ${vars.color.vaultBlack}`,
-          }}>
-            <Typography as="p" style={{ fontSize: fluidUnit(16), marginBottom: fluidUnit(12), color: vars.color.vaultBlack }}>
-              You will be redirected to the KYC verification screen to verify your identity in
-            </Typography>
-            <Typography as="p" style={{ fontSize: fluidUnit(64), fontWeight: 700, color: vars.color.vaultBlack }}>
-              {redirectCountdown}
-            </Typography>
-            <Typography as="p" style={{ fontSize: fluidUnit(14), color: '#666' }}>
-              seconds
-            </Typography>
+            <div style={{
+              padding: fluidUnit(24),
+              background: 'rgba(6, 255, 137, 0.1)',
+              borderRadius: fluidUnit(16),
+              border: '1px solid ' + vars.color.neonMint,
+            }}>
+              <Typography as="p" font="Instrument Sans" style={{ fontSize: fluidUnit(14), marginBottom: fluidUnit(8), color: '#E6E6E6' }}>
+                Redirecting to identity verification in
+              </Typography>
+              <Typography as="p" font="Instrument Sans" style={{ fontSize: fluidUnit(48), fontWeight: 700, color: vars.color.neonMint, margin: 0 }}>
+                {redirectCountdown}
+              </Typography>
+            </div>
           </div>
-        </div>
+        </main>
       </div>
-      </>
     );
   }
 
   return (
-    <>
-      <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-        async
-        defer
-        strategy="afterInteractive"
-      />
-      <div style={{ 
-        background: vars.color.vpGreen, 
-        minHeight: "100vh",
-        width: "100vw",
-        position: "relative",
-        left: "50%",
-        right: "50%",
-        marginLeft: "-50vw",
-        marginRight: "-50vw",
-      }}>
-        <Navbar />
-      <main style={{ minHeight: "calc(100vh - 80px)", display: "flex", alignItems: "center", padding: `${fluidUnit(100)} ${fluidUnit(20)} ${fluidUnit(40)}` }}>
-        <div style={{ width: "100%", maxWidth: 480, margin: "0 auto" }}>
-          <div style={{ marginBottom: fluidUnit(40) }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: fluidUnit(16), marginBottom: fluidUnit(12) }}>
-              {currentStep > 1 && (
-                <button onClick={() => setCurrentStep(currentStep - 1)} style={{ background: 'transparent', border: 'none', fontSize: fluidUnit(32), cursor: 'pointer' }}>←</button>
-              )}
-              <div style={{ flex: 1, height: 4, background: 'rgba(0,0,0,0.1)', borderRadius: 2 }}>
-                <div style={{ width: `${(currentStep / totalSteps) * 100}%`, height: '100%', background: vars.color.vaultBlack, borderRadius: 2, transition: 'width 0.3s' }} />
+    <div style={{ background: vars.color.vaultNavie, width: "100vw", position: "relative", left: "50%", right: "50%", marginLeft: "-50vw", marginRight: "-50vw" }}>
+      <Navbar darkGhost />
+      <main style={{ minHeight: "100vh", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", padding: `${fluidUnit(48, 24)} ${fluidUnit(16, 8)}`, paddingTop: 0 }}>
+        <Container size="lg">
+          <Grid columns={2} gap="lg" style={{ alignItems: "start", columnGap: fluidUnit(40, 24), paddingTop: fluidUnit(64, 24) }}>
+            
+            {/* Left: Form */}
+            <div style={{ maxWidth: fluidUnit(450) }}>
+              {/* Progress bar */}
+              <div style={{ marginBottom: fluidUnit(24) }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: fluidUnit(8) }}>
+                  <Typography as="span" font="Instrument Sans" style={{ fontSize: fluidUnit(12), color: vars.color.cloudSilver }}>
+                    Step {steps.indexOf(currentStep) + 1} of {steps.length}
+                  </Typography>
+                  <Typography as="span" font="Instrument Sans" style={{ fontSize: fluidUnit(12), color: vars.color.cloudSilver }}>
+                    {Math.round(getStepProgress() * 100)}%
+                  </Typography>
+                </div>
+                <div style={{ height: 4, background: 'rgba(255,255,255,0.1)', borderRadius: 2 }}>
+                  <div style={{ height: '100%', background: vars.color.neonMint, borderRadius: 2, width: `${getStepProgress() * 100}%`, transition: 'width 0.3s ease' }} />
+                </div>
               </div>
-              <Typography as="span" style={{ fontSize: fluidUnit(14), fontWeight: 600 }}>{currentStep}/{totalSteps}</Typography>
+
+              <Typography
+                as="h1"
+                font="Instrument Sans"
+                style={{ margin: 0, marginBottom: 8, fontWeight: 400, fontSize: fluidUnit(36), lineHeight: 1.1, letterSpacing: "-0.5px", color: vars.color.neonMint }}
+              >
+                {stepTitles[currentStep]}
+              </Typography>
+              <Typography
+                as="p"
+                font="Instrument Sans"
+                style={{ margin: 0, marginBottom: 24, fontSize: fluidUnit(16), color: "#E6E6E6", fontWeight: 400, lineHeight: 1.6 }}
+              >
+                {stepSubtitles[currentStep]}
+              </Typography>
+
+              <form onSubmit={(e) => { e.preventDefault(); handleNext(); }} style={{ display: "grid", gap: fluidUnit(16) }}>
+                {/* Error display */}
+                {Object.values(errors)[0] && (
+                  <div style={{
+                    padding: fluidUnit(12),
+                    background: "rgba(198, 40, 40, 0.1)",
+                    border: "1px solid #c62828",
+                    borderRadius: fluidUnit(8),
+                    color: "#c62828",
+                    fontSize: fluidUnit(14),
+                  }}>
+                    {Object.values(errors)[0]}
+                  </div>
+                )}
+
+                {renderStepContent()}
+
+                {/* Navigation buttons */}
+                <div style={{ display: 'flex', gap: fluidUnit(12), marginTop: fluidUnit(8) }}>
+                  {steps.indexOf(currentStep) > 0 && (
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      style={{
+                        flex: 1,
+                        padding: `${fluidUnit(12)} ${fluidUnit(16)}`,
+                        borderRadius: 12,
+                        background: 'transparent',
+                        color: vars.color.neonMint,
+                        fontWeight: 600,
+                        border: `2px solid ${vars.color.neonMint}`,
+                        cursor: 'pointer',
+                        fontSize: fluidUnit(16),
+                        fontFamily: "Instrument Sans, system-ui, sans-serif",
+                      }}
+                    >
+                      Back
+                    </button>
+                  )}
+                  
+                  <button
+                    type="submit"
+                    disabled={isLoading || otpLoading}
+                    style={{
+                      flex: 2,
+                      background: vars.color.neonMint,
+                      padding: `${fluidUnit(12)} ${fluidUnit(16)}`,
+                      borderRadius: 12,
+                      color: vars.color.vaultBlack,
+                      fontWeight: 600,
+                      border: "none",
+                      cursor: isLoading || otpLoading ? "not-allowed" : "pointer",
+                      opacity: isLoading || otpLoading ? 0.6 : 1,
+                      fontSize: fluidUnit(18),
+                      fontFamily: "Instrument Sans, system-ui, sans-serif",
+                    }}
+                  >
+                    {isLoading || otpLoading ? 'Please wait...' : currentStep === 'terms' ? 'Create Account' : 'Continue'}
+                  </button>
+                </div>
+              </form>
+
+              <div style={{ marginTop: fluidUnit(24), display: "flex", alignItems: "center", justifyContent: "center", gap: fluidUnit(6) }}>
+                <Typography as="span" font="Instrument Sans" style={{ fontSize: fluidUnit(14), color: vars.color.cloudSilver }} weight={400}>
+                  Already have an account?{" "}
+                  <Link href="/signin" style={{ color: vars.color.neonMint, textDecoration: "none" }}>
+                    Sign in
+                  </Link>
+                </Typography>
+              </div>
             </div>
-          </div>
 
-          {renderStep()}
-
-          <button
-            onClick={handleNext}
-            disabled={isLoading}
-            style={{
-              width: "100%",
-              padding: fluidUnit(18),
-              background: vars.color.vaultBlack,
-              color: vars.color.vaultWhite,
-              border: 'none',
-              borderRadius: fluidUnit(50),
-              fontSize: fluidUnit(18),
-              fontWeight: 600,
-              cursor: isLoading ? 'not-allowed' : 'pointer',
-              marginTop: fluidUnit(32),
-              opacity: isLoading ? 0.6 : 1,
-            }}
-          >
-            {isLoading ? 'Processing...' : (currentStep === totalSteps ? 'Create Account' : 'Continue')}
-          </button>
-          
-          <div style={{ textAlign: 'center', marginTop: fluidUnit(24) }}>
-            <Typography as="p" style={{ fontSize: fluidUnit(14) }}>
-              Already have an account? <a href="/signin" style={{ fontWeight: 600, textDecoration: 'underline' }}>Sign in</a>
-            </Typography>
-          </div>
-        </div>
+            {/* Right: Image */}
+            <div style={{ position: "relative", width: "100%", maxWidth: fluidUnit(640), margin: "0 auto", borderRadius: fluidUnit(16), overflow: "hidden" }}>
+              <Image
+                unoptimized
+                src="/Login Art.png"
+                alt="VaultPay devices"
+                width={623}
+                height={821}
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+            </div>
+          </Grid>
+        </Container>
       </main>
     </div>
-    </>
   );
 }
