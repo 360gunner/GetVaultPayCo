@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import { vars } from "@/styles/theme.css";
 import Typography from "@/components/Typography/Typography";
@@ -21,12 +21,164 @@ export default function KYCVerificationPage() {
 
   const [kycData, setKycData] = useState({
     idType: "passport",
-    addressDocType: "utility_bill",
     identificationNumber: "",
     idDocument: null as File | null,
-    addressDocument: null as File | null,
     selfieImage: null as File | null,
   });
+
+  // Camera state
+  const [cameraActive, setCameraActive] = useState(false);
+  const [cameraModalOpen, setCameraModalOpen] = useState(false);
+  const [cameraTarget, setCameraTarget] = useState<'idDocument' | 'selfieImage' | null>(null);
+  const [cameraFacingMode, setCameraFacingMode] = useState<'user' | 'environment'>('environment');
+  const [cameraReady, setCameraReady] = useState(false);
+  const [capturedIdImage, setCapturedIdImage] = useState<string | null>(null);
+  const [capturedSelfieImage, setCapturedSelfieImage] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+
+  const closeCameraModal = useCallback(() => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+    setCameraActive(false);
+    setCameraModalOpen(false);
+    setCameraTarget(null);
+    setCameraReady(false);
+  }, []);
+
+  // Start camera
+  const startCamera = useCallback(async (facingMode: 'user' | 'environment' = 'environment') => {
+    setError('');
+    
+    // Check if browser supports getUserMedia
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setError('Your browser does not support camera access. Please use a modern browser like Chrome, Firefox, or Safari.');
+      return;
+    }
+
+    try {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+        streamRef.current = null;
+      }
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
+
+      // First try with the specified facing mode
+      let stream: MediaStream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { 
+            facingMode: { ideal: facingMode },
+            width: { ideal: 1280 }, 
+            height: { ideal: 720 } 
+          }
+        });
+      } catch {
+        // If that fails, try with just video: true
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      }
+      
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        streamRef.current = stream;
+        setCameraActive(true);
+        setCameraReady(false);
+        setError('');
+
+        try {
+          await videoRef.current.play();
+        } catch {
+          // Ignore; some browsers will autoplay once metadata is loaded.
+        }
+      }
+    } catch (err: any) {
+      console.error('Error accessing camera:', err);
+      
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        setError('Camera permission denied. Please allow camera access in your browser settings and refresh the page.');
+      } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+        setError('No camera found on this device. Please connect a camera or use a device with a camera.');
+      } else if (err.name === 'NotReadableError' || err.name === 'TrackStartError') {
+        setError('Camera is in use by another application. Please close other apps using the camera and try again.');
+      } else if (err.name === 'OverconstrainedError') {
+        setError('Camera does not meet the requirements. Please try with a different camera.');
+      } else {
+        setError('Unable to access camera. Please check your browser settings and ensure camera permissions are granted.');
+      }
+    }
+  }, []);
+
+  // Stop camera
+  const stopCamera = useCallback(() => {
+    closeCameraModal();
+  }, [closeCameraModal]);
+
+  // Capture image from camera
+  const captureImage = useCallback((type: 'idDocument' | 'selfieImage') => {
+    if (!videoRef.current || !canvasRef.current) return;
+
+    const video = videoRef.current;
+    if (!video.videoWidth || !video.videoHeight) {
+      setError('Camera is not ready yet. Please wait a moment and try again.');
+      return;
+    }
+    const canvas = canvasRef.current;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.drawImage(video, 0, 0);
+    const imageDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+
+    // Convert data URL to File
+    fetch(imageDataUrl)
+      .then(res => res.blob())
+      .then(blob => {
+        const file = new File([blob], `${type}_${Date.now()}.jpg`, { type: 'image/jpeg' });
+        setKycData(prev => ({ ...prev, [type]: file }));
+        
+        if (type === 'idDocument') {
+          setCapturedIdImage(imageDataUrl);
+        } else {
+          setCapturedSelfieImage(imageDataUrl);
+        }
+
+        closeCameraModal();
+      });
+  }, [closeCameraModal]);
+
+  // Cleanup camera on unmount or step change
+  useEffect(() => {
+    return () => {
+      stopCamera();
+    };
+  }, [stopCamera]);
+
+  useEffect(() => {
+    stopCamera();
+  }, [currentStep, stopCamera]);
+
+  const openCameraModal = useCallback((target: 'idDocument' | 'selfieImage', facingMode: 'user' | 'environment') => {
+    setCameraTarget(target);
+    setCameraFacingMode(facingMode);
+    setCameraModalOpen(true);
+    setCameraReady(false);
+  }, []);
+
+  useEffect(() => {
+    if (!cameraModalOpen || !cameraTarget) return;
+    startCamera(cameraFacingMode);
+  }, [cameraFacingMode, cameraModalOpen, cameraTarget, startCamera]);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -50,7 +202,7 @@ export default function KYCVerificationPage() {
     }
   };
 
-  const handleFileChange = (field: 'idDocument' | 'addressDocument' | 'selfieImage', file: File | null) => {
+  const handleFileChange = (field: 'idDocument' | 'selfieImage', file: File | null) => {
     setKycData({ ...kycData, [field]: file });
     setError("");
   };
@@ -61,7 +213,7 @@ export default function KYCVerificationPage() {
       return;
     }
 
-    if (!kycData.identificationNumber || !kycData.idDocument || !kycData.addressDocument || !kycData.selfieImage) {
+    if (!kycData.identificationNumber || !kycData.idDocument || !kycData.selfieImage) {
       setError("Please complete all required fields and upload all documents");
       return;
     }
@@ -74,10 +226,8 @@ export default function KYCVerificationPage() {
         userId: user.user_id,
         loginCode: user.login_code,
         id_type: kycData.idType,
-        address_doc_type: kycData.addressDocType,
         Identification_number: kycData.identificationNumber,
         identification_document: kycData.idDocument,
-        address_document: kycData.addressDocument,
         face_verification_image: kycData.selfieImage,
       });
 
@@ -147,28 +297,94 @@ export default function KYCVerificationPage() {
         return (
           <div style={{ maxWidth: 600, margin: "0 auto" }}>
             <Typography as="h2" style={{ fontSize: fluidUnit(32), fontWeight: 700, marginBottom: fluidUnit(24), color: vars.color.vaultBlack }}>
-              Step 2: Upload ID Document
+              Step 2: Capture ID Document
             </Typography>
             <div style={{
               padding: fluidUnit(32),
-              border: `3px dashed ${vars.color.vaultBlack}`,
+              border: `3px solid ${vars.color.vaultBlack}`,
               borderRadius: fluidUnit(16),
               textAlign: "center",
               background: vars.color.vaultWhite,
+              overflow: "hidden",
             }}>
-              <Typography as="p" style={{ fontSize: fluidUnit(16), marginBottom: fluidUnit(16) }}>
-                Upload a clear photo of your {kycData.idType.replace('_', ' ')}
-              </Typography>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleFileChange('idDocument', e.target.files?.[0] || null)}
-                style={{ marginBottom: fluidUnit(16) }}
-              />
-              {kycData.idDocument && (
-                <Typography as="p" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint, fontWeight: 600 }}>
-                  ✓ {kycData.idDocument.name}
-                </Typography>
+              {!capturedIdImage && (
+                <>
+                  <div style={{
+                    width: fluidUnit(80),
+                    height: fluidUnit(80),
+                    margin: "0 auto",
+                    marginBottom: fluidUnit(16),
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: vars.color.vpGreen,
+                    borderRadius: "50%",
+                  }}>
+                    <span style={{ fontSize: fluidUnit(40) }}>📷</span>
+                  </div>
+                  <Typography as="p" style={{ fontSize: fluidUnit(16), marginBottom: fluidUnit(16), color: "#333" }}>
+                    Take a clear photo of your {kycData.idType.replace('_', ' ')}
+                  </Typography>
+                  <Typography as="p" style={{ fontSize: fluidUnit(13), marginBottom: fluidUnit(24), color: "#666" }}>
+                    Make sure all details are visible and the image is not blurry
+                  </Typography>
+                  <button
+                    type="button"
+                    onClick={() => openCameraModal('idDocument', 'environment')}
+                    style={{
+                      padding: `${fluidUnit(14)} ${fluidUnit(32)}`,
+                      background: vars.color.vaultBlack,
+                      color: vars.color.vaultWhite,
+                      border: "none",
+                      borderRadius: fluidUnit(50),
+                      fontSize: fluidUnit(16),
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: fluidUnit(8),
+                    }}
+                  >
+                    📷 Take Photo
+                  </button>
+                </>
+              )}
+
+              {capturedIdImage && !cameraActive && (
+                <div>
+                  <img
+                    src={capturedIdImage}
+                    alt="Captured ID"
+                    style={{
+                      width: "100%",
+                      maxHeight: 300,
+                      objectFit: "contain",
+                      borderRadius: fluidUnit(12),
+                      marginBottom: fluidUnit(16),
+                    }}
+                  />
+                  <Typography as="p" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint, fontWeight: 600, marginBottom: fluidUnit(12) }}>
+                    ✓ ID Document captured
+                  </Typography>
+                  <button
+                    onClick={() => {
+                      setCapturedIdImage(null);
+                      setKycData(prev => ({ ...prev, idDocument: null }));
+                    }}
+                    style={{
+                      padding: `${fluidUnit(10)} ${fluidUnit(20)}`,
+                      background: "transparent",
+                      color: vars.color.vaultBlack,
+                      border: `2px solid ${vars.color.vaultBlack}`,
+                      borderRadius: fluidUnit(50),
+                      fontSize: fluidUnit(14),
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Retake Photo
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -177,78 +393,94 @@ export default function KYCVerificationPage() {
         return (
           <div style={{ maxWidth: 600, margin: "0 auto" }}>
             <Typography as="h2" style={{ fontSize: fluidUnit(32), fontWeight: 700, marginBottom: fluidUnit(24), color: vars.color.vaultBlack }}>
-              Step 3: Upload Address Proof
+              Step 3: Take a Selfie
             </Typography>
-            <div style={{ marginBottom: fluidUnit(24) }}>
-              <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>Document Type</label>
-              <select
-                value={kycData.addressDocType}
-                onChange={(e) => setKycData({ ...kycData, addressDocType: e.target.value })}
-                style={{
-                  width: "100%",
-                  padding: fluidUnit(16),
-                  borderRadius: fluidUnit(12),
-                  border: `2px solid ${vars.color.vaultBlack}`,
-                  fontSize: fluidUnit(16),
-                  backgroundColor: vars.color.vaultWhite,
-                }}
-              >
-                <option value="utility_bill">Utility Bill</option>
-                <option value="bank_statement">Bank Statement</option>
-                <option value="lease_agreement">Lease Agreement</option>
-              </select>
-            </div>
             <div style={{
               padding: fluidUnit(32),
-              border: `3px dashed ${vars.color.vaultBlack}`,
+              border: `3px solid ${vars.color.vaultBlack}`,
               borderRadius: fluidUnit(16),
               textAlign: "center",
               background: vars.color.vaultWhite,
+              overflow: "hidden",
             }}>
-              <Typography as="p" style={{ fontSize: fluidUnit(16), marginBottom: fluidUnit(16) }}>
-                Upload your address proof document
-              </Typography>
-              <input
-                type="file"
-                accept="image/*,application/pdf"
-                onChange={(e) => handleFileChange('addressDocument', e.target.files?.[0] || null)}
-                style={{ marginBottom: fluidUnit(16) }}
-              />
-              {kycData.addressDocument && (
-                <Typography as="p" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint, fontWeight: 600 }}>
-                  ✓ {kycData.addressDocument.name}
-                </Typography>
+              {!capturedSelfieImage && (
+                <>
+                  <div style={{
+                    width: fluidUnit(80),
+                    height: fluidUnit(80),
+                    margin: "0 auto",
+                    marginBottom: fluidUnit(16),
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: vars.color.vpGreen,
+                    borderRadius: "50%",
+                  }}>
+                    <span style={{ fontSize: fluidUnit(40) }}>🤳</span>
+                  </div>
+                  <Typography as="p" style={{ fontSize: fluidUnit(16), marginBottom: fluidUnit(16), color: "#333" }}>
+                    Take a clear selfie for identity verification
+                  </Typography>
+                  <Typography as="p" style={{ fontSize: fluidUnit(13), marginBottom: fluidUnit(24), color: "#666" }}>
+                    Position your face in the center and ensure good lighting
+                  </Typography>
+                  <button
+                    type="button"
+                    onClick={() => openCameraModal('selfieImage', 'user')}
+                    style={{
+                      padding: `${fluidUnit(14)} ${fluidUnit(32)}`,
+                      background: vars.color.vaultBlack,
+                      color: vars.color.vaultWhite,
+                      border: "none",
+                      borderRadius: fluidUnit(50),
+                      fontSize: fluidUnit(16),
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: fluidUnit(8),
+                    }}
+                  >
+                    🤳 Take Selfie
+                  </button>
+                </>
               )}
-            </div>
-          </div>
-        );
-      case 4:
-        return (
-          <div style={{ maxWidth: 600, margin: "0 auto" }}>
-            <Typography as="h2" style={{ fontSize: fluidUnit(32), fontWeight: 700, marginBottom: fluidUnit(24), color: vars.color.vaultBlack }}>
-              Step 4: Take a Selfie
-            </Typography>
-            <div style={{
-              padding: fluidUnit(32),
-              border: `3px dashed ${vars.color.vaultBlack}`,
-              borderRadius: fluidUnit(16),
-              textAlign: "center",
-              background: vars.color.vaultWhite,
-            }}>
-              <Typography as="p" style={{ fontSize: fluidUnit(16), marginBottom: fluidUnit(16) }}>
-                Take a clear selfie for identity verification
-              </Typography>
-              <input
-                type="file"
-                accept="image/*"
-                capture="user"
-                onChange={(e) => handleFileChange('selfieImage', e.target.files?.[0] || null)}
-                style={{ marginBottom: fluidUnit(16) }}
-              />
-              {kycData.selfieImage && (
-                <Typography as="p" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint, fontWeight: 600 }}>
-                  ✓ {kycData.selfieImage.name}
-                </Typography>
+
+              {capturedSelfieImage && !cameraActive && (
+                <div>
+                  <img
+                    src={capturedSelfieImage}
+                    alt="Captured Selfie"
+                    style={{
+                      width: "100%",
+                      maxHeight: 300,
+                      objectFit: "contain",
+                      borderRadius: fluidUnit(12),
+                      marginBottom: fluidUnit(16),
+                    }}
+                  />
+                  <Typography as="p" style={{ fontSize: fluidUnit(14), color: vars.color.neonMint, fontWeight: 600, marginBottom: fluidUnit(12) }}>
+                    ✓ Selfie captured
+                  </Typography>
+                  <button
+                    onClick={() => {
+                      setCapturedSelfieImage(null);
+                      setKycData(prev => ({ ...prev, selfieImage: null }));
+                    }}
+                    style={{
+                      padding: `${fluidUnit(10)} ${fluidUnit(20)}`,
+                      background: "transparent",
+                      color: vars.color.vaultBlack,
+                      border: `2px solid ${vars.color.vaultBlack}`,
+                      borderRadius: fluidUnit(50),
+                      fontSize: fluidUnit(14),
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Retake Photo
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -299,6 +531,128 @@ export default function KYCVerificationPage() {
       marginRight: "-50vw",
     }}>
       <Navbar />
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
+
+      {cameraModalOpen && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.65)',
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: fluidUnit(16),
+        }}>
+          <div style={{
+            width: 'min(520px, 92vw)',
+            background: vars.color.vaultWhite,
+            borderRadius: fluidUnit(16),
+            border: `3px solid ${vars.color.vaultBlack}`,
+            overflow: 'hidden',
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: fluidUnit(16),
+              borderBottom: `2px solid ${vars.color.vaultBlack}`,
+              background: vars.color.vaultWhite,
+            }}>
+              <Typography as="p" style={{ fontSize: fluidUnit(16), fontWeight: 700, color: vars.color.vaultBlack }}>
+                {cameraTarget === 'selfieImage' ? 'Take Selfie' : 'Capture ID Document'}
+              </Typography>
+              <button
+                type="button"
+                onClick={closeCameraModal}
+                style={{
+                  width: fluidUnit(36),
+                  height: fluidUnit(36),
+                  borderRadius: '50%',
+                  border: `2px solid ${vars.color.vaultBlack}`,
+                  background: 'transparent',
+                  color: vars.color.vaultBlack,
+                  fontSize: fluidUnit(18),
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                ×
+              </button>
+            </div>
+
+            <div style={{ padding: fluidUnit(16) }}>
+              <div style={{
+                width: '100%',
+                background: '#000',
+                borderRadius: fluidUnit(12),
+                overflow: 'hidden',
+                marginBottom: fluidUnit(16),
+              }}>
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  onLoadedMetadata={() => setCameraReady(true)}
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    maxHeight: '70vh',
+                    transform: cameraFacingMode === 'user' ? 'scaleX(-1)' : undefined,
+                  }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: fluidUnit(12), justifyContent: 'center' }}>
+                <button
+                  type="button"
+                  onClick={closeCameraModal}
+                  style={{
+                    padding: `${fluidUnit(12)} ${fluidUnit(24)}`,
+                    background: '#666',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: fluidUnit(50),
+                    fontSize: fluidUnit(14),
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  disabled={!cameraActive || !cameraTarget || !cameraReady}
+                  onClick={() => {
+                    if (cameraTarget) captureImage(cameraTarget);
+                  }}
+                  style={{
+                    padding: `${fluidUnit(12)} ${fluidUnit(24)}`,
+                    background: vars.color.neonMint,
+                    color: vars.color.vaultBlack,
+                    border: 'none',
+                    borderRadius: fluidUnit(50),
+                    fontSize: fluidUnit(14),
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    opacity: (!cameraActive || !cameraTarget || !cameraReady) ? 0.6 : 1,
+                  }}
+                >
+                  📸 Capture
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       
       <main style={{ 
         minHeight: "calc(100vh - 80px)", 
@@ -368,7 +722,7 @@ export default function KYCVerificationPage() {
                     <div>
                       <div style={{ marginBottom: fluidUnit(32), textAlign: "center" }}>
                         <Typography as="p" style={{ fontSize: fluidUnit(10), fontWeight: 600, marginBottom: fluidUnit(8) }}>
-                          Step 1 of 4
+                          Step 1 of 3
                         </Typography>
                       </div>
 
@@ -493,19 +847,19 @@ export default function KYCVerificationPage() {
             {/* Progress Indicator */}
             <div style={{ marginBottom: fluidUnit(32) }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: fluidUnit(8) }}>
-                {[1, 2, 3, 4].map(step => (
+                {[1, 2, 3].map(step => (
                   <div key={step} style={{
                     flex: 1,
                     height: 4,
                     background: currentStep >= step ? vars.color.vaultBlack : 'rgba(0,0,0,0.2)',
-                    marginRight: step < 4 ? fluidUnit(8) : 0,
+                    marginRight: step < 3 ? fluidUnit(8) : 0,
                     borderRadius: 2,
                     transition: 'background 0.3s',
                   }} />
                 ))}
               </div>
               <Typography as="p" style={{ fontSize: fluidUnit(14), color: '#666' }}>
-                Step {currentStep} of 4
+                Step {currentStep} of 3
               </Typography>
             </div>
 
@@ -620,7 +974,7 @@ export default function KYCVerificationPage() {
                 </button>
               )}
               
-              {currentStep < 4 ? (
+              {currentStep < 3 ? (
                 <button
                   onClick={() => setCurrentStep(currentStep + 1)}
                   style={{

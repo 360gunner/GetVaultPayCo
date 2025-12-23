@@ -100,10 +100,10 @@ export interface KYCRequest {
   userId: string;
   loginCode: string;
   id_type: string;
-  address_doc_type: string;
+  address_doc_type?: string;
   Identification_number: string;
   identification_document: File;
-  address_document: File;
+  address_document?: File;
   face_verification_image: File;
 }
 
@@ -135,17 +135,20 @@ export interface KYCStatusResponse {
  * Register a new user
  */
 export async function register(data: RegisterRequest): Promise<AuthResponse> {
-  const formData = new FormData();
+  const params = new URLSearchParams();
   
   Object.entries(data).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
-      formData.append(key, value.toString());
+      params.append(key, value.toString());
     }
   });
 
   const response = await fetch(`${BASE_URL}/api/v2/auth/register`, {
     method: 'POST',
-    body: formData,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: params,
   });
 
   return response.json();
@@ -283,6 +286,52 @@ export async function checkEmail(email: string): Promise<{ status: boolean; is_a
 }
 
 /**
+ * Send Email Verification OTP
+ * Sends a 6-digit OTP to the user's email during signup
+ */
+export async function sendEmailVerificationOTP(email: string): Promise<{
+  status: boolean;
+  message: string;
+  data?: { otp: string };
+}> {
+  const params = new URLSearchParams();
+  params.append('email', email);
+
+  const response = await fetch(`${BASE_URL}/api/v2/Auth/send_email_verification_otp`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: params,
+  });
+
+  return response.json();
+}
+
+/**
+ * Confirm Email Verification OTP
+ * Verifies the OTP code entered by the user
+ */
+export async function confirmEmailVerificationOTP(email: string, otp: string): Promise<{
+  status: boolean;
+  message: string;
+}> {
+  const params = new URLSearchParams();
+  params.append('email', email);
+  params.append('otp', otp);
+
+  const response = await fetch(`${BASE_URL}/api/v2/Auth/confirm_email_verification_otp`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: params,
+  });
+
+  return response.json();
+}
+
+/**
  * Get list of countries
  */
 export async function getCountries(): Promise<{ status: boolean; data: Country[] }> {
@@ -319,11 +368,17 @@ export async function submitKYC(data: KYCRequest): Promise<{ status: boolean; me
   formData.append('userId', data.userId);
   formData.append('loginCode', data.loginCode);
   formData.append('id_type', data.id_type);
-  formData.append('address_doc_type', data.address_doc_type);
   formData.append('Identification_number', data.Identification_number);
   formData.append('identification_document', data.identification_document);
-  formData.append('address_document', data.address_document);
   formData.append('face_verification_image', data.face_verification_image);
+  
+  // Optional address fields (not required by mobile app flow)
+  if (data.address_doc_type) {
+    formData.append('address_doc_type', data.address_doc_type);
+  }
+  if (data.address_document) {
+    formData.append('address_document', data.address_document);
+  }
 
   const response = await fetch(`${BASE_URL}/api/v2/user/kyc`, {
     method: 'POST',
