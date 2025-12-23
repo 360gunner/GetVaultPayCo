@@ -32,12 +32,17 @@ export interface RegisterRequest {
 export interface LoginRequest {
   email: string;
   password: string;
+  otp?: string;
+  device_type?: 'app' | 'web';
 }
 
 export interface AuthResponse {
   status: boolean;
   message?: string;
+  requires_2fa?: boolean;
   data?: {
+    email_masked?: string;
+    user_id_temp?: string;
     user_id: string;
     login_code: string;
     first_name: string;
@@ -148,11 +153,18 @@ export async function register(data: RegisterRequest): Promise<AuthResponse> {
 
 /**
  * Login user
+ * Supports email 2FA - if requires_2fa is true, call again with OTP
  */
 export async function login(data: LoginRequest): Promise<AuthResponse> {
   const params = new URLSearchParams();
   params.append('email', data.email);
   params.append('password', data.password);
+  params.append('device_type', 'web'); // Always send 'web' for website
+  
+  // Include OTP if provided (for 2FA verification)
+  if (data.otp) {
+    params.append('otp', data.otp);
+  }
 
   const response = await fetch(`${BASE_URL}/api/v2/Auth/login`, {
     method: 'POST',

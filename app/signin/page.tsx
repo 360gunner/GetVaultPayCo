@@ -22,6 +22,11 @@ export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  
+  // 2FA state
+  const [requires2FA, setRequires2FA] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+  const [maskedEmail, setMaskedEmail] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,9 +40,22 @@ export default function SignInPage() {
         return;
       }
 
-      const response = await apiLogin({ email: identifier, password });
+      // If 2FA is required, include the OTP code
+      const loginData = requires2FA 
+        ? { email: identifier, password, otp: otpCode }
+        : { email: identifier, password };
 
-      if (response.status && response.data) {
+      const response = await apiLogin(loginData);
+
+      // Check if 2FA is required
+      if (response.status && response.requires_2fa && !response.data?.login_code) {
+        setRequires2FA(true);
+        setMaskedEmail(response.data?.email_masked || "your email");
+        setIsLoading(false);
+        return;
+      }
+
+      if (response.status && response.data && response.data.login_code) {
         login(response.data);
         
         if (response.data.is_kyc_verified === "0" || response.data.is_kyc_verified === "3") {
@@ -54,6 +72,12 @@ export default function SignInPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+  
+  const handleBackToLogin = () => {
+    setRequires2FA(false);
+    setOtpCode("");
+    setError("");
   };
 
   return (
@@ -140,81 +164,136 @@ export default function SignInPage() {
                     {error}
                   </div>
                 )}
-                <TextInput
-                  label="Email or Username"
-                  type="text"
-                  placeholder="Email or @username"
-                  required
-                  labelColor={vars.color.neonMint}
-                  value={identifier}
-                  onChange={(e) => setIdentifier(e.target.value)}
-                />
-                <div style={{ position: "relative" }}>
-                  <TextInput
-                    label="Password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="At least 8 characters"
-                    minLength={8}
-                    required
-                    labelColor={vars.color.neonMint}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    style={{
-                      position: "absolute",
-                      right: 12,
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      marginTop: 12,
-                      background: "transparent",
-                      border: "none",
-                      cursor: "pointer",
-                      padding: 4,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {showPassword ? (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
-                        <line x1="1" y1="1" x2="23" y2="23"/>
-                      </svg>
-                    ) : (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                        <circle cx="12" cy="12" r="3"/>
-                      </svg>
-                    )}
-                  </button>
-                </div>
-                <Typography
-                  as="p"
-                  font="Instrument Sans"
-                  style={{
-                    marginTop: 0,
-                    marginBottom: 0,
-                    fontSize: fluidUnit(16),
-                    color: vars.color.cloudSilver,
-                    fontWeight: 400,
-                    lineHeight: 1.6,
-                    textAlign: "right",
-                    letterSpacing: "0.2px",
-                  }}
-                >
-                  <Link
-                    href="/forgot-password"
-                    style={{
-                      textDecoration: "none",
-                      color: vars.color.cloudSilver,
-                    }}
-                  >
-                    Forgot Password?
-                  </Link>
-                </Typography>
+                
+                {/* Show 2FA OTP input when required */}
+                {requires2FA ? (
+                  <>
+                    <div style={{
+                      padding: fluidUnit(16),
+                      background: "rgba(6, 255, 137, 0.1)",
+                      border: "1px solid " + vars.color.neonMint,
+                      borderRadius: fluidUnit(8),
+                      marginBottom: fluidUnit(8),
+                    }}>
+                      <Typography
+                        as="p"
+                        font="Instrument Sans"
+                        style={{
+                          margin: 0,
+                          fontSize: fluidUnit(14),
+                          color: vars.color.neonMint,
+                          textAlign: "center",
+                        }}
+                      >
+                        A verification code has been sent to {maskedEmail}
+                      </Typography>
+                    </div>
+                    <TextInput
+                      label="Verification Code"
+                      type="text"
+                      placeholder="Enter 6-digit code"
+                      required
+                      labelColor={vars.color.neonMint}
+                      value={otpCode}
+                      onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                      maxLength={6}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleBackToLogin}
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        color: vars.color.cloudSilver,
+                        cursor: "pointer",
+                        fontSize: fluidUnit(14),
+                        textDecoration: "underline",
+                        padding: 0,
+                        marginTop: fluidUnit(-8),
+                      }}
+                    >
+                      ← Back to login
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <TextInput
+                      label="Email or Username"
+                      type="text"
+                      placeholder="Email or @username"
+                      required
+                      labelColor={vars.color.neonMint}
+                      value={identifier}
+                      onChange={(e) => setIdentifier(e.target.value)}
+                    />
+                    <div style={{ position: "relative" }}>
+                      <TextInput
+                        label="Password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="At least 8 characters"
+                        minLength={8}
+                        required
+                        labelColor={vars.color.neonMint}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        style={{
+                          position: "absolute",
+                          right: 12,
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          marginTop: 12,
+                          background: "transparent",
+                          border: "none",
+                          cursor: "pointer",
+                          padding: 4,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {showPassword ? (
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                            <line x1="1" y1="1" x2="23" y2="23"/>
+                          </svg>
+                        ) : (
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                    <Typography
+                      as="p"
+                      font="Instrument Sans"
+                      style={{
+                        marginTop: 0,
+                        marginBottom: 0,
+                        fontSize: fluidUnit(16),
+                        color: vars.color.cloudSilver,
+                        fontWeight: 400,
+                        lineHeight: 1.6,
+                        textAlign: "right",
+                        letterSpacing: "0.2px",
+                      }}
+                    >
+                      <Link
+                        href="/forgot-password"
+                        style={{
+                          textDecoration: "none",
+                          color: vars.color.cloudSilver,
+                        }}
+                      >
+                        Forgot Password?
+                      </Link>
+                    </Typography>
+                  </>
+                )}
 
                 <button
                   type="submit"
@@ -233,7 +312,7 @@ export default function SignInPage() {
                     fontFamily: "Instrument Sans, system-ui, sans-serif",
                   }}
                 >
-                  {isLoading ? "Signing In..." : "Sign In"}
+                  {isLoading ? (requires2FA ? "Verifying..." : "Signing In...") : (requires2FA ? "Verify Code" : "Sign In")}
                 </button>
               </form>
 
