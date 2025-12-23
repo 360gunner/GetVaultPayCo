@@ -73,8 +73,7 @@ export default function SignUpPage() {
     hasSpecial: false,
     minLength: false,
   });
-  // TEMPORARILY DISABLED: Cloudflare Turnstile captcha
-  // const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   // OTP Management
@@ -138,35 +137,35 @@ export default function SignUpPage() {
     }
   }, [showSuccess, redirectCountdown, router]);
 
-  // TEMPORARILY DISABLED: Setup Cloudflare Turnstile callback globally
-  // useEffect(() => {
-  //   // Define callback function globally for implicit rendering
-  //   (window as any).onTurnstileSuccess = (token: string) => {
-  //     console.log("Captcha verified successfully:", token);
-  //     setCaptchaToken(token);
-  //     setErrors((prev) => {
-  //       const { captcha, ...rest } = prev;
-  //       return rest;
-  //     });
-  //   };
+  // Setup Cloudflare Turnstile callback globally
+  useEffect(() => {
+    // Define callback function globally for implicit rendering
+    (window as any).onTurnstileSuccess = (token: string) => {
+      console.log("Captcha verified successfully:", token);
+      setCaptchaToken(token);
+      setErrors((prev) => {
+        const { captcha, ...rest } = prev;
+        return rest;
+      });
+    };
 
-  //   (window as any).onTurnstileError = (error: string) => {
-  //     console.error('Turnstile error:', error);
-  //     setErrors({ captcha: 'Verification failed. Please try again.' });
-  //   };
+    (window as any).onTurnstileError = (error: string) => {
+      console.error('Turnstile error:', error);
+      setErrors({ captcha: 'Verification failed. Please try again.' });
+    };
 
-  //   (window as any).onTurnstileExpired = () => {
-  //     console.warn('Turnstile token expired');
-  //     setCaptchaToken(null);
-  //     setErrors({ captcha: 'Verification expired. Please verify again.' });
-  //   };
+    (window as any).onTurnstileExpired = () => {
+      console.warn('Turnstile token expired');
+      setCaptchaToken(null);
+      setErrors({ captcha: 'Verification expired. Please verify again.' });
+    };
 
-  //   return () => {
-  //     delete (window as any).onTurnstileSuccess;
-  //     delete (window as any).onTurnstileError;
-  //     delete (window as any).onTurnstileExpired;
-  //   };
-  // }, []);
+    return () => {
+      delete (window as any).onTurnstileSuccess;
+      delete (window as any).onTurnstileError;
+      delete (window as any).onTurnstileExpired;
+    };
+  }, []);
 
   const loadCountries = async () => {
     try {
@@ -334,12 +333,11 @@ export default function SignUpPage() {
           setIsLoading(false);
           return;
         }
-        // TEMPORARILY DISABLED: Captcha validation
-        // if (!captchaToken) {
-        //   setErrors({ captcha: "Please complete the security verification" });
-        //   setIsLoading(false);
-        //   return;
-        // }
+        if (!captchaToken) {
+          setErrors({ captcha: "Please complete the security verification" });
+          setIsLoading(false);
+          return;
+        }
         
         const birthDate = new Date(formData.dateOfBirth);
         const registerData = {
@@ -384,46 +382,31 @@ export default function SignUpPage() {
     }
   };
 
-  const renderInput = (label: string, placeholder: string, field: keyof SignupData, type = "text", errorKey?: string) => {
-    const fieldError = errorKey ? errors[errorKey] : errors[field];
-    return (
-      <div style={{ marginBottom: fluidUnit(24) }}>
-        <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>
-          {label}
-        </label>
-        <input
-          type={type}
-          placeholder={placeholder}
-          value={formData[field] as string}
-          onChange={(e) => {
-            const value = field === 'username' ? e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '') : e.target.value;
-            setFormData({ ...formData, [field]: type === 'date' ? e.target.value : value });
-            if (field === 'password') validatePassword(e.target.value);
-            if (fieldError) {
-              setErrors(prev => {
-                const newErrors = { ...prev };
-                delete newErrors[errorKey || field];
-                return newErrors;
-              });
-            }
-          }}
-          style={{
-            width: "100%",
-            padding: fluidUnit(16),
-            borderRadius: fluidUnit(12),
-            border: `2px solid ${fieldError ? '#c62828' : vars.color.vaultBlack}`,
-            fontSize: fluidUnit(16),
-            backgroundColor: 'rgba(255,255,255,0.9)',
-          }}
-        />
-        {fieldError && (
-          <Typography as="p" style={{ color: '#c62828', fontSize: fluidUnit(12), marginTop: fluidUnit(8) }}>
-            {fieldError}
-          </Typography>
-        )}
-      </div>
-    );
-  };
+  const renderInput = (label: string, placeholder: string, field: keyof SignupData, type = "text") => (
+    <div style={{ marginBottom: fluidUnit(24) }}>
+      <label style={{ display: "block", fontSize: fluidUnit(16), fontWeight: 600, marginBottom: fluidUnit(8) }}>
+        {label}
+      </label>
+      <input
+        type={type}
+        placeholder={placeholder}
+        value={formData[field] as string}
+        onChange={(e) => {
+          const value = field === 'username' ? e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '') : e.target.value;
+          setFormData({ ...formData, [field]: type === 'date' ? e.target.value : value });
+          if (field === 'password') validatePassword(e.target.value);
+        }}
+        style={{
+          width: "100%",
+          padding: fluidUnit(16),
+          borderRadius: fluidUnit(12),
+          border: `2px solid ${vars.color.vaultBlack}`,
+          fontSize: fluidUnit(16),
+          backgroundColor: 'rgba(255,255,255,0.9)',
+        }}
+      />
+    </div>
+  );
 
   const renderStep = () => {
     const steps = [
@@ -572,10 +555,8 @@ export default function SignUpPage() {
       )},
       { title: "Choose a username", content: (
         <>
-          <div style={{ marginBottom: fluidUnit(8) }}>
-            {renderInput("Username", "unique_username", "username")}
-          </div>
-          <Typography as="p" style={{ fontSize: fluidUnit(12), color: '#666' }}>
+          {renderInput("Username", "unique_username", "username")}
+          <Typography as="p" style={{ fontSize: fluidUnit(12), color: '#666', marginTop: fluidUnit(-16) }}>
             3+ characters, alphanumeric and underscore only
           </Typography>
         </>
@@ -725,6 +706,7 @@ export default function SignUpPage() {
         <>
           {renderInput("Home Address", "Full address", "homeAddress")}
           {renderInput("Postal Code", "ZIP/Postal", "postalCode")}
+          {renderInput("Phone Number (Optional)", "+1234567890", "phoneNumber", "tel")}
         </>
       )},
       { title: "Almost done!", content: (
@@ -757,7 +739,7 @@ export default function SignUpPage() {
             <span style={{ fontSize: fluidUnit(14) }}>Send marketing emails (Optional)</span>
           </label>
           
-          {/* TEMPORARILY DISABLED: Cloudflare Turnstile Captcha
+          {/* Cloudflare Turnstile Captcha */}
           <div style={{
             padding: fluidUnit(16),
             background: 'rgba(255,255,255,0.7)',
@@ -768,6 +750,7 @@ export default function SignUpPage() {
             <Typography as="p" style={{ fontSize: fluidUnit(14), fontWeight: 600, marginBottom: fluidUnit(12), color: vars.color.vaultBlack }}>
               Security Verification
             </Typography>
+            {/* Implicit rendering with cf-turnstile class */}
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: fluidUnit(8) }}>
               <div 
                 className="cf-turnstile"
@@ -788,7 +771,6 @@ export default function SignUpPage() {
               Protected by Cloudflare Turnstile
             </Typography>
           </div>
-          */}
         </>
       )},
     ];
@@ -799,6 +781,11 @@ export default function SignUpPage() {
           {steps[currentStep - 1].title}
         </Typography>
         {steps[currentStep - 1].content}
+        {Object.values(errors)[0] && (
+          <Typography as="p" style={{ color: '#c62828', fontSize: fluidUnit(12) }}>
+            {Object.values(errors)[0]}
+          </Typography>
+        )}
       </>
     );
   };
@@ -807,14 +794,12 @@ export default function SignUpPage() {
   if (showSuccess) {
     return (
       <>
-        {/* TEMPORARILY DISABLED: Cloudflare Turnstile Script
         <Script
           src="https://challenges.cloudflare.com/turnstile/v0/api.js"
           async
           defer
           strategy="afterInteractive"
         />
-        */}
         <div style={{ 
           background: vars.color.vpGreen, 
           minHeight: "100vh",
@@ -873,14 +858,12 @@ export default function SignUpPage() {
 
   return (
     <>
-      {/* TEMPORARILY DISABLED: Cloudflare Turnstile Script
       <Script
         src="https://challenges.cloudflare.com/turnstile/v0/api.js"
         async
         defer
         strategy="afterInteractive"
       />
-      */}
       <div style={{ 
         background: vars.color.vpGreen, 
         minHeight: "100vh",
