@@ -361,28 +361,60 @@ export async function getCities(stateId: number): Promise<{ status: boolean; dat
 }
 
 /**
+ * Convert File to base64 string
+ */
+async function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      // Remove data URL prefix (e.g., "data:image/jpeg;base64,")
+      const base64 = result.split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+/**
  * Submit KYC documents
+ * Uses base64 encoding like the mobile app for compatibility with CodeIgniter
  */
 export async function submitKYC(data: KYCRequest): Promise<{ status: boolean; message?: string }> {
-  const formData = new FormData();
-  formData.append('userId', data.userId);
-  formData.append('loginCode', data.loginCode);
-  formData.append('id_type', data.id_type);
-  formData.append('Identification_number', data.Identification_number);
-  formData.append('identification_document', data.identification_document);
-  formData.append('face_verification_image', data.face_verification_image);
+  // Convert files to base64
+  const idDocBase64 = await fileToBase64(data.identification_document);
+  const faceBase64 = await fileToBase64(data.face_verification_image);
   
-  // Optional address fields (not required by mobile app flow)
+  // Use URLSearchParams like other working endpoints
+  const params = new URLSearchParams();
+  params.append('userId', data.userId);
+  params.append('loginCode', data.loginCode);
+  params.append('id_type', data.id_type);
+  params.append('Identification_number', data.Identification_number);
+  
+  // Send as base64 like mobile app does
+  params.append('identification_document_base64', idDocBase64);
+  params.append('identification_document_name', data.identification_document.name || 'id_document.jpg');
+  params.append('face_verification_image_base64', faceBase64);
+  params.append('face_verification_image_name', data.face_verification_image.name || 'selfie.jpg');
+  
+  // Optional address fields
   if (data.address_doc_type) {
-    formData.append('address_doc_type', data.address_doc_type);
+    params.append('address_doc_type', data.address_doc_type);
   }
   if (data.address_document) {
-    formData.append('address_document', data.address_document);
+    const addressBase64 = await fileToBase64(data.address_document);
+    params.append('address_document_base64', addressBase64);
+    params.append('address_document_name', data.address_document.name || 'address_document.jpg');
   }
 
   const response = await fetch(`${BASE_URL}/api/v2/user/kyc`, {
     method: 'POST',
-    body: formData,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: params,
   });
 
   return response.json();
