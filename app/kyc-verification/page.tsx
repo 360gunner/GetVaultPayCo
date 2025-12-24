@@ -20,7 +20,7 @@ export default function KYCVerificationPage() {
   const [success, setSuccess] = useState(false);
 
   const [kycData, setKycData] = useState({
-    idType: "passport",
+    idType: " passport",
     identificationNumber: "",
     idDocument: null as File | null,
     selfieImage: null as File | null,
@@ -269,9 +269,8 @@ export default function KYCVerificationPage() {
                   backgroundColor: vars.color.vaultWhite,
                 }}
               >
-                <option value="passport">Passport</option>
-                <option value="drivers_license">Driver's License</option>
-                <option value="national_id">National ID</option>
+                <option value=" passport">Passport</option>
+                <option value="id">National ID / Driver's License</option>
               </select>
             </div>
             <div style={{ marginBottom: fluidUnit(24) }}>
