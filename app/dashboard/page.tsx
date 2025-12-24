@@ -374,6 +374,7 @@ export default function DashboardPage() {
       const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
       
       const ticketsThisWeek = allTickets.filter(ticket => {
+        if (!ticket.created_at) return false;
         const ticketDate = new Date(ticket.created_at);
         return ticketDate >= oneWeekAgo;
       });
@@ -598,7 +599,7 @@ export default function DashboardPage() {
     if (!user) return;
     try {
       // Check if user is_private from user object
-      setIsPrivateProfile(user.is_private === '1' || user.is_private === 1);
+      setIsPrivateProfile((user as any).is_private === '1' || (user as any).is_private === 1);
       
       // Load pending follow requests count
       const res = await getFollowRequestsCount(user.user_id, user.login_code);
@@ -1146,7 +1147,7 @@ export default function DashboardPage() {
           try {
             const physicalRes = await getPhysicalCard(user.user_id, user.login_code);
             if (physicalRes.status && physicalRes.data) {
-              setPhysicalCard(physicalRes.data);
+              setPhysicalCard(Array.isArray(physicalRes.data) ? physicalRes.data[0] : physicalRes.data);
             }
           } catch (err) {
             console.error('Error loading physical card:', err);
@@ -1192,7 +1193,7 @@ export default function DashboardPage() {
           try {
             const details = await getMapleradCardDetails(user.user_id, user.login_code, firstCard.card_id || firstCard.id);
             if (details.status && details.data) {
-              const updatedCard = { ...firstCard, cvv: details.data.cvv, balance: details.data.balance || details.data.balance_minor || firstCard.balance };
+              const updatedCard = { ...firstCard, cvv: details.data.cvv, balance: details.data.balance || (details.data as any).balance_minor || firstCard.balance };
               setSelectedCard(updatedCard);
               setCards(prevCards => prevCards.map(c => c.id === firstCard.id ? updatedCard : c));
             }
@@ -2342,7 +2343,7 @@ export default function DashboardPage() {
           const details = await getMapleradCardDetails(user.user_id, user.login_code, card.card_id || card.id);
           if (details.status && details.data) {
             // Update the card with fresh details - balance is in cents (minor units)
-            const updatedCard = { ...card, cvv: details.data.cvv, balance: details.data.balance || details.data.balance_minor || card.balance };
+            const updatedCard = { ...card, cvv: details.data.cvv, balance: details.data.balance || (details.data as any).balance_minor || card.balance };
             setSelectedCard(updatedCard);
             setCards(prevCards => prevCards.map(c => 
               c.id === card.id ? updatedCard : c
@@ -3150,19 +3151,19 @@ export default function DashboardPage() {
             const getLast4Digits = () => {
               const fields = [
                 account.account_mask,
-                account.accountMask,
-                account.iban,
-                account.IBAN,
-                account.account_number,
-                account.accountNumber,
-                account.routing_number,
-                account.routingNumber,
-                account.bic_swift,
-                account.bicSwift,
-                account.swift_code,
-                account.swiftCode,
+                (account as any).accountMask,
+                (account as any).iban,
+                (account as any).IBAN,
+                (account as any).account_number,
+                (account as any).accountNumber,
+                (account as any).routing_number,
+                (account as any).routingNumber,
+                (account as any).bic_swift,
+                (account as any).bicSwift,
+                (account as any).swift_code,
+                (account as any).swiftCode,
                 account.id,
-                account.bankId
+                (account as any).bankId
               ];
               
               for (const field of fields) {
@@ -3182,18 +3183,18 @@ export default function DashboardPage() {
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <h4 style={{ color: "#fff", fontSize: 16, fontWeight: 600, margin: 0 }}>{account.bank_name || account.institution_name || account.bankName}</h4>
+                    <h4 style={{ color: "#fff", fontSize: 16, fontWeight: 600, margin: 0 }}>{(account as any).bank_name || account.institution_name || (account as any).bankName}</h4>
                     <span style={{ background: "rgba(6,255,137,0.1)", color: "#06FF89", fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 4, textTransform: "uppercase" }}>Active</span>
                   </div>
                   <p style={{ color: "#888", fontSize: 13, margin: "4px 0 0" }}>
-                    {account.currency === 'EUR' || account.iban ? 'IBAN' : (account.account_type || account.accountType || 'Checking')} •••• {getLast4Digits()}
+                    {account.currency === 'EUR' || (account as any).iban ? 'IBAN' : (account.account_type || (account as any).accountType || 'Checking')} •••• {getLast4Digits()}
                   </p>
                   <div style={{ display: "flex", gap: 16, marginTop: 8 }}>
                     <span style={{ color: "#666", fontSize: 12 }}>{account.currency || 'USD'}</span>
                   </div>
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
-                  <button onClick={() => handleUnlinkBank(account.id || account.bankId)} style={{ background: "transparent", color: "#ff4444", border: "1px solid rgba(255,68,68,0.3)", padding: "8px 16px", borderRadius: 6, fontSize: 13, cursor: "pointer" }}>Unlink</button>
+                  <button onClick={() => handleUnlinkBank(account.id || (account as any).bankId)} style={{ background: "transparent", color: "#ff4444", border: "1px solid rgba(255,68,68,0.3)", padding: "8px 16px", borderRadius: 6, fontSize: 13, cursor: "pointer" }}>Unlink</button>
                 </div>
               </div>
             );
@@ -3973,7 +3974,7 @@ export default function DashboardPage() {
                 }}
               >
                 <div style={{ display: "flex", alignItems: "flex-start", marginBottom: 8 }}>
-                  <div style={{ marginRight: 12, marginTop: 2 }}>{getStatusIcon(ticket.status)}</div>
+                  <div style={{ marginRight: 12, marginTop: 2 }}>{getStatusIcon(ticket.status || 'open')}</div>
                   <div style={{ flex: 1 }}>
                     <div style={{ color: "#fff", fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{ticket.subject}</div>
                     <div style={{ color: "#666", fontSize: 12 }}>{ticket.category || 'General'}</div>
@@ -3987,7 +3988,7 @@ export default function DashboardPage() {
                   </div>
                 </div>
                 <div style={{ color: "#666", fontSize: 12, textAlign: "right" }}>
-                  {new Date(ticket.created_at).toLocaleDateString()}
+                  {ticket.created_at ? new Date(ticket.created_at).toLocaleDateString() : 'N/A'}
                 </div>
               </div>
             ))}
@@ -4477,7 +4478,7 @@ export default function DashboardPage() {
                     style={{ flex: 1, background: "#141414", borderRadius: 8, border: "1px solid #333", padding: "12px 16px", color: "#fff", fontSize: 14, outline: "none" }} 
                   />
                   <button onClick={handleReplyTicket} style={{ background: "#06FF89", color: "#000", border: "none", padding: "12px 20px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>Send</button>
-                  <button onClick={() => handleCloseTicket(selectedTicket.ticket_id)} style={{ background: "transparent", color: "#ff4444", border: "1px solid rgba(255,68,68,0.3)", padding: "12px 20px", borderRadius: 8, fontSize: 13, cursor: "pointer" }}>Close</button>
+                  <button onClick={() => handleCloseTicket(selectedTicket.ticket_id || '')} style={{ background: "transparent", color: "#ff4444", border: "1px solid rgba(255,68,68,0.3)", padding: "12px 20px", borderRadius: 8, fontSize: 13, cursor: "pointer" }}>Close</button>
                 </div>
               )}
             </div>
@@ -4786,9 +4787,9 @@ export default function DashboardPage() {
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06FF89" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
                               </div>
                               <div style={{ flex: 1 }}>
-                                <div style={{ color: "#fff", fontSize: 14, fontWeight: 600, marginBottom: 2 }}>{account.bank_name || account.institution_name || account.bankName}</div>
-                                <div style={{ color: "#888", fontSize: 12 }}>{account.account_type || account.accountType || 'Checking'} •••• {(() => {
-                                  const fields = [account.account_mask, account.accountMask, account.iban, account.IBAN, account.account_number, account.accountNumber, account.id];
+                                <div style={{ color: "#fff", fontSize: 14, fontWeight: 600, marginBottom: 2 }}>{(account as any).bank_name || account.institution_name || (account as any).bankName}</div>
+                                <div style={{ color: "#888", fontSize: 12 }}>{account.account_type || (account as any).accountType || 'Checking'} •••• {(() => {
+                                  const fields = [account.account_mask, (account as any).accountMask, (account as any).iban, (account as any).IBAN, (account as any).account_number, (account as any).accountNumber, account.id];
                                   for (const field of fields) {
                                     if (field && typeof field === 'string' && field.length >= 4) return field.slice(-4);
                                   }

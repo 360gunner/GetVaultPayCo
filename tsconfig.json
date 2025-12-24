@@ -32,8 +32,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
+    "latest builds/types/**/*.ts",
     "next-env.d.ts",
-    "latest builds/types/**/*.ts"
+    "zakzak/.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
