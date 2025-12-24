@@ -119,8 +119,11 @@ const Footer: React.FC<FooterProps> = ({ className, dark, style, ...rest }) => {
                   <AppLink href="https://facebook.com/vaultpayglobal" style={{ color: vars.color.vaultWhite }}>
                     Facebook
                   </AppLink>
-                  <AppLink href="https://instagram.com/getvaultpay" style={{ color: vars.color.vaultWhite }}>
+                  <AppLink href="https://www.instagram.com/getvaultpay/" style={{ color: vars.color.vaultWhite }}>
                     Instagram
+                  </AppLink>
+                  <AppLink href="https://www.youtube.com/@Vaultpayglobal" style={{ color: vars.color.vaultWhite }}>
+                    YouTube
                   </AppLink>
                   <AppLink href="https://www.linkedin.com/company/vaultpayglobal" style={{ color: vars.color.vaultWhite }}>
                     LinkedIn
