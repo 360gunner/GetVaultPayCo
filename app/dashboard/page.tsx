@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
 import { USDCLogo, USDTLogo, PYUSDLogo } from "@/components/CryptoLogos";
-import { getAccountBalance, getDashboardTransactionsExtended, getDashboardTransactionsByCurrency, createCurrencyWallet, getUserCards, getCardTransactions, freezeCard, unfreezeCard, getCardPin, fundCard, withdrawFromCard, generatePaymentQRCode, generateProfileQRCode, getUserQRCodes, p2pTransfer, lookupP2PRecipient, getLiveRates, convertCurrency, getBinanceMinimumWithdrawal, binancePayout, usdWithdrawal, euroWithdrawalNew, swiftWithdrawal, getUserBankAccounts, linkBankAccount, deleteBankAccount, getLinkedBankAccounts, createPlaidLinkToken, unlinkPlaidAccount, getReferralStats, getReferralLevels, getSupportTickets, createSupportTicket, replyToTicket, closeTicket, getTicketCategories, getTicketDetails, checkUsernameAvailability, updateUsername, changePassword, getNotifications, markNotificationAsRead, markAllNotificationsAsRead, lookupUserForDepositRequest, createDepositRequest, getSentDepositRequests, getReceivedDepositRequests, manageDepositRequest, respondToDepositRequest, findUserByIdentifier, generateCryptoAddress, redeemGiftCard, getPhysicalCard, freezePhysicalCard, getPhysicalCardPin, getCardStatus, activateCard, getMapleradCardDetails, getMapleradCardTransactions, uploadProfilePicture, uploadCoverPhoto, getSocialStats, getFollowers, getFollowing, getFollowRequestsCount, getFollowRequests, acceptFollowRequest, rejectFollowRequest, setProfilePrivacy, DashboardTransaction, BalanceResponse, Card, CardTransaction, CardSpendingSummary, CardLimits, PaymentQRCode, ProfileQRCode, LinkedBankAccount, ReferralStats, ReferralLevel, SupportTicket, NotificationItem, DepositRequest, CryptoCoin, PhysicalCard, CardStatusResponse, TicketCategory, TicketCounts, TicketReply } from "@/lib/vaultpay-api";
+import { getAccountBalance, getDashboardTransactionsExtended, getDashboardTransactionsByCurrency, createCurrencyWallet, getUserCards, getCardTransactions, freezeCard, unfreezeCard, getCardPin, fundCard, withdrawFromCard, generatePaymentQRCode, generateProfileQRCode, getUserQRCodes, p2pTransfer, lookupP2PRecipient, getLiveRates, convertCurrency, getBinanceMinimumWithdrawal, binancePayout, usdWithdrawal, euroWithdrawalNew, swiftWithdrawal, getUserBankAccounts, linkBankAccount, deleteBankAccount, getLinkedBankAccounts, createPlaidLinkToken, unlinkPlaidAccount, getReferralStats, getReferralLevels, getSupportTickets, createSupportTicket, replyToTicket, closeTicket, getTicketCategories, getTicketDetails, checkUsernameAvailability, updateUsername, changePassword, getNotifications, markNotificationAsRead, markAllNotificationsAsRead, lookupUserForDepositRequest, createDepositRequest, getSentDepositRequests, getReceivedDepositRequests, manageDepositRequest, respondToDepositRequest, findUserByIdentifier, generateCryptoAddress, redeemGiftCard, getPhysicalCard, freezePhysicalCard, getPhysicalCardPin, getCardStatus, activateCard, getMapleradCardDetails, getMapleradCardTransactions, uploadProfilePicture, uploadCoverPhoto, getSocialStats, getFollowers, getFollowing, getFollowRequestsCount, getFollowRequests, acceptFollowRequest, rejectFollowRequest, setProfilePrivacy, getMapleradStatus, enrollMaplerad, DashboardTransaction, BalanceResponse, Card, CardTransaction, CardSpendingSummary, CardLimits, PaymentQRCode, ProfileQRCode, LinkedBankAccount, ReferralStats, ReferralLevel, SupportTicket, NotificationItem, DepositRequest, CryptoCoin, PhysicalCard, CardStatusResponse, TicketCategory, TicketCounts, TicketReply, MapleradStatusResponse } from "@/lib/vaultpay-api";
 
 type DashboardTab = "dashboard" | "feed" | "payments" | "accounts" | "cards" | "friends" | "rewards" | "qrcodes" | "helpdesk" | "profile" | "settings";
 
@@ -58,8 +58,10 @@ export default function DashboardPage() {
   const [cardsLoading, setCardsLoading] = useState(false);
   const [cardDetailsLoading, setCardDetailsLoading] = useState(false);
   const [showCardNumbers, setShowCardNumbers] = useState(false);
-  const [mapleradEnrolled, setMapleradEnrolled] = useState<boolean | null>(null);
+  const [mapleradStatus, setMapleradStatus] = useState<MapleradStatusResponse | null>(null);
+  const [mapleradStatusLoading, setMapleradStatusLoading] = useState(false);
   const [enrollmentLoading, setEnrollmentLoading] = useState(false);
+  const [enrollmentError, setEnrollmentError] = useState<string | null>(null);
   const [spendingSummary, setSpendingSummary] = useState<CardSpendingSummary | null>(null);
   const [cardLimits, setCardLimits] = useState<CardLimits | null>(null);
   const [showCardNumber, setShowCardNumber] = useState(false);
@@ -222,16 +224,11 @@ export default function DashboardPage() {
   const [depositRequestsLoading, setDepositRequestsLoading] = useState(false);
   const [lookupUser, setLookupUser] = useState<{ user_id: string; userId: string; first_name: string; last_name: string; email: string; ppic?: string } | null>(null);
   const [lookupLoading, setLookupLoading] = useState(false);
-  const [showOtpModal, setShowOtpModal] = useState(false);
-  const [otpCode, setOtpCode] = useState(["", "", "", "", ""]);
-  const [otpError, setOtpError] = useState("");
-  const [otpVerified, setOtpVerified] = useState(false);
   const [showInactivityWarning, setShowInactivityWarning] = useState(false);
   const [inactivityCountdown, setInactivityCountdown] = useState(20);
   const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
   const countdownTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const MOCK_OTP = "12345";
   const INACTIVITY_TIMEOUT = 5 * 60 * 1000;
   const COUNTDOWN_SECONDS = 20;
 
@@ -241,7 +238,7 @@ export default function DashboardPage() {
     setShowInactivityWarning(false);
     setInactivityCountdown(COUNTDOWN_SECONDS);
     
-    if (otpVerified && isAuthenticated) {
+    if (isAuthenticated) {
       inactivityTimerRef.current = setTimeout(() => {
         setShowInactivityWarning(true);
         setInactivityCountdown(COUNTDOWN_SECONDS);
@@ -258,7 +255,7 @@ export default function DashboardPage() {
         }, 1000);
       }, INACTIVITY_TIMEOUT);
     }
-  }, [otpVerified, isAuthenticated, logout, router]);
+  }, [isAuthenticated, logout, router]);
 
   useEffect(() => {
     if (authLoading) return; // Wait for auth to finish loading from localStorage
@@ -266,13 +263,7 @@ export default function DashboardPage() {
     // Load user country from localStorage
     const storedCountry = localStorage.getItem("signupCountry") || "";
     setUserCountry(storedCountry);
-    const otpVerifiedSession = sessionStorage.getItem("otp_verified");
-    if (otpVerifiedSession === "true") {
-      setOtpVerified(true);
-      loadDashboardData();
-    } else {
-      setShowOtpModal(true);
-    }
+    loadDashboardData();
   }, [authLoading, isAuthenticated, router]);
 
   useEffect(() => {
@@ -307,7 +298,7 @@ export default function DashboardPage() {
   }, [activeTab, user]);
 
   useEffect(() => {
-    if (otpVerified && isAuthenticated) {
+    if (isAuthenticated) {
       const events = ["mousedown", "mousemove", "keydown", "scroll", "touchstart", "click"];
       events.forEach((event) => window.addEventListener(event, resetInactivityTimer));
       resetInactivityTimer();
@@ -317,39 +308,7 @@ export default function DashboardPage() {
         if (countdownTimerRef.current) clearInterval(countdownTimerRef.current);
       };
     }
-  }, [otpVerified, isAuthenticated, resetInactivityTimer]);
-
-  const handleOtpChange = (index: number, value: string) => {
-    if (value.length > 1) return;
-    const newOtp = [...otpCode];
-    newOtp[index] = value;
-    setOtpCode(newOtp);
-    setOtpError("");
-    if (value && index < 4) {
-      const nextInput = document.getElementById(`otp-${index + 1}`);
-      nextInput?.focus();
-    }
-  };
-
-  const handleOtpKeyDown = (index: number, e: React.KeyboardEvent) => {
-    if (e.key === "Backspace" && !otpCode[index] && index > 0) {
-      const prevInput = document.getElementById(`otp-${index - 1}`);
-      prevInput?.focus();
-    }
-  };
-
-  const verifyOtp = () => {
-    const enteredOtp = otpCode.join("");
-    if (enteredOtp === MOCK_OTP) {
-      setOtpVerified(true);
-      setShowOtpModal(false);
-      sessionStorage.setItem("otp_verified", "true");
-      loadDashboardData();
-    } else {
-      setOtpError("Invalid verification code. Please try again.");
-      setOtpCode(["", "", "", "", ""]);
-    }
-  };
+  }, [isAuthenticated, resetInactivityTimer]);
 
   const handleStayLoggedIn = () => {
     setShowInactivityWarning(false);
@@ -1129,11 +1088,75 @@ export default function DashboardPage() {
     }
   };
 
+  // Check Maplerad enrollment status
+  const checkMapleradStatus = async () => {
+    if (!user) return;
+    setMapleradStatusLoading(true);
+    try {
+      const statusRes = await getMapleradStatus(user.user_id, user.login_code);
+      console.log('Maplerad status:', statusRes);
+      setMapleradStatus(statusRes);
+      return statusRes;
+    } catch (error) {
+      console.error('Error checking Maplerad status:', error);
+      setMapleradStatus({ status: false, message: 'Failed to check enrollment status' });
+      return null;
+    } finally {
+      setMapleradStatusLoading(false);
+    }
+  };
+
+  // Handle Maplerad enrollment
+  const handleEnrollment = async () => {
+    if (!user) return;
+    setEnrollmentLoading(true);
+    setEnrollmentError(null);
+    try {
+      console.log('Starting Maplerad enrollment...');
+      const enrollRes = await enrollMaplerad(user.user_id, user.login_code);
+      console.log('Enrollment response:', enrollRes);
+      
+      if (enrollRes.status) {
+        // Enrollment successful, check status again
+        await checkMapleradStatus();
+        await loadCardsData();
+      } else {
+        setEnrollmentError(enrollRes.message || 'Enrollment failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error enrolling in Maplerad:', error);
+      setEnrollmentError('Failed to enroll. Please try again later.');
+    } finally {
+      setEnrollmentLoading(false);
+    }
+  };
+
   const loadCardsData = async () => {
     if (!user) return;
     setCardsLoading(true);
     setPhysicalCardLoading(true);
     try {
+      // First check Maplerad status if not already checked
+      if (!mapleradStatus) {
+        const statusRes = await checkMapleradStatus();
+        // If not enrolled or not tier 2, don't load cards
+        if (!statusRes?.status || !statusRes.data?.enrolled || Number(statusRes.data?.tier) !== 2) {
+          setCardsLoading(false);
+          // Still load physical card
+          try {
+            const physicalRes = await getPhysicalCard(user.user_id, user.login_code);
+            if (physicalRes.status && physicalRes.data) {
+              setPhysicalCard(physicalRes.data);
+            }
+          } catch (err) {
+            console.error('Error loading physical card:', err);
+          } finally {
+            setPhysicalCardLoading(false);
+          }
+          return;
+        }
+      }
+      
       // Load virtual cards (Maplerad)
       const cardsRes = await getUserCards(user.user_id, user.login_code);
       if (cardsRes.status && cardsRes.data) {
@@ -2206,17 +2229,91 @@ export default function DashboardPage() {
 
   // Virtual Card Tab with Carousel - App-matching design
   const renderVirtualCardTab = () => {
-    if (cardsLoading) {
+    // Check if still loading status
+    if (mapleradStatusLoading || cardsLoading) {
       return (
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 400 }}>
           <div style={{ textAlign: "center" }}>
             <div style={{ width: 48, height: 48, border: "3px solid #1f1f1f", borderTopColor: "#06FF89", borderRadius: "50%", animation: "spin 1s linear infinite", margin: "0 auto 16px" }} />
-            <p style={{ color: "#666" }}>Loading cards...</p>
+            <p style={{ color: "#666" }}>Loading...</p>
           </div>
         </div>
       );
     }
 
+    // Check if user is NOT enrolled or not tier 2 - show onboarding
+    const isEnrolled = mapleradStatus?.status && mapleradStatus.data?.enrolled && Number(mapleradStatus.data?.tier) === 2;
+    
+    if (!isEnrolled) {
+      return (
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "50vh", textAlign: "center", padding: 24 }}>
+          <div style={{ width: 80, height: 80, borderRadius: 40, background: "rgba(6, 255, 137, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 24 }}>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#06FF89" strokeWidth="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <h3 style={{ color: "#fff", fontSize: 22, fontWeight: 600, margin: "0 0 12px 0" }}>Virtual Cards Available</h3>
+          <p style={{ color: "#888", fontSize: 14, margin: "0 0 24px 0", maxWidth: 400, lineHeight: 1.6 }}>
+            Get instant virtual cards for secure online payments. Manage your spending with ease.
+          </p>
+          
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32, textAlign: "left" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 4, background: "#06FF89" }} />
+              <span style={{ color: "#ccc", fontSize: 14 }}>Instant card creation</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 4, background: "#06FF89" }} />
+              <span style={{ color: "#ccc", fontSize: 14 }}>Secure online payments</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 4, background: "#06FF89" }} />
+              <span style={{ color: "#ccc", fontSize: 14 }}>Control spending limits</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 4, background: "#06FF89" }} />
+              <span style={{ color: "#ccc", fontSize: 14 }}>Freeze/unfreeze anytime</span>
+            </div>
+          </div>
+          
+          {enrollmentError && (
+            <div style={{ background: "rgba(255, 68, 68, 0.1)", border: "1px solid rgba(255, 68, 68, 0.3)", borderRadius: 12, padding: 16, marginBottom: 24, maxWidth: 400 }}>
+              <p style={{ color: "#ff4444", fontSize: 14, margin: 0 }}>{enrollmentError}</p>
+            </div>
+          )}
+          
+          <button 
+            onClick={handleEnrollment} 
+            disabled={enrollmentLoading}
+            style={{ 
+              background: enrollmentLoading ? "#333" : "linear-gradient(90deg, #06FF89 0%, #B8FF9F 100%)", 
+              color: enrollmentLoading ? "#666" : "#000", 
+              border: "none", 
+              padding: "16px 48px", 
+              borderRadius: 12, 
+              fontSize: 16, 
+              fontWeight: 600, 
+              cursor: enrollmentLoading ? "not-allowed" : "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 8
+            }}
+          >
+            {enrollmentLoading ? (
+              <>
+                <div style={{ width: 20, height: 20, border: "2px solid #666", borderTopColor: "transparent", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
+                Onboarding...
+              </>
+            ) : (
+              <>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14"/></svg>
+                Onboard Now
+              </>
+            )}
+          </button>
+        </div>
+      );
+    }
+
+    // User is enrolled - show cards or empty state
     if (cards.length === 0) {
       return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "50vh", textAlign: "center", padding: 24 }}>
@@ -5825,35 +5922,6 @@ export default function DashboardPage() {
                   )}
                 </div>
               )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* OTP Verification Modal */}
-      {showOtpModal && (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.95)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2000 }}>
-          <div style={{ background: "#141414", borderRadius: 20, border: "1px solid #1f1f1f", width: 420, maxWidth: "90vw", padding: 32, textAlign: "center" }}>
-            <div style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(6,255,137,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#06FF89" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h2 style={{ color: "#fff", fontSize: 22, fontWeight: 600, margin: "0 0 8px" }}>Verify Your Identity</h2>
-            <p style={{ color: "#888", fontSize: 14, margin: "0 0 24px", lineHeight: 1.5 }}>We&apos;ve sent a verification code to your email<br /><span style={{ color: "#06FF89" }}>{user?.email}</span></p>
-            
-            <div style={{ display: "flex", gap: 10, justifyContent: "center", marginBottom: 16 }}>
-              {otpCode.map((digit, index) => (
-                <input key={index} id={`otp-${index}`} type="text" inputMode="numeric" maxLength={1} value={digit} onChange={(e) => handleOtpChange(index, e.target.value)} onKeyDown={(e) => handleOtpKeyDown(index, e)} style={{ width: 52, height: 60, background: "#0a0a0a", border: otpError ? "2px solid #ff4444" : "2px solid #333", borderRadius: 12, textAlign: "center", fontSize: 24, fontWeight: 600, color: "#fff", outline: "none" }} />
-              ))}
-            </div>
-
-            {otpError && <p style={{ color: "#ff4444", fontSize: 13, margin: "0 0 16px" }}>{otpError}</p>}
-
-            <button onClick={verifyOtp} disabled={otpCode.some((d) => !d)} style={{ width: "100%", background: otpCode.some((d) => !d) ? "#333" : "linear-gradient(90deg, #06FF89 0%, #B8FF9F 100%)", color: otpCode.some((d) => !d) ? "#666" : "#000", border: "none", padding: "14px 20px", borderRadius: 10, fontSize: 15, fontWeight: 600, cursor: otpCode.some((d) => !d) ? "not-allowed" : "pointer", marginBottom: 16 }}>Verify Code</button>
-
-            <p style={{ color: "#666", fontSize: 13, margin: 0 }}>Didn&apos;t receive the code? <button onClick={() => alert("Code resent!")} style={{ background: "none", border: "none", color: "#06FF89", cursor: "pointer", fontSize: 13, padding: 0 }}>Resend</button></p>
-            
-            <div style={{ marginTop: 20, padding: 12, background: "rgba(255,200,0,0.1)", borderRadius: 8 }}>
-              <p style={{ color: "#FFC800", fontSize: 12, margin: 0 }}>🔑 Demo: Use code <strong>12345</strong></p>
             </div>
           </div>
         </div>

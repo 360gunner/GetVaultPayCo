@@ -1357,6 +1357,54 @@ export interface CardLimits {
 }
 
 /**
+ * Maplerad Status Response
+ */
+export interface MapleradStatusResponse {
+  status: boolean;
+  data?: {
+    enrolled: boolean;
+    maplerad_user_id: string | null;
+    tier: number | null;
+    maplerad_status: number | null;
+    vaultpay_tier: number | null;
+    usd_account: {
+      account_id: string;
+      account_number: string | null;
+      routing_number: string | null;
+      account_name: string | null;
+      bank_name: string | null;
+      currency: string;
+      status: string | null;
+    } | null;
+  };
+  message?: string;
+}
+
+/**
+ * Check Maplerad enrollment status
+ */
+export async function getMapleradStatus(userId: string, loginCode: string): Promise<MapleradStatusResponse> {
+  const params = new URLSearchParams({ userId, loginCode });
+  const response = await fetch(`${BASE_URL}/api/v2/Maplerad/status?${params.toString()}`);
+  return response.json();
+}
+
+/**
+ * Enroll user in Maplerad
+ */
+export async function enrollMaplerad(userId: string, loginCode: string): Promise<{ status: boolean; message?: string }> {
+  const formData = new FormData();
+  formData.append('userId', userId);
+  formData.append('loginCode', loginCode);
+  
+  const response = await fetch(`${BASE_URL}/api/v2/Maplerad/enroll_auto`, {
+    method: 'POST',
+    body: formData,
+  });
+  return response.json();
+}
+
+/**
  * Get all user cards (physical + virtual)
  */
 export async function getUserCards(userId: string, loginCode: string): Promise<CardsListResponse> {
