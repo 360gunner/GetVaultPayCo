@@ -4,7 +4,8 @@
  */
 
 // Gateway handles API key injection and rate limiting
-const BASE_URL = 'http://98.83.36.86';
+// Always use proxy route to handle HTTPS -> HTTP gateway communication
+const BASE_URL = '/api/proxy';
 
 export interface RegisterRequest {
   email: string;
